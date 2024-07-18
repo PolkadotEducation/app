@@ -7,7 +7,7 @@ yarn dev
 bun dev
 ```
 
-# Storybook
+Storybook
 ```bash
 yarn storybook
 ```
