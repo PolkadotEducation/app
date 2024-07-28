@@ -18,7 +18,14 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{ email: string; password: string; navigation: AppRouterInstance }>) {
+    login(
+      state,
+      action: PayloadAction<{
+        email: string;
+        password: string;
+        navigation: AppRouterInstance;
+      }>,
+    ) {
       state.loading = true;
     },
     loginSuccess(state) {

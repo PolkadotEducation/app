@@ -1,25 +1,23 @@
 {
   "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
     "next/core-web-vitals",
     "plugin:storybook/recommended"
   ],
+  "plugins": ["prettier"],
   "rules": {
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "no-unused-vars": "error",
-    "comma-dangle": [
+    "comma-dangle": ["error", "always-multiline"],
+    "eol-last": ["error", "always"],
+    "semi": ["error", "always"],
+    "prettier/prettier": [
       "error",
-      "always-multiline"
-    ],
-    "eol-last": [
-      "error",
-      "always"
-    ],
-    "semi": [
-      "error",
-      "always"
+      {
+        "singleQuote": true,
+        "jsxSingleQuote": false
+      }
     ]
   }
 }
