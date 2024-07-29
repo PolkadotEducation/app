@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 import InputFloatingLabel from '@/components/ui/inputFloatingLabel';
 
-
 const meta = {
   title: 'Core/Input',
   component: InputFloatingLabel,
   tags: ['autodocs'],
-  argTypes: {
-  },
+  argTypes: {},
   parameters: {
     layout: 'centered',
   },
@@ -15,7 +13,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

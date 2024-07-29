@@ -15,12 +15,12 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware =>
-  getDefaultMiddleware({
-    thunk: false,
-    immutableCheck: false,
-    serializableCheck: false,
-  }).concat(sagaMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: false,
+      immutableCheck: false,
+      serializableCheck: false,
+    }).concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);
