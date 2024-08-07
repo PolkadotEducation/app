@@ -5,6 +5,7 @@
     "next/core-web-vitals",
     "plugin:storybook/recommended"
   ],
+  "globals": { "React": true },
   "plugins": ["prettier"],
   "rules": {
     "quotes": ["error", "single"],
@@ -18,6 +19,17 @@
         "singleQuote": true,
         "jsxSingleQuote": false
       }
-    ]
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }]
   }
 }
