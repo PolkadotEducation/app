@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import authReducer from './auth/reducers'; // Importe o reducer do contador
-import rootSaga from '@/sagas/sagas';
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import createSagaMiddleware from "redux-saga";
+import authReducer from "./auth/reducers"; // Importe o reducer do contador
+import rootSaga from "@/sagas/sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 
