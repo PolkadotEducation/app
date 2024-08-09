@@ -1,7 +1,16 @@
-import { RootState } from '@/store/store';
+import { RootState } from "@/store/store";
+interface CustomRequest extends Request {
+  store?: {
+    getState: () => RootState;
+  };
+}
 
-export const isAuthenticated = (req: Request): boolean => {
-  const storeState: RootState = (req as any).store?.getState();
+export const isAuthenticated = (req: CustomRequest): boolean => {
+  const storeState = req.store?.getState();
 
-  return storeState?.auth?.isLoggedIn ?? false;
+  if (!storeState) {
+    return false;
+  }
+
+  return storeState.auth?.isLoggedIn ?? false;
 };

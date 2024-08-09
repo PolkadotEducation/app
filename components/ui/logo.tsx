@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import logo from '@/public/assets/icons/logo.svg';
-import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import logo from "@/public/assets/icons/logo.svg";
+import { useRouter } from "next/navigation";
 
 const Logo = ({
   width,
   height,
-  pathToRedirect = '',
+  pathToRedirect = "",
 }: {
   width: number;
   height: number;

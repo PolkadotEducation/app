@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -15,7 +15,7 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     login(

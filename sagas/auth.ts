@@ -1,5 +1,5 @@
-import { login, loginSuccess, loginFail } from '@/store/auth/reducers';
-import { put } from 'redux-saga/effects';
+import { login, loginSuccess, loginFail } from "@/store/auth/reducers";
+import { put } from "redux-saga/effects";
 
 export function* handleLogin(action: ReturnType<typeof login>) {
   try {
@@ -9,12 +9,12 @@ export function* handleLogin(action: ReturnType<typeof login>) {
       action?.payload.password === process.env.NEXT_PUBLIC_TEMPORARY_PASSWORD
     ) {
       yield put(loginSuccess());
-      action.payload.navigation.push('/');
+      action.payload.navigation.push("/");
     } else {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
   } catch (e) {
-    let message = 'Unknown Error';
+    let message = "Unknown Error";
     if (e instanceof Error) message = e.message;
 
     put(loginFail({ error: message }));

@@ -1,13 +1,13 @@
-import { Meta, StoryObj } from '@storybook/react';
-import InputFloatingLabel from '@/components/ui/inputFloatingLabel';
+import { Meta, StoryObj } from "@storybook/react";
+import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 
 const meta = {
-  title: 'Core/Input',
+  title: "Core/Input",
   component: InputFloatingLabel,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 } satisfies Meta<typeof InputFloatingLabel>;
 
@@ -17,19 +17,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Floating Label',
-    id: 'label',
-    value: '',
-    error: '',
+    label: "Floating Label",
+    id: "label",
+    value: "",
+    error: "",
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Floating Label',
-    id: 'disabled-label',
-    value: '',
-    error: '',
+    label: "Floating Label",
+    id: "disabled-label",
+    value: "",
+    error: "",
     disabled: true,
   },
 };

@@ -1,10 +1,10 @@
-'use client';
-import { Montserrat } from 'next/font/google';
-import './globals.css';
-import { Provider } from 'react-redux';
-import store from '@/store/store';
+"use client";
+import { Montserrat } from "next/font/google";
+import "./globals.css";
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,

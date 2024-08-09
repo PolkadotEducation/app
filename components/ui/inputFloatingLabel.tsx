@@ -1,6 +1,6 @@
-'use client';
-import React, { InputHTMLAttributes, useState } from 'react';
-import { Input } from './input';
+"use client";
+import React, { InputHTMLAttributes, useState } from "react";
+import { Input } from "./input";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -30,14 +30,14 @@ const InputFloatingLabel: React.FC<InputProps> = ({
 
   const handleInputLabelStyles = () => {
     if (isFocused) {
-      return `-top-2 text-xs ${error ? 'text-[#BF2600]' : 'text-[#E6007A]'}`;
+      return `-top-2 text-xs ${error ? "text-[#BF2600]" : "text-[#E6007A]"}`;
     }
 
     if (value) {
-      return `-top-2 text-xs ${error ? 'text-[#BF2600]' : 'text-[#1A1A1A]'}`;
+      return `-top-2 text-xs ${error ? "text-[#BF2600]" : "text-[#1A1A1A]"}`;
     }
 
-    return `top-2 text-base ${error ? 'text-[#BF2600]' : 'text-input'}`;
+    return `top-2 text-base ${error ? "text-[#BF2600]" : "text-input"}`;
   };
 
   return (
@@ -45,7 +45,8 @@ const InputFloatingLabel: React.FC<InputProps> = ({
       <Input
         {...props}
         id={id}
-        className={`py-2 px-4 ${additionalStyles} ${isFocused && 'border-transparent'} ${error && 'text-[#BF2600] border-[#BF2600]'}`}
+        className={`py-2 px-4 ${additionalStyles} ${isFocused && "border-transparent"}
+        ${error && "text-[#BF2600] border-[#BF2600]"}`}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
