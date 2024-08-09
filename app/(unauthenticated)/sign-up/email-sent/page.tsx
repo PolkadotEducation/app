@@ -1,17 +1,16 @@
 "use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { resetPassword } from "@/public/assets/images";
-import { useRouter } from "next/navigation";
-import success from "@/public/assets/icons/success.svg";
+import { emailSent } from "@/public/assets/images";
 import Logo from "@/components/ui/logo";
+import { useSearchParams } from "next/navigation";
 
-const ResetPasswordSuccessPage = () => {
-  const router = useRouter();
+const SignUpEmailSentPage = () => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
 
-  const pushToLogin = (event: React.MouseEvent) => {
+  const resendEmail = (event: React.MouseEvent) => {
     event.preventDefault();
-    router.push("/login");
   };
 
   return (
@@ -28,37 +27,33 @@ const ResetPasswordSuccessPage = () => {
             xl:px-12 xl:border border-solid border-[#E0E0E0]
             rounded-3xl items-center text-center"
           >
-            <Image
-              unoptimized
-              src={success}
-              width={67}
-              height={67}
-              alt="Success check mark"
-              className="mb-[30px]"
-            />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font">
-              Password changed!
+            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
+              Confirmação de e-mail
             </h4>
-            <p className="mb-8">Your password has been changed successfully.</p>
+            <p className="mb-20 max-w-[330px] text-center">
+              Enviamos um e-mail para
+              <span className="text-[#E6007A]"> {email}</span> para validar o
+              endereço de email. Siga o link enviado para completar o cadastro.
+            </p>
             <Button
               type="button"
-              onClick={pushToLogin}
-              variant="link"
+              onClick={resendEmail}
+              variant="outline"
               className="w-full"
             >
-              Return to login
+              Reenviar confirmação
             </Button>
           </div>
         </div>
       </div>
       <Image
         unoptimized
-        src={resetPassword}
-        alt="Reset Password"
+        src={emailSent}
+        alt="Email Sent"
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
       />
     </main>
   );
 };
 
-export default ResetPasswordSuccessPage;
+export default SignUpEmailSentPage;

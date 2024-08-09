@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import success from "@/public/assets/icons/success.svg";
 import Logo from "@/components/ui/logo";
 
-const Page = () => {
+const EmailSentPage = () => {
   const router = useRouter();
 
   const pushToLogin = (event: React.MouseEvent) => {
@@ -36,10 +36,12 @@ const Page = () => {
               alt="Success check mark"
               className="mb-[30px]"
             />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font">
+            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
               Email sent
             </h4>
-            <p className="mb-8">Instructions were sent to your email.</p>
+            <p className="mb-8 max-w-[330px] text-center">
+              Instructions were sent to your email.
+            </p>
             <Button
               type="button"
               onClick={pushToLogin}
@@ -61,4 +63,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default EmailSentPage;

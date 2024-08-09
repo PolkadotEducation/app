@@ -7,7 +7,7 @@ import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 
-const Page = () => {
+const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -37,12 +37,12 @@ const Page = () => {
               xl:border border-solid border-[#E0E0E0] rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font">
+              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
                 Forgot password
               </h4>
-              <p>Don’t worry, an email with instructions to</p>
-              <p className="mb-8">
-                reset your password will be send to your email.
+              <p className="mb-8 max-w-[330px] text-center">
+                Don’t worry, an email with instructions to reset your password
+                will be send to your email.
               </p>
               <InputFloatingLabel
                 type="email"
@@ -69,4 +69,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ForgotPasswordPage;
