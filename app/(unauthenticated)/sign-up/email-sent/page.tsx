@@ -1,11 +1,15 @@
 "use client";
+import React from "react";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { emailSent } from "@/public/assets/images";
 import Logo from "@/components/ui/logo";
+
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-const SignUpEmailSentPage = () => {
+const SignUpEmailSentInnerPage = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
 
@@ -53,6 +57,15 @@ const SignUpEmailSentPage = () => {
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
       />
     </main>
+  );
+};
+
+// https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+const SignUpEmailSentPage = () => {
+  return (
+    <Suspense>
+      <SignUpEmailSentInnerPage />
+    </Suspense>
   );
 };
 
