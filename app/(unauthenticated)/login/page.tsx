@@ -9,7 +9,7 @@ import { login } from "@/store/auth/reducers";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 
-const Page = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,8 +49,10 @@ const Page = () => {
               items-center"
             >
               <h4 className="text-[34px] font-bold mb-4 unbound-font">Login</h4>
-              <p>Welcome to Polkadot Education,</p>
-              <p className="mb-8">enter your account details to log in</p>
+              <p className="mb-8 max-w-[330px] text-center">
+                Welcome to Polkadot Education, enter your account details to log
+                in
+              </p>
               <InputFloatingLabel
                 type="email"
                 id="emailInput"
@@ -80,7 +82,7 @@ const Page = () => {
               </Button>
               <Button
                 type="button"
-                onClick={() => console.log("Sign up")}
+                onClick={() => router.push("/sign-up")}
                 variant="link"
               >
                 Don’t have an account? Request now
@@ -99,4 +101,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default LoginPage;
