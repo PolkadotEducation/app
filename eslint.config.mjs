@@ -18,4 +18,10 @@ export default [
       "react/jsx-filename-extension": [2, { extensions: [".jsx", ".tsx"] }],
     },
   },
+  {
+    files: ["prettier.config.js"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ];
