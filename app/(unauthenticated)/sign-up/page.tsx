@@ -7,6 +7,7 @@ import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { PASSWORD_REQUIREMENTS } from "./constants";
+import { useAuth } from "@/hooks/useAuth";
 
 const SignUpPage = () => {
   const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { signUp, state } = useAuth();
 
   const reset = () => {
     setPassword("");
@@ -37,11 +39,17 @@ const SignUpPage = () => {
     setEmail(event.target.value);
   };
 
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(passwordRepeated, event.target.value)) {
         setErrorMessage("");
+      } else {
+        setErrorMessage(
+          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
+        );
       }
     }
   };
@@ -53,11 +61,15 @@ const SignUpPage = () => {
     if (errorMessage) {
       if (checkIfPasswordsMatches(password, event.target.value)) {
         setErrorMessage("");
+      } else {
+        setErrorMessage(
+          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
+        );
       }
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!password || !passwordRepeated) {
       return;
@@ -65,7 +77,17 @@ const SignUpPage = () => {
 
     if (!checkIfPasswordsMatches(password, passwordRepeated)) {
       setErrorMessage("Password doesn’t match.");
-    } else {
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setErrorMessage("Invalid Password");
+      return;
+    }
+
+    const success = await signUp({ email, password, name });
+
+    if (success) {
       const queryParams = new URLSearchParams({ email }).toString();
       router.push(`/sign-up/email-sent?${queryParams}`);
     }
@@ -137,9 +159,16 @@ const SignUpPage = () => {
               >
                 <p className="text-xs text-[#BF2600]">{errorMessage}</p>
               </div>
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={state.isLoading}
+              >
                 Começar a aprender
               </Button>
+              {state.error && (
+                <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>
+              )}
             </div>
           </form>
         </div>

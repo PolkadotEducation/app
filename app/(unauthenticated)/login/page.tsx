@@ -4,16 +4,15 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { webinar } from "@/public/assets/images";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import { useDispatch } from "react-redux";
-import { login } from "@/store/auth/reducers";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
+import { useAuth } from "@/hooks/useAuth";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { signIn, state } = useAuth();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -23,9 +22,12 @@ const LoginPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(login({ email, password, navigation: router }));
+    await signIn({ email, password });
+    if (state.isSignedIn) {
+      router.push("/");
+    }
   };
 
   const handleForgotPassword = (event: React.MouseEvent) => {
