@@ -44,6 +44,7 @@ export class Api {
     url: string,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
+    "use server";
     try {
       const response = await this.axiosInstance.get<T>(url, config);
       return response;
@@ -57,6 +58,7 @@ export class Api {
     data?: unknown,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
+    "use server";
     try {
       const response = await this.axiosInstance.post<T>(url, data, config);
       return response;
@@ -70,6 +72,7 @@ export class Api {
     data?: unknown,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
+    "use server";
     try {
       const response = await this.axiosInstance.put<T>(url, data, config);
       return response;
@@ -82,6 +85,7 @@ export class Api {
     url: string,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
+    "use server";
     try {
       const response = await this.axiosInstance.delete<T>(url, config);
       return response;
