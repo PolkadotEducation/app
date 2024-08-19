@@ -49,6 +49,7 @@ jobs:
           echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
           echo "HOST=${{ vars.HOST }}" >> .env
           echo "PORT=${{ vars.PORT }}" >> .env
+          echo "NEXT_PUBLIC_API_DOMAIN=${{ vars.API_DOMAIN }}" >> .env
           echo "" >> .env
 
       - name: Docker Build
