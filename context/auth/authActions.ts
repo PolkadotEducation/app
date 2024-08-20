@@ -13,7 +13,6 @@ export const signUp = async (
   dispatch({ type: "SIGN_UP_REQUEST" });
   try {
     const data = await authSignUp(newUser);
-    if (data.error?.message) throw data.error;
     dispatch({
       type: "SIGN_UP_SUCCESS",
       payload: { email: data.email },
