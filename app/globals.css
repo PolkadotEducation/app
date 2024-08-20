@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap");
+@import '../node_modules/@mdxeditor/editor/dist/style.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,4 +40,38 @@
 
 .unbound-font {
   font-family: "Unbounded", sans-serif;
+}
+
+.mdxeditor h1,
+.mdxeditor h2,
+.mdxeditor h3,
+.mdxeditor h4,
+.mdxeditor h5,
+.mdxeditor h6 {
+  font-weight: 700;
+  font-family: "Unbounded", sans-serif;
+}
+
+.mdxeditor h1 {
+  font-size: 2em;
+}
+
+.mdxeditor h2 {
+  font-size: 1.5em;
+}
+
+.mdxeditor h3 {
+  font-size: 1.17em;
+}
+
+.mdxeditor h4 {
+  font-size: 1em;
+}
+
+.mdxeditor h5 {
+  font-size: 0.83em;
+}
+
+.mdxeditor h6 {
+  font-size: 0.67em;
 }
