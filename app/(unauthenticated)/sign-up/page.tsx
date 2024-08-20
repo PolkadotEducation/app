@@ -47,24 +47,18 @@ const SignUpPage = () => {
       if (checkIfPasswordsMatches(passwordRepeated, event.target.value)) {
         setErrorMessage("");
       } else {
-        setErrorMessage(
-          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
-        );
+        setErrorMessage(passwordRegex.test(event.target.value) ? "" : "Invalid Password");
       }
     }
   };
 
-  const handleRepeatedPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleRepeatedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordRepeated(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(password, event.target.value)) {
         setErrorMessage("");
       } else {
-        setErrorMessage(
-          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
-        );
+        setErrorMessage(passwordRegex.test(event.target.value) ? "" : "Invalid Password");
       }
     }
   };
@@ -112,8 +106,7 @@ const SignUpPage = () => {
                 Pronto para começar?
               </h4>
               <p className="mb-8 max-w-[330px] text-center">
-                Crie sua conta em segundos e faça parte da comunidade Polkadot
-                Education.
+                Crie sua conta em segundos e faça parte da comunidade Polkadot Education.
               </p>
               <InputFloatingLabel
                 id="nameInput"
@@ -154,21 +147,13 @@ const SignUpPage = () => {
                 error={errorMessage}
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
-              <div
-                className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}
-              >
+              <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
                 <p className="text-xs text-[#BF2600]">{errorMessage}</p>
               </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={state.isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={state.isLoading}>
                 Começar a aprender
               </Button>
-              {state.error && (
-                <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>
-              )}
+              {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
             </div>
           </form>
         </div>

@@ -30,20 +30,13 @@ const SignUpEmailSentInnerPage = () => {
             xl:px-12 xl:border border-solid border-[#E0E0E0]
             rounded-3xl items-center text-center"
           >
-            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
-              Confirmação de e-mail
-            </h4>
+            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">Confirmação de e-mail</h4>
             <p className="mb-20 max-w-[330px] text-center">
               Enviamos um e-mail para
-              <span className="text-[#E6007A]"> {email}</span> para validar o
-              endereço de email. Siga o link enviado para completar o cadastro.
+              <span className="text-[#E6007A]"> {email}</span> para validar o endereço de email. Siga o link enviado
+              para completar o cadastro.
             </p>
-            <Button
-              type="button"
-              onClick={resendEmail}
-              variant="outline"
-              className="w-full"
-            >
+            <Button type="button" onClick={resendEmail} variant="outline" className="w-full">
               Reenviar confirmação
             </Button>
           </div>

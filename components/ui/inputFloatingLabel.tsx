@@ -10,14 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-const InputFloatingLabel: React.FC<InputProps> = ({
-  label,
-  id,
-  additionalStyles,
-  value,
-  error,
-  ...props
-}) => {
+const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles, value, error, ...props }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -51,10 +44,7 @@ const InputFloatingLabel: React.FC<InputProps> = ({
         onBlur={handleBlur}
       />
       {label && (
-        <label
-          htmlFor={id}
-          className={`absolute bg-background ml-1 transition-all ${handleInputLabelStyles()} px-1`}
-        >
+        <label htmlFor={id} className={`absolute bg-background ml-1 transition-all ${handleInputLabelStyles()} px-1`}>
           {label}
         </label>
       )}
