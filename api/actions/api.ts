@@ -1,6 +1,6 @@
 "use server";
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
 export type ServerAxiosError = {
@@ -41,10 +41,10 @@ axiosInstance.interceptors.response.use(
 export async function serverGet<T>(
   url: string,
   config?: AxiosRequestConfig,
-): Promise<AxiosResponse<T> | ServerAxiosError> {
+): Promise<T | ServerAxiosError> {
   try {
     const response = await axiosInstance.get<T>(url, config);
-    return response;
+    return response.data;
   } catch (error) {
     return handleError(error);
   }
@@ -67,10 +67,10 @@ export async function serverPut<T>(
   url: string,
   data?: unknown,
   config?: AxiosRequestConfig,
-): Promise<AxiosResponse<T> | ServerAxiosError> {
+): Promise<T | ServerAxiosError> {
   try {
     const response = await axiosInstance.put<T>(url, data, config);
-    return response;
+    return response.data;
   } catch (error) {
     return handleError(error);
   }
@@ -79,10 +79,10 @@ export async function serverPut<T>(
 export async function serverDelete<T>(
   url: string,
   config?: AxiosRequestConfig,
-): Promise<AxiosResponse<T> | ServerAxiosError> {
+): Promise<T | ServerAxiosError> {
   try {
     const response = await axiosInstance.delete<T>(url, config);
-    return response;
+    return response.data;
   } catch (error) {
     return handleError(error);
   }
