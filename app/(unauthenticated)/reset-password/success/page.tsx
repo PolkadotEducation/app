@@ -28,24 +28,10 @@ const ResetPasswordSuccessPage = () => {
             xl:px-12 xl:border border-solid border-[#E0E0E0]
             rounded-3xl items-center text-center"
           >
-            <Image
-              unoptimized
-              src={success}
-              width={67}
-              height={67}
-              alt="Success check mark"
-              className="mb-[30px]"
-            />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font">
-              Password changed!
-            </h4>
+            <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
+            <h4 className="text-[34px] font-bold mb-4 unbound-font">Password changed!</h4>
             <p className="mb-8">Your password has been changed successfully.</p>
-            <Button
-              type="button"
-              onClick={pushToLogin}
-              variant="link"
-              className="w-full"
-            >
+            <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
               Return to login
             </Button>
           </div>

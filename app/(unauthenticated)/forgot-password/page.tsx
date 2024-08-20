@@ -37,12 +37,9 @@ const ForgotPasswordPage = () => {
               xl:border border-solid border-[#E0E0E0] rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
-                Forgot password
-              </h4>
+              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">Forgot password</h4>
               <p className="mb-8 max-w-[330px] text-center">
-                Don’t worry, an email with instructions to reset your password
-                will be send to your email.
+                Don’t worry, an email with instructions to reset your password will be send to your email.
               </p>
               <InputFloatingLabel
                 type="email"

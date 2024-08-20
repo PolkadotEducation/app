@@ -1,40 +1,36 @@
-import api, { Api } from "./api";
+"use server";
+
+import api from "./api";
 import { SIGN_UP } from "./constants";
-import { AxiosResponse } from "axios";
 
 type SignUpResponse = {
-  userId: string;
-  email: string;
-  name: string;
-  lastActivity: string;
+  userId?: string;
+  email?: string;
+  name?: string;
+  lastActivity?: string;
+  error?: { message: string };
 };
 
-class AuthService {
-  private api: Api;
+// export const authLogin = async (credentials: {
+//     email: string;
+//     password: string;
+//   }): Promise<void> {
+//     try {
+//     } catch (error) {
+//       throw new Error(error);
+//     }
+//   }
 
-  constructor(api: Api) {
-    this.api = api;
+// We can not pass throw exception upstream here, as it came from server side.
+export const authSignUp = async (credentials: {
+  email: string;
+  password: string;
+  name: string;
+}): Promise<SignUpResponse> => {
+  try {
+    const r = await api.post<SignUpResponse>(SIGN_UP, credentials);
+    return r.data;
+  } catch (e: any) {
+    return { error: e };
   }
-
-  //   public async login(credentials: {
-  //     email: string;
-  //     password: string;
-  //   }): Promise<void> {
-  //     try {
-  //     } catch (error) {
-  //       throw new Error(error);
-  //     }
-  //   }
-
-  public async signUp(credentials: {
-    email: string;
-    password: string;
-    name: string;
-  }): Promise<AxiosResponse<SignUpResponse>> {
-    const response = await this.api.post<SignUpResponse>(SIGN_UP, credentials);
-    return response;
-  }
-}
-
-const authService = new AuthService(api);
-export default authService;
+};

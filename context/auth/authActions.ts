@@ -1,10 +1,7 @@
-import authService from "@/api/authService";
+import { authSignUp } from "@/api/authService";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const signIn = async (
-  dispatch: React.Dispatch<any>,
-  credentials: { email: string; password: string },
-) => {
+export const signIn = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
   dispatch({ type: "SIGN_IN_REQUEST" });
   console.log(credentials);
 };
@@ -15,10 +12,11 @@ export const signUp = async (
 ): Promise<boolean> => {
   dispatch({ type: "SIGN_UP_REQUEST" });
   try {
-    const response = await authService.signUp(newUser);
+    const data = await authSignUp(newUser);
+    if (data.error?.message) throw data.error;
     dispatch({
       type: "SIGN_UP_SUCCESS",
-      payload: { email: response.data.email },
+      payload: { email: data.email },
     });
     dispatch({ type: "CLEAR_AUTH_ERROR" });
     return true;

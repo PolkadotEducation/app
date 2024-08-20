@@ -1,9 +1,4 @@
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
 export class Api {
@@ -40,11 +35,7 @@ export class Api {
     );
   }
 
-  public async get<T>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    "use server";
+  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     try {
       const response = await this.axiosInstance.get<T>(url, config);
       return response;
@@ -53,12 +44,7 @@ export class Api {
     }
   }
 
-  public async post<T>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    "use server";
+  public async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     try {
       const response = await this.axiosInstance.post<T>(url, data, config);
       return response;
@@ -67,12 +53,7 @@ export class Api {
     }
   }
 
-  public async put<T>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    "use server";
+  public async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     try {
       const response = await this.axiosInstance.put<T>(url, data, config);
       return response;
@@ -81,11 +62,7 @@ export class Api {
     }
   }
 
-  public async delete<T>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    "use server";
+  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     try {
       const response = await this.axiosInstance.delete<T>(url, config);
       return response;
@@ -105,7 +82,5 @@ export class Api {
   }
 }
 
-const api = new Api(
-  process.env.NEXT_PUBLIC_API_DOMAIN || "http://127.0.0.1:4000",
-);
+const api = new Api(process.env.NEXT_PUBLIC_API_DOMAIN || "http://127.0.0.1:4000");
 export default api;
