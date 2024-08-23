@@ -52,8 +52,7 @@ const LoginPage = () => {
             >
               <h4 className="text-[34px] font-bold mb-4 unbound-font">Login</h4>
               <p className="mb-8 max-w-[330px] text-center">
-                Welcome to Polkadot Education, enter your account details to log
-                in
+                Welcome to Polkadot Education, enter your account details to log in
               </p>
               <InputFloatingLabel
                 type="email"
@@ -71,22 +70,13 @@ const LoginPage = () => {
                 label="Password"
                 additionalStyles="mb-4 xl:mb-6"
               />
-              <Button
-                type="button"
-                onClick={handleForgotPassword}
-                className="mb-4"
-                variant="link"
-              >
+              <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
                 Forgot Password?
               </Button>
               <Button type="submit" className="w-full mb-4 xl:mb-20">
                 Sign In
               </Button>
-              <Button
-                type="button"
-                onClick={() => router.push("/sign-up")}
-                variant="link"
-              >
+              <Button type="button" onClick={() => router.push("/sign-up")} variant="link">
                 Don’t have an account? Request now
               </Button>
             </div>
