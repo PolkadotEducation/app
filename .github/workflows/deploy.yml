@@ -115,11 +115,11 @@ jobs:
         run: |
           aws ecr describe-images --repository-name app --image-ids imageTag=$STAGE --region $AWS_REGION
 
-      - name: AWS ECS Deploy
-        env:
-          AWS_REGION: ${{ vars.AWS_REGION }}
-          CLUSTER: ${{ vars.AWS_ECS_CLUSTER }}
-          SERVICE: ${{ vars.AWS_ECS_SERVICE }}
-          TASK: ${{ vars.AWS_ECS_TASK }}
-        run: |
-          aws ecs update-service --cluster $CLUSTER --service $SERVICE --task-definition $TASK --force-new-deployment
+      # - name: AWS ECS Deploy
+      #   env:
+      #     AWS_REGION: ${{ vars.AWS_REGION }}
+      #     CLUSTER: ${{ vars.AWS_ECS_CLUSTER }}
+      #     SERVICE: ${{ vars.AWS_ECS_SERVICE }}
+      #     TASK: ${{ vars.AWS_ECS_TASK }}
+      #   run: |
+      #     aws ecs update-service --cluster $CLUSTER --service $SERVICE --task-definition $TASK --force-new-deployment
