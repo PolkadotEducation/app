@@ -38,10 +38,7 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export async function serverGet<T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T | ServerAxiosError> {
+export async function serverGet<T>(url: string, config?: AxiosRequestConfig): Promise<T | ServerAxiosError> {
   try {
     const response = await axiosInstance.get<T>(url, config);
     return response.data;
@@ -76,10 +73,7 @@ export async function serverPut<T>(
   }
 }
 
-export async function serverDelete<T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T | ServerAxiosError> {
+export async function serverDelete<T>(url: string, config?: AxiosRequestConfig): Promise<T | ServerAxiosError> {
   try {
     const response = await axiosInstance.delete<T>(url, config);
     return response.data;
