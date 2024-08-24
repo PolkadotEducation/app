@@ -6,14 +6,16 @@ import { emailSent } from "@/public/assets/images";
 import Logo from "@/components/ui/logo";
 
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignUpEmailSentInnerPage = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const router = useRouter();
 
-  const resendEmail = (event: React.MouseEvent) => {
+  const backToLoginScreen = (event: React.MouseEvent) => {
     event.preventDefault();
+    router.push("/login");
   };
 
   return (
@@ -36,8 +38,8 @@ const SignUpEmailSentInnerPage = () => {
               <span className="text-[#E6007A]"> {email}</span> para validar o endereço de email. Siga o link enviado
               para completar o cadastro.
             </p>
-            <Button type="button" onClick={resendEmail} variant="outline" className="w-full">
-              Reenviar confirmação
+            <Button type="button" onClick={backToLoginScreen} variant="outline" className="w-full">
+              Continuar
             </Button>
           </div>
         </div>

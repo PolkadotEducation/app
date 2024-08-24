@@ -12,20 +12,21 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { signIn, state } = useAuth();
+  const { login, state } = useAuth();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    if (event.target.value.length <= 50) setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    if (event.target.value.length <= 50) setPassword(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await signIn({ email, password });
-    if (state.isSignedIn) {
+    const success = await login({ email, password });
+    console.log(success);
+    if (success) {
       router.push("/");
     }
   };
@@ -70,13 +71,24 @@ const LoginPage = () => {
                 label="Password"
                 additionalStyles="mb-4 xl:mb-6"
               />
-              <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
+              <Button
+                disabled={state.isLoading}
+                type="button"
+                onClick={handleForgotPassword}
+                className="mb-4"
+                variant="link"
+              >
                 Forgot Password?
               </Button>
-              <Button type="submit" className="w-full mb-4 xl:mb-20">
+              <Button
+                disabled={state.isLoading}
+                type="submit"
+                className={`w-full ${state.error ? "mb-3" : "mb-4 xl:mb-20"}`}
+              >
                 Sign In
               </Button>
-              <Button type="button" onClick={() => router.push("/sign-up")} variant="link">
+              {state.error && <p className="text-xs text-[#BF2600] mb-3 xl:mb-16">{state.error}</p>}
+              <Button disabled={state.isLoading} type="button" onClick={() => router.push("/sign-up")} variant="link">
                 Don’t have an account? Request now
               </Button>
             </div>
