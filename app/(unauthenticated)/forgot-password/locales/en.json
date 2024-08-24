@@ -1,0 +1,8 @@
+{
+  "forgotPassword": {
+    "title": "Forgot password",
+    "instructionMessage": "Don’t worry, an email with instructions to reset your password will be sent to your email.",
+    "emailPlaceholder": "Email",
+    "sendLinkButton": "Send link to email"
+  }
+}

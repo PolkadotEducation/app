@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { PASSWORD_REQUIREMENTS } from "./constants";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslations } from "next-intl";
 
 const SignUpPage = () => {
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const { signUp, state } = useAuth();
+  const t = useTranslations("signUp");
 
   const reset = () => {
     setPassword("");
@@ -102,17 +104,13 @@ const SignUpPage = () => {
               xl:border border-solid border-[#E0E0E0] rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
-                Pronto para começar?
-              </h4>
-              <p className="mb-8 max-w-[330px] text-center">
-                Crie sua conta em segundos e faça parte da comunidade Polkadot Education.
-              </p>
+              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+              <p className="mb-8 max-w-[330px] text-center">{t("subtitle")}</p>
               <InputFloatingLabel
                 id="nameInput"
                 value={name}
                 onChange={handleNameChange}
-                label="Name"
+                label={t("namePlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel
@@ -120,7 +118,7 @@ const SignUpPage = () => {
                 id="emailInput"
                 value={email}
                 onChange={handleEmailChange}
-                label="Email"
+                label={t("emailPlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel
@@ -128,13 +126,13 @@ const SignUpPage = () => {
                 id="passwordInput"
                 value={password}
                 onChange={handlePasswordChange}
-                label="Password"
+                label={t("passwordPlaceholder")}
                 additionalStyles="mb-[4px]"
               />
               <div className="mb-4 flex justify-start w-full pl-5">
                 <ul className="text-xs list-disc">
                   {PASSWORD_REQUIREMENTS.map((i: string) => (
-                    <li key={i}>{i}</li>
+                    <li key={i}>{t(i)}</li>
                   ))}
                 </ul>
               </div>
@@ -143,7 +141,7 @@ const SignUpPage = () => {
                 id="passwordRepeatedInput"
                 value={passwordRepeated}
                 onChange={handleRepeatedPasswordChange}
-                label="Repeat password"
+                label={t("repeatPasswordPlaceholder")}
                 error={errorMessage}
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
@@ -151,7 +149,7 @@ const SignUpPage = () => {
                 <p className="text-xs text-[#BF2600]">{errorMessage}</p>
               </div>
               <Button type="submit" className="w-full" disabled={state.isLoading}>
-                Começar a aprender
+                {t("signUpButton")}
               </Button>
               {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
             </div>
