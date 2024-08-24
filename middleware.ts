@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
 
@@ -8,6 +9,23 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const loginUrl = new URL("/login", request.url);
 
   if (!token) {
+    return NextResponse.redirect(loginUrl);
+  }
+
+  try {
+    const decodedToken = jwt.decode(token) as { expiresAt: number } | null;
+
+    if (!decodedToken || !decodedToken.expiresAt) {
+      return NextResponse.redirect(loginUrl);
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (decodedToken.expiresAt < currentTime) {
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next();
+  } catch {
     return NextResponse.redirect(loginUrl);
   }
 };
