@@ -19,6 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
           disabled:cursor-not-allowed disabled:opacity-50`,
         className,
       )}
+      maxLength={50}
       ref={ref}
       {...props}
     />

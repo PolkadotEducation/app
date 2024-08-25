@@ -1,9 +1,23 @@
-import { authSignUp } from "@/api/authService";
+import { authLogin, authSignUp } from "@/api/authService";
+import Cookies from "js-cookie";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const signIn = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
-  dispatch({ type: "SIGN_IN_REQUEST" });
-  console.log(credentials);
+export const login = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
+  dispatch({ type: "LOGIN_REQUEST" });
+  try {
+    const data = await authLogin(credentials);
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: { token: data.jwt },
+    });
+    Cookies.set("token", data.jwt);
+    dispatch({ type: "CLEAR_AUTH_ERROR" });
+    return true;
+  } catch (error) {
+    const errorMessage = (error as Error).message;
+    dispatch({ type: "LOGIN_FAILURE", payload: { error: errorMessage } });
+    return false;
+  }
 };
 
 export const signUp = async (
