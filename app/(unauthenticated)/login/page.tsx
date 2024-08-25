@@ -25,7 +25,6 @@ const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const success = await login({ email, password });
-    console.log(success);
     if (success) {
       router.push("/");
     }

@@ -6,7 +6,6 @@ export const login = async (dispatch: React.Dispatch<any>, credentials: { email:
   dispatch({ type: "LOGIN_REQUEST" });
   try {
     const data = await authLogin(credentials);
-    console.log(data);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: { token: data.jwt },
