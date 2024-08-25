@@ -7,12 +7,14 @@ import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslations } from "next-intl";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { login, state } = useAuth();
+  const t = useTranslations("login");
+  const { login } = useAuth();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setEmail(event.target.value);
@@ -50,16 +52,14 @@ const LoginPage = () => {
               xl:border border-solid border-[#E0E0E0] rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font">Login</h4>
-              <p className="mb-8 max-w-[330px] text-center">
-                Welcome to Polkadot Education, enter your account details to log in
-              </p>
+              <h4 className="text-[34px] font-bold mb-4 unbound-font">{t("title")}</h4>
+              <p className="mb-8 max-w-[330px] text-center">{t("welcomeMessage")}</p>
               <InputFloatingLabel
                 type="email"
                 id="emailInput"
                 value={email}
                 onChange={handleEmailChange}
-                label="Email"
+                label={t("emailPlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel
@@ -67,28 +67,17 @@ const LoginPage = () => {
                 id="passwordInput"
                 value={password}
                 onChange={handlePasswordChange}
-                label="Password"
+                label={t("passwordPlaceholder")}
                 additionalStyles="mb-4 xl:mb-6"
               />
-              <Button
-                disabled={state.isLoading}
-                type="button"
-                onClick={handleForgotPassword}
-                className="mb-4"
-                variant="link"
-              >
-                Forgot Password?
+              <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
+                {t("forgotPassword")}
               </Button>
-              <Button
-                disabled={state.isLoading}
-                type="submit"
-                className={`w-full ${state.error ? "mb-3" : "mb-4 xl:mb-20"}`}
-              >
-                Sign In
+              <Button type="submit" className="w-full mb-4 xl:mb-20">
+                {t("signInButton")}
               </Button>
-              {state.error && <p className="text-xs text-[#BF2600] mb-3 xl:mb-16">{state.error}</p>}
-              <Button disabled={state.isLoading} type="button" onClick={() => router.push("/sign-up")} variant="link">
-                Don’t have an account? Request now
+              <Button type="button" onClick={() => router.push("/sign-up")} variant="link">
+                {t("requestAccount")}
               </Button>
             </div>
           </form>

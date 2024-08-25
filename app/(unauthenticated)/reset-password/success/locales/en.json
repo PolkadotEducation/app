@@ -1,0 +1,7 @@
+{
+  "passwordChanged": {
+    "title": "Password changed!",
+    "instructionMessage": "Your password has been changed successfully.",
+    "returnToLogin": "Return to login"
+  }
+}

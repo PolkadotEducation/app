@@ -5,9 +5,11 @@ import { forgotPassword } from "@/public/assets/images";
 import { useRouter } from "next/navigation";
 import success from "@/public/assets/icons/success.svg";
 import Logo from "@/components/ui/logo";
+import { useTranslations } from "next-intl";
 
 const EmailSentPage = () => {
   const router = useRouter();
+  const t = useTranslations("emailSent");
 
   const pushToLogin = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -29,10 +31,10 @@ const EmailSentPage = () => {
             border-[#E0E0E0] rounded-3xl items-center"
           >
             <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">Email sent</h4>
-            <p className="mb-8 max-w-[330px] text-center">Instructions were sent to your email.</p>
+            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+            <p className="mb-8 max-w-[330px] text-center">{t("instructionMessage")}</p>
             <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
-              Return to login
+              {t("returnToLogin")}
             </Button>
           </div>
         </div>

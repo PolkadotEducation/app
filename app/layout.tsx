@@ -1,19 +1,25 @@
-"use client";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/auth/authProvider";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <AuthProvider>
-      <html lang="en">
-        <body className={montserrat.className}>{children}</body>
+      <html lang={locale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <body className={montserrat.className}>{children}</body>
+        </NextIntlClientProvider>
       </html>
     </AuthProvider>
   );
