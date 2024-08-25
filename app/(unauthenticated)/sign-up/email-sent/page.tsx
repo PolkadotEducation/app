@@ -6,16 +6,18 @@ import { emailSent } from "@/public/assets/images";
 import Logo from "@/components/ui/logo";
 
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignUpEmailSentInnerPage = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const t = useTranslations("emailConfirmation");
+  const router = useRouter();
 
-  const resendEmail = (event: React.MouseEvent) => {
+  const backToLoginScreen = (event: React.MouseEvent) => {
     event.preventDefault();
+    router.push("/login");
   };
 
   return (
@@ -38,7 +40,7 @@ const SignUpEmailSentInnerPage = () => {
               <span className="text-[#E6007A]">{email}</span>
               {t("instructionMessageSecondPart")}
             </p>
-            <Button type="button" onClick={resendEmail} variant="outline" className="w-full">
+            <Button type="button" onClick={backToLoginScreen} variant="outline" className="w-full">
               {t("backToLogin")}
             </Button>
           </div>

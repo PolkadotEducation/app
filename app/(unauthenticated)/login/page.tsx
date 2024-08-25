@@ -13,21 +13,21 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { signIn, state } = useAuth();
   const t = useTranslations("login");
+  const { login } = useAuth();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    if (event.target.value.length <= 50) setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    if (event.target.value.length <= 50) setPassword(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await signIn({ email, password });
-    if (state.isSignedIn) {
+    const success = await login({ email, password });
+    if (success) {
       router.push("/");
     }
   };

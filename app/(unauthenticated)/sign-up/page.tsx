@@ -34,17 +34,17 @@ const SignUpPage = () => {
   const checkIfPasswordsMatches = (p: string, rp: string) => p === rp;
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    if (event.target.value.length <= 50) setName(event.target.value);
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    if (event.target.value.length <= 50) setEmail(event.target.value);
   };
 
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    if (event.target.value.length <= 50) setPassword(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(passwordRepeated, event.target.value)) {
         setErrorMessage("");
@@ -55,7 +55,7 @@ const SignUpPage = () => {
   };
 
   const handleRepeatedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordRepeated(event.target.value);
+    if (event.target.value.length <= 50) setPasswordRepeated(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(password, event.target.value)) {
         setErrorMessage("");
