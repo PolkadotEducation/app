@@ -41,7 +41,6 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|apple-touch-icon.png|favicon.svg|public|icons|manifest|assets).*)",
   ],
