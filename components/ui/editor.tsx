@@ -62,59 +62,13 @@ const ALL_PLUGINS = [
   directivesPlugin({
     directiveDescriptors: [AdmonitionDirectiveDescriptor],
   }),
-  diffSourcePlugin({ viewMode: "source", diffMarkdown: "boo" }),
+  diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "boo" }),
   markdownShortcutPlugin(),
 ];
 
-const READONLY_PLUGINS = [
-  listsPlugin(),
-  quotePlugin(),
-  headingsPlugin(),
-  linkPlugin(),
-  linkDialogPlugin(),
-  imagePlugin({
-    imageAutocompleteSuggestions: [
-      "https://via.placeholder.com/150",
-      "https://via.placeholder.com/150",
-    ],
-    imageUploadHandler: async () =>
-      Promise.resolve("https://picsum.photos/200/300"),
-  }),
-  tablePlugin(),
-  thematicBreakPlugin(),
-  frontmatterPlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: "" }),
-  codeMirrorPlugin({
-    codeBlockLanguages: {
-      js: "JavaScript",
-      css: "CSS",
-      txt: "Plain Text",
-      tsx: "TypeScript",
-      "": "Unspecified",
-    },
-  }),
-  directivesPlugin({
-    directiveDescriptors: [AdmonitionDirectiveDescriptor],
-  }),
-  markdownShortcutPlugin(),
-];
-
-const Editor: FC<EditorProps> = ({
-  markdown,
-  readOnly = false,
-  editorRef = null,
-  onChange = (markdown: string) => {
-    console.info(markdown);
-  },
-}) => {
+const Editor: FC<EditorProps> = ({ markdown, editorRef = null }) => {
   return (
-    <MDXEditor
-      onChange={onChange}
-      ref={editorRef}
-      markdown={markdown}
-      readOnly={readOnly}
-      plugins={readOnly ? READONLY_PLUGINS : ALL_PLUGINS}
-    />
+    <MDXEditor ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} />
   );
 };
 

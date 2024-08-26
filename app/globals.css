@@ -54,10 +54,12 @@
 
 .mdxeditor h1 {
   font-size: 2em;
+  margin-block: 2.5rem;
 }
 
 .mdxeditor h2 {
   font-size: 1.5em;
+  margin-block: 1.25rem;
 }
 
 .mdxeditor h3 {
@@ -74,4 +76,8 @@
 
 .mdxeditor h6 {
   font-size: 0.67em;
+}
+
+.mdxeditor p {
+  margin-block: 1.25rem;
 }
