@@ -5,7 +5,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import Badge from "@/components/ui/badge";
 
-interface LessonPageProps {
+interface LessonRendererProps {
   title: string;
   difficulty: string;
   markdown: string;
@@ -13,13 +13,13 @@ interface LessonPageProps {
   options: string[];
 }
 
-const LessonPage = ({
+const LessonRenderer = ({
   title,
   difficulty,
   markdown,
   question,
   options,
-}: LessonPageProps) => {
+}: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
     null,
   );
@@ -67,4 +67,4 @@ const LessonPage = ({
   );
 };
 
-export default LessonPage;
+export default LessonRenderer;

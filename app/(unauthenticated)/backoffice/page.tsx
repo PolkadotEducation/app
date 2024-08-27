@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import OptionsInputComponent from "@/components/ui/options";
 
-import LessonPage from "@/app/lesson/page";
 import lessonService from "@/api/lessonService";
+import LessonRenderer from "@/components/ui/renderer";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -101,7 +101,7 @@ function MainPage() {
           </Button>
         </header>
         <div className="pt-20">
-          <LessonPage
+          <LessonRenderer
             title={title}
             difficulty={difficulty}
             markdown={markdownBody}
