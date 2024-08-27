@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 *storybook.log
+
+# macos
+.DS_Store
