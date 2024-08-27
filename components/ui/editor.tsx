@@ -66,9 +66,14 @@ const ALL_PLUGINS = [
   markdownShortcutPlugin(),
 ];
 
-const Editor: FC<EditorProps> = ({ markdown, editorRef = null }) => {
+const Editor: FC<EditorProps> = ({ markdown, onChange, editorRef = null }) => {
   return (
-    <MDXEditor ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} />
+    <MDXEditor
+      ref={editorRef}
+      markdown={markdown}
+      plugins={ALL_PLUGINS}
+      onChange={onChange}
+    />
   );
 };
 

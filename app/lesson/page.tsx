@@ -9,9 +9,17 @@ interface LessonPageProps {
   title: string;
   difficulty: string;
   markdown: string;
+  question: string;
+  options: string[];
 }
 
-const LessonPage = ({ title, difficulty, markdown }: LessonPageProps) => {
+const LessonPage = ({
+  title,
+  difficulty,
+  markdown,
+  question,
+  options,
+}: LessonPageProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
     null,
   );
@@ -37,6 +45,23 @@ const LessonPage = ({ title, difficulty, markdown }: LessonPageProps) => {
           </Badge>
         </h1>
         {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
+        <h2>Challenge</h2>
+        <h3>{question ? question : "Challenge not set"}</h3>
+        <div>
+          {options.map((option, index) => (
+            <div key={index} className="mb-2">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="options"
+                  value={option}
+                  className="mr-2"
+                />
+                {option}
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );
