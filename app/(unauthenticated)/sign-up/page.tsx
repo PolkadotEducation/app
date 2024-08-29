@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { PASSWORD_REQUIREMENTS } from "./constants";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslations } from "next-intl";
 
 const SignUpPage = () => {
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const { signUp, state } = useAuth();
+  const t = useTranslations("signUp");
 
   const reset = () => {
     setPassword("");
@@ -32,39 +34,33 @@ const SignUpPage = () => {
   const checkIfPasswordsMatches = (p: string, rp: string) => p === rp;
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    if (event.target.value.length <= 50) setName(event.target.value);
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    if (event.target.value.length <= 50) setEmail(event.target.value);
   };
 
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    if (event.target.value.length <= 50) setPassword(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(passwordRepeated, event.target.value)) {
         setErrorMessage("");
       } else {
-        setErrorMessage(
-          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
-        );
+        setErrorMessage(passwordRegex.test(event.target.value) ? "" : "Invalid Password");
       }
     }
   };
 
-  const handleRepeatedPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setPasswordRepeated(event.target.value);
+  const handleRepeatedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length <= 50) setPasswordRepeated(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(password, event.target.value)) {
         setErrorMessage("");
       } else {
-        setErrorMessage(
-          passwordRegex.test(event.target.value) ? "" : "Invalid Password",
-        );
+        setErrorMessage(passwordRegex.test(event.target.value) ? "" : "Invalid Password");
       }
     }
   };
@@ -108,18 +104,13 @@ const SignUpPage = () => {
               xl:border border-solid border-[#E0E0E0] rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">
-                Pronto para começar?
-              </h4>
-              <p className="mb-8 max-w-[330px] text-center">
-                Crie sua conta em segundos e faça parte da comunidade Polkadot
-                Education.
-              </p>
+              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+              <p className="mb-8 max-w-[330px] text-center">{t("subtitle")}</p>
               <InputFloatingLabel
                 id="nameInput"
                 value={name}
                 onChange={handleNameChange}
-                label="Name"
+                label={t("namePlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel
@@ -127,7 +118,7 @@ const SignUpPage = () => {
                 id="emailInput"
                 value={email}
                 onChange={handleEmailChange}
-                label="Email"
+                label={t("emailPlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel
@@ -135,13 +126,13 @@ const SignUpPage = () => {
                 id="passwordInput"
                 value={password}
                 onChange={handlePasswordChange}
-                label="Password"
+                label={t("passwordPlaceholder")}
                 additionalStyles="mb-[4px]"
               />
               <div className="mb-4 flex justify-start w-full pl-5">
                 <ul className="text-xs list-disc">
                   {PASSWORD_REQUIREMENTS.map((i: string) => (
-                    <li key={i}>{i}</li>
+                    <li key={i}>{t(i)}</li>
                   ))}
                 </ul>
               </div>
@@ -150,25 +141,17 @@ const SignUpPage = () => {
                 id="passwordRepeatedInput"
                 value={passwordRepeated}
                 onChange={handleRepeatedPasswordChange}
-                label="Repeat password"
+                label={t("repeatPasswordPlaceholder")}
                 error={errorMessage}
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
-              <div
-                className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}
-              >
+              <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
                 <p className="text-xs text-[#BF2600]">{errorMessage}</p>
               </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={state.isLoading}
-              >
-                Começar a aprender
+              <Button type="submit" className="w-full" disabled={state.isLoading}>
+                {t("signUpButton")}
               </Button>
-              {state.error && (
-                <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>
-              )}
+              {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
             </div>
           </form>
         </div>

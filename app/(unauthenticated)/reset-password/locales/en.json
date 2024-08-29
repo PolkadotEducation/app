@@ -1,0 +1,9 @@
+{
+  "resetPassword": {
+    "title": "Reset password",
+    "instructionMessage": "Please create a new password.",
+    "passwordPlaceholder": "Password",
+    "repeatPasswordPlaceholder": "Repeat password",
+    "resetButton": "Reset password"
+  }
+}

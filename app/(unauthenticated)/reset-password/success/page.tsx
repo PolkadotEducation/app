@@ -5,9 +5,11 @@ import { resetPassword } from "@/public/assets/images";
 import { useRouter } from "next/navigation";
 import success from "@/public/assets/icons/success.svg";
 import Logo from "@/components/ui/logo";
+import { useTranslations } from "next-intl";
 
 const ResetPasswordSuccessPage = () => {
   const router = useRouter();
+  const t = useTranslations("passwordChanged");
 
   const pushToLogin = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -28,25 +30,11 @@ const ResetPasswordSuccessPage = () => {
             xl:px-12 xl:border border-solid border-[#E0E0E0]
             rounded-3xl items-center text-center"
           >
-            <Image
-              unoptimized
-              src={success}
-              width={67}
-              height={67}
-              alt="Success check mark"
-              className="mb-[30px]"
-            />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font">
-              Password changed!
-            </h4>
-            <p className="mb-8">Your password has been changed successfully.</p>
-            <Button
-              type="button"
-              onClick={pushToLogin}
-              variant="link"
-              className="w-full"
-            >
-              Return to login
+            <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
+            <h4 className="text-[34px] font-bold mb-4 unbound-font">{t("title")}</h4>
+            <p className="mb-8">{t("instructionMessage")}</p>
+            <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
+              {t("returnToLogin")}
             </Button>
           </div>
         </div>

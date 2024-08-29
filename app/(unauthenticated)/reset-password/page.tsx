@@ -6,12 +6,14 @@ import { resetPassword } from "@/public/assets/images";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
+import { useTranslations } from "next-intl";
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
   const [passwordRepeated, setPasswordRepeated] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const t = useTranslations("resetPassword");
 
   const checkIfPasswordsMatches = (p: string, rp: string) => p === rp;
 
@@ -24,9 +26,7 @@ const ResetPasswordPage = () => {
     }
   };
 
-  const handleRepeatedPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleRepeatedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordRepeated(event.target.value);
     if (errorMessage) {
       if (checkIfPasswordsMatches(password, event.target.value)) {
@@ -61,16 +61,14 @@ const ResetPasswordPage = () => {
               className="flex flex-col w-full px-4 xl:py-10 xl:px-12
               xl:border border-solid border-[#E0E0E0] rounded-3xl items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font">
-                Reset password
-              </h4>
-              <p className="mb-8">Please create a new password.</p>
+              <h4 className="text-[34px] font-bold mb-4 unbound-font">{t("title")}</h4>
+              <p className="mb-8">{t("instructionMessage")}</p>
               <InputFloatingLabel
                 type="password"
                 id="passwordInput"
                 value={password}
                 onChange={handlePasswordChange}
-                label="Password"
+                label={t("passwordPlaceholder")}
                 additionalStyles="mb-4 xl:mb-6"
               />
               <InputFloatingLabel
@@ -78,17 +76,15 @@ const ResetPasswordPage = () => {
                 id="passwordRepeatedInput"
                 value={passwordRepeated}
                 onChange={handleRepeatedPasswordChange}
-                label="Repeat password"
+                label={t("repeatPasswordPlaceholder")}
                 error={errorMessage}
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
-              <div
-                className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}
-              >
+              <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
                 <p className="text-xs text-[#BF2600]">{errorMessage}</p>
               </div>
               <Button type="submit" className="w-full">
-                Reset password
+                {t("resetButton")}
               </Button>
             </div>
           </form>

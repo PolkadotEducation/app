@@ -1,40 +1,29 @@
-import api, { Api } from "./api";
-import { SIGN_UP } from "./constants";
-import { AxiosResponse } from "axios";
+import { serverPost, ServerAxiosError } from "./actions/api";
+import { SIGN_UP, LOGIN } from "./constants";
 
 type SignUpResponse = {
-  userId: string;
-  email: string;
-  name: string;
-  lastActivity: string;
+  userId?: string;
+  email?: string;
+  name?: string;
+  lastActivity?: string;
 };
 
-class AuthService {
-  private api: Api;
+type LoginResponse = {
+  jwt: string;
+};
 
-  constructor(api: Api) {
-    this.api = api;
-  }
+export const authLogin = async (credentials: { email: string; password: string }): Promise<LoginResponse> => {
+  const r = await serverPost<LoginResponse>(LOGIN, credentials);
+  if ((r as ServerAxiosError).message) throw r as ServerAxiosError;
+  return r as LoginResponse;
+};
 
-  //   public async login(credentials: {
-  //     email: string;
-  //     password: string;
-  //   }): Promise<void> {
-  //     try {
-  //     } catch (error) {
-  //       throw new Error(error);
-  //     }
-  //   }
-
-  public async signUp(credentials: {
-    email: string;
-    password: string;
-    name: string;
-  }): Promise<AxiosResponse<SignUpResponse>> {
-    const response = await this.api.post<SignUpResponse>(SIGN_UP, credentials);
-    return response;
-  }
-}
-
-const authService = new AuthService(api);
-export default authService;
+export const authSignUp = async (credentials: {
+  email: string;
+  password: string;
+  name: string;
+}): Promise<SignUpResponse> => {
+  const r = await serverPost<SignUpResponse>(SIGN_UP, credentials);
+  if ((r as ServerAxiosError).message) throw r as ServerAxiosError;
+  return r as SignUpResponse;
+};

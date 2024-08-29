@@ -1,26 +1,30 @@
 import { AuthState, AuthAction } from "@/types/authTypes";
 
-export const authReducer = (
-  state: AuthState,
-  action: AuthAction,
-): AuthState => {
+export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
-    case "SIGN_IN_REQUEST":
+    case "LOGIN_REQUEST":
     case "SIGN_UP_REQUEST":
       return {
         ...state,
         isLoading: true,
         error: null,
       };
-    case "SIGN_UP_SUCCESS":
+    case "LOGIN_SUCCESS":
       return {
         ...state,
         isLoading: false,
         isSignedIn: true,
+        userToken: action.payload.token,
+        error: null,
+      };
+    case "SIGN_UP_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
         email: action.payload.email,
         error: null,
       };
-    case "SIGN_IN_FAILURE":
+    case "LOGIN_FAILURE":
     case "SIGN_UP_FAILURE":
       return {
         ...state,
