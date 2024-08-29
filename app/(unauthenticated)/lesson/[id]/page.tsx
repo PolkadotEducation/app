@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { LessonType } from "@/types/lessonTypes";
-import lessonService from "@/api/lessonService";
 import LessonRenderer from "@/components/ui/renderer";
+import { getLessonById } from "@/api/lessonService";
 
 const LessonPage = () => {
   const pathname = usePathname();
@@ -20,8 +20,8 @@ const LessonPage = () => {
 
     const fetchLesson = async () => {
       try {
-        const response = await lessonService.getLessonById(id as string);
-        setLesson(response.data);
+        const response = await getLessonById(id as string);
+        setLesson(response);
       } catch (err) {
         console.error("Failed to fetch lesson:", err);
         setError("Failed to fetch lesson");

@@ -1,29 +1,15 @@
-import api, { Api } from "./api";
+import { ServerAxiosError, serverGet, serverPost } from "./actions/api";
 import { LESSON } from "./constants";
-import { AxiosResponse } from "axios";
-import { LessonType } from "@/types/lessonTypes";
+import { LessonResponse, LessonType } from "@/types/lessonTypes";
 
-type LessonResponse = {
-  lessonId: string;
+export const createLesson = async (lessonData: LessonType): Promise<LessonResponse> => {
+  const response = await serverPost<LessonResponse>(LESSON, lessonData);
+  if ((response as ServerAxiosError).message) throw response as ServerAxiosError;
+  return response as LessonResponse;
 };
 
-class LessonService {
-  private api: Api;
-
-  constructor(api: Api) {
-    this.api = api;
-  }
-
-  public async createLesson(lessonData: LessonType): Promise<AxiosResponse<LessonResponse>> {
-    const response = await this.api.post<LessonResponse>(LESSON, lessonData);
-    return response;
-  }
-
-  public async getLessonById(id: string): Promise<AxiosResponse<LessonType>> {
-    const response = await this.api.get<LessonType>(`${LESSON}?lessonId=${id}`);
-    return response;
-  }
-}
-
-const lessonService = new LessonService(api);
-export default lessonService;
+export const getLessonById = async (id: string): Promise<LessonType> => {
+  const response = await serverGet<LessonType>(`${LESSON}?lessonId=${id}`);
+  if ((response as ServerAxiosError).message) throw response as ServerAxiosError;
+  return response as LessonType;
+};

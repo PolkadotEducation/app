@@ -16,3 +16,7 @@ export type LessonType = {
   challenge: ChallengeType;
   references?: ReferenceType[];
 };
+
+export type LessonResponse = {
+  lessonId: string;
+};

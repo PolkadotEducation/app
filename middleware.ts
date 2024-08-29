@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
+const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password", "/backoffice"];
 
 const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const token = request.cookies.get("token")?.value;

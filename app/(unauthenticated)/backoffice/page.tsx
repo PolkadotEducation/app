@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import OptionsInputComponent from "@/components/ui/options";
 
-import lessonService from "@/api/lessonService";
 import LessonRenderer from "@/components/ui/renderer";
+import { createLesson } from "@/api/lessonService";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -43,7 +43,7 @@ function MainPage() {
     };
 
     try {
-      const response = await lessonService.createLesson(lessonData);
+      const response = await createLesson(lessonData);
 
       if (response) {
         console.log("Lesson created successfully!");
