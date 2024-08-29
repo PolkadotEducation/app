@@ -22,6 +22,7 @@ export const authSignUp = async (credentials: {
   email: string;
   password: string;
   name: string;
+  company: string;
 }): Promise<SignUpResponse> => {
   const r = await serverPost<SignUpResponse>(SIGN_UP, credentials);
   if ((r as ServerAxiosError).message) throw r as ServerAxiosError;

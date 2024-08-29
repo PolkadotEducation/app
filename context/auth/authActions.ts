@@ -22,7 +22,7 @@ export const login = async (dispatch: React.Dispatch<any>, credentials: { email:
 
 export const signUp = async (
   dispatch: React.Dispatch<any>,
-  newUser: { email: string; password: string; name: string },
+  newUser: { email: string; password: string; name: string; company: string },
 ): Promise<boolean> => {
   dispatch({ type: "SIGN_UP_REQUEST" });
   try {
