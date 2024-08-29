@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
+const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password", "/backoffice"];
+const dynamicPublicPages = ["/lesson"];
 
 const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const token = request.cookies.get("token")?.value;
@@ -31,7 +32,8 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
 };
 
 export default function middleware(req: NextRequest) {
-  const isPublicPage = publicPages.includes(req.nextUrl.pathname);
+  const { pathname } = req.nextUrl;
+  const isPublicPage = publicPages.includes(pathname) || dynamicPublicPages.some((path) => pathname.startsWith(path));
 
   if (isPublicPage) {
     return;
