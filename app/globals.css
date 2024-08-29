@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap");
-@import '../node_modules/@mdxeditor/editor/dist/style.css';
+@import "../node_modules/@mdxeditor/editor/dist/style.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

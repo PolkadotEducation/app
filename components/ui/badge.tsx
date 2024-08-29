@@ -7,12 +7,7 @@ interface BadgeProps {
   children: ReactNode;
 }
 
-const Badge: React.FC<BadgeProps> = ({
-  children,
-  color = "bg-primary",
-  size = "medium",
-  className = "",
-}) => {
+const Badge: React.FC<BadgeProps> = ({ children, color = "bg-primary", size = "medium", className = "" }) => {
   const sizeClasses = {
     small: "text-xs px-2 py-0.5",
     medium: "text-sm px-3 py-1",

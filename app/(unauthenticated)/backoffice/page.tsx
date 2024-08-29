@@ -59,9 +59,7 @@ function MainPage() {
     setTitle(event.target.value);
   };
 
-  const handleDifficultyChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDifficulty(event.target.value);
   };
 
@@ -77,9 +75,7 @@ function MainPage() {
     setMarkdownBody(newMarkdownBody);
   };
 
-  const handleCorrectChoiceChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleCorrectChoiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCorrectChoice(event.target.value);
   };
 
@@ -93,10 +89,7 @@ function MainPage() {
       <>
         <header className="fixed w-full bg-primary text-white shadow-md p-4 flex justify-between items-center z-50">
           <h1 className="text-xl font-bold">You are previewing a lesson</h1>
-          <Button
-            className="bg-white text-primary font-semibold py-2 px-4"
-            onClick={() => handlePreview(false)}
-          >
+          <Button className="bg-white text-primary font-semibold py-2 px-4" onClick={() => handlePreview(false)}>
             Back to Editor
           </Button>
         </header>
@@ -165,12 +158,7 @@ function MainPage() {
         <Button type="submit" className="mb-4 xl:mb-20">
           Create Lesson
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="mb-4 ml-2 xl:mb-20"
-          onClick={() => handlePreview(true)}
-        >
+        <Button type="button" variant="outline" className="mb-4 ml-2 xl:mb-20" onClick={() => handlePreview(true)}>
           Preview
         </Button>
       </form>

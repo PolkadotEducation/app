@@ -14,9 +14,7 @@ class LessonService {
     this.api = api;
   }
 
-  public async createLesson(
-    lessonData: LessonType,
-  ): Promise<AxiosResponse<LessonResponse>> {
+  public async createLesson(lessonData: LessonType): Promise<AxiosResponse<LessonResponse>> {
     const response = await this.api.post<LessonResponse>(LESSON, lessonData);
     return response;
   }

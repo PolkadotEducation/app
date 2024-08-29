@@ -39,12 +39,8 @@ const ALL_PLUGINS = [
   linkPlugin(),
   linkDialogPlugin(),
   imagePlugin({
-    imageAutocompleteSuggestions: [
-      "https://via.placeholder.com/150",
-      "https://via.placeholder.com/150",
-    ],
-    imageUploadHandler: async () =>
-      Promise.resolve("https://picsum.photos/200/300"),
+    imageAutocompleteSuggestions: ["https://via.placeholder.com/150", "https://via.placeholder.com/150"],
+    imageUploadHandler: async () => Promise.resolve("https://picsum.photos/200/300"),
   }),
   tablePlugin(),
   thematicBreakPlugin(),
@@ -67,14 +63,7 @@ const ALL_PLUGINS = [
 ];
 
 const Editor: FC<EditorProps> = ({ markdown, onChange, editorRef = null }) => {
-  return (
-    <MDXEditor
-      ref={editorRef}
-      markdown={markdown}
-      plugins={ALL_PLUGINS}
-      onChange={onChange}
-    />
-  );
+  return <MDXEditor ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} onChange={onChange} />;
 };
 
 export default Editor;

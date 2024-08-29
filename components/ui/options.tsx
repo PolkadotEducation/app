@@ -4,9 +4,7 @@ interface OptionsInputComponentProps {
   onOptionsChange: (options: string[]) => void;
 }
 
-const OptionsInputComponent: React.FC<OptionsInputComponentProps> = ({
-  onOptionsChange,
-}) => {
+const OptionsInputComponent: React.FC<OptionsInputComponentProps> = ({ onOptionsChange }) => {
   const [option1, setOption1] = useState<string>("");
   const [option2, setOption2] = useState<string>("");
   const [option3, setOption3] = useState<string>("");
@@ -24,9 +22,7 @@ const OptionsInputComponent: React.FC<OptionsInputComponentProps> = ({
   };
 
   useEffect(() => {
-    const updatedOptions = [option1, option2, option3].filter(
-      (option) => option !== "",
-    );
+    const updatedOptions = [option1, option2, option3].filter((option) => option !== "");
     onOptionsChange(updatedOptions);
   }, [option1, option2, option3]);
 

@@ -13,16 +13,8 @@ interface LessonRendererProps {
   options: string[];
 }
 
-const LessonRenderer = ({
-  title,
-  difficulty,
-  markdown,
-  question,
-  options,
-}: LessonRendererProps) => {
-  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
-    null,
-  );
+const LessonRenderer = ({ title, difficulty, markdown, question, options }: LessonRendererProps) => {
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -40,9 +32,7 @@ const LessonRenderer = ({
       <div className="flex flex-col max-w-[696px] mdxeditor">
         <h1>
           {title ? title : "Title not set"}
-          <Badge className="align-middle ml-2">
-            {difficulty ? difficulty : "Difficulty not set"}
-          </Badge>
+          <Badge className="align-middle ml-2">{difficulty ? difficulty : "Difficulty not set"}</Badge>
         </h1>
         {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
         <h2>Challenge</h2>
@@ -51,12 +41,7 @@ const LessonRenderer = ({
           {options.map((option, index) => (
             <div key={index} className="mb-2">
               <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="options"
-                  value={option}
-                  className="mr-2"
-                />
+                <input type="radio" name="options" value={option} className="mr-2" />
                 {option}
               </label>
             </div>
