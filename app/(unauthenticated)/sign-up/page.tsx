@@ -15,6 +15,7 @@ const SignUpPage = () => {
   const [passwordRepeated, setPasswordRepeated] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const { signUp, state } = useAuth();
@@ -39,6 +40,10 @@ const SignUpPage = () => {
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setEmail(event.target.value);
+  };
+
+  const handleCompanyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length <= 50) setCompany(event.target.value);
   };
 
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -81,7 +86,7 @@ const SignUpPage = () => {
       return;
     }
 
-    const success = await signUp({ email, password, name });
+    const success = await signUp({ email, password, name, company });
 
     if (success) {
       const queryParams = new URLSearchParams({ email }).toString();
@@ -119,6 +124,13 @@ const SignUpPage = () => {
                 value={email}
                 onChange={handleEmailChange}
                 label={t("emailPlaceholder")}
+                additionalStyles="mb-5"
+              />
+              <InputFloatingLabel
+                id="companyInput"
+                value={company}
+                onChange={handleCompanyChange}
+                label={t("companyPlaceholder")}
                 additionalStyles="mb-5"
               />
               <InputFloatingLabel

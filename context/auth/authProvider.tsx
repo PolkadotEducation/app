@@ -8,7 +8,7 @@ import { login, signUp, signOut } from "./authActions";
 type AuthContextType = {
   state: AuthState;
   login: (credentials: { email: string; password: string }) => Promise<boolean>;
-  signUp: (newUser: { email: string; password: string; name: string }) => Promise<boolean>;
+  signUp: (newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
   signOut: () => void;
 };
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return await login(dispatch, credentials);
   };
 
-  const handleSignUp = async (newUser: { email: string; password: string; name: string }) => {
+  const handleSignUp = async (newUser: { email: string; password: string; name: string; company: string }) => {
     return await signUp(dispatch, newUser);
   };
 

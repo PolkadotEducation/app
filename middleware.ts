@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import Cookies from "js-cookie";
 
-const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password", "/backoffice"];
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  company: string;
+  isAdmin: boolean;
+}
+
+const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
 const dynamicPublicPages = ["/lesson"];
+const adminPages = ["/backoffice"];
 
 const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const token = request.cookies.get("token")?.value;
@@ -14,15 +24,24 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   }
 
   try {
-    const decodedToken = jwt.decode(token) as { expiresAt: number } | null;
+    const decodedToken = jwt.decode(token) as { expiresAt: number; user: User } | null;
 
     if (!decodedToken || !decodedToken.expiresAt) {
+      Cookies.remove("token");
       return NextResponse.redirect(loginUrl);
     }
 
     const currentTime = Math.floor(Date.now() / 1000);
     if (decodedToken.expiresAt < currentTime) {
+      Cookies.remove("token");
       return NextResponse.redirect(loginUrl);
+    }
+
+    if (adminPages.some((path) => request.nextUrl.pathname.startsWith(path))) {
+      if (decodedToken.user.isAdmin) {
+        return NextResponse.next();
+      }
+      return NextResponse.rewrite(new URL("/not-found", request.url));
     }
 
     return NextResponse.next();
