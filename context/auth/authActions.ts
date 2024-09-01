@@ -1,17 +1,19 @@
 import { GoogleOAuthPayload } from "@/api/actions/google";
 import { authLogin, authLoginWithGoogle, authSignUp } from "@/api/authService";
 import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+import { User } from "@/types/userTypes";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const login = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
   dispatch({ type: "LOGIN_REQUEST" });
   try {
     const data = await authLogin(credentials);
+    Cookies.set("token", data.jwt);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: { token: data.jwt },
     });
-    Cookies.set("token", data.jwt);
     dispatch({ type: "CLEAR_AUTH_ERROR" });
     return true;
   } catch (error) {
@@ -62,4 +64,17 @@ export const signUp = async (
 
 export const signOut = (dispatch: React.Dispatch<any>) => {
   dispatch({ type: "SIGN_OUT" });
+  Cookies.remove("token");
+};
+
+export const setUser = (dispatch: React.Dispatch<any>, token: string) => {
+  const decodedToken = jwt.decode(token) as { user: User } | null;
+  dispatch({
+    type: "SET_USER",
+    payload: { user: decodedToken?.user },
+  });
+  dispatch({
+    type: "SET_TOKEN",
+    payload: { token },
+  });
 };

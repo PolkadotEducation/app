@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import Cookies from "js-cookie";
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  company: string;
-  isAdmin: boolean;
-}
+import { User } from "./types/userTypes";
 
 const publicPages = ["/login", "/login/google", "/forgot-password", "/sign-up", "/reset-password"];
 const dynamicPublicPages = ["/lesson"];
