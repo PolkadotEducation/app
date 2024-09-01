@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Polkadot Education",
 };
 
-export default function UnauthenticatedLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

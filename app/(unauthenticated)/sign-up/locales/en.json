@@ -1,0 +1,17 @@
+{
+  "signUp": {
+    "title": "Ready to start?",
+    "subtitle": "Create your account in seconds and join the Polkadot Education community.",
+    "namePlaceholder": "Name",
+    "emailPlaceholder": "Email",
+    "companyPlaceholder": "Company",
+    "passwordPlaceholder": "Password",
+    "passwordRequirements": {
+      "uppercase": "At least 1 uppercase letter",
+      "number": "At least 1 number",
+      "characters": "At least 8 characters"
+    },
+    "repeatPasswordPlaceholder": "Repeat password",
+    "signUpButton": "Start learning"
+  }
+}
