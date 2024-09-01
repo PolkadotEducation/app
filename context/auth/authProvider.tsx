@@ -3,11 +3,13 @@
 import React, { createContext, useReducer, ReactNode } from "react";
 import { authReducer } from "./authReducer";
 import { AuthState } from "@/types/authTypes";
-import { login, signUp, signOut } from "./authActions";
+import { login, loginWithGoogle, signUp, signOut } from "./authActions";
+import { GoogleOAuthPayload } from "@/api/actions/google";
 
 type AuthContextType = {
   state: AuthState;
   login: (credentials: { email: string; password: string }) => Promise<boolean>;
+  loginWithGoogle: (credentials: GoogleOAuthPayload) => Promise<boolean>;
   signUp: (newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
   signOut: () => void;
 };
@@ -29,6 +31,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return await login(dispatch, credentials);
   };
 
+  const handleloginWithgoogle = async (credentials: GoogleOAuthPayload) => {
+    return await loginWithGoogle(dispatch, credentials);
+  };
+
   const handleSignUp = async (newUser: { email: string; password: string; name: string; company: string }) => {
     return await signUp(dispatch, newUser);
   };
@@ -40,6 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value: AuthContextType = {
     state,
     login: handlelogin,
+    loginWithGoogle: handleloginWithgoogle,
     signUp: handleSignUp,
     signOut: handleSignOut,
   };

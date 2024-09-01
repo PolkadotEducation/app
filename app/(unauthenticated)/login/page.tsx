@@ -73,6 +73,9 @@ const LoginPage = () => {
               <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
                 {t("forgotPassword")}
               </Button>
+              <Button onClick={() => router.push("/login/google")} className="w-full mb-2 xl:mb-2">
+                {"Google"}
+              </Button>
               <Button type="submit" className="w-full mb-4 xl:mb-20">
                 {t("signInButton")}
               </Button>

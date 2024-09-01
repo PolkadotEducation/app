@@ -10,7 +10,7 @@ interface User {
   isAdmin: boolean;
 }
 
-const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
+const publicPages = ["/login", "/login/google", "/forgot-password", "/sign-up", "/reset-password"];
 const dynamicPublicPages = ["/lesson"];
 const adminPages = ["/backoffice"];
 

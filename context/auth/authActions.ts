@@ -1,4 +1,5 @@
-import { authLogin, authSignUp } from "@/api/authService";
+import { GoogleOAuthPayload } from "@/api/actions/google";
+import { authLogin, authLoginWithGoogle, authSignUp } from "@/api/authService";
 import Cookies from "js-cookie";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -6,6 +7,25 @@ export const login = async (dispatch: React.Dispatch<any>, credentials: { email:
   dispatch({ type: "LOGIN_REQUEST" });
   try {
     const data = await authLogin(credentials);
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: { token: data.jwt },
+    });
+    Cookies.set("token", data.jwt);
+    dispatch({ type: "CLEAR_AUTH_ERROR" });
+    return true;
+  } catch (error) {
+    const errorMessage = (error as Error).message;
+    dispatch({ type: "LOGIN_FAILURE", payload: { error: errorMessage } });
+    return false;
+  }
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const loginWithGoogle = async (dispatch: React.Dispatch<any>, credentials: GoogleOAuthPayload) => {
+  dispatch({ type: "LOGIN_REQUEST" });
+  try {
+    const data = await authLoginWithGoogle(credentials);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: { token: data.jwt },
