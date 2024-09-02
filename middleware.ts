@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import Cookies from "js-cookie";
 import { User } from "./types/userTypes";
 
-const publicPages = ["/login", "/forgot-password", "/sign-up", "/reset-password"];
+const publicPages = ["/login", "/login/google", "/forgot-password", "/sign-up", "/reset-password"];
 const dynamicPublicPages = ["/lesson"];
 const adminPages = ["/backoffice"];
 
