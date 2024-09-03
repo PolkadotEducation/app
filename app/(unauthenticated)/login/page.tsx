@@ -3,18 +3,21 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { webinar } from "@/public/assets/images";
+import google from "@/public/assets/icons/google.svg";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
+import { serverGoogleOAuthURL, serverGoogleOAuthPayload, GoogleOAuthPayload } from "@/api/actions/google";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const t = useTranslations("login");
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setEmail(event.target.value);
@@ -26,7 +29,9 @@ const LoginPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsAuthenticating(true);
     const success = await login({ email, password });
+    setIsAuthenticating(false);
     if (success) {
       router.push("/");
     }
@@ -35,6 +40,47 @@ const LoginPage = () => {
   const handleForgotPassword = (event: React.MouseEvent) => {
     event.preventDefault();
     router.push("/forgot-password");
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setIsAuthenticating(true);
+      const url = await serverGoogleOAuthURL();
+      const popup = window.open(url, "GoogleOAuth", "width=500,height=600");
+
+      const interval = setInterval(async () => {
+        try {
+          if (popup?.closed) {
+            clearInterval(interval);
+            setIsAuthenticating(false);
+          } else {
+            const popupUrl = popup?.location.href;
+            if (popupUrl && popupUrl.includes("code=")) {
+              const code = new URL(popupUrl).searchParams.get("code");
+              popup.close();
+              clearInterval(interval);
+
+              if (code) {
+                const payload: GoogleOAuthPayload = await serverGoogleOAuthPayload(code);
+                if (payload.email) {
+                  const success = await loginWithGoogle(payload);
+                  if (success) {
+                    router.push("/");
+                  } else {
+                    router.push("/login");
+                  }
+                }
+              }
+            }
+          }
+        } catch {
+          console.log("Google Sign-In Error");
+        }
+      }, 500);
+    } catch (error) {
+      setIsAuthenticating(false);
+      console.error("Error during Google authentication", error);
+    }
   };
 
   return (
@@ -70,17 +116,23 @@ const LoginPage = () => {
                 label={t("passwordPlaceholder")}
                 additionalStyles="mb-4 xl:mb-6"
               />
-              <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
+              <Button type="button" onClick={handleForgotPassword} className="mb-6" variant="link">
                 {t("forgotPassword")}
               </Button>
-              <Button onClick={() => router.push("/login/google")} className="w-full mb-2 xl:mb-2">
-                {"Google"}
+              <Button type="submit" className="w-full mb-4 xl:mb-6" disabled={isAuthenticating}>
+                {t(isAuthenticating ? "loading" : "signInButton")}
               </Button>
-              <Button type="submit" className="w-full mb-4 xl:mb-20">
-                {t("signInButton")}
-              </Button>
-              <Button type="button" onClick={() => router.push("/sign-up")} variant="link">
+              <Button type="button" onClick={() => router.push("/sign-up")} variant="link" className="mb-4 xl:mb-6">
                 {t("requestAccount")}
+              </Button>
+              <Button
+                onClick={handleGoogleLogin}
+                disabled={isAuthenticating}
+                className="w-full bg-transparent hover:bg-transparent
+                hover:opacity-70 text-[#4D4D4D] hover:text-[#4D4D4D] border-[#E0E0E0] border-[1px]"
+              >
+                <Image unoptimized src={google} width={20} height={20} className="mr-2" alt="Google Icon" />
+                {t(isAuthenticating ? "loading" : "google")}
               </Button>
             </div>
           </form>
