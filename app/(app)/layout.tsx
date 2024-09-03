@@ -26,7 +26,7 @@ export default function AppLayout({
     <main>
       <div className="flex flex-col items-center bg-white">
         <AppHeader />
-        <div className="flex justify-center max-w-[1440px] w-full">{children}</div>
+        <div className="flex justify-center max-w-7xl w-full">{children}</div>
       </div>
     </main>
   );
