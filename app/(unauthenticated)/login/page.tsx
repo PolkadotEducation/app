@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { webinar } from "@/public/assets/images";
 import google from "@/public/assets/icons/google.svg";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
@@ -16,8 +17,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const t = useTranslations("login");
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle, state, clearAuthError } = useAuth();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const searchParams = useSearchParams();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setEmail(event.target.value);
@@ -46,42 +48,28 @@ const LoginPage = () => {
     try {
       setIsAuthenticating(true);
       const url = await serverGoogleOAuthURL();
-      const popup = window.open(url, "GoogleOAuth", "width=500,height=600");
-
-      const interval = setInterval(async () => {
-        try {
-          if (popup?.closed) {
-            clearInterval(interval);
-            setIsAuthenticating(false);
-          } else {
-            const popupUrl = popup?.location.href;
-            if (popupUrl && popupUrl.includes("code=")) {
-              const code = new URL(popupUrl).searchParams.get("code");
-              popup.close();
-              clearInterval(interval);
-
-              if (code) {
-                const payload: GoogleOAuthPayload = await serverGoogleOAuthPayload(code);
-                if (payload.email) {
-                  const success = await loginWithGoogle(payload);
-                  if (success) {
-                    router.push("/");
-                  } else {
-                    router.push("/login");
-                  }
-                }
-              }
-            }
-          }
-        } catch {
-          console.log("Google Sign-In Error");
-        }
-      }, 500);
+      router.push(url);
     } catch (error) {
       setIsAuthenticating(false);
       console.error("Error during Google authentication", error);
     }
   };
+
+  useEffect(() => {
+    clearAuthError();
+    const code = searchParams.get("code");
+    if (code) {
+      (async () => {
+        const payload: GoogleOAuthPayload = await serverGoogleOAuthPayload(code);
+        if (payload.email) {
+          setIsAuthenticating(true);
+          const success = await loginWithGoogle(payload);
+          setIsAuthenticating(false);
+          if (success) router.push("/");
+        }
+      })();
+    }
+  }, [searchParams, router]);
 
   return (
     <main className="flex flex-col xl:flex-row xl:justify-evenly w-full">
@@ -122,6 +110,7 @@ const LoginPage = () => {
               <Button type="submit" className="w-full mb-4 xl:mb-6" disabled={isAuthenticating}>
                 {t(isAuthenticating ? "loading" : "signInButton")}
               </Button>
+              {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
               <Button type="button" onClick={() => router.push("/sign-up")} variant="link" className="mb-4 xl:mb-6">
                 {t("requestAccount")}
               </Button>
@@ -148,4 +137,10 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default function SuspenseLogin() {
+  return (
+    <Suspense>
+      <LoginPage />
+    </Suspense>
+  );
+}

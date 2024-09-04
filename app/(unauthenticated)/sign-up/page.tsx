@@ -18,7 +18,7 @@ const SignUpPage = () => {
   const [company, setCompany] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { signUp, state } = useAuth();
+  const { signUp, state, clearAuthError } = useAuth();
   const t = useTranslations("signUp");
 
   const reset = () => {
@@ -26,6 +26,7 @@ const SignUpPage = () => {
     setPasswordRepeated("");
     setEmail("");
     setName("");
+    clearAuthError();
   };
 
   useEffect(() => {

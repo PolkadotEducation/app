@@ -14,6 +14,7 @@ type AuthContextType = {
   signUp: (newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
   signOut: () => void;
   setUserByToken: (token: string) => void;
+  clearAuthError: () => void;
 };
 
 export const initialAuthState: AuthState = {
@@ -50,6 +51,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return setUser(dispatch, token);
   };
 
+  const handleClearAuthError = () => {
+    dispatch({ type: "CLEAR_AUTH_ERROR" });
+  };
+
   const value: AuthContextType = {
     state,
     login: handlelogin,
@@ -57,6 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signUp: handleSignUp,
     signOut: handleSignOut,
     setUserByToken: handleSetUserByToken,
+    clearAuthError: handleClearAuthError,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

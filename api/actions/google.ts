@@ -11,7 +11,7 @@ export type GoogleOAuthPayload = {
 const client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  `${process.env.NEXT_PUBLIC_BASE_URL}/login/google`,
+  `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
 );
 
 export async function serverGoogleOAuthURL(): Promise<string> {
