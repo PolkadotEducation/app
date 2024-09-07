@@ -1,5 +1,5 @@
 import { GoogleOAuthPayload } from "@/api/actions/google";
-import { authLogin, authLoginWithGoogle, authSignUp } from "@/api/authService";
+import { authLogin, authLoginWithGoogle, authSignUp, getProfile } from "@/api/authService";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { User } from "@/types/userTypes";
@@ -67,14 +67,21 @@ export const signOut = (dispatch: React.Dispatch<any>) => {
   Cookies.remove("token");
 };
 
-export const setUser = (dispatch: React.Dispatch<any>, token: string) => {
-  const decodedToken = jwt.decode(token) as { user: User } | null;
-  dispatch({
-    type: "SET_USER",
-    payload: { user: decodedToken?.user },
-  });
-  dispatch({
-    type: "SET_TOKEN",
-    payload: { token },
-  });
+export const setUser = async (dispatch: React.Dispatch<any>, token: string): Promise<boolean> => {
+  try {
+    const decodedToken = jwt.decode(token) as { user: User } | null;
+    const profile = await getProfile(decodedToken?.user.id || "");
+    dispatch({
+      type: "SET_USER",
+      payload: { user: profile },
+    });
+    dispatch({
+      type: "SET_TOKEN",
+      payload: { token },
+    });
+    return true;
+  } catch {
+    signOut(dispatch);
+    return false;
+  }
 };

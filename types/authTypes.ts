@@ -19,3 +19,14 @@ export type AuthAction =
   | { type: "SIGN_OUT" }
   | { type: "SET_USER"; payload: { user: User } }
   | { type: "SET_TOKEN"; payload: { token: string } };
+
+export type SignUpResponse = {
+  userId?: string;
+  email?: string;
+  name?: string;
+  lastActivity?: string;
+};
+
+export type LoginResponse = {
+  jwt: string;
+};
