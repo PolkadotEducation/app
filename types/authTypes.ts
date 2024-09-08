@@ -18,7 +18,8 @@ export type AuthAction =
   | { type: "CLEAR_AUTH_ERROR" }
   | { type: "SIGN_OUT" }
   | { type: "SET_USER"; payload: { user: User } }
-  | { type: "SET_TOKEN"; payload: { token: string } };
+  | { type: "SET_TOKEN"; payload: { token: string } }
+  | { type: "SET_LOADING"; payload: { loading: boolean } };
 
 export type SignUpResponse = {
   userId?: string;
