@@ -46,6 +46,8 @@ function MainPage() {
       const response = await createLesson(lessonData);
 
       if (response) {
+        // this will be removed soon
+        // eslint-disable-next-line no-console
         console.log("Lesson created successfully!");
       } else {
         console.error("Failed to create lesson");

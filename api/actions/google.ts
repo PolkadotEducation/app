@@ -22,7 +22,7 @@ export async function serverGoogleOAuthURL(): Promise<string> {
     });
     return url;
   } catch (error) {
-    console.log(`[ERROR][serverGoogleOAuth]: ${error}`);
+    console.error(`[ERROR][serverGoogleOAuth]: ${error}`);
     return "";
   }
 }
@@ -44,7 +44,7 @@ export async function serverGoogleOAuthPayload(code: string): Promise<GoogleOAut
       };
     }
   } catch (error) {
-    console.log(`[ERROR][serverGoogleOAuthPayload]: ${error}`);
+    console.error(`[ERROR][serverGoogleOAuthPayload]: ${error}`);
   }
   return {
     email: "error",
