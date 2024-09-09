@@ -82,8 +82,6 @@ function MainPage() {
     window.scrollTo({ top: 0, behavior: "instant" });
   };
 
-  console.info(choices);
-
   if (showPreview) {
     return (
       <>
