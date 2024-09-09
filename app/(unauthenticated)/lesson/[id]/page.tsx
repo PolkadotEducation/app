@@ -42,7 +42,7 @@ const LessonPage = () => {
         title={lesson.title}
         difficulty={lesson.difficulty}
         question={lesson.challenge.question}
-        options={lesson.challenge.choices}
+        choices={lesson.challenge.choices}
         markdown={lesson.body}
       />
     </div>
