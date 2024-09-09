@@ -10,10 +10,10 @@ interface LessonRendererProps {
   difficulty: string;
   markdown: string;
   question: string;
-  options: string[];
+  choices: string[];
 }
 
-const LessonRenderer = ({ title, difficulty, markdown, question, options }: LessonRendererProps) => {
+const LessonRenderer = ({ title, difficulty, markdown, question, choices }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   useEffect(() => {
@@ -38,10 +38,10 @@ const LessonRenderer = ({ title, difficulty, markdown, question, options }: Less
         <h2>Challenge</h2>
         <h3>{question ? question : "Challenge not set"}</h3>
         <div>
-          {options.map((option, index) => (
+          {choices.map((option, index) => (
             <div key={index} className="mb-2">
               <label className="flex items-center">
-                <input type="radio" name="options" value={option} className="mr-2" />
+                <input type="radio" name="choices" value={option} className="mr-2" />
                 {option}
               </label>
             </div>
