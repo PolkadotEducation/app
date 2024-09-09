@@ -61,11 +61,15 @@ const AppHeader = () => {
             <DropdownMenuSeparator />
             {isAdmin && (
               <DropdownMenuItem>
-                <Link href="/backoffice">Backoffice</Link>
+                <Link href="/backoffice" className="w-full">
+                  Backoffice
+                </Link>
               </DropdownMenuItem>
             )}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={signOut} className="cursor-pointer">
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
