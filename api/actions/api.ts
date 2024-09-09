@@ -53,7 +53,6 @@ export async function serverPost<T>(
   config?: AxiosRequestConfig,
 ): Promise<T | ServerAxiosError> {
   try {
-    console.info(url, data, config);
     const response = await axiosInstance.post<T>(url, data, config);
     return response.data;
   } catch (error) {

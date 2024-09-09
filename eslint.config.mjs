@@ -12,10 +12,21 @@ export default [
   pluginReact.configs.flat.recommended,
   eslintPluginPrettierRecommended,
   {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
       "max-len": ["warn", { code: 120 }],
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [2, { extensions: [".jsx", ".tsx"] }],
+      "no-console": [
+        "error",
+        {
+          allow: ["error"],
+        },
+      ],
     },
   },
   {
