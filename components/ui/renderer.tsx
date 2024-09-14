@@ -30,10 +30,10 @@ const LessonRenderer = ({ title, difficulty, markdown, question, options }: Less
   return (
     <main className="w-full flex justify-center">
       <div className="flex flex-col max-w-[696px] mdxeditor">
-        <h1>
+        <h6>
           {title ? title : "Title not set"}
           <Badge className="align-middle ml-2">{difficulty ? difficulty : "Difficulty not set"}</Badge>
-        </h1>
+        </h6>
         {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
         <h2>Challenge</h2>
         <h3>{question ? question : "Challenge not set"}</h3>
