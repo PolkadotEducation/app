@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputFloatingLabel from "./inputFloatingLabel";
 
 interface ChoicesInputComponentProps {
-  onChoicesChange: (choices: string[], correctChoice: number) => void;
+  onChoicesChange: (_choices: string[], _correctChoice: number) => void;
   initialChoices: Array<string>;
   initialCorrectChoice: number;
 }
@@ -28,8 +28,6 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
   useEffect(() => {
     onChoicesChange(choices, correctChoice);
   }, [choices, correctChoice]);
-
-  console.info(choices);
 
   return (
     <div className="flex flex-col">
