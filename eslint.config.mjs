@@ -22,7 +22,6 @@ export default [
       "@typescript-eslint": tseslint,
     },
     rules: {
-      "max-len": ["warn", { code: 120 }],
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [2, { extensions: [".jsx", ".tsx"] }],
       "no-console": [
@@ -31,6 +30,7 @@ export default [
           allow: ["error"],
         },
       ],
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     },
   },
   {

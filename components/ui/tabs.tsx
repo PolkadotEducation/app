@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/prop-types */
 "use client";
 
 import * as React from "react";
