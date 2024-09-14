@@ -28,10 +28,10 @@ const EmailSentPage = () => {
           <div
             className="flex flex-col w-fit-content px-4
             xl:py-10 xl:px-12 xl:border border-solid
-            border-[#E0E0E0] rounded-3xl items-center"
+            border-border-gray rounded-3xl items-center"
           >
             <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
-            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+            <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
             <p className="mb-8 max-w-[330px] text-center">{t("instructionMessage")}</p>
             <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
               {t("returnToLogin")}

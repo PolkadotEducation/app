@@ -16,13 +16,13 @@ const Breadcrumb = ({ routes }: BreadcrumbProps) => {
           return (
             <li key={route.name} className="flex items-center">
               {isLast ? (
-                <span className="text-primary text-[12px] xl:text-[16px]">{route.name}</span>
+                <span className="text-primary body1">{route.name}</span>
               ) : (
-                <Link href={route.href || "#"} className="text-[#4D4D4D] hover:underline text-[12px] xl:text-[16px]">
+                <Link href={route.href || "#"} className="text-text-secondary hover:underline body1">
                   {route.name}
                 </Link>
               )}
-              {!isLast && <span className="mx-2 text-[#4D4D4D]">/</span>}
+              {!isLast && <span className="mx-2 text-text-secondary">/</span>}
             </li>
           );
         })}

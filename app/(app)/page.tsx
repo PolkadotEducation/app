@@ -18,7 +18,7 @@ const Home = () => {
             alt="Maintenance"
             className="block xl:hidden w-[244px] h-[244px] self-center mb-4"
           />
-          <h5 className="text-2xl text-[#1A1A1A] xl:font-bold xl:text-[34px] unbound-font mb-4">{t("title")}</h5>
+          <h4 className="mb-4">{t("title")}</h4>
           <p>{t("description")}</p>
         </div>
         <Image unoptimized src={maintenanceDesktop} alt="Maintenance" className="hidden xl:block w-[520px] h-[436px]" />
