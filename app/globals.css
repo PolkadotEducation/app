@@ -31,7 +31,7 @@
     --text-label: 0 0% 50%;
     --text-disabled: 0 0% 65%;
     --error: 9 100% 37%;
-    --border-gray: 0 0% 88%
+    --border-gray: 0 0% 88%;
   }
 }
 
@@ -52,23 +52,23 @@
   h1 {
     @apply font-unbounded font-light text-h1;
   }
-  
+
   h2 {
     @apply font-unbounded font-light text-h2;
   }
-  
+
   h3 {
     @apply font-unbounded font-normal text-h3;
   }
-  
+
   h4 {
     @apply font-unbounded font-bold text-h4;
   }
-  
+
   h5 {
     @apply font-unbounded font-normal text-h5;
   }
-  
+
   h6 {
     @apply font-unbounded font-medium text-h6;
   }
@@ -76,7 +76,7 @@
   .body1 {
     @apply font-montserrat font-normal text-body1;
   }
-  
+
   .body2 {
     @apply font-montserrat font-normal text-body2;
   }
