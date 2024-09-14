@@ -13,7 +13,7 @@ type AuthContextType = {
   loginWithGoogle: (credentials: GoogleOAuthPayload) => Promise<boolean>;
   signUp: (newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
   signOut: () => void;
-  setUserByToken: (token: string) => void;
+  setUserByToken: (token: string) => Promise<boolean>;
   clearAuthError: () => void;
 };
 
@@ -47,8 +47,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/login");
   };
 
-  const handleSetUserByToken = (token: string) => {
-    return setUser(dispatch, token);
+  const handleSetUserByToken = async (token: string) => {
+    return await setUser(dispatch, token);
   };
 
   const handleClearAuthError = () => {

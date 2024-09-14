@@ -48,6 +48,11 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
         ...state,
         userToken: action.payload.token,
       };
+    case "SET_LOADING":
+      return {
+        ...state,
+        isLoading: action.payload.loading,
+      };
     default:
       return state;
   }

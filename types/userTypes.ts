@@ -4,4 +4,5 @@ export type User = {
   name: string;
   company: string;
   isAdmin: boolean;
+  picture?: string;
 };
