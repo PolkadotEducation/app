@@ -9,11 +9,11 @@ import { useRouter } from "next/navigation";
 
 type AuthContextType = {
   state: AuthState;
-  login: (credentials: { email: string; password: string }) => Promise<boolean>;
-  loginWithGoogle: (credentials: GoogleOAuthPayload) => Promise<boolean>;
-  signUp: (newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
+  login: (_credentials: { email: string; password: string }) => Promise<boolean>;
+  loginWithGoogle: (_credentials: GoogleOAuthPayload) => Promise<boolean>;
+  signUp: (_newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
   signOut: () => void;
-  setUserByToken: (token: string) => Promise<boolean>;
+  setUserByToken: (_token: string) => Promise<boolean>;
   clearAuthError: () => void;
 };
 
