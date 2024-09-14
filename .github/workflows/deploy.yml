@@ -47,8 +47,8 @@ jobs:
       - name: Format
         run: yarn format
 
-      # - name: Lint
-      #   run: yarn lint
+      - name: Lint
+        run: yarn lint
 
       - name: Build
         run: yarn build
