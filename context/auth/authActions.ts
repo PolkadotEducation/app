@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { User } from "@/types/userTypes";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const login = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
   dispatch({ type: "LOGIN_REQUEST" });
   try {
@@ -23,7 +22,6 @@ export const login = async (dispatch: React.Dispatch<any>, credentials: { email:
   }
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const loginWithGoogle = async (dispatch: React.Dispatch<any>, credentials: GoogleOAuthPayload) => {
   dispatch({ type: "LOGIN_REQUEST" });
   try {

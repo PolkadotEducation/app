@@ -26,6 +26,12 @@
     --input: 0, 0%, 79%;
     --ring: 328 100% 45%;
     --radius: 4px;
+    --text-primary: 0 0% 10%;
+    --text-secondary: 0 0% 30%;
+    --text-label: 0 0% 50%;
+    --text-disabled: 0 0% 65%;
+    --error: 9 100% 37%;
+    --border-gray: 0 0% 88%;
   }
 }
 
@@ -34,12 +40,84 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-text-primary;
   }
 }
 
 .unbound-font {
   font-family: "Unbounded", sans-serif;
+}
+
+@layer base {
+  h1 {
+    @apply font-unbounded font-light text-h1;
+  }
+
+  h2 {
+    @apply font-unbounded font-light text-h2;
+  }
+
+  h3 {
+    @apply font-unbounded font-normal text-h3;
+  }
+
+  h4 {
+    @apply font-unbounded font-bold text-h4;
+  }
+
+  h5 {
+    @apply font-unbounded font-normal text-h5;
+  }
+
+  h6 {
+    @apply font-unbounded font-medium text-h6;
+  }
+
+  .body1 {
+    @apply font-montserrat font-normal text-body1;
+  }
+
+  .body2 {
+    @apply font-montserrat font-normal text-body2;
+  }
+
+  .subtitle1 {
+    @apply font-montserrat font-normal text-subtitle1;
+  }
+
+  .subtitle2 {
+    @apply font-montserrat font-medium text-subtitle2;
+  }
+
+  .overline {
+    @apply font-unbounded font-normal text-overline uppercase;
+  }
+
+  .caption {
+    @apply font-montserrat font-normal text-caption;
+  }
+
+  @media (max-width: 767px) {
+    h1 {
+      @apply text-h3 font-unbounded font-normal;
+    }
+
+    h2 {
+      @apply text-h4 font-unbounded font-bold;
+    }
+
+    h4 {
+      @apply text-h5 font-unbounded font-normal;
+    }
+
+    h6 {
+      @apply text-body1 font-montserrat font-bold;
+    }
+
+    .body1 {
+      @apply text-body2 font-montserrat font-normal;
+    }
+  }
 }
 
 .mdxeditor h1,

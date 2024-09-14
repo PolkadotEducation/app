@@ -31,13 +31,13 @@ const SignUpEmailSentInnerPage = () => {
         <div className="flex flex-col justify-center xl:mt-40 mt-10">
           <div
             className="flex flex-col w-fit-content px-4 xl:py-10
-            xl:px-12 xl:border border-solid border-[#E0E0E0]
+            xl:px-12 xl:border border-solid border-border-gray
             rounded-3xl items-center text-center"
           >
-            <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+            <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
             <p className="mb-20 max-w-[330px] text-center">
               {t("instructionMessageFirstPart")}
-              <span className="text-[#E6007A]">{email}</span>
+              <span className="text-primary">{email}</span>
               {t("instructionMessageSecondPart")}
             </p>
             <Button type="button" onClick={backToLoginScreen} variant="outline" className="w-full">

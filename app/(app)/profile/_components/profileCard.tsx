@@ -25,7 +25,7 @@ const ProfileCard = () => {
   return (
     <div
       className="bg-white flex flex-col max-w-[935px] w-full xl:flex-row
-      border-[1px] border-[#E0E0E0] rounded-[8px] p-6 items-center"
+      border-[1px] border-border-gray rounded-[8px] p-6 items-center"
     >
       <div className="flex flex-col xl:flex-row items-center xl:mr-16">
         {picture ? (
@@ -46,20 +46,15 @@ const ProfileCard = () => {
           </div>
         )}
         <div className="flex flex-col mt-4 xl:mt-0 xl:ml-6 w-full items-center xl:items-start truncate">
-          <h5
-            className="unbound-font text-[20px] font-medium text-[#1A1A1A]
-            xl:font-normal xl:text-[24px] mb-2 truncate"
-          >
-            {name}
-          </h5>
-          <p className="text-[#4D4D4D] text-[16px] mb-4 truncate">{email}</p>
+          <h5 className="mb-2 truncate">{name}</h5>
+          <p className="text-text-secondary body1 mb-4 truncate">{email}</p>
           <Button variant="outline" onClick={() => router.push("/profile/edit")}>
             {t("editProfile")}
           </Button>
         </div>
       </div>
       <div className="flex flex-col mt-[34px] w-full xl:w-6/12 xl:mt-0">
-        <h5 className="unbound-font text-[20px] xl:text-[24px] mb-[11px]">{t("level", { level })}</h5>
+        <h5 className="mb-[11px]">{t("level", { level })}</h5>
         <Progress value={progress} />
       </div>
     </div>

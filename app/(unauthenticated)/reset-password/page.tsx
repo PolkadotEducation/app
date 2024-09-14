@@ -59,9 +59,9 @@ const ResetPasswordPage = () => {
           <form onSubmit={handleSubmit}>
             <div
               className="flex flex-col w-full px-4 xl:py-10 xl:px-12
-              xl:border border-solid border-[#E0E0E0] rounded-3xl items-center"
+              xl:border border-solid border-border-gray rounded-3xl items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font">{t("title")}</h4>
+              <h4 className="mb-4">{t("title")}</h4>
               <p className="mb-8">{t("instructionMessage")}</p>
               <InputFloatingLabel
                 type="password"
@@ -81,7 +81,7 @@ const ResetPasswordPage = () => {
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
               <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
-                <p className="text-xs text-[#BF2600]">{errorMessage}</p>
+                <p className="text-xs text-error">{errorMessage}</p>
               </div>
               <Button type="submit" className="w-full">
                 {t("resetButton")}
