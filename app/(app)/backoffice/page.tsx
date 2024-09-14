@@ -90,7 +90,7 @@ function MainPage() {
     return (
       <>
         <header className="fixed w-full bg-primary text-white shadow-md p-4 flex justify-between items-center z-50">
-          <h1 className="text-xl font-bold">You are previewing a lesson</h1>
+          <h1>You are previewing a lesson</h1>
           <Button className="bg-white text-primary font-semibold py-2 px-4" onClick={() => handlePreview(false)}>
             Back to Editor
           </Button>
@@ -130,7 +130,7 @@ function MainPage() {
           />
         </div>
         <div className="flex justify-between mb-4">
-          <div className="border rounded-[7px] border-[#e0e0e0] w-full">
+          <div className="border rounded-[7px] border-border-gray w-full">
             <Suspense fallback={null}>
               <Editor markdown={markdownBody} onChange={handleEditorChange} />
             </Suspense>

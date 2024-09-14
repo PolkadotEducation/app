@@ -83,10 +83,10 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit}>
             <div
               className="flex flex-col w-full xl:py-10 xl:px-12
-              xl:border border-solid border-[#E0E0E0] rounded-3xl
+              xl:border border-solid border-border-gray rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font">{t("title")}</h4>
+              <h4 className="mb-4">{t("title")}</h4>
               <p className="mb-8 max-w-[330px] text-center">{t("welcomeMessage")}</p>
               <InputFloatingLabel
                 type="email"
@@ -110,7 +110,7 @@ const LoginPage = () => {
               <Button type="submit" className="w-full mb-4 xl:mb-6" disabled={isAuthenticating}>
                 {t(isAuthenticating ? "loading" : "signInButton")}
               </Button>
-              {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
+              {state.error && <p className="text-xs text-error mt-3">{state.error}</p>}
               <Button type="button" onClick={() => router.push("/sign-up")} variant="link" className="mb-4 xl:mb-6">
                 {t("requestAccount")}
               </Button>
@@ -118,7 +118,7 @@ const LoginPage = () => {
                 onClick={handleGoogleLogin}
                 disabled={isAuthenticating}
                 className="w-full bg-transparent hover:bg-transparent
-                hover:opacity-70 text-[#4D4D4D] hover:text-[#4D4D4D] border-[#E0E0E0] border-[1px]"
+                hover:opacity-70 text-text-secondary hover:text-text-secondary border-border-gray border-[1px]"
               >
                 <Image unoptimized src={google} width={20} height={20} className="mr-2" alt="Google Icon" />
                 {t(isAuthenticating ? "loading" : "google")}

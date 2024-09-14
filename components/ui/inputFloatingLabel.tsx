@@ -23,14 +23,14 @@ const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles,
 
   const handleInputLabelStyles = () => {
     if (isFocused) {
-      return `-top-2 text-xs ${error ? "text-[#BF2600]" : "text-[#E6007A]"}`;
+      return `-top-2 text-xs ${error ? "text-error" : "text-primary"}`;
     }
 
     if (value) {
-      return `-top-2 text-xs ${error ? "text-[#BF2600]" : "text-[#1A1A1A]"}`;
+      return `-top-2 text-xs ${error ? "text-error" : "text-text-primary"}`;
     }
 
-    return `top-2 text-base ${error ? "text-[#BF2600]" : "text-input"}`;
+    return `top-2 text-base ${error ? "text-error" : "text-input"}`;
   };
 
   return (
@@ -40,7 +40,7 @@ const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles,
         id={id}
         value={value}
         className={`py-2 px-4 ${additionalStyles} ${isFocused ? "border-transparent" : ""} ${
-          error ? "text-[#BF2600] border-[#BF2600]" : ""
+          error ? "text-error border-error" : ""
         }`}
         onFocus={handleFocus}
         onBlur={handleBlur}

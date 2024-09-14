@@ -35,7 +35,7 @@ const AppHeader = () => {
   }, [Object.keys(state.userInfo || {}).length]);
 
   return (
-    <div className="w-full flex justify-center bg-[#E6007A]">
+    <div className="w-full flex justify-center bg-primary">
       <div className="w-full max-w-7xl h-16 flex justify-between px-6 items-center">
         <Logo width={199} height={19} pathToRedirect="/" theme="dark" />
         <DropdownMenu>

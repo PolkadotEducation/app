@@ -53,12 +53,10 @@ const EditProfilePage = () => {
       <div className="mb-0 xl:mb-2">
         <Breadcrumb routes={BREADCRUMB_ROUTES} />
       </div>
-      <h1 className="unbound-font text-[20px] font-medium text-black xl:text-[34px] xl:font-bold xl:mb-6 mb-4">
-        {t("editProfile")}
-      </h1>
+      <h4 className="xl:mb-6 mb-4">{t("editProfile")}</h4>
       <div
         className="flex flex-col items-center px-6 pt-6 xl:pb-[41px]
-        pb-[13px] rounded-[8px] border-[#E0E0E0] border-[1px]"
+        pb-[13px] rounded-[8px] border-border-gray border-[1px]"
       >
         {!isLoading ? (
           <label htmlFor="image-upload" className="relative cursor-pointer group">
@@ -108,7 +106,7 @@ const EditProfilePage = () => {
           <Input value={inputName} onChange={(e) => setInputName(e.target.value)} />
           <Input value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} />
         </div>
-        <div className="flex w-full justify-end pt-[10px] xl:pt-6 border-t-[#E0E0E0] border-t-[1px]">
+        <div className="flex w-full justify-end pt-[10px] xl:pt-6 border-t-border-gray border-t-[1px]">
           <Button variant="outline" className="mr-4">
             {t("cancel")}
           </Button>
