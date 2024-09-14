@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 interface OptionsInputComponentProps {
-  onOptionsChange: (options: string[]) => void;
+  onOptionsChange: (_options: string[]) => void;
 }
 
 const OptionsInputComponent: React.FC<OptionsInputComponentProps> = ({ onOptionsChange }) => {
