@@ -4,8 +4,7 @@ import dynamic from "next/dynamic";
 import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import OptionsInputComponent from "@/components/ui/options";
-
+import ChoicesInputComponent from "@/components/ui/choices";
 import LessonRenderer from "@/components/ui/renderer";
 import { createLesson } from "@/api/lessonService";
 
@@ -15,15 +14,14 @@ const Editor = dynamic(() => import("@/components/ui/editor"), {
 
 function MainPage() {
   const markdownLessonTemplate: string =
-    // eslint-disable-next-line max-len
     '<iframe\n    width="696"\n    height="400"\n    className="self-center"\n    src="https://www.youtube.com/embed/GhvUs0amvCc"\n    title="Me at the zoo"\n    frameborder="0"\n    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"\n    referrerpolicy="strict-origin-when-cross-origin"\n    allowfullscreen\n  ></iframe>\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n ## Summary\n\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [markdownBody, setMarkdownBody] = useState(markdownLessonTemplate);
   const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState<string[]>([]);
-  const [correctChoice, setCorrectChoice] = useState("");
+  const [choices, setChoices] = useState<string[]>(["", "", "", "", ""]);
+  const [correctChoice, setCorrectChoice] = useState<number>(0);
 
   const [showPreview, setShowPreview] = useState(false);
 
@@ -36,8 +34,8 @@ function MainPage() {
       difficulty,
       challenge: {
         question: question,
-        choices: options,
-        correctChoice: Number(correctChoice),
+        choices: choices,
+        correctChoice: correctChoice,
       },
       references: [],
     };
@@ -46,6 +44,8 @@ function MainPage() {
       const response = await createLesson(lessonData);
 
       if (response) {
+        // this will be removed soon
+        // eslint-disable-next-line no-console
         console.log("Lesson created successfully!");
       } else {
         console.error("Failed to create lesson");
@@ -67,16 +67,13 @@ function MainPage() {
     setQuestion(event.target.value);
   };
 
-  const handleOptionsChange = (updatedOptions: string[]) => {
-    setOptions(updatedOptions);
+  const handleChoicesChange = (updatedChoices: string[], selectedCorrectChoice: number) => {
+    setChoices(updatedChoices);
+    setCorrectChoice(selectedCorrectChoice);
   };
 
   const handleEditorChange = (newMarkdownBody: string) => {
     setMarkdownBody(newMarkdownBody);
-  };
-
-  const handleCorrectChoiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCorrectChoice(event.target.value);
   };
 
   const handlePreview = (showPreview: boolean) => {
@@ -87,8 +84,8 @@ function MainPage() {
   if (showPreview) {
     return (
       <>
-        <header className="fixed w-full bg-primary text-white shadow-md p-4 flex justify-between items-center z-50">
-          <h1 className="text-xl font-bold">You are previewing a lesson</h1>
+        <header className="absolute w-full bg-primary text-white shadow-md p-4 flex justify-between items-center z-50">
+          <h6>You are previewing a lesson</h6>
           <Button className="bg-white text-primary font-semibold py-2 px-4" onClick={() => handlePreview(false)}>
             Back to Editor
           </Button>
@@ -99,7 +96,7 @@ function MainPage() {
             difficulty={difficulty}
             markdown={markdownBody}
             question={question}
-            options={options}
+            choices={choices}
           />
         </div>
       </>
@@ -127,13 +124,15 @@ function MainPage() {
             additionalStyles="mb-5"
           />
         </div>
+
         <div className="flex justify-between mb-4">
-          <div className="border rounded-[7px] border-[#e0e0e0] w-full">
+          <div className="border rounded-[7px] border-border-gray w-full">
             <Suspense fallback={null}>
               <Editor markdown={markdownBody} onChange={handleEditorChange} />
             </Suspense>
           </div>
         </div>
+
         <div className="w-[49%]">
           <InputFloatingLabel
             type="text"
@@ -144,21 +143,18 @@ function MainPage() {
             additionalStyles="mb-5"
           />
         </div>
-        <OptionsInputComponent onOptionsChange={handleOptionsChange} />
-        <div className="w-[49%]">
-          <InputFloatingLabel
-            type="number"
-            id="correctChoiceInput"
-            value={correctChoice}
-            onChange={handleCorrectChoiceChange}
-            label="Correct Choice"
-            additionalStyles="mb-5"
-          />
-        </div>
-        <Button type="submit" className="mb-4 xl:mb-20">
+
+        <ChoicesInputComponent
+          onChoicesChange={handleChoicesChange}
+          initialChoices={choices}
+          initialCorrectChoice={correctChoice}
+        />
+
+        <Button type="submit" className="my-10">
           Create Lesson
         </Button>
-        <Button type="button" variant="outline" className="mb-4 ml-2 xl:mb-20" onClick={() => handlePreview(true)}>
+
+        <Button type="button" variant="outline" className="my-10 ml-2" onClick={() => handlePreview(true)}>
           Preview
         </Button>
       </form>

@@ -2,23 +2,26 @@
 
 import Image from "next/image";
 import logo from "@/public/assets/icons/logo.svg";
+import whiteLogo from "@/public/assets/icons/whiteLogo.svg";
 import { useRouter } from "next/navigation";
 
 const Logo = ({
   width,
   height,
   pathToRedirect,
+  theme,
 }: {
   width: number;
   height: number;
   pathToRedirect?: string | undefined;
+  theme?: "light" | "dark" | undefined;
 }) => {
   const router = useRouter();
 
   return (
     <Image
       unoptimized
-      src={logo}
+      src={theme === "dark" ? whiteLogo : logo}
       width={width}
       height={height}
       alt="Logo"

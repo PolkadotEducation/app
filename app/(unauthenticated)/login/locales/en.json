@@ -6,6 +6,8 @@
     "passwordPlaceholder": "Password",
     "forgotPassword": "Forgot Password?",
     "signInButton": "Sign In",
-    "requestAccount": "Don’t have an account? Request now"
+    "requestAccount": "Don’t have an account? Request now",
+    "google": "Sign in with Google",
+    "loading": "Loading..."
   }
 }

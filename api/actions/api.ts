@@ -1,7 +1,7 @@
 "use server";
 
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 
 export type ServerAxiosError = {
   message: string;
@@ -18,7 +18,8 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = Cookies.get("token");
+    const cookieStore = cookies();
+    const token = cookieStore.get("token")?.value;
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -53,7 +54,6 @@ export async function serverPost<T>(
   config?: AxiosRequestConfig,
 ): Promise<T | ServerAxiosError> {
   try {
-    console.info(url, data, config);
     const response = await axiosInstance.post<T>(url, data, config);
     return response.data;
   } catch (error) {

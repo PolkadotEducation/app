@@ -1,9 +1,11 @@
+import { User } from "./userTypes";
+
 export type AuthState = {
   isLoading: boolean;
-  isSignedIn: boolean;
   userToken: string | null;
   email: string | null;
   error: string | null;
+  userInfo?: User;
 };
 
 export type AuthAction =
@@ -14,4 +16,18 @@ export type AuthAction =
   | { type: "SIGN_UP_SUCCESS"; payload: { email: string } }
   | { type: "SIGN_UP_FAILURE"; payload: { error: string } }
   | { type: "CLEAR_AUTH_ERROR" }
-  | { type: "SIGN_OUT" };
+  | { type: "SIGN_OUT" }
+  | { type: "SET_USER"; payload: { user: User } }
+  | { type: "SET_TOKEN"; payload: { token: string } }
+  | { type: "SET_LOADING"; payload: { loading: boolean } };
+
+export type SignUpResponse = {
+  userId?: string;
+  email?: string;
+  name?: string;
+  lastActivity?: string;
+};
+
+export type LoginResponse = {
+  jwt: string;
+};

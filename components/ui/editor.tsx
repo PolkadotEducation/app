@@ -27,7 +27,7 @@ import { FC } from "react";
 interface EditorProps {
   markdown: string;
   readOnly?: boolean;
-  onChange?: (markdown: string) => void;
+  onChange?: (_markdown: string) => void;
   editorRef?: React.MutableRefObject<MDXEditorMethods | null>;
 }
 

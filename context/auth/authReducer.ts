@@ -1,4 +1,5 @@
 import { AuthState, AuthAction } from "@/types/authTypes";
+import { initialAuthState } from "./authProvider";
 
 export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
@@ -13,7 +14,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
       return {
         ...state,
         isLoading: false,
-        isSignedIn: true,
         userToken: action.payload.token,
         error: null,
       };
@@ -32,15 +32,26 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
         error: action.payload.error,
       };
     case "SIGN_OUT":
-      return {
-        ...state,
-        isSignedIn: false,
-        userToken: null,
-      };
+      return initialAuthState;
     case "CLEAR_AUTH_ERROR":
       return {
         ...state,
         error: null,
+      };
+    case "SET_USER":
+      return {
+        ...state,
+        userInfo: action.payload.user,
+      };
+    case "SET_TOKEN":
+      return {
+        ...state,
+        userToken: action.payload.token,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        isLoading: action.payload.loading,
       };
     default:
       return state;

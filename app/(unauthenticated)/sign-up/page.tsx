@@ -18,7 +18,7 @@ const SignUpPage = () => {
   const [company, setCompany] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { signUp, state } = useAuth();
+  const { signUp, state, clearAuthError } = useAuth();
   const t = useTranslations("signUp");
 
   const reset = () => {
@@ -26,6 +26,7 @@ const SignUpPage = () => {
     setPasswordRepeated("");
     setEmail("");
     setName("");
+    clearAuthError();
   };
 
   useEffect(() => {
@@ -106,10 +107,10 @@ const SignUpPage = () => {
           <form onSubmit={handleSubmit}>
             <div
               className="flex flex-col w-full xl:py-10 xl:px-12
-              xl:border border-solid border-[#E0E0E0] rounded-3xl
+              xl:border border-solid border-border-gray rounded-3xl
               items-center"
             >
-              <h4 className="text-[34px] font-bold mb-4 unbound-font max-w-[330px] text-center">{t("title")}</h4>
+              <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
               <p className="mb-8 max-w-[330px] text-center">{t("subtitle")}</p>
               <InputFloatingLabel
                 id="nameInput"
@@ -158,12 +159,12 @@ const SignUpPage = () => {
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
               <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
-                <p className="text-xs text-[#BF2600]">{errorMessage}</p>
+                <p className="text-xs text-error">{errorMessage}</p>
               </div>
               <Button type="submit" className="w-full" disabled={state.isLoading}>
                 {t("signUpButton")}
               </Button>
-              {state.error && <p className="text-xs text-[#BF2600] mt-3">{state.error}</p>}
+              {state.error && <p className="text-xs text-error mt-3">{state.error}</p>}
             </div>
           </form>
         </div>

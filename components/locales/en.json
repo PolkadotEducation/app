@@ -1,0 +1,7 @@
+{
+  "components": {
+    "profile": "Profile",
+    "backoffice": "Backoffice",
+    "logout": "Logout"
+  }
+}
