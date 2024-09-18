@@ -7,6 +7,7 @@
     "level": "Level {level}",
     "uploadImage": "Upload new image",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "editProfilePicture": "Edit Picture"
   }
 }
