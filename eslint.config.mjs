@@ -4,6 +4,7 @@ import tseslint from "@typescript-eslint/eslint-plugin";
 import parser from "@typescript-eslint/parser";
 import pluginReact from "eslint-plugin-react";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import cypressPlugin from "eslint-plugin-cypress";
 
 export default [
   {
@@ -12,14 +13,19 @@ export default [
       parser: parser,
       globals: {
         ...globals.browser,
-        process: "readonly",
+        Cypress: "readonly",
         React: "writable",
+        cy: "readonly",
+        describe: "readonly",
+        it: "readonly",
+        process: "readonly",
         require: "readonly",
       },
     },
     plugins: {
-      react: pluginReact,
       "@typescript-eslint": tseslint,
+      cypress: cypressPlugin,
+      react: pluginReact,
     },
     rules: {
       "react/react-in-jsx-scope": "off",
