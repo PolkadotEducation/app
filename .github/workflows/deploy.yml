@@ -63,7 +63,7 @@ jobs:
 
       - name: Start services
         working-directory: local-setup
-        run: docker compose --profile slim up -d
+        run: docker compose --profile slim up -d & wait-on http://localhost:3000
 
       - name: Test with Cypress
         run: yarn test
