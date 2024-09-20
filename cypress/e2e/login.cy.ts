@@ -1,34 +1,56 @@
-describe("Login Page Responsiveness and Functionality", () => {
-  context("Desktop View - macbook-13", () => {
-    beforeEach(() => {
-      cy.viewport("macbook-13");
-      cy.visit("localhost:3000");
-    });
+describe("Login Page", () => {
+  const baseUrl = "http://localhost:3000";
+  const invalidEmail = "test@test.com";
+  const invalidPassword = "RandomPassword@123";
 
-    // Verify that the logo is visible on the desktop view
+  const checkLogoVisibility = () => {
     cy.getByData("image-logo").should("be.visible");
+  };
 
-    // Simulate user input for email and password fields
-    cy.get("#emailInput").type("test@test.com");
-    cy.get("#passwordInput").type("RandomPassword@123");
+  const fillLoginForm = (email: string, password: string) => {
+    cy.get("#emailInput").type(email);
+    cy.get("#passwordInput").type(password);
+  };
 
-    // Submit the login form and check for an error message
+  const submitLoginForm = () => {
     cy.getByData("button-login-submit").click();
-    cy.getByData("text-login-error").should("be.visible");
+  };
 
-    // Ensure that the side image is visible on the desktop view
-    cy.getByData("image-login-webinar").should("be.visible");
+  const checkLoginError = () => {
+    cy.getByData("text-login-error").should("be.visible");
+  };
+
+  const checkWebinarImageVisibility = (shouldBeVisible: boolean) => {
+    cy.getByData("image-login-webinar").should(shouldBeVisible ? "be.visible" : "not.be.visible");
+  };
+
+  it("displays error on invalid login attempt - mobile view", () => {
+    cy.viewport("iphone-x");
+
+    cy.login(invalidEmail, invalidPassword);
+
+    checkLogoVisibility();
+    checkLoginError();
+    checkWebinarImageVisibility(false);
   });
 
-  context("Mobile View - iphone-x", () => {
-    beforeEach(() => {
-      cy.viewport("iphone-x");
-    });
+  it("displays error on invalid login attempt - desktop view", () => {
+    cy.viewport("macbook-13");
 
-    // Verify that the side image is hidden on the mobile view
-    cy.getByData("image-login-webinar").should("not.be.visible");
+    cy.login(invalidEmail, invalidPassword);
 
-    // Ensure that the logo is still visible on the mobile view
-    cy.getByData("image-logo").should("be.visible");
+    checkLogoVisibility();
+    checkLoginError();
+    checkWebinarImageVisibility(true);
+  });
+
+  it("adjusts layout for different viewport sizes", () => {
+    cy.visit(baseUrl);
+
+    cy.viewport("iphone-x");
+    checkWebinarImageVisibility(false);
+
+    cy.viewport("macbook-13");
+    checkWebinarImageVisibility(true);
   });
 });
