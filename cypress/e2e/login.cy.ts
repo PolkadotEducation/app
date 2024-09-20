@@ -7,15 +7,6 @@ describe("Login Page", () => {
     cy.getByData("image-logo").should("be.visible");
   };
 
-  const fillLoginForm = (email: string, password: string) => {
-    cy.get("#emailInput").type(email);
-    cy.get("#passwordInput").type(password);
-  };
-
-  const submitLoginForm = () => {
-    cy.getByData("button-login-submit").click();
-  };
-
   const checkLoginError = () => {
     cy.getByData("text-login-error").should("be.visible");
   };
