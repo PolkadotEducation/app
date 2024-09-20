@@ -62,7 +62,7 @@ jobs:
       - name: Checkout current branch into doteducation-app
         run: |
           cd local-setup/codebase/app
-          git checkout ${{ github.ref_name }}
+          git checkout ${{ github.ref }}
 
       - name: Start services
         working-directory: local-setup
