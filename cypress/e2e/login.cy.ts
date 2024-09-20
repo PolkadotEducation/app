@@ -1,5 +1,4 @@
 describe("Login Page", () => {
-  const baseUrl = "http://localhost:3000";
   const invalidEmail = "test@test.com";
   const invalidPassword = "RandomPassword@123";
 
@@ -36,7 +35,7 @@ describe("Login Page", () => {
   });
 
   it("adjusts layout for different viewport sizes", () => {
-    cy.visit(baseUrl);
+    cy.visit("/");
 
     cy.viewport("iphone-x");
     checkWebinarImageVisibility(false);
