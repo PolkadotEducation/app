@@ -56,7 +56,7 @@ jobs:
           cd local-setup
           ./run.sh
 
-      - name: Checkout current branch into doteducation-app
+      - name: Checkout current branch
         run: |
           cd local-setup/codebase/app
           git checkout ${{ github.head_ref }}
