@@ -13,7 +13,8 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "test": "cypress run"
+    "test": "cypress run",
+    "wait": "wait-on http://localhost:3000"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
