@@ -120,7 +120,13 @@ const LoginPage = () => {
                   {state.error}
                 </p>
               )}
-              <Button type="button" onClick={() => router.push("/sign-up")} variant="link" className="mb-4 xl:mb-6">
+              <Button
+                type="button"
+                onClick={() => router.push("/sign-up")}
+                variant="link"
+                className="mb-4 xl:mb-6"
+                data-cy="button-login-signup"
+              >
                 {t("requestAccount")}
               </Button>
               <Button

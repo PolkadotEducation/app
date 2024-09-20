@@ -48,7 +48,7 @@ Cypress.Commands.add("getByData", (dataCyValue: string): any => {
 });
 
 Cypress.Commands.add("login", (email, password) => {
-  cy.visit("localhost:3000/");
+  cy.visit("/");
   cy.get("#emailInput").type(email);
   cy.get("#passwordInput").type(password);
   cy.getByData("button-login-submit").click();
