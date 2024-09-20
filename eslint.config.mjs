@@ -3,8 +3,8 @@ import pluginJs from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import parser from "@typescript-eslint/parser";
 import pluginReact from "eslint-plugin-react";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import cypressPlugin from "eslint-plugin-cypress";
+import eslintPluginPrettier from "eslint-plugin-prettier";
+import pluginCypress from "eslint-plugin-cypress/flat";
 
 export default [
   {
@@ -13,19 +13,17 @@ export default [
       parser: parser,
       globals: {
         ...globals.browser,
-        Cypress: "readonly",
+        ...globals.node,
         React: "writable",
-        cy: "readonly",
-        describe: "readonly",
-        it: "readonly",
         process: "readonly",
         require: "readonly",
       },
     },
     plugins: {
       "@typescript-eslint": tseslint,
-      cypress: cypressPlugin,
+      cypress: pluginCypress,
       react: pluginReact,
+      prettier: eslintPluginPrettier,
     },
     rules: {
       "react/react-in-jsx-scope": "off",
@@ -37,6 +35,12 @@ export default [
         },
       ],
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "prettier/prettier": "error",
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
   {
@@ -52,8 +56,8 @@ export default [
       "**/vendor/**",
     ],
   },
+  pluginCypress.configs.recommended,
   pluginJs.configs.recommended,
-  eslintPluginPrettierRecommended,
   {
     files: ["prettier.config.js"],
     languageOptions: {

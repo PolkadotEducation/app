@@ -29,6 +29,7 @@ const Logo = ({
         if (pathToRedirect) return router.push(pathToRedirect);
       }}
       className="cursor-pointer"
+      data-cy="image-logo"
     />
   );
 };
