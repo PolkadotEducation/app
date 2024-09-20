@@ -14,24 +14,26 @@ describe("Login Page", () => {
     cy.getByData("image-login-webinar").should(shouldBeVisible ? "be.visible" : "not.be.visible");
   };
 
-  it("displays error on invalid login attempt - mobile view", () => {
-    cy.viewport("iphone-x");
+  describe("mobile", () => {
+    it("displays error on invalid login attempt", () => {
+      cy.viewport("iphone-x");
 
-    cy.login(invalidEmail, invalidPassword);
+      cy.login(invalidEmail, invalidPassword);
 
-    checkLogoVisibility();
-    checkLoginError();
-    checkWebinarImageVisibility(false);
+      checkLogoVisibility();
+      checkLoginError();
+    });
   });
 
-  it("displays error on invalid login attempt - desktop view", () => {
-    cy.viewport("macbook-13");
+  describe("desktop", () => {
+    it("displays error on invalid login attempt", () => {
+      cy.viewport("macbook-13");
 
-    cy.login(invalidEmail, invalidPassword);
+      cy.login(invalidEmail, invalidPassword);
 
-    checkLogoVisibility();
-    checkLoginError();
-    checkWebinarImageVisibility(true);
+      checkLogoVisibility();
+      checkLoginError();
+    });
   });
 
   it("adjusts layout for different viewport sizes", () => {
