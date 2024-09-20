@@ -69,5 +69,5 @@ jobs:
         run: yarn test
 
       - name: Tear down services
-        working-directory: docker-compose-repo
-        run: docker-compose down
+        working-directory: local-setup
+        run: docker compose down
