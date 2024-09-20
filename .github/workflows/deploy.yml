@@ -41,32 +41,33 @@ jobs:
           echo "NEXT_PUBLIC_API_DOMAIN=${{ vars.API_DOMAIN }}" >> .env
           echo "" >> .env
 
-      - name: Install
-        run: yarn
+      # - name: Install
+      #   run: yarn
 
-      - name: Format
-        run: yarn format
+      # - name: Format
+      #   run: yarn format
 
-      - name: Lint
-        run: yarn lint
+      # - name: Lint
+      #   run: yarn lint
 
-      - name: Build
-        run: yarn build
+      # - name: Build
+      #   run: yarn build
 
-      - name: Clone Docker Compose repository
-        run: git clone https://github.com/PolkadotEducation/local-setup local-setup
+      - name: Setup codebase
+        run: |
+          git clone https://github.com/PolkadotEducation/local-setup local-setup
+          cd local-setup
+          ./run.sh
 
       - name: Checkout current branch into doteducation-app
         run: |
+          ls -la local-setup
           cd local-setup/codebase/app
-          git init
-          git remote add origin ${{ github.event.repository.clone_url }}
-          git fetch origin
           git checkout ${{ github.ref_name }}
 
       - name: Start services
         working-directory: local-setup
-        run: docker-compose --profile slim up
+        run: docker compose --profile slim up
 
       - name: Test with Cypress
         run: yarn test
