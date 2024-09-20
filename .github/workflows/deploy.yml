@@ -50,8 +50,27 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Build
+        run: yarn build
+
+      - name: Clone Docker Compose repository
+        run: git clone https://github.com/PolkadotEducation/local-setup local-setup
+
+      - name: Checkout current branch into doteducation-app
+        run: |
+          cd local-setup/codebase/app
+          git init
+          git remote add origin ${{ github.event.repository.clone_url }}
+          git fetch origin
+          git checkout ${{ github.ref_name }}
+
+      - name: Start services
+        working-directory: local-setup
+        run: docker-compose --profile slim up
+
       - name: Test with Cypress
         run: yarn test
 
-      - name: Build
-        run: yarn build
+      - name: Tear down services
+        working-directory: docker-compose-repo
+        run: docker-compose down
