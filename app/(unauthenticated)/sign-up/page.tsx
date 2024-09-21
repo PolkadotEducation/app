@@ -161,10 +161,14 @@ const SignUpPage = () => {
               <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
                 <p className="text-xs text-error">{errorMessage}</p>
               </div>
-              <Button type="submit" className="w-full" disabled={state.isLoading}>
+              <Button type="submit" className="w-full" disabled={state.isLoading} data-cy="button-signup-submit">
                 {t("signUpButton")}
               </Button>
-              {state.error && <p className="text-xs text-error mt-3">{state.error}</p>}
+              {state.error && (
+                <p className="text-xs text-error mt-3" data-cy="text-signup-error">
+                  {state.error}
+                </p>
+              )}
             </div>
           </form>
         </div>
