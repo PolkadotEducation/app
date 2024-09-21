@@ -86,7 +86,7 @@ function MainPage() {
       <>
         <header className="absolute w-full bg-primary text-white shadow-md p-4 flex justify-between items-center z-50">
           <h6>You are previewing a lesson</h6>
-          <Button className="bg-white text-primary font-semibold py-2 px-4" onClick={() => handlePreview(false)}>
+          <Button className="bg-background text-primary font-semibold py-2 px-4" onClick={() => handlePreview(false)}>
             Back to Editor
           </Button>
         </header>
