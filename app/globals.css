@@ -159,3 +159,13 @@
 .mdxeditor p {
   margin-block: 1.25rem;
 }
+
+/* Fix for autofill bg color changes for chromium browsers */
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 40px white inset !important;
+  }
+}
