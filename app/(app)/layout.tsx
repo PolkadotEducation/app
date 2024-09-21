@@ -29,7 +29,7 @@ export default function AppLayout({
 
   return (
     <main>
-      <div className="flex flex-col items-center bg-white">
+      <div className="flex flex-col items-center bg-background">
         <AppHeader />
         <div className="flex justify-center max-w-7xl w-full">{children}</div>
       </div>

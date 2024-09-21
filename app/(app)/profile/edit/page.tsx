@@ -64,7 +64,7 @@ const EditProfilePage = () => {
       <h4 className="xl:mb-6 mb-4">{t("editProfile")}</h4>
       <div
         className="flex flex-col items-center px-6 pt-6 xl:pb-[41px]
-        pb-[13px] rounded-[8px] border-border-gray border-[1px]"
+        pb-[13px] rounded-[8px] border-border-gray border-[1px] bg-card"
       >
         {!isLoading ? (
           <label htmlFor="image-upload" className="relative cursor-pointer group">
