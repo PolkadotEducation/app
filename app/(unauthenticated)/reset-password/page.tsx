@@ -59,7 +59,7 @@ const ResetPasswordPage = () => {
           <form onSubmit={handleSubmit}>
             <div
               className="flex flex-col w-full px-4 xl:py-10 xl:px-12
-              xl:border border-solid border-border-gray rounded-3xl items-center"
+              xl:border border-solid border-border-gray rounded-3xl items-center xl:bg-card"
             >
               <h4 className="mb-4">{t("title")}</h4>
               <p className="mb-8">{t("instructionMessage")}</p>

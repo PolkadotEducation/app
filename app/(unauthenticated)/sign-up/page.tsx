@@ -108,7 +108,7 @@ const SignUpPage = () => {
             <div
               className="flex flex-col w-full xl:py-10 xl:px-12
               xl:border border-solid border-border-gray rounded-3xl
-              items-center"
+              items-center xl:bg-card"
             >
               <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
               <p className="mb-8 max-w-[330px] text-center">{t("subtitle")}</p>

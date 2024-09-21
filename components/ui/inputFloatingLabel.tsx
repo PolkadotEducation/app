@@ -46,7 +46,7 @@ const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles,
         onBlur={handleBlur}
       />
       {label && (
-        <label htmlFor={id} className={`absolute bg-background ml-1 transition-all ${handleInputLabelStyles()} px-1`}>
+        <label htmlFor={id} className={`absolute bg-card ml-1 transition-all ${handleInputLabelStyles()} px-1`}>
           {label}
         </label>
       )}
