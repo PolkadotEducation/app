@@ -14,5 +14,6 @@ export default defineConfig({
 
       return config;
     },
+    experimentalInteractiveRunEvents: true,
   },
 });

@@ -193,11 +193,13 @@ function MainPage() {
             />
           )}
         />
-        {errors.choices && <p className="text-red-500">{errors.choices.message}</p>}
-        {errors.correctChoice && <p className="text-red-500">{errors.correctChoice.message}</p>}
+        {errors.choices && <p className="text-red-500 form-error">{errors.choices.message}</p>}
+        {errors.correctChoice && <p className="text-red-500 form-error">{errors.correctChoice.message}</p>}
 
         <div className="pt-6 mt-6 pb-6 flex w-full justify-end border-t-[1px] border-t-border-gray">
-          <Button type="submit">{t("createLesson")}</Button>
+          <Button type="submit" data-cy="button-lesson-submit">
+            {t("createLesson")}
+          </Button>
         </div>
       </form>
     </main>

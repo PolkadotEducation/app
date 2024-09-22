@@ -50,7 +50,7 @@ const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles,
           {label}
         </label>
       )}
-      {error && <p className="text-red-500 mt-1 mb-5">{error}</p>}
+      {error && <p className="text-red-500 mt-1 mb-5 form-error">{error}</p>}
     </div>
   );
 };
