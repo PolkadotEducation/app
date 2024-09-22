@@ -149,7 +149,9 @@ function MainPage() {
           />
         </div>
 
-        <div className="flex justify-between mb-4">
+        <div
+          className={`flex justify-between ${errors.markdownBody ? "rounded-lg border text-error border-error mb-0" : "mb-5"}`}
+        >
           <div className="border rounded-[7px] border-border-gray w-full">
             <Suspense fallback={null}>
               <Controller
@@ -160,7 +162,7 @@ function MainPage() {
             </Suspense>
           </div>
         </div>
-        {errors.markdownBody && <p className="text-red-500">{errors.markdownBody.message}</p>}
+        {errors.markdownBody && <p className="text-red-500 mb-5">{errors.markdownBody.message}</p>}
 
         <div className="w-[49%]">
           <Controller
