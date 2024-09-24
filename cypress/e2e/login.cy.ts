@@ -1,6 +1,6 @@
 describe("Login Page", () => {
-  const invalidEmail = "marvin@email.com";
-  const invalidPassword = "Senha123";
+  const invalidEmail = "invalid@email.com";
+  const invalidPassword = "InvalidPassword123";
 
   const checkLogoVisibility = () => {
     cy.getByData("image-logo").should("be.visible");

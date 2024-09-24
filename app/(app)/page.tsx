@@ -20,7 +20,13 @@ const Home = () => {
           </h4>
           <p>{t("description")}</p>
         </div>
-        <Image unoptimized src={maintenanceDesktop} alt="Maintenance" className="hidden xl:block w-[520px] h-[436px]" />
+        <Image
+          unoptimized
+          src={maintenanceDesktop}
+          alt="Maintenance"
+          className="hidden xl:block w-[520px] h-[436px]"
+          data-cy="image-home-maintenance-desktop"
+        />
       </div>
     </div>
   );
