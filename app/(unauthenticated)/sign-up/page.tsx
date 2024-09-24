@@ -108,7 +108,7 @@ const SignUpPage = () => {
             <div
               className="flex flex-col w-full xl:py-10 xl:px-12
               xl:border border-solid border-border-gray rounded-3xl
-              items-center"
+              items-center xl:bg-card"
             >
               <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
               <p className="mb-8 max-w-[330px] text-center">{t("subtitle")}</p>
@@ -161,10 +161,14 @@ const SignUpPage = () => {
               <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
                 <p className="text-xs text-error">{errorMessage}</p>
               </div>
-              <Button type="submit" className="w-full" disabled={state.isLoading}>
+              <Button type="submit" className="w-full" disabled={state.isLoading} data-cy="button-signup-submit">
                 {t("signUpButton")}
               </Button>
-              {state.error && <p className="text-xs text-error mt-3">{state.error}</p>}
+              {state.error && (
+                <p className="text-xs text-error mt-3" data-cy="text-signup-error">
+                  {state.error}
+                </p>
+              )}
             </div>
           </form>
         </div>

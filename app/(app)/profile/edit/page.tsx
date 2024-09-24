@@ -9,6 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const BREADCRUMB_ROUTES = [
   {
@@ -28,6 +30,8 @@ const EditProfilePage = () => {
   const [inputName, setInputName] = useState<string | undefined>("");
   const [inputEmail, setInputEmail] = useState<string | undefined>("");
   const t = useTranslations("profile");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoading) {
@@ -48,6 +52,10 @@ const EditProfilePage = () => {
     }
   };
 
+  const handleButtonClick = () => {
+    if (fileInputRef?.current) fileInputRef.current.click();
+  };
+
   return (
     <main className="px-[20px] mt-4 xl:mt-8 max-w-[935px] w-full">
       <div className="mb-0 xl:mb-2">
@@ -56,7 +64,7 @@ const EditProfilePage = () => {
       <h4 className="xl:mb-6 mb-4">{t("editProfile")}</h4>
       <div
         className="flex flex-col items-center px-6 pt-6 xl:pb-[41px]
-        pb-[13px] rounded-[8px] border-border-gray border-[1px]"
+        pb-[13px] rounded-[8px] border-border-gray border-[1px] bg-card"
       >
         {!isLoading ? (
           <label htmlFor="image-upload" className="relative cursor-pointer group">
@@ -92,13 +100,23 @@ const EditProfilePage = () => {
                 <span className="mt-2 font-semibold text-center unbound-font">{t("uploadImage")}</span>
               </div>
             </div>
-            <input id="image-upload" type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+            <input
+              id="image-upload"
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
           </label>
         ) : (
           <div className="flex flex-col items-center">
             <Skeleton className="w-40 h-40 xl:w-80 xl:h-80 rounded-full" />
           </div>
         )}
+        <Button className="mt-4 md:hidden" variant="outline" onClick={handleButtonClick}>
+          {t("editProfilePicture")}
+        </Button>
         <div
           className="flex flex-col mt-4 xl:mt-6 gap-y-4 xl:gap-y-6 max-w-[524px]
           w-full mb-6"
@@ -107,7 +125,7 @@ const EditProfilePage = () => {
           <Input value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} />
         </div>
         <div className="flex w-full justify-end pt-[10px] xl:pt-6 border-t-border-gray border-t-[1px]">
-          <Button variant="outline" className="mr-4">
+          <Button variant="outline" className="mr-4" onClick={() => router.back()}>
             {t("cancel")}
           </Button>
           <Button>{t("save")}</Button>

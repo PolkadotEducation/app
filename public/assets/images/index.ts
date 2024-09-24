@@ -4,3 +4,5 @@ export { default as resetPassword } from "./resetPassword.png";
 export { default as emailSent } from "./emailSent.png";
 export { default as maintenanceMobile } from "./maintenanceMobile.png";
 export { default as maintenanceDesktop } from "./maintenanceDesktop.png";
+export { default as courses } from "./courses.png";
+export { default as lessons } from "./lessons.png";

@@ -2,10 +2,6 @@ import { useTranslations } from "next-intl";
 import ProfileCard from "./_components/profileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const metadata = {
-  title: "My Profile",
-};
-
 const ProfilePage = () => {
   const t = useTranslations("profile");
 

@@ -84,7 +84,7 @@ const LoginPage = () => {
             <div
               className="flex flex-col w-full xl:py-10 xl:px-12
               xl:border border-solid border-border-gray rounded-3xl
-              items-center"
+              items-center xl:bg-card"
             >
               <h4 className="mb-4">{t("title")}</h4>
               <p className="mb-8 max-w-[330px] text-center">{t("welcomeMessage")}</p>
@@ -107,11 +107,26 @@ const LoginPage = () => {
               <Button type="button" onClick={handleForgotPassword} className="mb-6" variant="link">
                 {t("forgotPassword")}
               </Button>
-              <Button type="submit" className="w-full mb-4 xl:mb-6" disabled={isAuthenticating}>
+              <Button
+                type="submit"
+                className="w-full mb-4 xl:mb-6"
+                disabled={isAuthenticating}
+                data-cy="button-login-submit"
+              >
                 {t(isAuthenticating ? "loading" : "signInButton")}
               </Button>
-              {state.error && <p className="text-xs text-error mt-3">{state.error}</p>}
-              <Button type="button" onClick={() => router.push("/sign-up")} variant="link" className="mb-4 xl:mb-6">
+              {state.error && (
+                <p className="text-xs text-error mt-3" data-cy="text-login-error">
+                  {state.error}
+                </p>
+              )}
+              <Button
+                type="button"
+                onClick={() => router.push("/sign-up")}
+                variant="link"
+                className="mb-4 xl:mb-6"
+                data-cy="button-login-signup"
+              >
                 {t("requestAccount")}
               </Button>
               <Button
@@ -119,8 +134,17 @@ const LoginPage = () => {
                 disabled={isAuthenticating}
                 className="w-full bg-transparent hover:bg-transparent
                 hover:opacity-70 text-text-secondary hover:text-text-secondary border-border-gray border-[1px]"
+                data-cy="button-login-google"
               >
-                <Image unoptimized src={google} width={20} height={20} className="mr-2" alt="Google Icon" />
+                <Image
+                  unoptimized
+                  src={google}
+                  width={20}
+                  height={20}
+                  className="mr-2"
+                  alt="Google Icon"
+                  data-cy="image-login-google"
+                />
                 {t(isAuthenticating ? "loading" : "google")}
               </Button>
             </div>
@@ -132,6 +156,7 @@ const LoginPage = () => {
         src={webinar}
         alt="Webinar"
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
+        data-cy="image-login-webinar"
       />
     </main>
   );
