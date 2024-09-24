@@ -56,10 +56,14 @@ jobs:
           cd local-setup
           ./run.sh
 
-      - name: Checkout current branch
+      - name: Checkout correct branch
         run: |
           cd local-setup/codebase/app
-          git checkout ${{ github.head_ref }}
+          if [[ -n "${{ github.head_ref }}" ]]; then
+            git checkout ${{ github.head_ref }}
+          else
+            git checkout ${{ github.ref_name }}
+          fi
 
       - name: Start services
         working-directory: local-setup
