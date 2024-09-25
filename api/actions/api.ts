@@ -8,6 +8,7 @@ export type ServerAxiosError = {
 };
 
 const baseURL = process.env.NEXT_PUBLIC_API_DOMAIN || "http://127.0.0.1:4000";
+const AUTH_CODE = process.env.NEXT_PUBLIC_AUTH_TOKEN || "localAuthCode";
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL,
@@ -22,7 +23,9 @@ axiosInstance.interceptors.request.use(
     const token = cookieStore.get("token")?.value;
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+      config.headers.code = AUTH_CODE;
     }
+    config.headers.origin = process.env.NEXT_PUBLIC_BASE_URL;
     return config;
   },
   (error) => {

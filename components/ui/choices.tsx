@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InputFloatingLabel from "./inputFloatingLabel";
+import { useTranslations } from "next-intl";
 
 interface ChoicesInputComponentProps {
   onChoicesChange: (_choices: string[], _correctChoice: number) => void;
@@ -14,6 +15,7 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
 }) => {
   const [choices, setChoices] = useState<string[]>(initialChoices);
   const [correctChoice, setCorrectChoice] = useState<number>(initialCorrectChoice);
+  const t = useTranslations("backoffice");
 
   const handleChoiceChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedChoices = [...choices];
@@ -38,7 +40,7 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
             id={`Choice${index + 1}`}
             value={choice}
             onChange={handleChoiceChange(index)}
-            label={`Choice ${index + 1} ${index >= 3 ? "(Optional)" : ""}`}
+            label={`${t("choice")} ${index + 1} ${index >= 3 ? "(Optional)" : ""}`}
           />
           <label className="flex items-center ml-3">
             <input
@@ -47,7 +49,7 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
               checked={correctChoice === index}
               onChange={() => handleRadioChange(index)}
             />
-            <span className="ml-1">Correct</span>
+            <span className="ml-1">{t("correct")}</span>
           </label>
         </div>
       ))}

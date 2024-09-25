@@ -58,9 +58,22 @@ const AppHeader = () => {
                     <p className="unbound-font text-white font-bold text-xl">{(name || "").charAt(0)}</p>
                   </div>
                 )}
-                <Image unoptimized src={chevronDown} height={8} alt="Chevron Down" />
+                <Image
+                  unoptimized
+                  src={chevronDown}
+                  height={8}
+                  alt="Chevron Down"
+                  data-cy="button-header-menu-desktop"
+                />
               </div>
-              <Image unoptimized src={hamburgerMenu} height={24} alt="Chevron Down" className="block xl:hidden" />
+              <Image
+                unoptimized
+                src={hamburgerMenu}
+                height={24}
+                alt="Chevron Down"
+                className="block xl:hidden"
+                data-cy="button-header-menu"
+              />
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -95,7 +108,7 @@ const AppHeader = () => {
             {isAdmin && (
               <>
                 <DropdownMenuSeparator />
-                <Link href="/backoffice">
+                <Link href="/backoffice" data-cy="link-header-backoffice">
                   <DropdownMenuItem className="cursor-pointer">{t("backoffice")}</DropdownMenuItem>
                 </Link>
               </>

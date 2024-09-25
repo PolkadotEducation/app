@@ -1,0 +1,23 @@
+{
+  "backoffice": {
+    "contentCreatorDashboard": "Content Creator Dashboard",
+    "getStarted": "To get started, create lesson content in the library. Then, you can organize them into modules and courses.",
+    "lessonLibrary": "Lesson Library",
+    "accessLessonLibrary": "Access Lesson Library",
+    "myCourses": "My Courses",
+    "structureYourCourse": "Now it's time to structure your course! Group your lessons into modules and organize all the necessary information.",
+    "goToMyCourses": "Go to My Courses",
+    "searchLesson": "Search Lesson",
+    "duplicateItem": "Duplicate Item",
+    "newLesson": "New Lesson",
+    "preview": "Preview",
+    "title": "Title",
+    "difficulty": "Difficulty",
+    "previewingLesson": "You are previewing a lesson",
+    "backToEditor": "Back to Editor",
+    "question": "Question",
+    "createLesson": "Create Lesson",
+    "choice": "Choice",
+    "correct": "Correct"
+  }
+}

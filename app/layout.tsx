@@ -4,8 +4,14 @@ import { AuthProvider } from "@/context/auth/authProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { MDXProviderClient } from "@/context/mdx/mdxProvider";
+import { Metadata } from "next";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Polkadot Education",
+  description: "Discover the Possibilities of Blockchain",
+};
 
 export default async function RootLayout({
   children,

@@ -133,3 +133,6 @@ dist
 
 # macos
 .DS_Store
+
+# cypress
+cypress/screenshots

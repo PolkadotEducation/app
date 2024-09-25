@@ -50,5 +50,28 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Build
-        run: yarn build
+      - name: Setup codebase
+        run: |
+          git clone https://github.com/PolkadotEducation/local-setup local-setup
+          cd local-setup
+          ./run.sh
+
+      - name: Checkout correct branch
+        run: |
+          cd local-setup/codebase/app
+          if [[ -n "${{ github.head_ref }}" ]]; then
+            git checkout ${{ github.head_ref }}
+          else
+            git checkout ${{ github.ref_name }}
+          fi
+
+      - name: Start services
+        working-directory: local-setup
+        run: docker compose --profile slim up -d & yarn wait
+
+      - name: Test with Cypress
+        run: yarn test
+
+      - name: Tear down services
+        working-directory: local-setup
+        run: docker compose down

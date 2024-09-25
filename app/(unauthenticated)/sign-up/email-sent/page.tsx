@@ -32,7 +32,7 @@ const SignUpEmailSentInnerPage = () => {
           <div
             className="flex flex-col w-fit-content px-4 xl:py-10
             xl:px-12 xl:border border-solid border-border-gray
-            rounded-3xl items-center text-center"
+            rounded-3xl items-center text-center xl:bg-card"
           >
             <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
             <p className="mb-20 max-w-[330px] text-center">

@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 93%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -158,4 +158,14 @@
 
 .mdxeditor p {
   margin-block: 1.25rem;
+}
+
+/* Fix for autofill bg color changes for chromium browsers */
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 40px white inset !important;
+  }
 }

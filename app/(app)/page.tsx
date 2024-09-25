@@ -17,11 +17,20 @@ const Home = () => {
             src={maintenanceMobile}
             alt="Maintenance"
             className="block xl:hidden w-[244px] h-[244px] self-center mb-4"
+            data-cy="image-home-maintenance"
           />
-          <h4 className="mb-4">{t("title")}</h4>
+          <h4 className="mb-4" data-cy="text-home-maintenance">
+            {t("title")}
+          </h4>
           <p>{t("description")}</p>
         </div>
-        <Image unoptimized src={maintenanceDesktop} alt="Maintenance" className="hidden xl:block w-[520px] h-[436px]" />
+        <Image
+          unoptimized
+          src={maintenanceDesktop}
+          alt="Maintenance"
+          className="hidden xl:block w-[520px] h-[436px]"
+          data-cy="image-home-maintenance-desktop"
+        />
       </div>
     </div>
   );

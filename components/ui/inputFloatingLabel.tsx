@@ -40,16 +40,17 @@ const InputFloatingLabel: React.FC<InputProps> = ({ label, id, additionalStyles,
         id={id}
         value={value}
         className={`py-2 px-4 ${additionalStyles} ${isFocused ? "border-transparent" : ""} ${
-          error ? "text-error border-error" : ""
+          error ? "text-error border-error mb-0" : ""
         }`}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
       {label && (
-        <label htmlFor={id} className={`absolute bg-background ml-1 transition-all ${handleInputLabelStyles()} px-1`}>
+        <label htmlFor={id} className={`absolute bg-card ml-1 transition-all ${handleInputLabelStyles()} px-1`}>
           {label}
         </label>
       )}
+      {error && <p className="text-red-500 mt-1 mb-5 form-error">{error}</p>}
     </div>
   );
 };

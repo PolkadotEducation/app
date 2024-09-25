@@ -28,7 +28,7 @@ const ResetPasswordSuccessPage = () => {
           <div
             className="flex flex-col w-fit-content px-4 xl:py-10
             xl:px-12 xl:border border-solid border-border-gray
-            rounded-3xl items-center text-center"
+            rounded-3xl items-center text-center xl:bg-card"
           >
             <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
             <h4 className="mb-4">{t("title")}</h4>
