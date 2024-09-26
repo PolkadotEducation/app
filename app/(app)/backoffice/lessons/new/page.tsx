@@ -140,7 +140,11 @@ function MainPage() {
             render={({ field }) => (
               <div className="flex flex-col">
                 <p>{t("difficulty")}</p>
-                <RadioGroup {...field} onValueChange={field.onChange} className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}>
+                <RadioGroup
+                  {...field}
+                  onValueChange={field.onChange}
+                  className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
+                >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="easy" id="easyRadioButton" />
                     <label htmlFor="easyRadioButton">{t("easy")}</label>
@@ -154,7 +158,9 @@ function MainPage() {
                     <label htmlFor="hardRadioButton">{t("hard")}</label>
                   </div>
                 </RadioGroup>
-                {errors.difficulty?.message && <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>}
+                {errors.difficulty?.message && (
+                  <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
+                )}
               </div>
             )}
           />
