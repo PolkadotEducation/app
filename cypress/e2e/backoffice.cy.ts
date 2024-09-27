@@ -54,7 +54,7 @@ describe("Backoffice Page", () => {
       });
 
       cy.get("#titleInput").type("Lesson Title");
-      cy.get("#difficultyInput").type("easy");
+      cy.get("#easyRadioButton").click();
       cy.get("#questionInput").type("What's the capital of France?");
       cy.get("#Choice1").type("Lisbon");
       cy.get("#Choice2").type("Paris");

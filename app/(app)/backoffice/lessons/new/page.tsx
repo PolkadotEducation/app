@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -137,14 +138,30 @@ function MainPage() {
             name="difficulty"
             control={control}
             render={({ field }) => (
-              <InputFloatingLabel
-                {...field}
-                type="text"
-                id="difficultyInput"
-                label={t("difficulty")}
-                additionalStyles="mb-5"
-                error={errors.difficulty?.message}
-              />
+              <div className="flex flex-col">
+                <p>{t("difficulty")}</p>
+                <RadioGroup
+                  {...field}
+                  onValueChange={field.onChange}
+                  className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="easy" id="easyRadioButton" />
+                    <label htmlFor="easyRadioButton">{t("easy")}</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="medium" id="mediumRadioButton" />
+                    <label htmlFor="mediumRadioButton">{t("medium")}</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="hard" id="hardRadioButton" />
+                    <label htmlFor="hardRadioButton">{t("hard")}</label>
+                  </div>
+                </RadioGroup>
+                {errors.difficulty?.message && (
+                  <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
+                )}
+              </div>
             )}
           />
         </div>

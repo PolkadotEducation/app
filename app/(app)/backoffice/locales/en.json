@@ -18,6 +18,9 @@
     "question": "Question",
     "createLesson": "Create Lesson",
     "choice": "Choice",
-    "correct": "Correct"
+    "correct": "Correct",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard"
   }
 }
