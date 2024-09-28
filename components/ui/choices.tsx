@@ -48,6 +48,7 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
               name="correctChoice"
               checked={correctChoice === index}
               onChange={() => handleRadioChange(index)}
+              className="accent-primary w-4 h-4"
             />
             <span className="ml-1">{t("correct")}</span>
           </label>
