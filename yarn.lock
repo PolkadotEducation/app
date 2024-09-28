@@ -3030,10 +3030,10 @@
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
-"@storybook/addon-links@^8.0.6":
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.3.2.tgz#cb4d66ace1cb9ad4b02a3adba38bab18b2f768af"
-  integrity sha512-CHp/3XSB/AWyoP9b2tNaaKNTyftLPIPWqMhqhH1V5irjXhLDpBBEkmgbvB19xJ4qCfDjjOjokSLmSBaVOnzv2g==
+"@storybook/addon-links@^8.3.3":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.3.3.tgz#35d584e3bc380c7fa7a4a96e9defd9bcc82cde17"
+  integrity sha512-rz4KEbzr1ca4zZEZwbOnhKiaEsokCl1KkngxT/C1YIkpW908j/kg2nnIb5MrtlAW1nirXguAR74t6CGntvdU9w==
   dependencies:
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
