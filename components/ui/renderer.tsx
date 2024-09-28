@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import Badge from "@/components/ui/badge";
+import { Button } from "./button";
 
 interface LessonRendererProps {
   title: string;
@@ -29,24 +30,30 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices }: Less
 
   return (
     <main className="w-full flex justify-center">
-      <div className="flex flex-col max-w-[696px] mdxeditor">
+      <div className="flex flex-col max-w-[696px] mdxeditor pb-8">
         <h1>
           {title ? title : "Title not set"}
           <Badge className="align-middle ml-2">{difficulty ? difficulty : "Difficulty not set"}</Badge>
         </h1>
         {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
+        <div className="border-t-2 border-t-border-gray my-4"></div>
         <h2>Challenge</h2>
-        <h3>{question ? question : "Challenge not set"}</h3>
-        <div>
-          {choices.map((option, index) => (
-            <div key={index} className="mb-2">
-              <label className="flex items-center">
-                <input type="radio" name="choices" value={option} className="mr-2" />
-                {option}
-              </label>
-            </div>
-          ))}
-        </div>
+        <p>{question ? question : "Challenge not set"}</p>
+        {choices.some((c) => !!c) && (
+          <div>
+            {choices
+              .filter((c) => !!c)
+              .map((option, index) => (
+                <div key={index} className="mb-2">
+                  <label className="flex items-center">
+                    <input type="radio" name="choices" value={option} className="mr-2 accent-primary w-4 h-4" />
+                    {option}
+                  </label>
+                </div>
+              ))}
+            <Button className="w-fit mt-4">Submit Answer</Button>
+          </div>
+        )}
       </div>
     </main>
   );
