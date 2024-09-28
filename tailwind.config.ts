@@ -54,6 +54,7 @@ const config = {
         "text-disabled": "hsl(var(--text-disabled))",
         error: "hsl(var(--error))",
         "border-gray": "hsl(var(--border-gray))",
+        success: "hsl(var(--success-green))",
       },
       borderRadius: {
         lg: "var(--radius)",
