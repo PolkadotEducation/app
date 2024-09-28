@@ -59,8 +59,8 @@ describe("Backoffice Page", () => {
 
       cy.getByData("button-lesson-submit").click();
 
-      cy.get('[data-cy="toast"]').should("be.visible");
-      cy.get('[data-cy="toast-title"]').should("be.visible").and("contain", "Lesson created successfully!");
+      cy.getByData("toast").should("be.visible");
+      cy.getByData("toast-title").should("be.visible").and("contain", "Lesson created successfully!");
     });
 
     it("regular user can not access backoffice home", () => {
