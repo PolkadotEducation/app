@@ -3074,10 +3074,30 @@
   dependencies:
     memoizerific "^1.11.3"
 
-"@storybook/blocks@8.3.2", "@storybook/blocks@^8.0.6":
+"@storybook/blocks@8.3.2":
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.3.2.tgz#3b4ce0127a683a6f8a6da87410e6c68bc951a4f3"
   integrity sha512-z6XTg5fC5XT/8vYYtFqVhQtBYw5MkSlkQF5HM1ntxlEesN4tGd14SjFd24nWuoAHq4G5D2D8KNt41IoNdzeD1A==
+  dependencies:
+    "@storybook/csf" "^0.1.11"
+    "@storybook/global" "^5.0.0"
+    "@storybook/icons" "^1.2.10"
+    "@types/lodash" "^4.14.167"
+    color-convert "^2.0.1"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    markdown-to-jsx "^7.4.5"
+    memoizerific "^1.11.3"
+    polished "^4.2.2"
+    react-colorful "^5.1.2"
+    telejson "^7.2.0"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/blocks@^8.3.3":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.3.3.tgz#a123746b472488d3c6ccc08b1fe831474ec992b0"
+  integrity sha512-8Vsvxqstop3xfbsx3Dn1nEjyxvQUcOYd8vpxyp2YumxYO8FlXIRuYL6HAkYbcX8JexsKvCZYxor52D2vUGIKZg==
   dependencies:
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
