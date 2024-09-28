@@ -12,6 +12,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/useToast";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -36,6 +37,7 @@ function MainPage() {
 
   const [showPreview, setShowPreview] = useState(false);
   const t = useTranslations("backoffice");
+  const { toast } = useToast();
 
   const {
     control,
@@ -71,11 +73,15 @@ function MainPage() {
     try {
       const response = await createLesson(lessonData);
       if (response) {
-        // this will be removed soon
-        // eslint-disable-next-line no-console
-        console.log("Lesson created successfully!");
+        toast({
+          title: t("lessonCreated"),
+          variant: "default",
+        });
       } else {
-        console.error("Failed to create lesson");
+        toast({
+          title: t("lessonCreationFailure"),
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Error creating lesson:", error);

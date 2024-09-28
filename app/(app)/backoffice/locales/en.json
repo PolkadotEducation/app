@@ -21,6 +21,8 @@
     "correct": "Correct",
     "easy": "Easy",
     "medium": "Medium",
-    "hard": "Hard"
+    "hard": "Hard",
+    "lessonCreated": "Lesson created successfully!",
+    "lessonCreationFailure": "Failed to create lesson"
   }
 }
