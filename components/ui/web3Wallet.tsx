@@ -6,7 +6,7 @@ import { WalletAccount } from "@talismn/connect-wallets";
 import { Button } from "./button";
 import { useEffect, useState } from "react";
 import { connectInjectedExtension } from "polkadot-api/pjs-signer";
-import { getBalance, sign } from "@/api/web3";
+import { sign } from "@/api/web3";
 import { startFromWorker } from "polkadot-api/smoldot/from-worker";
 import { getSmProvider } from "polkadot-api/sm-provider";
 import { createClient, PolkadotClient } from "polkadot-api";
@@ -41,10 +41,6 @@ const Web3Wallet = () => {
     if (acc) {
       const s = await sign(acc, `${acc.address}@PolkadotEducation`);
       setSignature(s);
-      if (WEB3_ACTIVE && client) {
-        const b = await getBalance(client, acc);
-        setBalance(b);
-      }
     }
     setIsSigning(false);
   };
