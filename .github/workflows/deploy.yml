@@ -42,13 +42,13 @@ jobs:
           echo "" >> .env
 
       - name: Install
-        run: yarn
+        run: npm install -g bun && bun i
 
       - name: Format
-        run: yarn format
+        run: bun run format
 
       - name: Lint
-        run: yarn lint
+        run: bun run lint
 
       - name: Setup codebase
         run: |
@@ -67,10 +67,10 @@ jobs:
 
       - name: Start services
         working-directory: local-setup
-        run: docker compose --profile slim up -d & yarn wait
+        run: docker compose --profile slim up -d & bun run wait
 
       - name: Test with Cypress
-        run: yarn test
+        run: bun run test
 
       - name: Tear down services
         working-directory: local-setup
