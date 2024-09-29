@@ -11,6 +11,7 @@ import Logo from "@/components/ui/logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import { serverGoogleOAuthURL, serverGoogleOAuthPayload, GoogleOAuthPayload } from "@/api/actions/google";
+import Web3Wallet from "@/components/ui/web3Wallet";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -147,6 +148,7 @@ const LoginPage = () => {
                 />
                 {t(isAuthenticating ? "loading" : "google")}
               </Button>
+              <Web3Wallet />
             </div>
           </form>
         </div>
