@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb";
+import fs from "fs";
+import path from "path";
 
 const uri = "mongodb://localhost:27117";
 const dbName = "doteducation";
@@ -50,6 +52,33 @@ async function seedDatabase(db: Db) {
     };
 
     await db.collection("users").insertOne(regularUser);
+
+    const lessonBody = fs.readFileSync(path.join(__dirname, "../../lessons/portuguese/arpanet.mdx"), "utf-8");
+    const lesson = {
+      title: "Arpanet",
+      body: lessonBody,
+      difficulty: "medium",
+      challenge: {
+        question: "Em qual período histórico a ARPANET foi desenvolvida?",
+        choices: [
+          "Durante a Primeira Guerra Mundial",
+          "Durante a Guerra Fria",
+          "Durante a Grande Depressão",
+          "Durante a Segunda Guerra Mundial",
+        ],
+        correctChoice: 0,
+      },
+      references: [
+        {
+          title: "ARPANET Wikipedia Article",
+          link: "https://en.wikipedia.org/wiki/ARPANET",
+        },
+      ],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    await db.collection("lessons").insertOne(lesson);
 
     console.info("Database seeded.");
   } catch (error) {
