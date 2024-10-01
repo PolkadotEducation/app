@@ -78,7 +78,22 @@ async function seedDatabase(db: Db) {
       updatedAt: new Date(),
     };
 
-    await db.collection("lessons").insertOne(lesson);
+    const recordedLesson = await db.collection("lessons").insertOne(lesson);
+
+    const module = {
+      title: "Web3 basics",
+      lessons: [recordedLesson.insertedId],
+    };
+
+    const recordedModule = await db.collection("modules").insertOne(module);
+
+    const course = {
+      title: "Introduction to Web3",
+      summary: "TODO: create course summary",
+      modules: [recordedModule.insertedId],
+    };
+
+    await db.collection("courses").insertOne(course);
 
     console.info("Database seeded.");
   } catch (error) {
