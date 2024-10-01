@@ -6,3 +6,5 @@ export const PROFILE = (id: string) => `/users/${id}`;
 
 // Lesson
 export const LESSON = "/lesson";
+export const COURSE = "/course";
+export const MODULE = "/module";
