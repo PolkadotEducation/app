@@ -67,7 +67,7 @@ jobs:
 
       - name: Start services
         working-directory: local-setup
-        run: docker compose --profile slim up -d & bun run wait
+        run: bun run wait & docker compose --profile slim up -d
 
       - name: Test with Cypress
         run: bun run test
