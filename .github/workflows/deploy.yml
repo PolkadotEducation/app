@@ -70,7 +70,7 @@ jobs:
         run: docker compose --profile slim up -d
 
       - name: Test with Cypress
-        run: bun run wait-on --verbose http://localhost:3000 && bun run test
+        run: bun run wait-on --verbose http://127.0.0.1:3000 && bun run test
 
       - name: Tear down services
         working-directory: local-setup
