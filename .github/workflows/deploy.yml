@@ -69,7 +69,7 @@ jobs:
         working-directory: local-setup
         run: |
           docker compose --profile slim up -d
-          sleep 10
+          sleep 30
           curl http://localhost:3000
 
       - name: Test with Cypress
