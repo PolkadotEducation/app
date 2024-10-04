@@ -70,7 +70,12 @@ jobs:
         run: |
           docker compose --profile slim up -d
           sleep 30
-          curl http://localhost:3000
+
+      - name: List running Docker containers
+        run: docker ps
+
+      - name: Check Docker Compose logs
+        run: docker compose logs
 
       - name: Test with Cypress
         run: bun run wait-for-server.js && bun run test
