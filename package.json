@@ -14,8 +14,7 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "cypress run",
-    "test:open": "cypress open",
-    "wait": "wait-on http://localhost:3000"
+    "test:open": "cypress open"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
