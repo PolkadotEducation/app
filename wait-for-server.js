@@ -4,7 +4,7 @@ const http = require("http");
 const isVerbose = process.argv.includes("--verbose");
 
 const options = {
-  hostname: "172.17.0.1",
+  hostname: "localhost",
   port: 3000,
   path: "/",
   timeout: 2000,
