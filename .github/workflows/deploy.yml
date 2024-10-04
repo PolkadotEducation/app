@@ -67,7 +67,10 @@ jobs:
 
       - name: Start services
         working-directory: local-setup
-        run: docker compose --profile slim up -d
+        run: |
+          docker compose --profile slim up -d
+          sleep 10
+          curl http://localhost:3000
 
       - name: Test with Cypress
         run: bun run wait-for-server.js && bun run test
