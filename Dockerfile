@@ -6,8 +6,8 @@ WORKDIR /usr/app
 
 ADD . .
 
-RUN yarn install --frozen-lockfile
+RUN npm install -g bun && bun i
 
-RUN yarn build
+RUN bun run build
 
-CMD yarn start
+CMD bun run start
