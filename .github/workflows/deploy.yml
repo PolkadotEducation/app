@@ -18,60 +18,105 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  MONGODB_VERSION: 7.0.5-jammy
+  MONGODB_HOST: localhost
+  MONGODB_PORT: 27117
+  MONGODB_DB: doteducation
+  API_PORT: 4000
+
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Create codebase directory
+        run: mkdir -p codebase
 
-      - name: Setup
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: codebase/app
+
+      - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.29
 
-      - name: Set up environment variables
+      - name: Set up environment variables for APP
+        working-directory: codebase/app
         run: |
           touch .env
           echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
           echo "HOST=${{ vars.HOST }}" >> .env
           echo "PORT=${{ vars.PORT }}" >> .env
-          echo "NEXT_PUBLIC_API_DOMAIN=${{ vars.API_DOMAIN }}" >> .env
-          echo "" >> .env
+          echo "NEXT_PUBLIC_BASE_URL=http://${{ vars.HOST }}:${{ vars.PORT }}" >> .env
+          echo "NEXT_PUBLIC_API_DOMAIN=http://${{ vars.HOST }}:${{ env.API_PORT }}" >> .env
 
-      - name: Install
+      - name: Install APP dependencies
+        working-directory: codebase/app
         run: bun i
 
       - name: Format
+        working-directory: codebase/app
         run: bun run format
 
       - name: Lint
+        working-directory: codebase/app
         run: bun run lint
 
-      - name: Setup codebase
+      - name: Clone API
         run: |
-          git clone https://github.com/PolkadotEducation/local-setup local-setup
-          cd local-setup
-          ./run.sh
+          git clone https://github.com/PolkadotEducation/api.git codebase/api
 
-      - name: Checkout correct branch
+      - name: Set up environment variables for API
+        working-directory: codebase/api
         run: |
-          cd local-setup/codebase/app
-          if [[ -n "${{ github.head_ref }}" ]]; then
-            git checkout ${{ github.head_ref }}
-          else
-            git checkout ${{ github.ref_name }}
-          fi
+          touch .env
+          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
+          echo "HOST=${{ vars.HOST }}" >> .env
+          echo "PORT=${{ env.API_PORT }}" >> .env
+          echo "MONGODB_URI=mongodb://${{ env.MONGODB_HOST }}:${{ env.MONGODB_PORT }}/${{ env.MONGODB_DB }}" >> .env
 
-      - name: Start services
-        working-directory: local-setup
-        run: docker compose --profile slim up -d & bun run wait
+      - name: Install API dependencies
+        working-directory: codebase/api
+        run: git checkout ${{ github.event.pull_request.base.ref || github.ref_name }} && bun i
+
+      - name: Create logs directory
+        run: mkdir -p logs
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: ${{ env.MONGODB_VERSION }}
+          mongodb-port: ${{ env.MONGODB_PORT }}
+          mongodb-db: ${{ env.MONGODB_DB }}
+
+      - name: Start API
+        working-directory: codebase/api
+        run: bun dev > ../../logs/api.log 2>&1 &
+
+      - name: Start APP
+        working-directory: codebase/app
+        run: bun dev > ../../logs/app.log 2>&1 &
 
       - name: Test with Cypress
-        run: bun run test
+        working-directory: codebase/app
+        run: bun run wait && bun run test
 
-      - name: Tear down services
-        working-directory: local-setup
-        run: docker compose down
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          include-hidden-files: true
+          path: codebase/app/cypress/screenshots
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: service-logs
+          include-hidden-files: true
+          path: logs
