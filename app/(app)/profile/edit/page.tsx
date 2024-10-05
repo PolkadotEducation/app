@@ -1,6 +1,5 @@
 "use client";
 
-import Breadcrumb from "@/components/ui/breadcrumb";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { CloudUpload } from "lucide-react";
@@ -11,16 +10,6 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
-
-const BREADCRUMB_ROUTES = [
-  {
-    name: "Profile",
-    href: "/profile",
-  },
-  {
-    name: "Edit Profile",
-  },
-];
 
 const EditProfilePage = () => {
   const { state } = useAuth();
@@ -57,10 +46,7 @@ const EditProfilePage = () => {
   };
 
   return (
-    <main className="px-[20px] mt-4 xl:mt-8 max-w-[935px] w-full">
-      <div className="mb-0 xl:mb-2">
-        <Breadcrumb routes={BREADCRUMB_ROUTES} />
-      </div>
+    <main className="px-[20px] max-w-[935px] w-full">
       <h4 className="xl:mb-6 mb-4">{t("editProfile")}</h4>
       <div
         className="flex flex-col items-center px-6 pt-6 xl:pb-[41px]

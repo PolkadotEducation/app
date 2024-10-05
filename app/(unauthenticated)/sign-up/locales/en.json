@@ -12,6 +12,8 @@
       "characters": "At least 8 characters"
     },
     "repeatPasswordPlaceholder": "Repeat password",
-    "signUpButton": "Start learning"
+    "signUpButton": "Start learning",
+    "signUpSuccess": "User created successfully",
+    "signUpSuccessDescription": "Now you can access the platform!"
   }
 }

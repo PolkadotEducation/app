@@ -7,6 +7,8 @@ export default defineConfig({
     experimentalStudio: true,
     supportFile: "cypress/support/index.ts",
     supportFolder: "cypress/support",
+    screenshotsFolder: "cypress/screenshots",
+    screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {
       on("before:run", async () => {
         await setupDatabase();

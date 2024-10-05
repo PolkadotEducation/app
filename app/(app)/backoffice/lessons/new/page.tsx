@@ -11,6 +11,8 @@ import { useTranslations } from "next-intl";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/useToast";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -35,6 +37,7 @@ function MainPage() {
 
   const [showPreview, setShowPreview] = useState(false);
   const t = useTranslations("backoffice");
+  const { toast } = useToast();
 
   const {
     control,
@@ -70,11 +73,15 @@ function MainPage() {
     try {
       const response = await createLesson(lessonData);
       if (response) {
-        // this will be removed soon
-        // eslint-disable-next-line no-console
-        console.log("Lesson created successfully!");
+        toast({
+          title: t("lessonCreated"),
+          variant: "default",
+        });
       } else {
-        console.error("Failed to create lesson");
+        toast({
+          title: t("lessonCreationFailure"),
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Error creating lesson:", error);
@@ -110,7 +117,7 @@ function MainPage() {
   }
 
   return (
-    <main className="px-[20px] my-10 xl:mt-16 max-w-[1000px] w-full">
+    <main className="px-[20px] mb-10 max-w-[1000px] w-full">
       <h4 className="xl:mb-[30px] mb-4">{t("newLesson")}</h4>
       <div className="flex w-full justify-end mb-6">
         <Button type="button" onClick={() => handlePreview(true)}>
@@ -137,14 +144,30 @@ function MainPage() {
             name="difficulty"
             control={control}
             render={({ field }) => (
-              <InputFloatingLabel
-                {...field}
-                type="text"
-                id="difficultyInput"
-                label={t("difficulty")}
-                additionalStyles="mb-5"
-                error={errors.difficulty?.message}
-              />
+              <div className="flex flex-col">
+                <p>{t("difficulty")}</p>
+                <RadioGroup
+                  {...field}
+                  onValueChange={field.onChange}
+                  className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="easy" id="easyRadioButton" />
+                    <label htmlFor="easyRadioButton">{t("easy")}</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="medium" id="mediumRadioButton" />
+                    <label htmlFor="mediumRadioButton">{t("medium")}</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="hard" id="hardRadioButton" />
+                    <label htmlFor="hardRadioButton">{t("hard")}</label>
+                  </div>
+                </RadioGroup>
+                {errors.difficulty?.message && (
+                  <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
+                )}
+              </div>
             )}
           />
         </div>

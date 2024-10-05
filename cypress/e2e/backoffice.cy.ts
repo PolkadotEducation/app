@@ -31,11 +31,7 @@ describe("Backoffice Page", () => {
       cy.login();
       checkLoginSuccess();
 
-      cy.visit("/backoffice/lessons/new", {
-        onBeforeLoad(win) {
-          cy.stub(win.console, "log").as("consoleLog");
-        },
-      });
+      cy.visit("/backoffice/lessons/new");
       cy.getByData("button-lesson-submit").click();
 
       const expectedMessages = [
@@ -54,7 +50,7 @@ describe("Backoffice Page", () => {
       });
 
       cy.get("#titleInput").type("Lesson Title");
-      cy.get("#difficultyInput").type("easy");
+      cy.get("#easyRadioButton").click();
       cy.get("#questionInput").type("What's the capital of France?");
       cy.get("#Choice1").type("Lisbon");
       cy.get("#Choice2").type("Paris");
@@ -63,8 +59,8 @@ describe("Backoffice Page", () => {
 
       cy.getByData("button-lesson-submit").click();
 
-      // checks successful submission, this will be replaced by a notification or a redirect
-      cy.get("@consoleLog").should("have.been.calledWith", "Lesson created successfully!");
+      cy.getByData("toast").should("be.visible");
+      cy.getByData("toast-title").should("be.visible").and("contain", "Lesson created successfully!");
     });
 
     it("regular user can not access backoffice home", () => {

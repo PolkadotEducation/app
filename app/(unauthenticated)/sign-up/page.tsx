@@ -9,6 +9,7 @@ import Logo from "@/components/ui/logo";
 import { PASSWORD_REQUIREMENTS } from "./constants";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/useToast";
 
 const SignUpPage = () => {
   const [password, setPassword] = useState("");
@@ -20,6 +21,7 @@ const SignUpPage = () => {
   const router = useRouter();
   const { signUp, state, clearAuthError } = useAuth();
   const t = useTranslations("signUp");
+  const { toast } = useToast();
 
   const reset = () => {
     setPassword("");
@@ -92,6 +94,11 @@ const SignUpPage = () => {
     if (success) {
       const queryParams = new URLSearchParams({ email }).toString();
       router.push(`/sign-up/email-sent?${queryParams}`);
+      toast({
+        title: t("signUpSuccess"),
+        description: t("signUpSuccessDescription"),
+        variant: "default",
+      });
     }
   };
 
