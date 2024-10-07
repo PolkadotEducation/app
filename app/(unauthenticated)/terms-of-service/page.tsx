@@ -2,8 +2,8 @@
 
 import PolicyRenderer from "@/components/ui/policyRenderer";
 
-const PrivaciPolicy = () => {
+const TermsOfService = () => {
   return <PolicyRenderer policyMarkdown={"TermsOfService.md"} />;
 };
 
-export default PrivaciPolicy;
+export default TermsOfService;
