@@ -1,25 +1,35 @@
+import { House } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface BreadcrumbProps {
-  routes: {
-    name: string;
-    href?: string;
-  }[];
-}
+const Breadcrumb = () => {
+  const pathname = usePathname();
+  const segments = pathname.split("/").filter(Boolean);
 
-const Breadcrumb = ({ routes }: BreadcrumbProps) => {
+  if (pathname === "/") {
+    return null;
+  }
+
   return (
     <nav className="text-sm font-medium">
-      <ol className="list-reset flex">
-        {routes.map((route, index) => {
-          const isLast = index === routes.length - 1;
+      <ol className="list-reset flex items-center">
+        <li className="flex items-center">
+          <Link href="/" className="text-text-secondary hover:underline body1 flex items-center">
+            <House height={16} />
+          </Link>
+          {segments.length > 0 && <span className="mx-2 text-text-secondary">/</span>}
+        </li>
+        {segments.map((segment, index) => {
+          const href = "/" + segments.slice(0, index + 1).join("/");
+          const isLast = index === segments.length - 1;
+          const name = segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
           return (
-            <li key={route.name} className="flex items-center">
+            <li key={href} className="flex items-center">
               {isLast ? (
-                <span className="text-primary body1">{route.name}</span>
+                <span className="text-primary body1">{name}</span>
               ) : (
-                <Link href={route.href || "#"} className="text-text-secondary hover:underline body1">
-                  {route.name}
+                <Link href={href} className="text-text-secondary hover:underline body1">
+                  {name}
                 </Link>
               )}
               {!isLast && <span className="mx-2 text-text-secondary">/</span>}

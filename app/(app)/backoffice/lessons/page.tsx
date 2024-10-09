@@ -10,7 +10,7 @@ const LessonsPage = () => {
   const t = useTranslations("backoffice");
 
   return (
-    <main className="px-[20px] mt-10 xl:mt-16 max-w-[1000px] w-full">
+    <main className="px-[20px] max-w-[1000px] w-full">
       <h4 className="xl:mb-10 mb-6">{t("lessonLibrary")}</h4>
       <div className="p-6 bg-card rounded-[3px] flex flex-col">
         <div className="flex xl:flex-row flex-col justify-between">

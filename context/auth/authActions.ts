@@ -1,5 +1,5 @@
 import { GoogleOAuthPayload } from "@/api/actions/google";
-import { authLogin, authLoginWithGoogle, authSignUp, getProfile } from "@/api/authService";
+import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp, getProfile } from "@/api/authService";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { User } from "@/types/userTypes";
@@ -26,6 +26,27 @@ export const loginWithGoogle = async (dispatch: React.Dispatch<any>, credentials
   dispatch({ type: "LOGIN_REQUEST" });
   try {
     const data = await authLoginWithGoogle(credentials);
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: { token: data.jwt },
+    });
+    Cookies.set("token", data.jwt);
+    dispatch({ type: "CLEAR_AUTH_ERROR" });
+    return true;
+  } catch (error) {
+    const errorMessage = (error as Error).message;
+    dispatch({ type: "LOGIN_FAILURE", payload: { error: errorMessage } });
+    return false;
+  }
+};
+
+export const loginWithWallet = async (
+  dispatch: React.Dispatch<any>,
+  credentials: { address: string; name?: string; signature: Uint8Array },
+) => {
+  dispatch({ type: "LOGIN_REQUEST" });
+  try {
+    const data = await authLoginWithWallet(credentials);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: { token: data.jwt },
