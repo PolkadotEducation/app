@@ -1,8 +1,8 @@
 import { ServerAxiosError, serverGet } from "./actions/api";
-import { COURSE } from "./constants";
+import { COURSES } from "./constants";
 
-export const getCourses = async (id: string): Promise<any> => {
-  const response = await serverGet<any>(`${COURSE}?lessonId=${id}`);
+export const getCoursesByLanguage = async (language: string): Promise<any> => {
+  const response = await serverGet<any>(`${COURSES}?language=${language}`);
   if ((response as ServerAxiosError).message) throw response as ServerAxiosError;
   return response;
 };

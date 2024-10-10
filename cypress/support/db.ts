@@ -58,6 +58,7 @@ async function seedDatabase(db: Db) {
     const lessonBody = fs.readFileSync(path.join(__dirname, "../../lessons/portuguese/arpanet.mdx"), "utf-8");
     const lesson = {
       title: "Arpanet",
+      language: "english",
       body: lessonBody,
       difficulty: "medium",
       challenge: {
@@ -91,6 +92,7 @@ async function seedDatabase(db: Db) {
 
     const course = {
       title: "Introduction to Web3",
+      language: "english",
       summary: "TODO: create course summary",
       modules: [recordedModule.insertedId],
     };
