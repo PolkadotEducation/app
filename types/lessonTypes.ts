@@ -11,6 +11,7 @@ export type ChallengeType = {
 
 export type LessonType = {
   title: string;
+  language: string;
   difficulty: string;
   body: string;
   challenge: ChallengeType;

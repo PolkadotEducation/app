@@ -1,6 +1,6 @@
 describe("Backoffice Page", () => {
   const checkLoginSuccess = () => {
-    cy.getByData("image-home-maintenance-desktop").should("be.visible");
+    cy.getByData("text-home-courses").should("be.visible");
   };
 
   describe("desktop", () => {

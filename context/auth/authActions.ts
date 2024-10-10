@@ -63,7 +63,7 @@ export const loginWithWallet = async (
 
 export const signUp = async (
   dispatch: React.Dispatch<any>,
-  newUser: { email: string; password: string; name: string; company: string },
+  newUser: { email: string; password: string; name: string; company: string; language: string },
 ): Promise<boolean> => {
   dispatch({ type: "SIGN_UP_REQUEST" });
   try {
