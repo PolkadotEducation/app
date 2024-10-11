@@ -12,7 +12,13 @@ type AuthContextType = {
   login: (_credentials: { email: string; password: string }) => Promise<boolean>;
   loginWithGoogle: (_credentials: GoogleOAuthPayload) => Promise<boolean>;
   loginWithWallet: (_credentials: { address: string; name?: string; signature: Uint8Array }) => Promise<boolean>;
-  signUp: (_newUser: { email: string; password: string; name: string; company: string }) => Promise<boolean>;
+  signUp: (_newUser: {
+    email: string;
+    password: string;
+    name: string;
+    company: string;
+    language: string;
+  }) => Promise<boolean>;
   signOut: () => void;
   setUserByToken: (_token: string) => Promise<boolean>;
   clearAuthError: () => void;
@@ -43,7 +49,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return await loginWithWallet(dispatch, credentials);
   };
 
-  const handleSignUp = async (newUser: { email: string; password: string; name: string; company: string }) => {
+  const handleSignUp = async (newUser: {
+    email: string;
+    password: string;
+    name: string;
+    company: string;
+    language: string;
+  }) => {
     return await signUp(dispatch, newUser);
   };
 

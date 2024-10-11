@@ -16,8 +16,7 @@ describe("Sign-up", () => {
 
       cy.login("marvin@email.com", "Senha123");
 
-      cy.getByData("image-home-maintenance").should("be.visible");
-      cy.getByData("text-home-maintenance").should("be.visible");
+      cy.getByData("text-home-courses").should("be.visible");
     });
 
     it("displays error because account already exists", () => {

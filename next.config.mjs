@@ -5,6 +5,15 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactStrictMode: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+        port: "",
+      },
+    ],
+  },
 };
 
 const withMDX = createMDX({});
