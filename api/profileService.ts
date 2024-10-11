@@ -1,6 +1,6 @@
 import { UserInfo } from "@/types/userTypes";
-import { ServerAxiosError, serverDelete, serverGet, serverPut } from "./actions/api";
-import { PROFILE } from "./constants";
+import { ServerAxiosError, serverDelete, serverGet, serverPost, serverPut } from "./actions/api";
+import { PROFILE, PROFILE_VERIFY } from "./constants";
 
 export const getProfile = async (id: string): Promise<UserInfo> => {
   const r = await serverGet<UserInfo>(PROFILE(id));
@@ -18,4 +18,10 @@ export const deleteProfile = async (id: string): Promise<Boolean> => {
   const r = await serverDelete<Boolean>(PROFILE(id));
   if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
   return true;
+};
+
+export const verifyProfile = async (email: string, token: string): Promise<UserInfo> => {
+  const r = await serverPost<UserInfo>(PROFILE_VERIFY, { email, token });
+  if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
+  return r as UserInfo;
 };
