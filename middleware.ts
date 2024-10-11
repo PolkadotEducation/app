@@ -12,6 +12,8 @@ const publicPages = [
   "/sign-up/email-sent",
   "/reset-password",
   "/reset-password/success",
+  "/privacy-policy",
+  "/terms-of-service",
 ];
 const dynamicPublicPages = ["/lesson"];
 const adminPages = ["/backoffice"];

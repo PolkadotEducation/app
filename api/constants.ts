@@ -7,3 +7,5 @@ export const PROFILE = (id: string) => `/users/${id}`;
 
 // Lesson
 export const LESSON = "/lesson";
+export const MODULE = "/module";
+export const COURSES = "/courses";
