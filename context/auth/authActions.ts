@@ -1,5 +1,6 @@
 import { GoogleOAuthPayload } from "@/api/actions/google";
-import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp, getProfile } from "@/api/authService";
+import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp } from "@/api/authService";
+import { getProfile } from "@/api/profileService";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { User } from "@/types/userTypes";

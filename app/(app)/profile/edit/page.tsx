@@ -10,14 +10,18 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import { deleteProfile, updateProfile } from "@/api/profileService";
+import { User } from "@/types/userTypes";
 
 const EditProfilePage = () => {
-  const { state } = useAuth();
+  const { state, signOut } = useAuth();
   const { userInfo, isLoading } = state;
   const { picture, name, email } = userInfo || {};
   const [selectedPicture, setSelectedPicture] = useState<string | undefined | null>(null);
   const [inputName, setInputName] = useState<string | undefined>("");
   const [inputEmail, setInputEmail] = useState<string | undefined>("");
+  const [error, setError] = useState<string>("");
+  const [updateMessage, setUpdateMessage] = useState<string>("");
   const t = useTranslations("profile");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
@@ -27,6 +31,7 @@ const EditProfilePage = () => {
       setSelectedPicture(picture);
       setInputName(name);
       setInputEmail(email);
+      setError("");
     }
   }, [isLoading]);
 
@@ -43,6 +48,39 @@ const EditProfilePage = () => {
 
   const handleButtonClick = () => {
     if (fileInputRef?.current) fileInputRef.current.click();
+  };
+
+  const handleDelete = async () => {
+    setError("");
+    try {
+      if (userInfo) {
+        await deleteProfile(userInfo?._id);
+        signOut();
+      }
+    } catch (error: any) {
+      if (error?.message) setError(error.message);
+      else setError("Server Error.");
+    }
+  };
+
+  const handleUpdate = async () => {
+    setUpdateMessage("");
+    setError("");
+    try {
+      if (userInfo) {
+        const updateUser: User = {
+          ...userInfo,
+          name: inputName || userInfo.name,
+          email: inputEmail || userInfo.email,
+          picture: selectedPicture || userInfo.picture,
+        };
+        await updateProfile(userInfo?._id, updateUser);
+        setUpdateMessage("Profile Updated.");
+      }
+    } catch (error: any) {
+      if (error?.message) setError(error.message);
+      else setError("Server Error.");
+    }
   };
 
   return (
@@ -110,12 +148,26 @@ const EditProfilePage = () => {
           <Input value={inputName} onChange={(e) => setInputName(e.target.value)} />
           <Input value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} />
         </div>
-        <div className="flex w-full justify-end pt-[10px] xl:pt-6 border-t-border-gray border-t-[1px]">
-          <Button variant="outline" className="mr-4" onClick={() => router.back()}>
-            {t("cancel")}
-          </Button>
-          <Button>{t("save")}</Button>
+        <div className="flex w-full pt-[10px] xl:pt-6 border-t border-gray-300 justify-between">
+          <div className="flex">
+            <Button variant="outline" onClick={handleDelete}>
+              {t("delete")}
+            </Button>
+          </div>
+          <div className="flex">
+            <Button variant="outline" className="mr-4" onClick={() => router.back()}>
+              {t("cancel")}
+            </Button>
+            <Button
+              onClick={handleUpdate}
+              disabled={inputEmail === userInfo?.email && inputName === userInfo?.name && picture === userInfo?.picture}
+            >
+              {t("save")}
+            </Button>
+          </div>
         </div>
+        {error && <div className="text-sm font-bold text-red-500">{error}</div>}
+        {updateMessage && <div className="text-sm font-bold text-green-500">{updateMessage}</div>}
       </div>
     </main>
   );
