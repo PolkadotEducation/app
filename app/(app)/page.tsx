@@ -2,10 +2,6 @@ import Image from "next/image";
 import { maintenanceDesktop, maintenanceMobile } from "@/public/assets/images";
 import { useTranslations } from "next-intl";
 
-export const metadata = {
-  title: "Polkadot Education",
-};
-
 const Home = () => {
   const t = useTranslations("home");
   return (
