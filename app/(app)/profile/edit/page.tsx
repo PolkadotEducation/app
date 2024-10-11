@@ -54,7 +54,7 @@ const EditProfilePage = () => {
     setError("");
     try {
       if (userInfo) {
-        await deleteProfile(userInfo?._id);
+        await deleteProfile(userInfo?.id);
         signOut();
       }
     } catch (error: any) {
@@ -74,7 +74,7 @@ const EditProfilePage = () => {
           email: inputEmail || userInfo.email,
           picture: selectedPicture || userInfo.picture,
         };
-        await updateProfile(userInfo?._id, updateUser);
+        await updateProfile(userInfo?.id, updateUser);
         setUpdateMessage("Profile Updated.");
       }
     } catch (error: any) {
