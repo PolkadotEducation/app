@@ -1,19 +1,25 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { resetPassword } from "@/public/assets/images";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useTranslations } from "next-intl";
+import { recoverProfile } from "@/api/profileService";
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
   const [passwordRepeated, setPasswordRepeated] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const t = useTranslations("resetPassword");
+
+  const token = searchParams.get("token");
+  const email = searchParams.get("email");
 
   const checkIfPasswordsMatches = (p: string, rp: string) => p === rp;
 
@@ -35,7 +41,7 @@ const ResetPasswordPage = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!password || !passwordRepeated) {
       return;
@@ -44,7 +50,15 @@ const ResetPasswordPage = () => {
     if (!checkIfPasswordsMatches(password, passwordRepeated)) {
       setErrorMessage("Password doesn’t match.");
     } else {
-      router.push("/reset-password/success");
+      if (email && token && password) {
+        try {
+          const ok = await recoverProfile(email, token, password);
+          if (ok) router.push("/reset-password/success");
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          router.push("/login");
+        }
+      }
     }
   };
 
@@ -80,9 +94,6 @@ const ResetPasswordPage = () => {
                 error={errorMessage}
                 additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
               />
-              <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
-                <p className="text-xs text-error">{errorMessage}</p>
-              </div>
               <Button type="submit" className="w-full">
                 {t("resetButton")}
               </Button>

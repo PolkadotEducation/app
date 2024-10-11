@@ -1,6 +1,6 @@
 import { UserInfo } from "@/types/userTypes";
 import { ServerAxiosError, serverDelete, serverGet, serverPost, serverPut } from "./actions/api";
-import { PROFILE, PROFILE_VERIFY } from "./constants";
+import { PROFILE, PROFILE_RECOVER, PROFILE_VERIFY } from "./constants";
 
 export const getProfile = async (id: string): Promise<UserInfo> => {
   const r = await serverGet<UserInfo>(PROFILE(id));
@@ -24,4 +24,10 @@ export const verifyProfile = async (email: string, token: string): Promise<UserI
   const r = await serverPost<UserInfo>(PROFILE_VERIFY, { email, token });
   if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
   return r as UserInfo;
+};
+
+export const recoverProfile = async (email: string, token?: string, password?: string): Promise<Boolean> => {
+  const r = await serverPost<Boolean>(PROFILE_RECOVER, { email, token, password });
+  if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
+  return true;
 };
