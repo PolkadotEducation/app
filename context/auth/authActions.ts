@@ -3,7 +3,7 @@ import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp } from 
 import { getProfile } from "@/api/profileService";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
-import { User } from "@/types/userTypes";
+import { UserInfo } from "@/types/userTypes";
 
 export const login = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
   dispatch({ type: "LOGIN_REQUEST" });
@@ -93,7 +93,7 @@ export const setUser = async (dispatch: React.Dispatch<any>, token: string): Pro
       type: "SET_LOADING",
       payload: { loading: true },
     });
-    const decodedToken = jwt.decode(token) as { user: User } | null;
+    const decodedToken = jwt.decode(token) as { user: UserInfo } | null;
     const profile = await getProfile(decodedToken?.user.id || "");
     dispatch({
       type: "SET_USER",

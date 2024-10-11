@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { deleteProfile, updateProfile } from "@/api/profileService";
-import { User } from "@/types/userTypes";
+import { UserInfo } from "@/types/userTypes";
 
 const EditProfilePage = () => {
   const { state, signOut } = useAuth();
@@ -68,7 +68,7 @@ const EditProfilePage = () => {
     setError("");
     try {
       if (userInfo) {
-        const updateUser: User = {
+        const updateUser: UserInfo = {
           ...userInfo,
           name: inputName || userInfo.name,
           email: inputEmail || userInfo.email,

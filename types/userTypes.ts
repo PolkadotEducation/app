@@ -1,8 +1,12 @@
-export type User = {
+export type UserInfo = {
   id: string;
   email: string;
   name: string;
   company: string;
+  picture: string;
   isAdmin: boolean;
-  picture?: string;
+  lastActivity: Date;
+  verifyToken?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
