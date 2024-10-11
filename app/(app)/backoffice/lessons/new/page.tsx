@@ -60,6 +60,7 @@ function MainPage() {
   const onSubmit = async (data: FormData) => {
     const lessonData = {
       title: data.title,
+      language: "english", // @TODO: add language field
       body: data.markdownBody,
       difficulty: data.difficulty,
       challenge: {

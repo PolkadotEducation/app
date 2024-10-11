@@ -89,7 +89,8 @@ const SignUpPage = () => {
       return;
     }
 
-    const success = await signUp({ email, password, name, company });
+    const defaultLanguage = "english"; // @TODO: get from browser
+    const success = await signUp({ email, password, name, company, language: defaultLanguage });
 
     if (success) {
       const queryParams = new URLSearchParams({ email }).toString();
