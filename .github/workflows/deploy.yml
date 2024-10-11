@@ -48,7 +48,7 @@ jobs:
         working-directory: codebase/app
         run: |
           touch .env
-          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
+          echo "NODE_ENV=test" >> .env
           echo "HOST=${{ vars.HOST }}" >> .env
           echo "PORT=${{ vars.PORT }}" >> .env
           echo "NEXT_PUBLIC_BASE_URL=http://${{ vars.HOST }}:${{ vars.PORT }}" >> .env
@@ -74,7 +74,7 @@ jobs:
         working-directory: codebase/api
         run: |
           touch .env
-          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
+          echo "NODE_ENV=test" >> .env
           echo "HOST=${{ vars.HOST }}" >> .env
           echo "PORT=${{ env.API_PORT }}" >> .env
           echo "MONGODB_URI=mongodb://${{ env.MONGODB_HOST }}:${{ env.MONGODB_PORT }}/${{ env.MONGODB_DB }}" >> .env
