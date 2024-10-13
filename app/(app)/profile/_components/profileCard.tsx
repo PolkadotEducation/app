@@ -1,17 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 const ProfileCard = () => {
-  const { state } = useAuth();
-  const { userInfo } = state;
-  const { picture, name, email } = userInfo || {};
+  const { user } = useUser();
+  const { picture, name, email } = user || {};
   const [progress, setProgress] = useState(0);
   const t = useTranslations("profile");
   const [level] = useState(5);

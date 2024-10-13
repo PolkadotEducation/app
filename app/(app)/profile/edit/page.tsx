@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { CloudUpload } from "lucide-react";
 import Image from "next/image";
@@ -12,11 +11,14 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { deleteProfile, updateProfile } from "@/api/profileService";
 import { UserInfo } from "@/types/userTypes";
+import { useUser } from "@/hooks/useUser";
+import { useAuth } from "@/hooks/useAuth";
 
 const EditProfilePage = () => {
-  const { state, signOut } = useAuth();
-  const { userInfo, isLoading } = state;
-  const { picture, name, email } = userInfo || {};
+  const { signOut, state } = useAuth();
+  const { user, loadUserProfile } = useUser();
+  const { isLoading } = state;
+  const { picture, name, email } = user || {};
   const [selectedPicture, setSelectedPicture] = useState<string | undefined | null>(null);
   const [inputName, setInputName] = useState<string | undefined>("");
   const [inputEmail, setInputEmail] = useState<string | undefined>("");
@@ -53,8 +55,8 @@ const EditProfilePage = () => {
   const handleDelete = async () => {
     setError("");
     try {
-      if (userInfo) {
-        await deleteProfile(userInfo?.id);
+      if (user) {
+        await deleteProfile(user?.id);
         signOut();
       }
     } catch (error: any) {
@@ -67,14 +69,15 @@ const EditProfilePage = () => {
     setUpdateMessage("");
     setError("");
     try {
-      if (userInfo) {
+      if (user) {
         const updateUser: UserInfo = {
-          ...userInfo,
-          name: inputName || userInfo.name,
-          email: inputEmail || userInfo.email,
-          picture: selectedPicture || userInfo.picture,
+          ...user,
+          name: inputName || user.name,
+          email: inputEmail || user.email,
+          picture: selectedPicture || user.picture,
         };
-        await updateProfile(userInfo?.id, updateUser);
+        await updateProfile(user?.id, updateUser);
+        await loadUserProfile();
         setUpdateMessage("Profile Updated.");
       }
     } catch (error: any) {
@@ -160,7 +163,7 @@ const EditProfilePage = () => {
             </Button>
             <Button
               onClick={handleUpdate}
-              disabled={inputEmail === userInfo?.email && inputName === userInfo?.name && picture === userInfo?.picture}
+              disabled={inputEmail === user?.email && inputName === user?.name && picture === user?.picture}
             >
               {t("save")}
             </Button>

@@ -13,26 +13,15 @@ import {
 import Image from "next/image";
 import chevronDown from "@/public/assets/icons/chevronDown.svg";
 import hamburgerMenu from "@/public/assets/icons/hamburgerMenu.svg";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useUser } from "@/hooks/useUser";
 
 const AppHeader = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [picture, setPicture] = useState<string | undefined>("");
-  const { state, signOut } = useAuth();
+  const { user } = useUser();
+  const { name, email, isAdmin, picture } = user || {};
+  const { signOut } = useAuth();
   const t = useTranslations("components");
-
-  useEffect(() => {
-    if (state.userToken && state.userInfo) {
-      setEmail(state.userInfo.email);
-      setName(state.userInfo.name);
-      setIsAdmin(state.userInfo.isAdmin);
-      setPicture(state.userInfo.picture);
-    }
-  }, [Object.keys(state.userInfo || {}).length]);
 
   return (
     <div className="w-full flex justify-center bg-primary">

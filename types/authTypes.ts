@@ -1,11 +1,7 @@
-import { UserInfo } from "./userTypes";
-
 export type AuthState = {
   isLoading: boolean;
   userToken: string | null;
-  email: string | null;
   error: string | null;
-  userInfo?: UserInfo;
 };
 
 export type AuthAction =
@@ -17,7 +13,6 @@ export type AuthAction =
   | { type: "SIGN_UP_FAILURE"; payload: { error: string } }
   | { type: "CLEAR_AUTH_ERROR" }
   | { type: "SIGN_OUT" }
-  | { type: "SET_USER"; payload: { user: UserInfo } }
   | { type: "SET_TOKEN"; payload: { token: string } }
   | { type: "SET_LOADING"; payload: { loading: boolean } };
 

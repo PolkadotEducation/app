@@ -21,7 +21,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
       return {
         ...state,
         isLoading: false,
-        email: action.payload.email,
         error: null,
       };
     case "LOGIN_FAILURE":
@@ -37,11 +36,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
       return {
         ...state,
         error: null,
-      };
-    case "SET_USER":
-      return {
-        ...state,
-        userInfo: action.payload.user,
       };
     case "SET_TOKEN":
       return {
