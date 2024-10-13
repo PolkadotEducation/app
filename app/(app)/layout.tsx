@@ -2,10 +2,6 @@
 
 import "../globals.css";
 import AppHeader from "@/components/ui/appHeader";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
-import Cookies from "js-cookie";
 import Breadcrumb from "@/components/ui/breadcrumb";
 
 export default function AppLayout({
@@ -13,21 +9,6 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
-  const { setUserByToken, state } = useAuth();
-
-  useEffect(() => {
-    if (!state.userToken || Object.keys(state.userInfo || {}).length < 1) {
-      const token = Cookies.get("token");
-      if (token) {
-        (async () => {
-          const success = await setUserByToken(token);
-          if (!success) router.push("/login");
-        })();
-      }
-    }
-  }, [state.userToken]);
-
   return (
     <main>
       <div className="flex flex-col items-center bg-background">

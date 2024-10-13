@@ -7,6 +7,7 @@ import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useTranslations } from "next-intl";
+import { recoverProfile } from "@/api/profileService";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -17,9 +18,14 @@ const ForgotPasswordPage = () => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (email) {
+      try {
+        await recoverProfile(email);
+      } catch (error) {
+        console.error(JSON.stringify(error));
+      }
       router.push("/forgot-password/email-sent");
     }
   };

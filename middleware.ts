@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import Cookies from "js-cookie";
-import { User } from "./types/userTypes";
+import { UserInfo } from "./types/userTypes";
 
 const publicPages = [
   "/login",
@@ -10,6 +10,7 @@ const publicPages = [
   "/forgot-password/email-sent",
   "/sign-up",
   "/sign-up/email-sent",
+  "/verify",
   "/reset-password",
   "/reset-password/success",
   "/privacy-policy",
@@ -28,7 +29,7 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   }
 
   try {
-    const decodedToken = jwt.decode(token) as { expiresAt: number; user: User } | null;
+    const decodedToken = jwt.decode(token) as { expiresAt: number; user: UserInfo } | null;
 
     if (!decodedToken || !decodedToken.expiresAt) {
       Cookies.remove("token");

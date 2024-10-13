@@ -4,6 +4,8 @@ export const LOGIN = "/users/login";
 export const LOGIN_WITH_GOOGLE = "/users/login/google";
 export const LOGIN_WITH_WALLET = "/users/login/wallet";
 export const PROFILE = (id: string) => `/users/${id}`;
+export const PROFILE_VERIFY = "/users/verify";
+export const PROFILE_RECOVER = "/users/recover";
 
 // Lesson
 export const LESSON = "/lesson";
