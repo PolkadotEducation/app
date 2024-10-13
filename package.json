@@ -15,6 +15,7 @@
     "format:fix": "prettier --write .",
     "test": "cypress run",
     "test:open": "cypress open",
+    "type-check": "tsc --noEmit",
     "wait": "wait-on http://localhost:3000"
   },
   "dependencies": {

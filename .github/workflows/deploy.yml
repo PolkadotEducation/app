@@ -58,6 +58,10 @@ jobs:
         working-directory: codebase/app
         run: bun i
 
+      - name: Type-check
+        working-directory: codebase/app
+        run: bun run type-check
+
       - name: Format
         working-directory: codebase/app
         run: bun run format
