@@ -58,10 +58,6 @@ jobs:
         working-directory: codebase/app
         run: bun i
 
-      - name: Type-check
-        working-directory: codebase/app
-        run: bun run type-check
-
       - name: Format
         working-directory: codebase/app
         run: bun run format
@@ -69,6 +65,10 @@ jobs:
       - name: Lint
         working-directory: codebase/app
         run: bun run lint
+
+      - name: Build
+        working-directory: codebase/app
+        run: bun run build
 
       - name: Clone API
         run: |
