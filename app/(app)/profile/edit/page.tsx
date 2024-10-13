@@ -57,7 +57,6 @@ const EditProfilePage = () => {
             {selectedPicture ? (
               <div className="w-40 h-40 xl:w-80 xl:h-80 rounded-full overflow-hidden">
                 <Image
-                  unoptimized
                   src={selectedPicture}
                   alt="Selected Picture"
                   width={80}

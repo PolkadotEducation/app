@@ -55,6 +55,7 @@ const config = {
         error: "hsl(var(--error))",
         "border-gray": "hsl(var(--border-gray))",
         success: "hsl(var(--success-green))",
+        "dark-purple": "hsl(var(--dark-purple))",
       },
       borderRadius: {
         lg: "var(--radius)",

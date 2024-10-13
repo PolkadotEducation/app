@@ -31,7 +31,7 @@ const ForgotPasswordPage = () => {
         justify-center xl:justify-start mt-[-40px] xl:mt-20
         items-center xl:items-start"
       >
-        <Logo width={395} height={47} pathToRedirect="/login" />
+        <Logo width={208} height={60} pathToRedirect="/login" />
         <div className="flex flex-col justify-center xl:mt-40 mt-10">
           <form onSubmit={handleSubmit} className="mt-5 xl:mt-0">
             <div
@@ -57,7 +57,6 @@ const ForgotPasswordPage = () => {
         </div>
       </div>
       <Image
-        unoptimized
         src={forgotPassword}
         alt="Forgot Password"
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"

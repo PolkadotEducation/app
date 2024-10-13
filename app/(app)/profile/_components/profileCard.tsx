@@ -30,7 +30,6 @@ const ProfileCard = () => {
       <div className="flex flex-col xl:flex-row items-center xl:mr-16">
         {picture ? (
           <Image
-            unoptimized
             src={picture}
             alt="Profile Picture"
             width={120}
