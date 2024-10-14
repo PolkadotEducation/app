@@ -2,8 +2,13 @@ describe("Sign-up", () => {
   describe("mobile", () => {
     it("creates an account with success", () => {
       cy.viewport("iphone-x");
-      cy.visit("/");
 
+      // access through URL first
+      cy.visit("/sign-up");
+      cy.getByData("button-signup-submit").should("be.visible");
+
+      // access through sign-up link on login page
+      cy.visit("/");
       cy.getByData("button-login-signup").click();
 
       cy.get("#nameInput").type("Douglas Adams");
