@@ -10,4 +10,5 @@ export const PROFILE_RECOVER = "/users/recover";
 // Lesson
 export const LESSON = "/lesson";
 export const MODULE = "/module";
+export const COURSE = "/course";
 export const COURSES = "/courses";

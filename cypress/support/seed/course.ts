@@ -41,7 +41,8 @@ export async function seedCourses(db: Db) {
   const course = {
     title: "Introduction to Web3",
     language: "english",
-    summary: "TODO: create course summary",
+    summary: `
+This course breaks down the basics of blockchain technology, focusing on how Polkadot connects different blockchains to work together. You'll dive into concepts like decentralization, cryptography, and how the internet is evolving with Web3. The course explains Polkadot’s structure, especially the Relay Chain, which keeps all the connected blockchains secure. You'll also learn about Polkadot's token, DOT, and how it’s used for governance, staking, and expanding the network. Finally, with use cases and practical examples from areas like DeFi, gaming, healthcare, and NFTs, the course shows how Polkadot helps build smarter and more connected blockchain projects.`,
     modules: [recordedModule.insertedId],
   };
 
