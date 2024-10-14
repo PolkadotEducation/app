@@ -31,7 +31,6 @@ const CoursePage = () => {
     fetchCourse();
   }, []);
 
-  console.info(course);
   return (
     <div className="flex xl:pt-10 px-2 pt-16 flex-col w-full">
       {loading && <div>Loading...</div>}
@@ -73,7 +72,6 @@ const CoursePage = () => {
 const ModuleAccordeon = ({ index, title, lessons }: { index: any; title: string; lessons: any }) => {
   const router = useRouter();
 
-  console.info(lessons);
   return (
     <div>
       <h6>{`Module ${index + 1}: ${title}`}</h6>
