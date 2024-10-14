@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { getCourse } from "@/api/courseService";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ModuleAccordion } from "@/components/ui/moduleAccordion";
 
 const CoursePage = () => {
   const pathname = usePathname();
@@ -54,32 +55,17 @@ const CoursePage = () => {
             <h6 className="text-primary mb-4">Summary</h6>
             <p>{course.summary}</p>
           </div>
-          <div>
+          <div className="mb-20">
             <h6 className="text-primary mb-4">Content</h6>
             {course.modules.map((module: any, index: any) => (
               <div>
-                <ModuleAccordeon key={index} index={index} title={module.title} lessons={module.lessons} />
+                <ModuleAccordion key={index} index={index} title={module.title} lessons={module.lessons} />
                 <hr />
               </div>
             ))}
           </div>
         </div>
       )}
-    </div>
-  );
-};
-
-const ModuleAccordeon = ({ index, title, lessons }: { index: any; title: string; lessons: any }) => {
-  const router = useRouter();
-
-  return (
-    <div>
-      <h6>{`Module ${index + 1}: ${title}`}</h6>
-      <ul>
-        {lessons.map((lesson: string) => (
-          <li onClick={() => router.push(`/lesson/${lesson}`)}>{lesson}</li>
-        ))}
-      </ul>
     </div>
   );
 };

@@ -25,6 +25,7 @@
     "@mdx-js/react": "^3.0.1",
     "@mdxeditor/editor": "^3.10.1",
     "@next/mdx": "^14.2.5",
+    "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-radio-group": "^1.2.0",

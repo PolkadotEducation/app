@@ -31,19 +31,53 @@ export async function seedCourses(db: Db) {
 
   const recordedLesson = await db.collection("lessons").insertOne(lesson);
 
-  const module = {
-    title: "Web3 basics",
-    lessons: [recordedLesson.insertedId],
-  };
+  const modules = [
+    {
+      title: "Web3 basics",
+      lessons: [
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+      ],
+    },
+    {
+      title: "Blockchain concepts",
+      lessons: [
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+      ],
+    },
+    {
+      title: "Introduction to Polkadot",
+      lessons: [
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+      ],
+    },
+    {
+      title: "Polkadot use cases",
+      lessons: [
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+        recordedLesson.insertedId,
+      ],
+    },
+  ];
 
-  const recordedModule = await db.collection("modules").insertOne(module);
+  const recordedModules = await db.collection("modules").insertMany(modules);
 
   const course = {
     title: "Introduction to Web3",
     language: "english",
     summary: `
 This course breaks down the basics of blockchain technology, focusing on how Polkadot connects different blockchains to work together. You'll dive into concepts like decentralization, cryptography, and how the internet is evolving with Web3. The course explains Polkadot’s structure, especially the Relay Chain, which keeps all the connected blockchains secure. You'll also learn about Polkadot's token, DOT, and how it’s used for governance, staking, and expanding the network. Finally, with use cases and practical examples from areas like DeFi, gaming, healthcare, and NFTs, the course shows how Polkadot helps build smarter and more connected blockchain projects.`,
-    modules: [recordedModule.insertedId],
+    modules: Object.values(recordedModules.insertedIds),
   };
 
   await db.collection("courses").insertOne(course);
