@@ -25,38 +25,24 @@ const AppHeader = () => {
 
   return (
     <div className="w-full flex justify-center bg-primary">
-      <div className="w-full max-w-7xl h-16 flex justify-between px-6 items-center">
-        <Logo width={199} height={19} pathToRedirect="/" theme="dark" />
+      <div className="w-full max-w-7xl h-16 flex justify-between px-2 items-center">
+        <Logo width={139} height={40} pathToRedirect="/" theme="dark" />
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
             <div className="cursor-pointer">
               <div className="hidden xl:flex">
                 {picture ? (
                   <div className="w-12 h-12 mr-[14px] rounded-full flex items-center justify-center">
-                    <Image
-                      unoptimized
-                      src={picture}
-                      width={48}
-                      height={48}
-                      alt="Profile Picture"
-                      className="rounded-full"
-                    />
+                    <Image src={picture} width={48} height={48} alt="Profile Picture" className="rounded-full" />
                   </div>
                 ) : (
                   <div className="w-12 h-12 mr-[14px] rounded-full bg-[#321D47] flex items-center justify-center">
                     <p className="unbound-font text-white font-bold text-xl">{(name || "").charAt(0)}</p>
                   </div>
                 )}
-                <Image
-                  unoptimized
-                  src={chevronDown}
-                  height={8}
-                  alt="Chevron Down"
-                  data-cy="button-header-menu-desktop"
-                />
+                <Image src={chevronDown} height={8} alt="Chevron Down" data-cy="button-header-menu-desktop" />
               </div>
               <Image
-                unoptimized
                 src={hamburgerMenu}
                 height={24}
                 alt="Chevron Down"
@@ -70,14 +56,7 @@ const AppHeader = () => {
               <div className="flex items-center">
                 {picture ? (
                   <div className="w-12 h-12 mr-[14px] rounded-full flex items-center justify-center">
-                    <Image
-                      unoptimized
-                      src={picture}
-                      width={48}
-                      height={48}
-                      alt="Profile Picture"
-                      className="rounded-full"
-                    />
+                    <Image src={picture} width={48} height={48} alt="Profile Picture" className="rounded-full" />
                   </div>
                 ) : (
                   <div className="w-12 h-12 mr-[14px] rounded-full bg-[#321D47] flex items-center justify-center">

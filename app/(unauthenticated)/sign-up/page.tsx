@@ -110,7 +110,7 @@ const SignUpPage = () => {
         justify-center xl:justify-start xl:mt-20 items-center
         xl:items-start"
       >
-        <Logo width={395} height={47} pathToRedirect="/login" />
+        <Logo width={208} height={60} pathToRedirect="/login" />
         <div className="flex flex-col justify-center mt-20">
           <form onSubmit={handleSubmit}>
             <div
@@ -182,7 +182,6 @@ const SignUpPage = () => {
         </div>
       </div>
       <Image
-        unoptimized
         src={webinar}
         alt="Webinar"
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
