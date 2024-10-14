@@ -23,14 +23,14 @@ const EmailSentPage = () => {
         px-2 justify-center xl:justify-start mt-[-40px]
         xl:mt-20 items-center xl:items-start"
       >
-        <Logo width={395} height={47} pathToRedirect="/login" />
+        <Logo width={208} height={60} pathToRedirect="/login" />
         <div className="flex flex-col justify-center xl:mt-40 mt-10">
           <div
             className="flex flex-col w-fit-content px-4
             xl:py-10 xl:px-12 xl:border border-solid
             border-border-gray rounded-3xl items-center xl:bg-card"
           >
-            <Image unoptimized src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
+            <Image src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
             <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
             <p className="mb-8 max-w-[330px] text-center">{t("instructionMessage")}</p>
             <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
@@ -40,7 +40,6 @@ const EmailSentPage = () => {
         </div>
       </div>
       <Image
-        unoptimized
         src={forgotPassword}
         alt="Forgot Password"
         className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
