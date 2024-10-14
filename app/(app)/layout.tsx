@@ -3,6 +3,7 @@
 import "../globals.css";
 import AppHeader from "@/components/ui/appHeader";
 import Breadcrumb from "@/components/ui/breadcrumb";
+import { UserProvider } from "@/context/user/userProvider";
 
 export default function AppLayout({
   children,
@@ -10,14 +11,16 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <div className="flex flex-col items-center bg-background">
-        <AppHeader />
-        <div className="w-full max-w-7xl flex justify-between px-6 py-4 items-center">
-          <Breadcrumb />
+    <UserProvider>
+      <main>
+        <div className="flex flex-col items-center bg-background">
+          <AppHeader />
+          <div className="w-full max-w-7xl flex justify-between px-6 py-4 items-center">
+            <Breadcrumb />
+          </div>
+          <div className="flex justify-center max-w-7xl w-full">{children}</div>
         </div>
-        <div className="flex justify-center max-w-7xl w-full">{children}</div>
-      </div>
-    </main>
+      </main>
+    </UserProvider>
   );
 }

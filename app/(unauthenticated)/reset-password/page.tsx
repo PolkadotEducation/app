@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { resetPassword } from "@/public/assets/images";
@@ -111,4 +111,10 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default function SuspenseVerifyPage() {
+  return (
+    <Suspense>
+      <ResetPasswordPage />
+    </Suspense>
+  );
+}

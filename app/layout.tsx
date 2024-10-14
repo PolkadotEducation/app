@@ -6,7 +6,6 @@ import { getLocale, getMessages } from "next-intl/server";
 import { MDXProviderClient } from "@/context/mdx/mdxProvider";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
-import { UserProvider } from "@/context/user/userProvider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -25,16 +24,14 @@ export default async function RootLayout({
 
   return (
     <AuthProvider>
-      <UserProvider>
-        <html lang={locale}>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <body className={montserrat.className}>
-              <MDXProviderClient>{children}</MDXProviderClient>
-              <Toaster />
-            </body>
-          </NextIntlClientProvider>
-        </html>
-      </UserProvider>
+      <html lang={locale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <body className={montserrat.className}>
+            <MDXProviderClient>{children}</MDXProviderClient>
+            <Toaster />
+          </body>
+        </NextIntlClientProvider>
+      </html>
     </AuthProvider>
   );
 }

@@ -43,8 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         type: "LOGIN_SUCCESS",
         payload: { token },
       });
-    } else {
-      handleSignOut();
     }
   }, []);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -8,7 +8,7 @@ import { verifyProfile } from "@/api/profileService";
 import Logo from "@/components/ui/logo";
 import { Button } from "@/components/ui/button";
 
-export default function VerifyPage() {
+function VerifyPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useTranslations("verify");
@@ -75,5 +75,13 @@ export default function VerifyPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function SuspenseVerifyPage() {
+  return (
+    <Suspense>
+      <VerifyPage />
+    </Suspense>
   );
 }
