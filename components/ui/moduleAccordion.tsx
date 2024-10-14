@@ -18,7 +18,7 @@ export const ModuleAccordion = ({ index, title, lessons }: { index: any; title: 
               <li
                 key={lessonIndex}
                 onClick={() => router.push(`/lesson/${lesson}`)}
-                className="hover:underline cursor-pointer"
+                className="hover:underline cursor-pointer py-2 ml-5"
               >
                 {`Lesson ${index + 1}.${lessonIndex + 1}: ${lesson}`}
               </li>
