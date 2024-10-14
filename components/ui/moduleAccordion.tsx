@@ -15,7 +15,11 @@ export const ModuleAccordion = ({ index, title, lessons }: { index: any; title: 
         <AccordionContent>
           <ul>
             {lessons.map((lesson: string, lessonIndex: number) => (
-              <li key={lessonIndex} onClick={() => router.push(`/lesson/${lesson}`)} style={{ cursor: "pointer" }}>
+              <li
+                key={lessonIndex}
+                onClick={() => router.push(`/lesson/${lesson}`)}
+                className="hover:underline cursor-pointer"
+              >
                 {`Lesson ${index + 1}.${lessonIndex + 1}: ${lesson}`}
               </li>
             ))}
