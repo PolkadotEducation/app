@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleOAuthPayload } from "@/api/actions/google";
 import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp } from "@/api/authService";
 import Cookies from "js-cookie";

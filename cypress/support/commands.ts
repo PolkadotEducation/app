@@ -6,8 +6,8 @@ declare namespace Cypress {
   }
 }
 
-Cypress.Commands.add("getByData", (dataCyValue: string): any => {
-  return cy.get(`[data-cy="${dataCyValue}"]`);
+Cypress.Commands.add("getByData", (dataCyValue: string) => {
+  cy.get(`[data-cy="${dataCyValue}"]`);
 });
 
 Cypress.Commands.add("login", (_email?: string, _password?: string) => {

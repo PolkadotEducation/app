@@ -59,6 +59,7 @@ const EditProfilePage = () => {
         await deleteProfile(user?.id);
         signOut();
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error?.message) setError(error.message);
       else setError("Server Error.");
@@ -80,6 +81,7 @@ const EditProfilePage = () => {
         await loadUserProfile();
         setUpdateMessage("Profile Updated.");
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error?.message) setError(error.message);
       else setError("Server Error.");
