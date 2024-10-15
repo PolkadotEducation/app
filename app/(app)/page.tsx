@@ -26,11 +26,6 @@ const Home = () => {
     fetchCourses();
   }, []);
 
-  // @TODO:
-  // i18n
-  // improve types
-  // get language from user profile
-
   return (
     <div className="flex xl:pt-10 px-2 pt-16 flex-col w-full">
       <h5 className="mb-5" data-cy="text-home-courses">

@@ -10,7 +10,7 @@ export type ChallengeType = {
 };
 
 export type LessonType = {
-  _id: string;
+  _id?: string;
   title: string;
   language: string;
   difficulty: string;
