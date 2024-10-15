@@ -5,12 +5,14 @@ import { getCourse } from "@/api/courseService";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ModuleAccordion } from "@/components/ui/moduleAccordion";
+import { CourseType } from "@/types/courseTypes";
+import { ModuleType } from "@/types/moduleTypes";
 
 const CoursePage = () => {
   const pathname = usePathname();
   const id = pathname.split("/").pop();
 
-  const [course, setCourse] = useState<any | null>(null);
+  const [course, setCourse] = useState<CourseType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,7 +59,7 @@ const CoursePage = () => {
           </div>
           <div className="mb-20">
             <h6 className="text-primary mb-4">Content</h6>
-            {course.modules.map((module: any, index: any) => (
+            {course.modules?.map((module: ModuleType, index: number) => (
               <div>
                 <ModuleAccordion key={index} index={index} title={module.title} lessons={module.lessons} />
                 <hr />
