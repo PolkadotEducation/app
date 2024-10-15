@@ -2,10 +2,11 @@
 
 import { getCoursesByLanguage } from "@/api/courseService";
 import Course from "@/components/ui/course";
+import { CourseType } from "@/types/courseTypes";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [courses, setCourses] = useState<any | null>(null);
+  const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,10 +28,8 @@ const Home = () => {
 
   // @TODO:
   // i18n
-  // course detail
   // improve types
   // get language from user profile
-  // fix h5 (font not working on mobile)
 
   return (
     <div className="flex xl:pt-10 px-2 pt-16 flex-col w-full">
@@ -41,7 +40,7 @@ const Home = () => {
       {error && <div>{error}</div>}
       {!loading && !courses && <div>courses not found</div>}
       {courses &&
-        courses.map((course: { title: string; _id: string }) => (
+        courses.map((course: CourseType) => (
           <Course banner="https://placehold.co/272x150.png" title={course.title} link={`course/${course._id}`}></Course>
         ))}
     </div>

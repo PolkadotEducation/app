@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { LessonType } from "@/types/lessonTypes";
 
-export const ModuleAccordion = ({ index, title, lessons }: { index: any; title: string; lessons: any }) => {
+export const ModuleAccordion = ({ index, title, lessons }: { index: number; title: string; lessons: LessonType[] }) => {
   const router = useRouter();
 
   return (
@@ -14,13 +15,13 @@ export const ModuleAccordion = ({ index, title, lessons }: { index: any; title: 
         </AccordionTrigger>
         <AccordionContent>
           <ul>
-            {lessons.map((lesson: string, lessonIndex: number) => (
+            {lessons.map((lesson: LessonType, lessonIndex: number) => (
               <li
                 key={lessonIndex}
-                onClick={() => router.push(`/lesson/${lesson}`)}
+                onClick={() => router.push(`/lesson/${lesson._id}`)}
                 className="hover:underline cursor-pointer py-2 ml-5"
               >
-                {`Lesson ${index + 1}.${lessonIndex + 1}: ${lesson}`}
+                {`Lesson ${index + 1}.${lessonIndex + 1}: ${lesson.title}`}
               </li>
             ))}
           </ul>
