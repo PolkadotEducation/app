@@ -139,3 +139,6 @@ dist
 
 # cypress
 cypress/screenshots
+
+# correct choices
+cypress/support/seed/choices.ts
