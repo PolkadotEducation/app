@@ -47,7 +47,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "Blockchain: ¿Qué es y cómo funciona?",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "blockchain-que-es-como-funciona.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "blockchain-o-que-e-como-funciona.mdx"), "utf-8"),
       difficulty: "medium",
       challenge: {
         question: "¿Cuál es la característica principal de blockchain que la hace segura e inmutable?",
@@ -66,7 +66,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "Términos y Conceptos de Blockchain",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "blockchain-terminos-conceptos.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "blockchain-termos-conceitos.mdx"), "utf-8"),
       difficulty: "medium",
       challenge: {
         question: "En la criptografía simétrica, ¿qué se utiliza para cifrar y descifrar un mensaje?",
@@ -104,7 +104,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "Propiedad de los Datos",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "propiedad-de-los-datos.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "propriedade-dos-dados.mdx"), "utf-8"),
       difficulty: "easy",
       challenge: {
         question: "¿Qué define el concepto de propiedad de los datos?",
@@ -123,7 +123,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "Bitcoin, Ethereum y otras blockchains",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "bitcoin-ethereum-otras-blockchains.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "bitcoin-ethereum-outras-blockchains.mdx"), "utf-8"),
       difficulty: "easy",
       challenge: {
         question: "¿Cuál es el principal objetivo de Bitcoin?",
@@ -162,7 +162,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "Relay Chain y Seguridad Compartida",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "relay-chain-seguridad-compartida.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "relay-chain-seguranca-compartilhada.mdx"), "utf-8"),
       difficulty: "medium",
       challenge: {
         question: "¿Cuál es el principal papel de la Relay Chain en la red Polkadot?",
@@ -181,7 +181,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "El problema que Polkadot resuelve",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "problema-polkadot-resuelve.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "problema-polkadot-resolve.mdx"), "utf-8"),
       difficulty: "medium",
       challenge: {
         question: "¿Cuál es el principal problema que Polkadot resuelve?",
@@ -200,7 +200,7 @@ export async function spanishCourse(db: Db) {
     {
       title: "El Token DOT y sus funciones",
       language: "spanish",
-      body: fs.readFileSync(path.join(lessonsDir, "token-dot-funciones.mdx"), "utf-8"),
+      body: fs.readFileSync(path.join(lessonsDir, "token-dot-funcoes.mdx"), "utf-8"),
       difficulty: "medium",
       challenge: {
         question: "¿Cuál de las siguientes NO es una de las principales funciones del token DOT en la red Polkadot?",
