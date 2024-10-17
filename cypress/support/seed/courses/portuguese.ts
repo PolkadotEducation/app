@@ -21,12 +21,7 @@ export async function portugueseCourse(db: Db) {
         ],
         correctChoice: 0,
       },
-      references: [
-        {
-          title: "Artigo da Wikipédia sobre a ARPANET",
-          link: "https://pt.wikipedia.org/wiki/ARPANET",
-        },
-      ],
+      references: [],
       createdAt: new Date(),
       updatedAt: new Date(),
     },

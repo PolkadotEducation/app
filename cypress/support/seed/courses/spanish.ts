@@ -45,7 +45,7 @@ export async function spanishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
-      title: "Blockchain: ¿Qué es y cómo funciona?",
+      title: "Blockchain: ¿qué es y cómo funciona?",
       language: "spanish",
       body: fs.readFileSync(path.join(lessonsDir, "blockchain-o-que-e-como-funciona.mdx"), "utf-8"),
       difficulty: "medium",
