@@ -2,7 +2,6 @@
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./seed/users";
 import { seedCourses } from "./seed/courses";
-import * as fs from "fs";
 
 const uri = "mongodb://localhost:27117";
 const dbName = "doteducation";
