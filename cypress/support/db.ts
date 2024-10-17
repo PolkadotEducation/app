@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb";
-import { seedUsers } from "./seed/user";
-import { seedCourses } from "./seed/course";
+import { seedUsers } from "./seed/users";
+import { seedCourses } from "./seed/courses";
 
 const uri = "mongodb://localhost:27117";
 const dbName = "doteducation";
@@ -24,6 +24,14 @@ async function seed() {
     console.info("Users seeded.");
     await seedCourses(db);
     console.info("Courses seeded.");
+
+    try {
+      const { updateCorrectChoices } = await import("./seed/choices" as never);
+      await updateCorrectChoices(db);
+      console.info("Updated correct choices.");
+    } catch {
+      console.info("No correct choices file found, skipping...");
+    }
   } catch (error) {
     console.error("Error while seeding:", error);
   } finally {
