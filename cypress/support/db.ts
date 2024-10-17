@@ -26,11 +26,11 @@ async function seed() {
     await seedCourses(db);
     console.info("Courses seeded.");
 
-    if (fs.existsSync("./seed/choices")) {
-      const { updateCorrectChoices } = await import("./seed/choices");
+    try {
+      const { updateCorrectChoices } = await import("./seed/choices" as never);
       await updateCorrectChoices(db);
       console.info("Updated correct choices.");
-    } else {
+    } catch {
       console.info("No correct choices file found, skipping...");
     }
   } catch (error) {
