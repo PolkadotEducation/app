@@ -9,6 +9,8 @@ const Breadcrumb = () => {
     return null;
   }
 
+  const hiddenSegments = ["course", "lesson"];
+
   return (
     <nav className="text-sm font-medium">
       <ol className="list-reset flex items-center">
@@ -22,6 +24,9 @@ const Breadcrumb = () => {
           const href = "/" + segments.slice(0, index + 1).join("/");
           const isLast = index === segments.length - 1;
           const name = segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+          if (hiddenSegments.includes(segment)) {
+            return null;
+          }
           return (
             <li key={href} className="flex items-center">
               {isLast ? (
