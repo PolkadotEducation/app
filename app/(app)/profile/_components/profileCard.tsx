@@ -28,13 +28,18 @@ const ProfileCard = () => {
     >
       <div className="flex flex-col xl:flex-row items-center xl:mr-16">
         {picture ? (
-          <Image
-            src={picture}
-            alt="Profile Picture"
-            width={120}
-            height={120}
-            className="xl:w-[120px] xl:h-[120px] w-[80px] h-[80px] rounded-full"
-          />
+          <div
+            className="xl:min-w-[120px] xl:min-h-[120px] w-[80px] h-[80px]
+            rounded-full flex items-center justify-center"
+          >
+            <Image
+              src={picture}
+              alt="Profile Picture"
+              width={120}
+              height={120}
+              className="w-[80px] h-[80px] rounded-full xl:w-[120px] xl:h-[120px]"
+            />
+          </div>
         ) : (
           <div
             className="xl:min-w-[120px] xl:min-h-[120px] w-[80px] h-[80px] mr-[14px]
