@@ -1,0 +1,13 @@
+{
+  "login": {
+    "title": "Login",
+    "welcomeMessage": "Bem-vindo ao Polkadot Education, insira os detalhes da sua conta para fazer login",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "signInButton": "Entrar",
+    "requestAccount": "Não tem uma conta? Solicite agora",
+    "google": "Entrar com Google",
+    "loading": "Carregando..."
+  }
+}

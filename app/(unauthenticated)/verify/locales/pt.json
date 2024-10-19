@@ -1,0 +1,9 @@
+{
+  "verify": {
+    "title": "Verificação",
+    "verified": "Você verificou seu e-mail: ",
+    "expired": "Seu link de verificação expirou, tente fazer login novamente.",
+    "invalid": "Seu link de verificação parece inválido, tente fazer login novamente.",
+    "backToLogin": "Voltar para o Login"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "emailConfirmation": {
+    "title": "Confirmação de E-mail",
+    "instructionMessageFirstPart": "Enviamos um e-mail para ",
+    "instructionMessageSecondPart": " para validar o endereço de e-mail. Siga o link enviado para completar seu registro.",
+    "backToLogin": "Voltar para o Login"
+  }
+}

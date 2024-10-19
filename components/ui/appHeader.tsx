@@ -82,6 +82,9 @@ const AppHeader = () => {
               </>
             )}
             <DropdownMenuSeparator />
+            <Link href="/preferences">
+              <DropdownMenuItem className="cursor-pointer">{t("preferences")}</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
               {t("logout")}
             </DropdownMenuItem>

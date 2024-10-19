@@ -10,6 +10,7 @@ export type UserInfo = {
   recover?: RecoverPassword;
   createdAt?: Date;
   updatedAt?: Date;
+  language: "english" | "portuguese" | "spanish";
 };
 
 export type VerifyUser = {

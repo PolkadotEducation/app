@@ -4,6 +4,7 @@
     "backoffice": "Backoffice",
     "logout": "Logout",
     "termsOfService": "Terms of service",
-    "privacyPolicy": "Privacy policy"
+    "privacyPolicy": "Privacy policy",
+    "preferences": "Preferences"
   }
 }

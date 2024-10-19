@@ -1,0 +1,8 @@
+{
+  "forgotPassword": {
+    "title": "Olvidé mi contraseña",
+    "instructionMessage": "No te preocupes, se enviará un correo electrónico con instrucciones para restablecer tu contraseña.",
+    "emailPlaceholder": "Correo electrónico",
+    "sendLinkButton": "Enviar enlace al correo"
+  }
+}
