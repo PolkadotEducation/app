@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Logo from "@/components/ui/logo";
 import { useTranslations } from "next-intl";
 import { recoverProfile } from "@/api/profileService";
+import { PASSWORD_REQUIREMENTS } from "../sign-up/constants";
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
@@ -41,6 +42,8 @@ const ResetPasswordPage = () => {
     }
   };
 
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!password || !passwordRepeated) {
@@ -49,6 +52,8 @@ const ResetPasswordPage = () => {
 
     if (!checkIfPasswordsMatches(password, passwordRepeated)) {
       setErrorMessage("Password doesn’t match.");
+    } else if (!passwordRegex.test(password)) {
+      setErrorMessage("Invalid Password");
     } else {
       if (email && token && password) {
         try {
@@ -83,8 +88,15 @@ const ResetPasswordPage = () => {
                 value={password}
                 onChange={handlePasswordChange}
                 label={t("passwordPlaceholder")}
-                additionalStyles="mb-4 xl:mb-6"
+                additionalStyles="mb-2"
               />
+              <div className="mb-4 flex justify-start w-full pl-5">
+                <ul className="text-xs list-disc">
+                  {PASSWORD_REQUIREMENTS.map((i: string) => (
+                    <li key={i}>{t(i)}</li>
+                  ))}
+                </ul>
+              </div>
               <InputFloatingLabel
                 type="password"
                 id="passwordRepeatedInput"
