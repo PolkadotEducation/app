@@ -1,0 +1,14 @@
+{
+  "profile": {
+    "profile": "Perfil",
+    "editProfile": "Editar Perfil",
+    "delete": "Excluir",
+    "achievements": "Conquistas",
+    "certificates": "Certificados",
+    "level": "Nível {level}",
+    "uploadImage": "Enviar nova imagem",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "editProfilePicture": "Editar Imagem"
+  }
+}

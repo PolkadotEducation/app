@@ -1,0 +1,10 @@
+{
+  "components": {
+    "profile": "Perfil",
+    "backoffice": "Backoffice",
+    "logout": "Cerrar sesión",
+    "termsOfService": "Términos del servicio",
+    "privacyPolicy": "Política de privacidad",
+    "preferences": "Preferencias"
+  }
+}

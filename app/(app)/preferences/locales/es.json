@@ -1,0 +1,11 @@
+{
+  "preferences": {
+    "title": "Preferencias",
+    "language": "Idioma",
+    "edit": "Editar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "toastSuccess": "Preferencias cambiadas con éxito",
+    "selectLanguage": "Por favor, selecciona el idioma que te gustaría usar para la plataforma."
+  }
+}
