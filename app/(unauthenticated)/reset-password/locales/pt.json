@@ -1,0 +1,9 @@
+{
+  "resetPassword": {
+    "title": "Redefinir senha",
+    "instructionMessage": "Por favor, crie uma nova senha.",
+    "passwordPlaceholder": "Senha",
+    "repeatPasswordPlaceholder": "Repetir senha",
+    "resetButton": "Redefinir senha"
+  }
+}

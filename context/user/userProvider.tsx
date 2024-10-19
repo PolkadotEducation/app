@@ -5,6 +5,8 @@ import { getProfile } from "@/api/profileService";
 import { UserInfo } from "@/types/userTypes";
 import { useAuth } from "@/hooks/useAuth";
 import jwt from "jsonwebtoken";
+import { LOCALE_FEATURES } from "@/components/constants";
+import { setUserLocale } from "@/api/actions/userLocale";
 
 type UserContextType = {
   user: UserInfo | null;
@@ -25,6 +27,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         const decodedToken = jwt.decode(state.userToken) as { user: UserInfo } | null;
         const profile = await getProfile(decodedToken?.user.id || "");
         setUser(profile);
+        const userLocale = LOCALE_FEATURES[profile.language];
+        await setUserLocale(userLocale.locale);
       } catch (error) {
         console.error("Failed to fetch user profile", error);
       }
