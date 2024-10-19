@@ -50,12 +50,13 @@ const EditProfilePage = () => {
           canvas.height = targetSize;
           const ctx = canvas.getContext("2d");
           if (ctx) {
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, targetSize, targetSize);
             const aspectRatio = Math.min(targetSize / img.width, targetSize / img.height);
             const newWidth = img.width * aspectRatio;
             const newHeight = img.height * aspectRatio;
             const offsetX = (targetSize - newWidth) / 2;
             const offsetY = (targetSize - newHeight) / 2;
-            ctx.clearRect(0, 0, targetSize, targetSize);
             ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight);
           }
           const resizedDataUrl = canvas.toDataURL(file.type);
