@@ -19,7 +19,7 @@ export const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserInfo | null>(null);
-  const { state } = useAuth();
+  const { state, signOut } = useAuth();
 
   const loadUserProfile = async () => {
     if (state.userToken) {
@@ -30,6 +30,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         const userLocale = LOCALE_FEATURES[profile.language];
         await setUserLocale(userLocale.locale);
       } catch (error) {
+        signOut();
         console.error("Failed to fetch user profile", error);
       }
     }
