@@ -130,6 +130,7 @@ const LoginPage = () => {
               >
                 {t("requestAccount")}
               </Button>
+              <Web3Wallet />
               <Button
                 onClick={handleGoogleLogin}
                 disabled={isAuthenticating}
@@ -147,7 +148,6 @@ const LoginPage = () => {
                 />
                 {t(isAuthenticating ? "loading" : "google")}
               </Button>
-              <Web3Wallet />
             </div>
           </form>
         </div>
