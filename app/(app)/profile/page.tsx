@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const t = useTranslations("profile");
 
   return (
-    <main className="px-[20px] max-w-[935px] w-full">
+    <main className="max-w-7xl w-full">
       <h4 className="xl:mb-6 mb-4">{t("profile")}</h4>
       <ProfileCard />
       <div className="mt-6">

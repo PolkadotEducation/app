@@ -1,4 +1,3 @@
-import { House } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,8 +13,8 @@ const Breadcrumb = () => {
     <nav className="text-sm font-medium">
       <ol className="list-reset flex items-center">
         <li className="flex items-center">
-          <Link href="/" className="text-text-secondary hover:underline body1 flex items-center">
-            <House height={16} />
+          <Link href={"/"} className="text-text-secondary hover:underline body1">
+            Home
           </Link>
           {segments.length > 0 && <span className="mx-2 text-text-secondary">/</span>}
         </li>

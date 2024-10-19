@@ -11,7 +11,7 @@ const BackofficeHomePage = () => {
   const t = useTranslations("backoffice");
 
   return (
-    <main className="px-[20px] max-w-[1000px] w-full">
+    <main className="max-w-7xl w-full">
       <h4 className="xl:mb-10 mb-6">{t("contentCreatorDashboard")}</h4>
       <div className="flex flex-col gap-y-6">
         <div className="bg-card flex flex-col xl:flex-row rounded-[3px] xl:py-16 xl:px-10 py-8 px-5 items-center">

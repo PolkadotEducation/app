@@ -23,8 +23,8 @@ const ProfileCard = () => {
 
   return (
     <div
-      className="bg-card flex flex-col max-w-[935px] w-full xl:flex-row
-      border-[1px] border-border-gray rounded-[8px] p-6 items-center"
+      className="bg-card flex flex-col max-w-7xl w-full xl:flex-row
+      border-[1px] border-border-gray rounded-[8px] p-6 items-center xl:justify-between"
     >
       <div className="flex flex-col xl:flex-row items-center xl:mr-16">
         {picture ? (
