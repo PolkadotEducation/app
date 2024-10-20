@@ -32,8 +32,14 @@ const AppHeader = () => {
             <div className="cursor-pointer">
               <div className="hidden xl:flex">
                 {picture ? (
-                  <div className="w-12 h-12 mr-[14px] rounded-full flex items-center justify-center">
-                    <Image src={picture} width={48} height={48} alt="Profile Picture" className="rounded-full" />
+                  <div className="min-w-[48px] min-h-[48px] max-w-[48px] max-h-[48px] mr-[14px] rounded-full flex items-center justify-center">
+                    <Image
+                      src={picture}
+                      width={48}
+                      height={48}
+                      className="w-[48px] h-[48px] rounded-full object-cover"
+                      alt="Profile Picture"
+                    />
                   </div>
                 ) : (
                   <div className="w-12 h-12 mr-[14px] rounded-full bg-[#321D47] flex items-center justify-center">

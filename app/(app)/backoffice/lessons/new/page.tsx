@@ -118,7 +118,7 @@ function MainPage() {
   }
 
   return (
-    <main className="px-[20px] mb-10 max-w-[1000px] w-full">
+    <main className="mb-10 max-w-7xl w-full">
       <h4 className="xl:mb-[30px] mb-4">{t("newLesson")}</h4>
       <div className="flex w-full justify-end mb-6">
         <Button type="button" onClick={() => handlePreview(true)}>

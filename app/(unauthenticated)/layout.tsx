@@ -1,4 +1,8 @@
 import "../globals.css";
+import { authBgImage } from "@/public/assets/images";
+import Image from "next/image";
+import AnimatedPage from "@/components/ui/animatedPage";
+import Logo from "@/components/ui/logo";
 
 export default function UnauthenticatedLayout({
   children,
@@ -6,10 +10,28 @@ export default function UnauthenticatedLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <div className="flex flex-col min-h-screen items-center bg-background">
-        <div className="flex justify-center min-h-screen max-w-7xl w-full">{children}</div>
+    <div className="flex h-screen">
+      <div className="w-full xl:w-1/2 flex items-center justify-center px-2 bg-card">
+        <div className="flex flex-col max-w-[425px] w-full h-full relative pt-6 xl:pt-0">
+          <div className="xl:absolute xl:top-6 xl:left-0">
+            <Logo width={208} height={60} pathToRedirect="/login" />
+          </div>
+          <div className="flex flex-1 items-center justify-center">
+            <AnimatedPage>{children}</AnimatedPage>
+          </div>
+        </div>
       </div>
-    </main>
+      <div className="relative hidden xl:block xl:w-1/2">
+        <Image
+          src={authBgImage}
+          alt="Auth Image"
+          fill
+          className="object-cover"
+          sizes="50vw"
+          placeholder="blur"
+          data-cy="image-login"
+        />
+      </div>
+    </div>
   );
 }

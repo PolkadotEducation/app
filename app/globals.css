@@ -112,10 +112,6 @@
       @apply text-h5 font-unbounded font-normal;
     }
 
-    h6 {
-      @apply text-body1 font-montserrat font-bold;
-    }
-
     .body1 {
       @apply text-body2 font-montserrat font-normal;
     }

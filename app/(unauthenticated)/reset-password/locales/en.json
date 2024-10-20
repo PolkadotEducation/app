@@ -4,6 +4,11 @@
     "instructionMessage": "Please create a new password.",
     "passwordPlaceholder": "Password",
     "repeatPasswordPlaceholder": "Repeat password",
-    "resetButton": "Reset password"
+    "resetButton": "Reset password",
+    "passwordRequirements": {
+      "uppercase": "At least 1 uppercase letter",
+      "number": "At least 1 number",
+      "characters": "At least 8 characters"
+    }
   }
 }

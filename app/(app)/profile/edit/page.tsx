@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { CloudUpload } from "lucide-react";
-import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -35,14 +34,34 @@ const EditProfilePage = () => {
       setInputEmail(email);
       setError("");
     }
-  }, [isLoading]);
+  }, [isLoading, user]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSelectedPicture(reader.result as string);
+        const img: HTMLImageElement = new Image();
+        img.src = reader.result as string;
+        img.onload = () => {
+          const targetSize = 96;
+          const canvas = document.createElement("canvas");
+          canvas.width = targetSize;
+          canvas.height = targetSize;
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, targetSize, targetSize);
+            const aspectRatio = Math.min(targetSize / img.width, targetSize / img.height);
+            const newWidth = img.width * aspectRatio;
+            const newHeight = img.height * aspectRatio;
+            const offsetX = (targetSize - newWidth) / 2;
+            const offsetY = (targetSize - newHeight) / 2;
+            ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight);
+          }
+          const resizedDataUrl = canvas.toDataURL(file.type);
+          setSelectedPicture(resizedDataUrl);
+        };
       };
       reader.readAsDataURL(file);
     }
@@ -89,7 +108,7 @@ const EditProfilePage = () => {
   };
 
   return (
-    <main className="px-[20px] max-w-[935px] w-full">
+    <main className="max-w-7xl w-full">
       <h4 className="xl:mb-6 mb-4">{t("editProfile")}</h4>
       <div
         className="flex flex-col items-center px-6 pt-6 xl:pb-[41px]
@@ -99,7 +118,7 @@ const EditProfilePage = () => {
           <label htmlFor="image-upload" className="relative cursor-pointer group">
             {selectedPicture ? (
               <div className="w-40 h-40 xl:w-80 xl:h-80 rounded-full overflow-hidden">
-                <Image
+                <img
                   src={selectedPicture}
                   alt="Selected Picture"
                   width={80}
@@ -164,7 +183,7 @@ const EditProfilePage = () => {
             </Button>
             <Button
               onClick={handleUpdate}
-              disabled={inputEmail === user?.email && inputName === user?.name && picture === user?.picture}
+              disabled={inputEmail === user?.email && inputName === user?.name && selectedPicture === user?.picture}
             >
               {t("save")}
             </Button>

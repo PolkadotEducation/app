@@ -2,9 +2,14 @@ import { useTranslations } from "next-intl";
 import Logo from "./logo";
 import Link from "next/link";
 import { Github } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const t = useTranslations("components");
+
+  const pathname = usePathname();
+
+  if (pathname !== "/") return <></>;
 
   return (
     <div className="min-h-40 md:min-h-60 px-5 w-full py-8 md:pt-16 bg-dark-purple flex justify-center">

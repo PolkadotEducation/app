@@ -12,6 +12,8 @@ import { getSmProvider } from "polkadot-api/sm-provider";
 import { createClient, PolkadotClient } from "polkadot-api";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import polkadot from "@/public/assets/icons/polkadot.svg";
+import Image from "next/image";
 
 const WEB3_ACTIVE = false;
 
@@ -90,6 +92,7 @@ const Web3Wallet = () => {
         disabled={isSigning}
         variant={"ghost"}
       >
+        <Image src={polkadot} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
         {displayAccountInfo}
       </Button>
     );

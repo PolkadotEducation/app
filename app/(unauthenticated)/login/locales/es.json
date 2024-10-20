@@ -1,7 +1,7 @@
 {
   "login": {
-    "title": "Iniciar sesión",
-    "welcomeMessage": "Bienvenido a Polkadot Education, ingresa los detalles de tu cuenta para iniciar sesión",
+    "title": "Bienvenido a Polkadot Education",
+    "welcomeMessage": "Ingrese los detalles de su cuenta para comenzar su viaje.",
     "emailPlaceholder": "Correo electrónico",
     "passwordPlaceholder": "Contraseña",
     "forgotPassword": "¿Olvidaste tu contraseña?",
