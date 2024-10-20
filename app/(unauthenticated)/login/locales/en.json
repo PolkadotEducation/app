@@ -1,10 +1,10 @@
 {
   "login": {
-    "title": "Login",
-    "welcomeMessage": "Welcome to Polkadot Education, enter your account details to log in",
+    "title": "Welcome to Polkadot Education",
+    "welcomeMessage": "Enter your account details to start your journey.",
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
-    "forgotPassword": "Forgot Password?",
+    "forgotPassword": "Forgot password?",
     "signInButton": "Sign In",
     "requestAccount": "Don’t have an account? Request now",
     "google": "Sign in with Google",

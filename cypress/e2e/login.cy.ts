@@ -11,7 +11,7 @@ describe("Login Page", () => {
   };
 
   const checkWebinarImageVisibility = (shouldBeVisible: boolean) => {
-    cy.getByData("image-login-webinar").should(shouldBeVisible ? "be.visible" : "not.be.visible");
+    cy.getByData("image-login").should(shouldBeVisible ? "be.visible" : "not.be.visible");
   };
 
   describe("mobile", () => {
