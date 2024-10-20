@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import google from "@/public/assets/icons/google.svg";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
-import { serverGoogleOAuthURL, serverGoogleOAuthPayload, GoogleOAuthPayload } from "@/api/actions/google";
 import Web3Wallet from "@/components/ui/web3Wallet";
 
 const LoginPage = () => {
@@ -16,9 +15,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const t = useTranslations("login");
-  const { login, loginWithGoogle, state, clearAuthError } = useAuth();
+  const { login, state } = useAuth();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const searchParams = useSearchParams();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setEmail(event.target.value);
@@ -43,45 +41,18 @@ const LoginPage = () => {
     router.push("/forgot-password");
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      setIsAuthenticating(true);
-      const url = await serverGoogleOAuthURL();
-      router.push(url);
-    } catch (error) {
-      setIsAuthenticating(false);
-      console.error("Error during Google authentication", error);
-    }
-  };
-
-  useEffect(() => {
-    clearAuthError();
-    const code = searchParams.get("code");
-    if (code) {
-      (async () => {
-        const payload: GoogleOAuthPayload = await serverGoogleOAuthPayload(code);
-        if (payload.email) {
-          setIsAuthenticating(true);
-          const success = await loginWithGoogle(payload);
-          setIsAuthenticating(false);
-          if (success) router.push("/");
-        }
-      })();
-    }
-  }, [searchParams, router]);
-
   return (
     <main>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <h4 className="mb-4 text-center">{t("title")}</h4>
-        <p className="mb-8 max-w-[330px] text-center">{t("welcomeMessage")}</p>
+        <p className="mb-6 text-center">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles="mb-5"
+          additionalStyles="mb-4"
         />
         <InputFloatingLabel
           type="password"
@@ -89,12 +60,17 @@ const LoginPage = () => {
           value={password}
           onChange={handlePasswordChange}
           label={t("passwordPlaceholder")}
-          additionalStyles="mb-4 xl:mb-6"
+          additionalStyles="mb-4"
         />
-        <Button type="button" onClick={handleForgotPassword} className="mb-6" variant="link">
+        <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
           {t("forgotPassword")}
         </Button>
-        <Button type="submit" className="w-full mb-4 xl:mb-6" disabled={isAuthenticating} data-cy="button-login-submit">
+        <Button
+          type="submit"
+          className={`w-full ${state.error ? "mb-0" : "mb-4"}`}
+          disabled={isAuthenticating}
+          data-cy="button-login-submit"
+        >
           {t(isAuthenticating ? "loading" : "signInButton")}
         </Button>
         {state.error && (
@@ -106,14 +82,15 @@ const LoginPage = () => {
           type="button"
           onClick={() => router.push("/sign-up")}
           variant="link"
-          className="mb-4 xl:mb-6"
+          className="mb-4"
           data-cy="button-login-signup"
         >
           {t("requestAccount")}
         </Button>
         <Web3Wallet />
         <Button
-          onClick={handleGoogleLogin}
+          type="button"
+          onClick={() => router.push("/login/google")}
           disabled={isAuthenticating}
           className="w-full bg-transparent hover:bg-transparent
                 hover:opacity-70 text-text-secondary hover:text-text-secondary border-border-gray border-[1px]"
@@ -127,10 +104,4 @@ const LoginPage = () => {
   );
 };
 
-export default function SuspenseLogin() {
-  return (
-    <Suspense>
-      <LoginPage />
-    </Suspense>
-  );
-}
+export default LoginPage;

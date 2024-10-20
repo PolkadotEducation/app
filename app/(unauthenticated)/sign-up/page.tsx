@@ -103,7 +103,7 @@ const SignUpPage = () => {
   return (
     <main>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
+        <h4 className="mb-4 text-center">{t("title")}</h4>
         <p className="mb-8 text-center">{t("subtitle")}</p>
         <InputFloatingLabel
           id="nameInput"
@@ -151,9 +151,6 @@ const SignUpPage = () => {
           error={errorMessage}
           additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
         />
-        <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
-          <p className="text-xs text-error">{errorMessage}</p>
-        </div>
         <Button type="submit" className="w-full" disabled={state.isLoading} data-cy="button-signup-submit">
           {t("signUpButton")}
         </Button>
