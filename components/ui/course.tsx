@@ -8,13 +8,17 @@ const Course = ({ banner, title, link }: { banner: string; title: string; link: 
 
   return (
     <div
-      className="p-10 border rounded-lg bg-white w-fit card transition-transform duration-500 hover:scale-105 cursor-pointer"
+      className="max-w-[378px] w-full max-h-[408px] h-full rounded-lg overflow-hidden shadow-md bg-card flex flex-col transition-transform duration-500 hover:scale-105 cursor-pointer"
       onClick={() => {
         return router.push(link);
       }}
     >
-      <Image src={banner} alt={""} width="272" height="150" className="border rounded-xl mb-5" />
-      <h6>{title}</h6>
+      <div className="relative w-full h-1/2">
+        <Image src={banner} alt={""} fill sizes="378px" />
+      </div>
+      <div className="p-8 flex-1">
+        <h6 className="text-body1 mt-2">{title}</h6>
+      </div>
     </div>
   );
 };
