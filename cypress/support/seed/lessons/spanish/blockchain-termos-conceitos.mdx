@@ -1,0 +1,71 @@
+### Criptografía Simétrica y Asimétrica
+
+- **Criptografía Simétrica:** Es como usar una llave para cerrar y abrir una puerta. En la criptografía simétrica, la misma "llave" (código secreto) se utiliza tanto para cifrar como para descifrar el mensaje. El problema es que, si alguien descubre esa llave, podrá leer todos tus mensajes.
+- **Criptografía Asimétrica:** Imagina dos llaves, una pública y otra privada. La llave pública puede distribuirse libremente, pero solo la llave privada puede desbloquear el mensaje. Así, cualquier persona puede enviar un mensaje cifrado con tu llave pública, pero solo tú (con tu llave privada) puedes leerlo.
+
+### Hashes
+
+Un hash es como una huella digital para datos. Toma cualquier cantidad de información (como un documento o una transacción) y la convierte en una secuencia fija de números y letras.
+
+Si cualquier pequeño fragmento de la información original se altera, el hash resultante será completamente diferente. Es muy útil para garantizar la integridad de los datos.
+
+### Componentes de una Blockchain
+
+- **Hash:** Como ya se explicó, es la huella digital que garantiza la integridad del bloque.
+- **Nonce:** Un número que los mineros necesitan descubrir para validar un bloque. Es como resolver un rompecabezas.
+- **Bloque:** Contiene un grupo de transacciones y un hash que lo vincula al bloque anterior.
+- **Red P2P:** Significa que todos los ordenadores en la red comparten y validan información directamente entre sí, sin depender de una autoridad central.
+- **Ledger:** El "libro de registro" donde se graban todas las transacciones. Todos en la red tienen una copia de este libro.
+- **Coinbase:** La primera transacción de un bloque, generalmente recompensando al minero que lo validó.
+
+### Introducción a la Minería
+
+La minería es el proceso de verificar y añadir nuevas transacciones al blockchain. Los mineros compiten para resolver un problema matemático (encontrar el nonce), y el ganador añade el siguiente bloque al blockchain. Son recompensados con nuevas monedas, como Bitcoin.
+
+### Consenso: BFT (Tolerancia a Fallos Bizantinos)
+
+Imagina un grupo de generales intentando decidir atacar una ciudad. Algunos pueden ser traidores. Necesitan llegar a un acuerdo, incluso si algunos mentirosos están tratando de engañarlos. El BFT es una técnica que ayuda a una red blockchain a llegar a un consenso, incluso si algunos participantes actúan maliciosamente.
+
+### Consenso: PoW (Proof of Work) vs PoS (Proof of Stake)
+
+- **Proof of Work (PoW):** Aquí, los mineros compiten para resolver problemas matemáticos difíciles (como encontrar el nonce). Este proceso consume mucha energía, pero es seguro.
+- **Proof of Stake (PoS):** En lugar de resolver problemas, los validadores son elegidos en función de la cantidad de monedas que poseen y están dispuestos a "bloquear" como garantía. Esto consume menos energía que PoW y recompensa a quienes tienen más "skin in the game" (interés en el éxito de la red).
+
+### Forks
+
+Un fork es como una "bifurcación" en un camino. En el contexto de blockchain, esto ocurre cuando el código de una blockchain se modifica, y la red puede seguir dos caminos diferentes:
+
+- **Hard Fork:** Es un cambio que no es compatible con la versión anterior. Quien no adopte la nueva regla seguirá en una blockchain separada. Un ejemplo famoso fue cuando Ethereum se dividió en Ethereum y Ethereum Classic.
+- **Soft Fork:** Es un cambio más suave, donde la nueva regla sigue siendo compatible con la versión anterior. Todos los participantes continúan en la misma red.
+
+### Contratos Inteligentes
+
+Un contrato inteligente es un programa que se ejecuta automáticamente cuando se cumplen ciertas condiciones, como un contrato que se cumple por sí solo. Imagina un contrato de alquiler: cuando el inquilino paga, la llave digital se libera automáticamente.
+
+En blockchain, estos contratos se autoejecutan, sin necesidad de intermediarios (abogados, corredores, etc.).
+
+### The DAO / Ethereum Classic
+
+- **The DAO:** Fue una organización autónoma descentralizada (DAO) que funcionaba en Ethereum y tenía como objetivo crear un fondo colectivo, donde las decisiones eran tomadas por los participantes, sin necesidad de gestores. En 2016, hubo una falla de seguridad que resultó en el robo de una gran cantidad de Ether.
+- **Ethereum Classic:** Después del robo del DAO, la comunidad Ethereum se dividió. Parte de ella quiso "revertir" el robo, creando un Hard Fork que dio origen al Ethereum actual.
+
+Otra parte creía que las reglas de blockchain no debían ser alteradas, manteniendo el código original, lo que dio origen a Ethereum Classic.
+
+### Casos de Uso Públicos
+
+- **DeFi (Finanzas Descentralizadas):** Imagina hacer préstamos, inversiones o transferencias financieras sin necesidad de bancos. Con DeFi, todo esto se hace directamente entre personas utilizando blockchain.
+- **NFT (Tokens No Fungibles):** Un NFT es como un certificado digital de propiedad para algo único, como una obra de arte, música o artículo de videojuego. Prueba que eres el dueño de algo original y auténtico en el mundo digital.
+- **DAOs (Organizaciones Autónomas Descentralizadas):** Son organizaciones que funcionan sin jefes o directores. Las decisiones se toman mediante contratos inteligentes y votos de los participantes. Las reglas son claras y automáticas, sin la necesidad de intermediarios.
+
+### Casos de Uso Privados
+
+- **RNDES (Red Nacional de Enseñanza e Investigación):** Es un ejemplo de blockchain privada en Brasil, utilizada por instituciones académicas y de investigación. Ayuda a conectar universidades y centros de investigación para facilitar el intercambio de información y garantizar la seguridad de los datos.
+- **Redes Federadas:** Son blockchains privadas en las que varias organizaciones se unen para compartir una red. Cada una tiene control sobre quién puede participar, pero todas necesitan trabajar en conjunto. Un ejemplo sería un grupo de bancos que usan una blockchain para procesar transacciones entre ellos de manera más eficiente y segura.
+
+### Conclusión
+
+En resumen, los conceptos presentados ilustran cómo la tecnología blockchain opera de manera innovadora para garantizar seguridad, transparencia y descentralización en diversas aplicaciones.
+
+Desde los tipos de criptografía (simétrica y asimétrica), fundamentales para proteger datos y transacciones, hasta mecanismos de consenso como PoW y PoS, que aseguran el funcionamiento de redes blockchain, la tecnología se muestra robusta y flexible. Además, herramientas como hashes, contratos inteligentes y forks permiten que las redes evolucionen y se adapten, mientras que nuevos casos de uso, como DeFi, NFTs y DAOs, están transformando sectores públicos y privados.
+
+El blockchain está creando un nuevo paradigma para sistemas digitales, eliminando intermediarios e introduciendo una confianza descentralizada en diversas áreas, desde finanzas hasta gobernanza.

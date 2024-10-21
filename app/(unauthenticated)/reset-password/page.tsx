@@ -1,19 +1,23 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
+
+import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { resetPassword } from "@/public/assets/images";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import { useRouter } from "next/navigation";
-import Logo from "@/components/ui/logo";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { recoverProfile } from "@/api/profileService";
+import { PASSWORD_REQUIREMENTS } from "../sign-up/constants";
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
   const [passwordRepeated, setPasswordRepeated] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const t = useTranslations("resetPassword");
+
+  const token = searchParams.get("token");
+  const email = searchParams.get("email");
 
   const checkIfPasswordsMatches = (p: string, rp: string) => p === rp;
 
@@ -35,7 +39,9 @@ const ResetPasswordPage = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!password || !passwordRepeated) {
       return;
@@ -43,61 +49,62 @@ const ResetPasswordPage = () => {
 
     if (!checkIfPasswordsMatches(password, passwordRepeated)) {
       setErrorMessage("Password doesn’t match.");
+    } else if (!passwordRegex.test(password)) {
+      setErrorMessage("Invalid Password");
     } else {
-      router.push("/reset-password/success");
+      if (email && token && password) {
+        try {
+          const ok = await recoverProfile(email, token, password);
+          if (ok) router.push("/reset-password/success");
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          router.push("/login");
+        }
+      }
     }
   };
 
   return (
-    <main className="flex flex-col xl:flex-row xl:justify-evenly w-full">
-      <div
-        className="flex flex-1 xl:flex-initial flex-col px-2 justify-center
-        xl:justify-start mt-[-40px] xl:mt-20 items-center xl:items-start"
-      >
-        <Logo width={395} height={47} pathToRedirect="/login" />
-        <div className="flex flex-col justify-center xl:mt-40 mt-10">
-          <form onSubmit={handleSubmit}>
-            <div
-              className="flex flex-col w-full px-4 xl:py-10 xl:px-12
-              xl:border border-solid border-border-gray rounded-3xl items-center xl:bg-card"
-            >
-              <h4 className="mb-4">{t("title")}</h4>
-              <p className="mb-8">{t("instructionMessage")}</p>
-              <InputFloatingLabel
-                type="password"
-                id="passwordInput"
-                value={password}
-                onChange={handlePasswordChange}
-                label={t("passwordPlaceholder")}
-                additionalStyles="mb-4 xl:mb-6"
-              />
-              <InputFloatingLabel
-                type="password"
-                id="passwordRepeatedInput"
-                value={passwordRepeated}
-                onChange={handleRepeatedPasswordChange}
-                label={t("repeatPasswordPlaceholder")}
-                error={errorMessage}
-                additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
-              />
-              <div className={`${!errorMessage ? "hidden" : "flex mb-4 xl:mb-6 w-full justify-start"}`}>
-                <p className="text-xs text-error">{errorMessage}</p>
-              </div>
-              <Button type="submit" className="w-full">
-                {t("resetButton")}
-              </Button>
-            </div>
-          </form>
+    <main>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <h4 className="mb-4">{t("title")}</h4>
+        <p className="mb-8">{t("instructionMessage")}</p>
+        <InputFloatingLabel
+          type="password"
+          id="passwordInput"
+          value={password}
+          onChange={handlePasswordChange}
+          label={t("passwordPlaceholder")}
+          additionalStyles="mb-2"
+        />
+        <div className="mb-4 flex justify-start w-full pl-5">
+          <ul className="text-xs list-disc">
+            {PASSWORD_REQUIREMENTS.map((i: string) => (
+              <li key={i}>{t(i)}</li>
+            ))}
+          </ul>
         </div>
-      </div>
-      <Image
-        unoptimized
-        src={resetPassword}
-        alt="Reset Password"
-        className="hidden xl:block w-[244px] h-[244px] xl:w-[500px] xl:h-[500px] self-center"
-      />
+        <InputFloatingLabel
+          type="password"
+          id="passwordRepeatedInput"
+          value={passwordRepeated}
+          onChange={handleRepeatedPasswordChange}
+          label={t("repeatPasswordPlaceholder")}
+          error={errorMessage}
+          additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
+        />
+        <Button type="submit" className="w-full">
+          {t("resetButton")}
+        </Button>
+      </form>
     </main>
   );
 };
 
-export default ResetPasswordPage;
+export default function SuspenseVerifyPage() {
+  return (
+    <Suspense>
+      <ResetPasswordPage />
+    </Suspense>
+  );
+}

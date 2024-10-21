@@ -1,4 +1,3 @@
-import { House } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,12 +9,14 @@ const Breadcrumb = () => {
     return null;
   }
 
+  const hiddenSegments = ["course", "lesson"];
+
   return (
     <nav className="text-sm font-medium">
       <ol className="list-reset flex items-center">
         <li className="flex items-center">
-          <Link href="/" className="text-text-secondary hover:underline body1 flex items-center">
-            <House height={16} />
+          <Link href={"/"} className="text-text-secondary hover:underline body1">
+            Home
           </Link>
           {segments.length > 0 && <span className="mx-2 text-text-secondary">/</span>}
         </li>
@@ -23,6 +24,9 @@ const Breadcrumb = () => {
           const href = "/" + segments.slice(0, index + 1).join("/");
           const isLast = index === segments.length - 1;
           const name = segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+          if (hiddenSegments.includes(segment)) {
+            return null;
+          }
           return (
             <li key={href} className="flex items-center">
               {isLast ? (

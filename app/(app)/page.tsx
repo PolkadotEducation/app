@@ -2,17 +2,22 @@
 
 import { getCoursesByLanguage } from "@/api/courseService";
 import Course from "@/components/ui/course";
+import { useUser } from "@/hooks/useUser";
+import { CourseType } from "@/types/courseTypes";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [courses, setCourses] = useState<any | null>(null);
+  const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useUser();
+  const t = useTranslations("home");
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await getCoursesByLanguage("english");
+        const response = await getCoursesByLanguage(user?.language || "english");
         setCourses(response);
       } catch (err) {
         console.error("Failed to fetch courses:", err);
@@ -23,26 +28,25 @@ const Home = () => {
     };
 
     fetchCourses();
-  }, []);
-
-  // @TODO:
-  // i18n
-  // course detail
-  // improve types
-  // get language from user profile
-  // fix h5 (font not working on mobile)
+  }, [user]);
 
   return (
-    <div className="flex xl:pt-10 px-2 pt-16 flex-col w-full">
-      <h5 className="mb-5" data-cy="text-home-courses">
-        Courses
-      </h5>
+    <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full">
+      <h4 className="mb-5" data-cy="text-home-courses">
+        {t("courses")}
+      </h4>
+      <p className="text-body1 mb-10 xl:mb-16">{t("description")}</p>
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
-      {!loading && !courses && <div>courses not found</div>}
+      {!loading && !courses && <div>Courses not found</div>}
       {courses &&
-        courses.map((course: { title: string }) => (
-          <Course banner="https://placehold.co/272x150.png" title={course.title} link=""></Course>
+        courses.map((course: CourseType) => (
+          <Course
+            banner="https://placehold.co/378x204.png"
+            title={course.title}
+            link={`course/${course._id}`}
+            key={course._id}
+          />
         ))}
     </div>
   );

@@ -1,0 +1,19 @@
+{
+  "signUp": {
+    "title": "Pronto para começar?",
+    "subtitle": "Crie sua conta em segundos e junte-se à comunidade Polkadot Education.",
+    "namePlaceholder": "Nome",
+    "emailPlaceholder": "E-mail",
+    "companyPlaceholder": "Empresa",
+    "passwordPlaceholder": "Senha",
+    "passwordRequirements": {
+      "uppercase": "Pelo menos 1 letra maiúscula",
+      "number": "Pelo menos 1 número",
+      "characters": "Pelo menos 8 caracteres"
+    },
+    "repeatPasswordPlaceholder": "Repetir senha",
+    "signUpButton": "Comece a aprender",
+    "signUpSuccess": "Usuário criado com sucesso",
+    "signUpSuccessDescription": "Verifique seu e-mail para acessar a plataforma!"
+  }
+}

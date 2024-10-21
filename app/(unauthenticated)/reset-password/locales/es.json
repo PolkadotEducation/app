@@ -1,0 +1,14 @@
+{
+  "resetPassword": {
+    "title": "Restablecer contraseña",
+    "instructionMessage": "Por favor, crea una nueva contraseña.",
+    "passwordPlaceholder": "Contraseña",
+    "repeatPasswordPlaceholder": "Repetir contraseña",
+    "resetButton": "Restablecer contraseña",
+    "passwordRequirements": {
+      "uppercase": "Al menos 1 letra mayúscula",
+      "number": "Al menos 1 número",
+      "characters": "Al menos 8 caracteres"
+    }
+  }
+}

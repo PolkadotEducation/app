@@ -1,0 +1,7 @@
+{
+  "emailSent": {
+    "title": "E-mail enviado",
+    "instructionMessage": "As instruções foram enviadas para o seu e-mail.",
+    "returnToLogin": "Voltar para o login"
+  }
+}

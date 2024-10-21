@@ -20,7 +20,6 @@ const Logo = ({
 
   return (
     <Image
-      unoptimized
       src={theme === "dark" ? whiteLogo : logo}
       width={width}
       height={height}

@@ -2,6 +2,7 @@
   "profile": {
     "profile": "Profile",
     "editProfile": "Edit Profile",
+    "delete": "Delete",
     "achievements": "Achievements",
     "certificates": "Certificates",
     "level": "Level {level}",

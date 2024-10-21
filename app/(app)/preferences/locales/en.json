@@ -1,0 +1,11 @@
+{
+  "preferences": {
+    "title": "Preferences",
+    "language": "Language",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "toastSuccess": "Preferences changed successfully",
+    "selectLanguage": "Please select the language you would like to use for the platform."
+  }
+}

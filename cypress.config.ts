@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import { setupDatabase } from "./cypress/support/db";
+import { seed } from "./cypress/support/db";
 
 export default defineConfig({
   e2e: {
@@ -11,7 +11,7 @@ export default defineConfig({
     screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {
       on("before:run", async () => {
-        await setupDatabase();
+        await seed();
       });
 
       return config;

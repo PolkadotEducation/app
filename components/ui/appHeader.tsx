@@ -13,44 +13,32 @@ import {
 import Image from "next/image";
 import chevronDown from "@/public/assets/icons/chevronDown.svg";
 import hamburgerMenu from "@/public/assets/icons/hamburgerMenu.svg";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useUser } from "@/hooks/useUser";
 
 const AppHeader = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [picture, setPicture] = useState<string | undefined>("");
-  const { state, signOut } = useAuth();
+  const { user } = useUser();
+  const { name, email, isAdmin, picture } = user || {};
+  const { signOut } = useAuth();
   const t = useTranslations("components");
-
-  useEffect(() => {
-    if (state.userToken && state.userInfo) {
-      setEmail(state.userInfo.email);
-      setName(state.userInfo.name);
-      setIsAdmin(state.userInfo.isAdmin);
-      setPicture(state.userInfo.picture);
-    }
-  }, [Object.keys(state.userInfo || {}).length]);
 
   return (
     <div className="w-full flex justify-center bg-primary">
-      <div className="w-full max-w-7xl h-16 flex justify-between px-6 items-center">
-        <Logo width={199} height={19} pathToRedirect="/" theme="dark" />
+      <div className="w-full max-w-7xl h-16 flex justify-between px-2 items-center">
+        <Logo width={139} height={40} pathToRedirect="/" theme="dark" />
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
             <div className="cursor-pointer">
               <div className="hidden xl:flex">
                 {picture ? (
-                  <div className="w-12 h-12 mr-[14px] rounded-full flex items-center justify-center">
+                  <div className="min-w-[48px] min-h-[48px] max-w-[48px] max-h-[48px] mr-[14px] rounded-full flex items-center justify-center">
                     <Image
-                      unoptimized
                       src={picture}
                       width={48}
                       height={48}
+                      className="w-[48px] h-[48px] rounded-full object-cover"
                       alt="Profile Picture"
-                      className="rounded-full"
                     />
                   </div>
                 ) : (
@@ -58,16 +46,9 @@ const AppHeader = () => {
                     <p className="unbound-font text-white font-bold text-xl">{(name || "").charAt(0)}</p>
                   </div>
                 )}
-                <Image
-                  unoptimized
-                  src={chevronDown}
-                  height={8}
-                  alt="Chevron Down"
-                  data-cy="button-header-menu-desktop"
-                />
+                <Image src={chevronDown} height={8} alt="Chevron Down" data-cy="button-header-menu-desktop" />
               </div>
               <Image
-                unoptimized
                 src={hamburgerMenu}
                 height={24}
                 alt="Chevron Down"
@@ -81,14 +62,7 @@ const AppHeader = () => {
               <div className="flex items-center">
                 {picture ? (
                   <div className="w-12 h-12 mr-[14px] rounded-full flex items-center justify-center">
-                    <Image
-                      unoptimized
-                      src={picture}
-                      width={48}
-                      height={48}
-                      alt="Profile Picture"
-                      className="rounded-full"
-                    />
+                    <Image src={picture} width={48} height={48} alt="Profile Picture" className="rounded-full" />
                   </div>
                 ) : (
                   <div className="w-12 h-12 mr-[14px] rounded-full bg-[#321D47] flex items-center justify-center">
@@ -114,6 +88,9 @@ const AppHeader = () => {
               </>
             )}
             <DropdownMenuSeparator />
+            <Link href="/preferences">
+              <DropdownMenuItem className="cursor-pointer">{t("preferences")}</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
               {t("logout")}
             </DropdownMenuItem>

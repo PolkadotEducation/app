@@ -1,0 +1,15 @@
+{
+  "components": {
+    "profile": "Perfil",
+    "backoffice": "Backoffice",
+    "logout": "Sair",
+    "termsOfService": "Termos de serviço",
+    "privacyPolicy": "Política de privacidade",
+    "preferences": "Preferências",
+    "course": "Curso",
+    "lesson": "Aula",
+    "module": "Módulo",
+    "challenge": "Desafio",
+    "submitAnswer": "Enviar resposta"
+  }
+}

@@ -33,6 +33,7 @@
     --error: 9 100% 37%;
     --border-gray: 0 0% 88%;
     --success-green: 151 72% 62%;
+    --dark-purple: 266 42% 20%;
   }
 }
 
@@ -109,10 +110,6 @@
 
     h4 {
       @apply text-h5 font-unbounded font-normal;
-    }
-
-    h6 {
-      @apply text-body1 font-montserrat font-bold;
     }
 
     .body1 {

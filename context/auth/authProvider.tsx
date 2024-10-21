@@ -1,11 +1,12 @@
 "use client";
 
-import React, { createContext, useReducer, ReactNode } from "react";
+import React, { createContext, useReducer, ReactNode, useEffect } from "react";
 import { authReducer } from "./authReducer";
 import { AuthState } from "@/types/authTypes";
-import { login, loginWithGoogle, loginWithWallet, signUp, signOut, setUser } from "./authActions";
+import { login, loginWithGoogle, loginWithWallet, signUp, signOut } from "./authActions";
 import { GoogleOAuthPayload } from "@/api/actions/google";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 type AuthContextType = {
   state: AuthState;
@@ -20,7 +21,6 @@ type AuthContextType = {
     language: string;
   }) => Promise<boolean>;
   signOut: () => void;
-  setUserByToken: (_token: string) => Promise<boolean>;
   clearAuthError: () => void;
 };
 
@@ -28,7 +28,6 @@ export const initialAuthState: AuthState = {
   isLoading: false,
   userToken: null,
   error: null,
-  email: null,
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,11 +36,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialAuthState);
   const router = useRouter();
 
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: { token },
+      });
+    }
+  }, []);
+
   const handlelogin = async (credentials: { email: string; password: string }) => {
     return await login(dispatch, credentials);
   };
 
-  const handleloginWithgoogle = async (credentials: GoogleOAuthPayload) => {
+  const handleloginWithGoogle = async (credentials: GoogleOAuthPayload) => {
     return await loginWithGoogle(dispatch, credentials);
   };
 
@@ -64,10 +73,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/login");
   };
 
-  const handleSetUserByToken = async (token: string) => {
-    return await setUser(dispatch, token);
-  };
-
   const handleClearAuthError = () => {
     dispatch({ type: "CLEAR_AUTH_ERROR" });
   };
@@ -75,11 +80,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value: AuthContextType = {
     state,
     login: handlelogin,
-    loginWithGoogle: handleloginWithgoogle,
+    loginWithGoogle: handleloginWithGoogle,
     loginWithWallet: handleloginWithWallet,
     signUp: handleSignUp,
     signOut: handleSignOut,
-    setUserByToken: handleSetUserByToken,
     clearAuthError: handleClearAuthError,
   };
 

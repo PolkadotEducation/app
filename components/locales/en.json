@@ -2,6 +2,14 @@
   "components": {
     "profile": "Profile",
     "backoffice": "Backoffice",
-    "logout": "Logout"
+    "logout": "Logout",
+    "termsOfService": "Terms of service",
+    "privacyPolicy": "Privacy policy",
+    "preferences": "Preferences",
+    "course": "Course",
+    "lesson": "Lesson",
+    "module": "Module",
+    "challenge": "Challenge",
+    "submitAnswer": "Submit Answer"
   }
 }

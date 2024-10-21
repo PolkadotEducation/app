@@ -11,11 +11,11 @@ const BackofficeHomePage = () => {
   const t = useTranslations("backoffice");
 
   return (
-    <main className="px-[20px] max-w-[1000px] w-full">
+    <main className="max-w-7xl w-full">
       <h4 className="xl:mb-10 mb-6">{t("contentCreatorDashboard")}</h4>
       <div className="flex flex-col gap-y-6">
         <div className="bg-card flex flex-col xl:flex-row rounded-[3px] xl:py-16 xl:px-10 py-8 px-5 items-center">
-          <Image unoptimized src={lessons} width={380} height={240} alt="Lessons" data-cy="image-backoffice-lessons" />
+          <Image src={lessons} width={380} height={240} alt="Lessons" data-cy="image-backoffice-lessons" />
           <div className="flex flex-col xl:ml-8 xl:mt-0 mt-4">
             <h6 className="mb-4">{t("lessonLibrary")}</h6>
             <p className="mb-6">{t("getStarted")}</p>
@@ -25,7 +25,7 @@ const BackofficeHomePage = () => {
           </div>
         </div>
         <div className="bg-card flex flex-col xl:flex-row rounded-[3px] xl:py-16 xl:px-10 py-8 px-5 items-center">
-          <Image unoptimized src={courses} width={380} height={240} alt="Courses" data-cy="image-backoffice-courses" />
+          <Image src={courses} width={380} height={240} alt="Courses" data-cy="image-backoffice-courses" />
           <div className="flex flex-col xl:ml-8 xl:mt-0 mt-4">
             <h6 className="mb-4">{t("myCourses")}</h6>
             <p className="mb-6">{t("structureYourCourse")}</p>

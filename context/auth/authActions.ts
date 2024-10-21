@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleOAuthPayload } from "@/api/actions/google";
-import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp, getProfile } from "@/api/authService";
+import { authLogin, authLoginWithGoogle, authLoginWithWallet, authSignUp } from "@/api/authService";
 import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
-import { User } from "@/types/userTypes";
 
 export const login = async (dispatch: React.Dispatch<any>, credentials: { email: string; password: string }) => {
   dispatch({ type: "LOGIN_REQUEST" });
@@ -84,35 +83,4 @@ export const signUp = async (
 export const signOut = (dispatch: React.Dispatch<any>) => {
   dispatch({ type: "SIGN_OUT" });
   Cookies.remove("token");
-};
-
-export const setUser = async (dispatch: React.Dispatch<any>, token: string): Promise<boolean> => {
-  try {
-    dispatch({
-      type: "SET_LOADING",
-      payload: { loading: true },
-    });
-    const decodedToken = jwt.decode(token) as { user: User } | null;
-    const profile = await getProfile(decodedToken?.user.id || "");
-    dispatch({
-      type: "SET_USER",
-      payload: { user: profile },
-    });
-    dispatch({
-      type: "SET_TOKEN",
-      payload: { token },
-    });
-    dispatch({
-      type: "SET_LOADING",
-      payload: { loading: false },
-    });
-    return true;
-  } catch {
-    dispatch({
-      type: "SET_LOADING",
-      payload: { loading: false },
-    });
-    signOut(dispatch);
-    return false;
-  }
 };

@@ -39,6 +39,7 @@ export default [
       ],
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "prettier/prettier": "error",
+      "@typescript-eslint/no-explicit-any": "error",
     },
     settings: {
       react: {
