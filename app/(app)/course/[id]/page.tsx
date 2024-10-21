@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ModuleAccordion } from "@/components/ui/moduleAccordion";
 import { CourseType } from "@/types/courseTypes";
 import { ModuleType } from "@/types/moduleTypes";
+import { useTranslations } from "next-intl";
 
 const CoursePage = () => {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ const CoursePage = () => {
   const [course, setCourse] = useState<CourseType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("course");
 
   useEffect(() => {
     if (!id) return;
@@ -35,7 +37,7 @@ const CoursePage = () => {
   }, []);
 
   return (
-    <div className="flex xl:pt-10 px-2 pt-16 flex-col w-full">
+    <div className="flex xl:pt-5 px-2 pt-8 flex-col w-full">
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {!loading && !course && <div>course not found</div>}
@@ -54,11 +56,11 @@ const CoursePage = () => {
             />
           </div>
           <div className="mb-5">
-            <h6 className="text-primary mb-4">Summary</h6>
+            <h6 className="text-primary mb-4">{t("summary")}</h6>
             <p>{course.summary}</p>
           </div>
           <div className="mb-20">
-            <h6 className="text-primary mb-4">Content</h6>
+            <h6 className="text-primary mb-4">{t("content")}</h6>
             {course.modules?.map((module: ModuleType, index: number) => (
               <div>
                 <ModuleAccordion key={index} index={index} title={module.title} lessons={module.lessons} />

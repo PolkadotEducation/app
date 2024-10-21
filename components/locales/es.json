@@ -5,6 +5,11 @@
     "logout": "Cerrar sesión",
     "termsOfService": "Términos del servicio",
     "privacyPolicy": "Política de privacidad",
-    "preferences": "Preferencias"
+    "preferences": "Preferencias",
+    "course": "Curso",
+    "lesson": "Lección",
+    "module": "Módulo",
+    "challenge": "Desafío",
+    "submitAnswer": "Enviar respuesta"
   }
 }
