@@ -10,6 +10,7 @@
     "lesson": "Lesson",
     "module": "Module",
     "challenge": "Challenge",
-    "submitAnswer": "Submit Answer"
+    "submitAnswer": "Submit Answer",
+    "submitCooldown": "Please wait {cooldown} seconds before submitting a new answer."
   }
 }

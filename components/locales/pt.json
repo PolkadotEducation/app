@@ -10,6 +10,7 @@
     "lesson": "Aula",
     "module": "Módulo",
     "challenge": "Desafio",
-    "submitAnswer": "Enviar resposta"
+    "submitAnswer": "Enviar resposta",
+    "submitCooldown": "Por favor, aguarde {cooldown} segundos antes de enviar uma nova resposta."
   }
 }

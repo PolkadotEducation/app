@@ -13,11 +13,14 @@ interface LessonRendererProps {
   markdown: string;
   question: string;
   choices: string[];
+  onSubmitAnswer?: () => Promise<void>;
 }
 
-const LessonRenderer = ({ title, difficulty, markdown, question, choices }: LessonRendererProps) => {
+const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubmitAnswer }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const t = useTranslations("components");
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
+  const [cooldownTime, setCooldownTime] = useState(0);
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -29,6 +32,34 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices }: Less
 
     compileMDX();
   }, [markdown]);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (isOnCooldown) {
+      timer = setInterval(() => {
+        setCooldownTime((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsOnCooldown(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [isOnCooldown]);
+
+  const handleSubmitAndswer = () => {
+    if (isOnCooldown) return;
+    if (onSubmitAnswer) {
+      // TODO add submission logic (does the function needs to be a prop?)
+      onSubmitAnswer();
+    }
+    setIsOnCooldown(true);
+    setCooldownTime(10);
+  };
 
   return (
     <main className="w-full flex justify-center">
@@ -53,7 +84,12 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices }: Less
                   </label>
                 </div>
               ))}
-            <Button className="w-fit mt-4">{t("submitAnswer")}</Button>
+            <Button className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`} onClick={() => handleSubmitAndswer()}>
+              {t("submitAnswer")}
+            </Button>
+            {isOnCooldown && (
+              <p className="text-body2 text-text-secondary">{t("submitCooldown", { cooldown: cooldownTime })}</p>
+            )}
           </div>
         )}
       </div>
