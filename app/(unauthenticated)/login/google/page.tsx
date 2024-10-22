@@ -4,7 +4,7 @@ import { Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { serverGoogleOAuthURL, serverGoogleOAuthPayload, GoogleOAuthPayload } from "@/api/actions/google";
 import { useAuth } from "@/hooks/useAuth";
-import { LoaderCircle } from "lucide-react";
+import Loading from "@/components/ui/loading";
 
 function LoginWithGoogleInner() {
   const searchParams = useSearchParams();
@@ -31,11 +31,7 @@ function LoginWithGoogleInner() {
     }
   }, [searchParams, router]);
 
-  return (
-    <div className="text-primary">
-      <LoaderCircle width={120} height={120} className="animate-spin" />
-    </div>
-  );
+  return <Loading />;
 }
 export default function LoginWithGoogle() {
   return (

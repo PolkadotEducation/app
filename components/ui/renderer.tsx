@@ -6,6 +6,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
+import Loading from "./loading";
 
 interface LessonRendererProps {
   title: string;
@@ -68,7 +69,13 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubm
           {title ? title : "Title not set"}
           <Badge className="align-middle ml-2">{difficulty ? difficulty : "Difficulty not set"}</Badge>
         </h1>
-        {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
+        {mdxSource ? (
+          <MDXRemote {...mdxSource} />
+        ) : (
+          <div className="flex w-full justify-center">
+            <Loading />
+          </div>
+        )}
         <div className="border-t-2 border-t-border-gray my-4"></div>
         <h2>{t("challenge")}</h2>
         <p>{question ? question : "Challenge not set"}</p>
