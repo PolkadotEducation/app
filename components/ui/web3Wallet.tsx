@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import polkadot from "@/public/assets/icons/polkadot.svg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const WEB3_ACTIVE = false;
 
@@ -23,6 +24,7 @@ const Web3Wallet = () => {
   const [balance, setBalance] = useState("");
   const [isSigning, setIsSigning] = useState(false);
   const [client, setClient] = useState<PolkadotClient | undefined>();
+  const t = useTranslations("components");
 
   const router = useRouter();
   const { loginWithWallet, clearAuthError } = useAuth();
@@ -35,7 +37,7 @@ const Web3Wallet = () => {
         ? `${selectedAccount.name}${addBalance}`
         : `${selectedAccount.address.slice(0, 5)}...${selectedAccount.address.slice(-5)}${addBalance}`;
     }
-    return "Sign in with Wallet";
+    return t("loginPolkadot");
   }, [isSigning, selectedAccount, balance]);
 
   useEffect(() => {

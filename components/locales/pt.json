@@ -11,6 +11,7 @@
     "module": "Módulo",
     "challenge": "Desafio",
     "submitAnswer": "Enviar resposta",
-    "submitCooldown": "Por favor, aguarde {cooldown} segundos antes de enviar uma nova resposta."
+    "submitCooldown": "Por favor, aguarde {cooldown} segundos antes de enviar uma nova resposta.",
+    "loginPolkadot": "Entrar com Polkadot"
   }
 }
