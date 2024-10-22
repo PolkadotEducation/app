@@ -140,6 +140,7 @@
 
 .mdxeditor h3 {
   font-size: 1.17em;
+  margin-block: 1.25rem;
 }
 
 .mdxeditor h4 {
@@ -156,6 +157,22 @@
 
 .mdxeditor p {
   margin-block: 1.25rem;
+}
+
+.mdxeditor ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor li {
+  margin-bottom: 0.5rem;
 }
 
 /* Fix for autofill bg color changes for chromium browsers */
