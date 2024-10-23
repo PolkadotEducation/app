@@ -5,6 +5,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { getPrivacyPolicy } from "@/helpers/files";
 import Logo from "@/components/ui/logo";
+import Loading from "./loading";
 
 const PolicyRenderer = ({ policyMarkdown }: { policyMarkdown: string }) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
@@ -23,7 +24,13 @@ const PolicyRenderer = ({ policyMarkdown }: { policyMarkdown: string }) => {
       <div className="flex flex-col max-w-[696px] mdxeditor pb-8">
         <Logo width={208} height={60} pathToRedirect="/login" />
         <div className="flex flex-col justify-center mt-2">
-          {mdxSource ? <MDXRemote {...mdxSource} /> : "Loading..."}
+          {mdxSource ? (
+            <MDXRemote {...mdxSource} />
+          ) : (
+            <div className="flex w-full justify-center">
+              <Loading />
+            </div>
+          )}
         </div>
       </div>
     </main>

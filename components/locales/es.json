@@ -10,6 +10,8 @@
     "lesson": "Lección",
     "module": "Módulo",
     "challenge": "Desafío",
-    "submitAnswer": "Enviar respuesta"
+    "submitAnswer": "Enviar respuesta",
+    "submitCooldown": "Por favor, espera {cooldown} segundos antes de enviar una nueva respuesta.",
+    "loginPolkadot": "Iniciar con Polkadot"
   }
 }

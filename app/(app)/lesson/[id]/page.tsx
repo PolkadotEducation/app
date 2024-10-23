@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { LessonType } from "@/types/lessonTypes";
 import LessonRenderer from "@/components/ui/renderer";
 import { getLessonById } from "@/api/lessonService";
+import Loading from "@/components/ui/loading";
 
 const LessonPage = () => {
   const pathname = usePathname();
@@ -32,7 +33,12 @@ const LessonPage = () => {
     fetchLesson();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex w-full justify-center">
+        <Loading />
+      </div>
+    );
   if (error) return <div>{error}</div>;
   if (!lesson) return <div>Lesson not found</div>;
 

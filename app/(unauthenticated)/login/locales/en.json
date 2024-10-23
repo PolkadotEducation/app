@@ -8,6 +8,7 @@
     "signInButton": "Sign In",
     "requestAccount": "Don’t have an account? Request now",
     "google": "Sign in with Google",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "loginAgreement": "By logging in and using Polkadot Education, you agree to our <policies>Policies</policies> and <terms>Terms of service</terms>"
   }
 }

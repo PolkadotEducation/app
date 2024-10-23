@@ -8,6 +8,7 @@ import { ModuleAccordion } from "@/components/ui/moduleAccordion";
 import { CourseType } from "@/types/courseTypes";
 import { ModuleType } from "@/types/moduleTypes";
 import { useTranslations } from "next-intl";
+import Loading from "@/components/ui/loading";
 
 const CoursePage = () => {
   const pathname = usePathname();
@@ -38,7 +39,11 @@ const CoursePage = () => {
 
   return (
     <div className="flex xl:pt-5 px-2 pt-8 flex-col w-full">
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className="flex w-full justify-center">
+          <Loading />
+        </div>
+      )}
       {error && <div>{error}</div>}
       {!loading && !course && <div>course not found</div>}
       {course && (

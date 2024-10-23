@@ -2,6 +2,7 @@
 
 import { getCoursesByLanguage } from "@/api/courseService";
 import Course from "@/components/ui/course";
+import Loading from "@/components/ui/loading";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
 import { useTranslations } from "next-intl";
@@ -36,7 +37,11 @@ const Home = () => {
         {t("courses")}
       </h4>
       <p className="text-body1 mb-10 xl:mb-16">{t("description")}</p>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className="flex w-full justify-center">
+          <Loading />
+        </div>
+      )}
       {error && <div>{error}</div>}
       {!loading && !courses && <div>Courses not found</div>}
       {courses &&

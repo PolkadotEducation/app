@@ -1,4 +1,3 @@
-// components/ClientProviders.jsx
 "use client";
 
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
