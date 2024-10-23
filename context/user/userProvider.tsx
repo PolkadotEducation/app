@@ -10,12 +10,10 @@ import { setUserLocale } from "@/api/actions/userLocale";
 
 type UserContextType = {
   user: UserInfo | null;
-  // eslint-disable-next-line no-unused-vars
-  setUser: (user: UserInfo) => void;
+  setUser: (_user: UserInfo) => void;
   loadUserProfile: () => Promise<void>;
   userLoading: boolean;
-  // eslint-disable-next-line no-unused-vars
-  setUserLoading: (loading: boolean) => void;
+  setUserLoading: (_loading: boolean) => void;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
