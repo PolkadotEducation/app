@@ -7,21 +7,24 @@ import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
+import { submitAnswer } from "@/api/progressService";
+import { toast } from "@/hooks/useToast";
 
 interface LessonRendererProps {
+  lessonId?: string;
   title: string;
   difficulty: string;
   markdown: string;
   question: string;
   choices: string[];
-  onSubmitAnswer?: () => Promise<void>;
 }
 
-const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubmitAnswer }: LessonRendererProps) => {
+const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choices }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const t = useTranslations("components");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [cooldownTime, setCooldownTime] = useState(0);
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -52,14 +55,44 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubm
     return () => clearInterval(timer);
   }, [isOnCooldown]);
 
+  const onSubmitAnswer = async () => {
+    const progressData = {
+      userId: "1",
+      courseId: "1",
+      lessonId: lessonId!,
+      choice: selectedChoice!,
+    };
+
+    try {
+      const response = await submitAnswer(progressData);
+      if (response) {
+        toast({
+          title: "foi",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "não foi",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting answer:", error);
+    }
+  };
+
   const handleSubmitAndswer = () => {
     if (isOnCooldown) return;
-    if (onSubmitAnswer) {
-      // TODO add submission logic (does the function needs to be a prop?)
-      onSubmitAnswer();
-    }
+
+    onSubmitAnswer();
+
     setIsOnCooldown(true);
     setCooldownTime(10);
+  };
+
+  const handleChoiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.info(event.target.value);
+    setSelectedChoice(Number(event.target.value));
   };
 
   return (
@@ -86,7 +119,13 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubm
               .map((option, index) => (
                 <div key={index} className="mb-2">
                   <label className="flex items-center">
-                    <input type="radio" name="choices" value={option} className="mr-2 accent-primary w-4 h-4" />
+                    <input
+                      type="radio"
+                      name="choices"
+                      value={index}
+                      className="mr-2 accent-primary w-4 h-4"
+                      onChange={handleChoiceChange}
+                    />
                     {option}
                   </label>
                 </div>

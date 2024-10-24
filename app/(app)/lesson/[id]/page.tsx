@@ -45,6 +45,7 @@ const LessonPage = () => {
   return (
     <div>
       <LessonRenderer
+        lessonId={lesson._id}
         title={lesson.title}
         difficulty={lesson.difficulty}
         question={lesson.challenge.question}
