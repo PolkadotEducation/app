@@ -9,9 +9,11 @@ import { useTranslations } from "next-intl";
 import Loading from "./loading";
 import { submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
 
 interface LessonRendererProps {
   lessonId?: string;
+  courseId?: string;
   title: string;
   difficulty: string;
   markdown: string;
@@ -19,12 +21,21 @@ interface LessonRendererProps {
   choices: string[];
 }
 
-const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choices }: LessonRendererProps) => {
+const LessonRenderer = ({
+  lessonId,
+  courseId,
+  title,
+  difficulty,
+  markdown,
+  question,
+  choices,
+}: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
-  const t = useTranslations("components");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [cooldownTime, setCooldownTime] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const { user } = useUser();
+  const t = useTranslations("components");
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -56,11 +67,19 @@ const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choic
   }, [isOnCooldown]);
 
   const onSubmitAnswer = async () => {
+    if (!user?.id || !courseId || !lessonId || (!selectedChoice && selectedChoice != 0)) {
+      toast({
+        title: "Error: missing data",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const progressData = {
-      userId: "1",
-      courseId: "1",
-      lessonId: lessonId!,
-      choice: selectedChoice!,
+      userId: user?.id,
+      courseId: courseId,
+      lessonId: lessonId,
+      choice: selectedChoice,
     };
 
     try {
@@ -78,6 +97,10 @@ const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choic
       }
     } catch (error) {
       console.error("Error submitting answer:", error);
+      toast({
+        title: "deu erro",
+        variant: "destructive",
+      });
     }
   };
 
@@ -91,7 +114,6 @@ const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choic
   };
 
   const handleChoiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.info(event.target.value);
     setSelectedChoice(Number(event.target.value));
   };
 
@@ -130,7 +152,11 @@ const LessonRenderer = ({ lessonId, title, difficulty, markdown, question, choic
                   </label>
                 </div>
               ))}
-            <Button className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`} onClick={() => handleSubmitAndswer()}>
+            <Button
+              className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`}
+              onClick={() => handleSubmitAndswer()}
+              disabled={isOnCooldown}
+            >
               {t("submitAnswer")}
             </Button>
             {isOnCooldown && (

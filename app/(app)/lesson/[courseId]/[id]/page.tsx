@@ -1,22 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { LessonType } from "@/types/lessonTypes";
 import LessonRenderer from "@/components/ui/renderer";
 import { getLessonById } from "@/api/lessonService";
 import Loading from "@/components/ui/loading";
 
-const LessonPage = () => {
-  const pathname = usePathname();
-  const id = pathname.split("/").pop();
+interface Params {
+  courseId: string;
+  id: string;
+}
+
+const LessonPage = ({ params }: { params: Params }) => {
+  const { courseId, id } = params;
 
   const [lesson, setLesson] = useState<LessonType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!courseId || !id) return;
 
     const fetchLesson = async () => {
       try {
@@ -46,6 +49,7 @@ const LessonPage = () => {
     <div>
       <LessonRenderer
         lessonId={lesson._id}
+        courseId={courseId}
         title={lesson.title}
         difficulty={lesson.difficulty}
         question={lesson.challenge.question}
