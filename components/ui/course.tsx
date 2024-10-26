@@ -10,22 +10,22 @@ const Course = ({ banner, title, link }: { banner: string; title: string; link: 
 
   return (
     <div
-      className="max-w-[378px] w-full max-h-[408px] rounded-lg overflow-hidden shadow-md bg-card flex flex-col transition-transform duration-500 hover:scale-105 cursor-pointer"
+      className="w-full md:w-1/2 lg:w-1/3 rounded-lg overflow-hidden shadow-md bg-card flex flex-col transition-transform duration-500 hover:scale-105 cursor-pointer"
       onClick={() => {
         return router.push(link);
       }}
     >
       <div className="relative w-full">
         <div
-          className="min-w-[378px] min-h-[204px] bg-cover bg-center relative"
+          className="min-w-[378px] min-h-[204px] bg-cover bg-center relative flex-1 flex items-center"
           style={{
             backgroundImage: `url(${blackPinkBanner.src})`,
           }}
         >
-          <div className="p-4 flex-1">
-            <h6 className="text-white">{title}</h6>
+          <div className="w-1/2 p-4">
+            <h6 className="text-white text-sm">{title}</h6>
           </div>
-          <Image src={whiteLogo} alt={""} height="24" className="absolute bottom-4 left-4" />
+          <Image src={whiteLogo} alt={""} height="20" className="absolute bottom-4 left-4" />
         </div>
       </div>
     </div>
