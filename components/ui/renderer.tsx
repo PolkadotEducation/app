@@ -17,8 +17,8 @@ interface LessonRendererProps {
   question: string;
   choices: string[];
   onSubmitAnswer?: () => Promise<void>;
-  nextLesson: string | null;
-  previousLesson: string | null;
+  nextLesson?: string | null;
+  previousLesson?: string | null;
 }
 
 const LessonRenderer = ({
