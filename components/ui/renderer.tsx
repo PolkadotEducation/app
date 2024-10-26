@@ -7,6 +7,8 @@ import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface LessonRendererProps {
   title: string;
@@ -15,9 +17,20 @@ interface LessonRendererProps {
   question: string;
   choices: string[];
   onSubmitAnswer?: () => Promise<void>;
+  nextLesson: string | null;
+  previousLesson: string | null;
 }
 
-const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubmitAnswer }: LessonRendererProps) => {
+const LessonRenderer = ({
+  title,
+  difficulty,
+  markdown,
+  question,
+  choices,
+  onSubmitAnswer,
+  nextLesson,
+  previousLesson,
+}: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const t = useTranslations("components");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
@@ -96,6 +109,31 @@ const LessonRenderer = ({ title, difficulty, markdown, question, choices, onSubm
             </Button>
             {isOnCooldown && (
               <p className="text-body2 text-text-secondary">{t("submitCooldown", { cooldown: cooldownTime })}</p>
+            )}
+          </div>
+        )}
+        {/* TODO should we show this navigation if the user has not yet answered the question */}
+        {(nextLesson || previousLesson) && (
+          <div
+            className={`flex w-full py-6 border-t-2 border-t-border-gray ${
+              previousLesson && nextLesson ? "justify-between" : previousLesson ? "justify-start" : "justify-end"
+            }`}
+          >
+            {previousLesson && (
+              <Link href={`/lesson/${previousLesson}`}>
+                <Button variant="link" className="p-0 hover:bg-transparent">
+                  <ChevronLeft className="mr-2" />
+                  {t("previousLesson")}
+                </Button>
+              </Link>
+            )}
+            {nextLesson && (
+              <Link href={`/lesson/${nextLesson}`}>
+                <Button variant="link" className="p-0 hover:bg-transparent">
+                  {t("nextLesson")}
+                  <ChevronRight className="ml-2" />
+                </Button>
+              </Link>
             )}
           </div>
         )}

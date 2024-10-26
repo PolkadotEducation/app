@@ -12,6 +12,8 @@
     "challenge": "Desafio",
     "submitAnswer": "Enviar resposta",
     "submitCooldown": "Por favor, aguarde {cooldown} segundos antes de enviar uma nova resposta.",
-    "loginPolkadot": "Entrar com Polkadot"
+    "loginPolkadot": "Entrar com Polkadot",
+    "nextLesson": "Próxima Aula",
+    "previousLesson": "Aula Anterior"
   }
 }

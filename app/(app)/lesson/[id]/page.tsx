@@ -1,36 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { LessonType } from "@/types/lessonTypes";
 import LessonRenderer from "@/components/ui/renderer";
-import { getLessonById } from "@/api/lessonService";
 import Loading from "@/components/ui/loading";
+import { useCourse } from "@/hooks/useCourse";
+import { useUser } from "@/hooks/useUser";
 
 const LessonPage = () => {
   const pathname = usePathname();
   const id = pathname.split("/").pop();
 
-  const [lesson, setLesson] = useState<LessonType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { selectedLesson, loading, error, fetchLessonById, nextLesson, previousLesson } = useCourse();
+
+  const { userLoading, user } = useUser();
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchLesson = async () => {
-      try {
-        const response = await getLessonById(id as string);
-        setLesson(response);
-      } catch (err) {
-        console.error("Failed to fetch lesson:", err);
-        setError("Failed to fetch lesson");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLesson();
+    if (!userLoading && user) fetchLessonById(id);
   }, [id]);
 
   if (loading)
@@ -40,16 +28,18 @@ const LessonPage = () => {
       </div>
     );
   if (error) return <div>{error}</div>;
-  if (!lesson) return <div>Lesson not found</div>;
+  if (!selectedLesson) return <div>Lesson not found</div>;
 
   return (
     <div>
       <LessonRenderer
-        title={lesson.title}
-        difficulty={lesson.difficulty}
-        question={lesson.challenge.question}
-        choices={lesson.challenge.choices}
-        markdown={lesson.body}
+        title={selectedLesson.title}
+        difficulty={selectedLesson.difficulty}
+        question={selectedLesson.challenge.question}
+        choices={selectedLesson.challenge.choices}
+        markdown={selectedLesson.body}
+        nextLesson={nextLesson}
+        previousLesson={previousLesson}
       />
     </div>
   );
