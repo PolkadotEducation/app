@@ -46,12 +46,7 @@ const Home = () => {
       {!loading && !courses && <div>Courses not found</div>}
       {courses &&
         courses.map((course: CourseType) => (
-          <Course
-            banner="https://placehold.co/378x204.png"
-            title={course.title}
-            link={`course/${course._id}`}
-            key={course._id}
-          />
+          <Course banner="blackPink" title={course.title} link={`course/${course._id}`} key={course._id} />
         ))}
     </div>
   );
