@@ -16,7 +16,17 @@ const bannerImages: { [key: string]: StaticImageData } = {
   gradient: gradientBanner,
 };
 
-const Course = ({ banner, title, link }: { banner: string; title: string; link?: string }) => {
+const CourseCard = ({
+  banner,
+  title,
+  link,
+  variant,
+}: {
+  banner: string;
+  title: string;
+  link?: string;
+  variant: "full" | "preview";
+}) => {
   const router = useRouter();
 
   const isBlackBanner = banner === "blackPink" || banner === "blackPurple";
@@ -25,7 +35,7 @@ const Course = ({ banner, title, link }: { banner: string; title: string; link?:
 
   return (
     <div
-      className={`w-full md:w-1/2 lg:w-1/3 rounded-lg overflow-hidden shadow-md bg-card flex flex-col transition-transform duration-500 hover:scale-105 ${
+      className={`${variant === "full" ? "w-full" : "w-full md:w-1/2 lg:w-1/3"} rounded-lg overflow-hidden shadow-md bg-card flex flex-col transition-transform duration-500 hover:scale-105 ${
         link ? "cursor-pointer" : ""
       }`}
       onClick={() => {
@@ -34,13 +44,17 @@ const Course = ({ banner, title, link }: { banner: string; title: string; link?:
     >
       <div className="relative w-full">
         <div
-          className="min-w-[378px] min-h-[204px] bg-cover bg-center relative flex-1 flex items-center"
+          className={`${variant === "full" ? "min-h-[204px] md:min-h-[440px]" : "min-h-[204px]"} bg-cover bg-center relative flex-1 flex items-center`}
           style={{
             backgroundImage: `url(${selectedBanner})`,
           }}
         >
           <div className="w-1/2 p-4">
-            <h6 className={`${isBlackBanner ? "text-white" : ""} text-sm`}>{title}</h6>
+            <h6
+              className={`${isBlackBanner ? "text-white" : ""} ${variant === "preview" ? "text-sm" : "md:text-3xl text-sm"}`}
+            >
+              {title}
+            </h6>
           </div>
           <Image src={selectedLogo} alt="Logo" height="20" className="absolute bottom-4 left-4" />
         </div>
@@ -49,4 +63,4 @@ const Course = ({ banner, title, link }: { banner: string; title: string; link?:
   );
 };
 
-export default Course;
+export default CourseCard;

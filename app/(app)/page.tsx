@@ -1,7 +1,7 @@
 "use client";
 
 import { getCoursesByLanguage } from "@/api/courseService";
-import Course from "@/components/ui/course";
+import CourseCard from "@/components/ui/courseCard";
 import Loading from "@/components/ui/loading";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
@@ -46,7 +46,13 @@ const Home = () => {
       {!loading && !courses && <div>Courses not found</div>}
       {courses &&
         courses.map((course: CourseType) => (
-          <Course banner="blackPink" title={course.title} link={`course/${course._id}`} key={course._id} />
+          <CourseCard
+            banner="blackPink"
+            title={course.title}
+            link={`course/${course._id}`}
+            key={course._id}
+            variant="preview"
+          />
         ))}
     </div>
   );
