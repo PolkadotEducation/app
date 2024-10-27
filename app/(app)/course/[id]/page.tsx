@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { getCourse } from "@/api/courseService";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import { CourseType } from "@/types/courseTypes";
 import { ModuleType } from "@/types/moduleTypes";
 import { useTranslations } from "next-intl";
 import Loading from "@/components/ui/loading";
+import CourseCard from "@/components/ui/courseCard";
 
 const CoursePage = () => {
   const pathname = usePathname();
@@ -48,16 +48,10 @@ const CoursePage = () => {
       {!loading && !course && <div>course not found</div>}
       {course && (
         <div>
-          <div>
-            <h2 className="mb-5" data-cy="text-home-courses">
-              {course.title}
-            </h2>
-            <Image
-              src={"https://placehold.co/1280x440.png"}
-              alt={""}
-              width="1280"
-              height="440"
-              className="border rounded-xl mb-10"
+          <div className="mb-5">
+            <CourseCard
+              banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
+              title={course.title}
             />
           </div>
           <div className="mb-5">
