@@ -1,7 +1,6 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
-import { useRouter } from "next/navigation";
 import logo from "@/public/assets/icons/logo.svg";
 import whiteLogo from "@/public/assets/icons/whiteLogo.svg";
 import blackPinkBanner from "@/public/assets/banners/blackPink.svg";

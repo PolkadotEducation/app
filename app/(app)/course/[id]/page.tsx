@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { getCourse } from "@/api/courseService";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";

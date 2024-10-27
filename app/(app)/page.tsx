@@ -1,7 +1,6 @@
 "use client";
 
 import { getCoursesByLanguage } from "@/api/courseService";
-import CourseCard from "@/components/ui/courseCard";
 import CourseCardPreview from "@/components/ui/courseCardPreview";
 import Loading from "@/components/ui/loading";
 import { useUser } from "@/hooks/useUser";
