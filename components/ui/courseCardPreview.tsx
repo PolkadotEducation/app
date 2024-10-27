@@ -16,32 +16,37 @@ const bannerImages: { [key: string]: StaticImageData } = {
   gradient: gradientBanner,
 };
 
-const CourseCard = ({ banner, title }: { banner: string; title: string; link?: string }) => {
+const CourseCardPreview = ({ banner, title, link }: { banner: string; title: string; link: string }) => {
+  const router = useRouter();
+
   const isBlackBanner = banner === "blackPink" || banner === "blackPurple";
   const selectedBanner = bannerImages[banner]?.src || blackPinkBanner.src;
   const selectedLogo = isBlackBanner ? whiteLogo : logo;
 
   return (
-    <div className="w-full rounded-lg overflow-hidden shadow-md bg-card flex flex-col">
+    <div
+      className={`w-full rounded-lg overflow-hidden shadow-md bg-card flex transition-transform duration-500 hover:scale-105 ${
+        link ? "cursor-pointer" : ""
+      }`}
+      onClick={() => {
+        if (link) router.push(link);
+      }}
+    >
       <div className="relative w-full">
         <div
-          className="min-h-[204px] md:min-h-[440px] bg-cover bg-center relative flex-1 flex items-center"
+          className="min-w-[378px] min-h-[204px] bg-cover bg-center relative flex-1 flex items-center"
           style={{
             backgroundImage: `url(${selectedBanner})`,
           }}
         >
-          <div className="w-1/2 p-4 md:p-8">
-            <h6 className={`${isBlackBanner ? "text-white" : ""} md:text-3xl text-sm`}>{title}</h6>
+          <div className="w-1/2 p-4">
+            <h6 className={`${isBlackBanner ? "text-white" : ""} text-sm`}>{title}</h6>
           </div>
-          <Image
-            src={selectedLogo}
-            alt="Logo"
-            className="absolute bottom-4 left-4 md:bottom-8 md:left-8 max-w-[69px] max-h-[20px] md:max-w-[150px] md:max-h-[44px]"
-          />
+          <Image src={selectedLogo} alt="Logo" height="20" className="absolute bottom-4 left-4" />
         </div>
       </div>
     </div>
   );
 };
 
-export default CourseCard;
+export default CourseCardPreview;

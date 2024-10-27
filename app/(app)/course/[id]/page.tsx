@@ -50,7 +50,10 @@ const CoursePage = () => {
       {course && (
         <div>
           <div className="mb-5">
-            <CourseCard banner="blackPink" title={course.title} key={course._id} variant="full" />
+            <CourseCard
+              banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
+              title={course.title}
+            />
           </div>
           <div className="mb-5">
             <h6 className="text-primary mb-4">{t("summary")}</h6>
