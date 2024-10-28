@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Db } from "mongodb";
 import { englishCourse } from "./courses/english";
 import { portugueseCourse } from "./courses/portuguese";
