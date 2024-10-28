@@ -12,6 +12,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
+import { ProgressRequest } from "@/types/progressTypes";
+
+const EXP_POINTS = {
+  hard: 100,
+  medium: 50,
+  easy: 25,
+};
+
+type Difficulty = keyof typeof EXP_POINTS;
 
 interface LessonRendererProps {
   lessonId?: string;
@@ -23,6 +32,7 @@ interface LessonRendererProps {
   choices: string[];
   nextLesson?: string | null;
   previousLesson?: string | null;
+  progress?: ProgressRequest | null;
 }
 
 const LessonRenderer = ({
@@ -35,6 +45,8 @@ const LessonRenderer = ({
   choices,
   nextLesson,
   previousLesson,
+  // eslint-disable-next-line no-unused-vars
+  progress,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
@@ -71,6 +83,8 @@ const LessonRenderer = ({
 
     return () => clearInterval(timer);
   }, [isOnCooldown]);
+
+  const points = EXP_POINTS[difficulty as Difficulty];
 
   const onSubmitAnswer = async () => {
     if (!user?.id || !courseId || !lessonId || (!selectedChoice && selectedChoice != 0)) {
@@ -163,7 +177,7 @@ const LessonRenderer = ({
               onClick={() => handleSubmitAndswer()}
               disabled={isOnCooldown}
             >
-              {t("submitAnswer")}
+              {t("submitAnswer") + ` (+${points}XP)`}
             </Button>
             {isOnCooldown && (
               <p className="text-body2 text-text-secondary">{t("submitCooldown", { cooldown: cooldownTime })}</p>

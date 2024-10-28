@@ -14,16 +14,20 @@ interface Params {
 const LessonPage = ({ params }: { params: Params }) => {
   const { courseId, id } = params;
 
-  const { selectedLesson, loading, error, fetchLessonById, nextLesson, previousLesson } = useCourse();
+  const { selectedLesson, selectedLessonProgress, loading, error, fetchLessonById, nextLesson, previousLesson } =
+    useCourse();
 
   const { userLoading, user } = useUser();
 
   useEffect(() => {
     if (!courseId || !id) return;
+    if (!userLoading && user) {
+      fetchLessonById(id, courseId);
+    }
+  }, [id]);
 
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-
-    if (!userLoading && user) fetchLessonById(id);
   }, [id]);
 
   if (loading)
@@ -47,6 +51,7 @@ const LessonPage = ({ params }: { params: Params }) => {
         markdown={selectedLesson.body}
         nextLesson={nextLesson}
         previousLesson={previousLesson}
+        progress={selectedLessonProgress}
       />
     </div>
   );

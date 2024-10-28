@@ -25,13 +25,15 @@ const CoursePage = () => {
     if (!userLoading && user) fetchCourseById(id);
   }, [userLoading]);
 
+  if (loading)
+    return (
+      <div className="flex w-full justify-center">
+        <Loading />
+      </div>
+    );
+
   return (
     <div className="flex xl:pt-5 px-2 pt-8 flex-col w-full">
-      {loading && (
-        <div className="flex w-full justify-center">
-          <Loading />
-        </div>
-      )}
       {error && <div>{error}</div>}
       {!loading && !selectedCourse && <div>course not found</div>}
       {selectedCourse && (

@@ -1,8 +1,10 @@
 import { getCourse, getCoursesByLanguage } from "@/api/courseService";
 import { getLessonById } from "@/api/lessonService";
+import { getLessonProgress } from "@/api/progressService";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
 import { LessonType } from "@/types/lessonTypes";
+import { ProgressResponse } from "@/types/progressTypes";
 import { createContext, useState, ReactNode } from "react";
 
 interface CourseContextProps {
@@ -11,11 +13,12 @@ interface CourseContextProps {
   courses: CourseType[] | null;
   selectedCourse: CourseType | null;
   selectedLesson: LessonType | null;
+  selectedLessonProgress: ProgressResponse | null;
   nextLesson: string | null;
   previousLesson: string | null;
   fetchCourses: () => Promise<void>;
   fetchCourseById: (_id: string) => Promise<void>;
-  fetchLessonById: (_id: string) => Promise<void>;
+  fetchLessonById: (_id: string, _courseId: string) => Promise<void>;
 }
 
 export const CourseContext = createContext<CourseContextProps | undefined>(undefined);
@@ -24,6 +27,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseType | null>(null);
   const [selectedLesson, setSelectedLesson] = useState<LessonType | null>(null);
+  const [selectedLessonProgress, setSelectedLessonProgress] = useState<ProgressResponse | null>(null);
   const [nextLesson, setNextLesson] = useState<string | null>(null);
   const [previousLesson, setPreviousLesson] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -33,7 +37,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const response = await getCoursesByLanguage(user?.language || "");
+      const response = await getCoursesByLanguage(user?.language || "english");
       setCourses(response);
     } catch (err) {
       console.error("Failed to fetch courses:", err);
@@ -56,11 +60,17 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const fetchLessonById = async (id: string) => {
+  const fetchLessonById = async (id: string, courseId: string) => {
+    if (!user) return;
+
     try {
       setLoading(true);
       const response = await getLessonById(id as string);
       setSelectedLesson(response);
+      const course = await getCourse(courseId);
+      setSelectedCourse(course);
+      const progress = await getLessonProgress({ userId: user?.id, courseId, lessonId: id });
+      setSelectedLessonProgress(progress);
       const { previousLessonId, nextLessonId } = findAdjacentLessons(response);
       setPreviousLesson(previousLessonId);
       setNextLesson(nextLessonId);
@@ -125,6 +135,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         courses,
         selectedCourse,
         selectedLesson,
+        selectedLessonProgress,
         nextLesson,
         previousLesson,
         fetchCourses,
