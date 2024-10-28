@@ -1,6 +1,6 @@
 "use client";
 
-import Course from "@/components/ui/course";
+import CourseCardPreview from "@/components/ui/courseCardPreview";
 import Loading from "@/components/ui/loading";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
@@ -18,7 +18,7 @@ const Home = () => {
   }, [userLoading]);
 
   return (
-    <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full">
+    <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">
       <h4 className="mb-5" data-cy="text-home-courses">
         {t("courses")}
       </h4>
@@ -30,15 +30,19 @@ const Home = () => {
       )}
       {error && <div>{error}</div>}
       {!loading && !courses && <div>Courses not found</div>}
-      {courses &&
-        courses.map((course: CourseType) => (
-          <Course
-            banner="https://placehold.co/378x204.png"
-            title={course.title}
-            link={`course/${course._id}`}
-            key={course._id}
-          />
-        ))}
+      <div className="flex flex-row flex-wrap w-full">
+        {courses &&
+          courses.map((course: CourseType) => (
+            <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3">
+              <CourseCardPreview
+                banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
+                title={course.title}
+                link={`course/${course._id}`}
+                key={course._id}
+              />
+            </div>
+          ))}
+      </div>
     </div>
   );
 };
