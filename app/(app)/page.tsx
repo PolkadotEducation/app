@@ -30,19 +30,21 @@ const Home = () => {
       )}
       {error && <div>{error}</div>}
       {!loading && !courses && <div>Courses not found</div>}
-      <div className="flex flex-row flex-wrap w-full">
-        {courses &&
-          courses.map((course: CourseType) => (
-            <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3">
-              <CourseCardPreview
-                banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
-                title={course.title}
-                link={`course/${course._id}`}
-                key={course._id}
-              />
-            </div>
-          ))}
-      </div>
+      {!loading && (
+        <div className="flex flex-row flex-wrap w-full">
+          {courses &&
+            courses.map((course: CourseType) => (
+              <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3">
+                <CourseCardPreview
+                  banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
+                  title={course.title}
+                  link={`course/${course._id}`}
+                  key={course._id}
+                />
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };

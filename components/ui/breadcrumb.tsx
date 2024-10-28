@@ -1,6 +1,7 @@
 "use client";
 
 import { useCourse } from "@/hooks/useCourse";
+import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,12 +14,18 @@ const Breadcrumb = () => {
     return null;
   }
 
+  const { userLoading, user } = useUser();
+
+  if (userLoading || !user) {
+    return null;
+  }
+
   const hiddenSegments = ["course", "lesson"];
   const isCoursePage = pathname.startsWith("/course/") && segments.length === 2;
   const isLessonPage = pathname.startsWith("/lesson/") && segments.length === 3;
 
   if ((isCoursePage || isLessonPage) && loading) {
-    return <></>;
+    return null;
   }
 
   return (
