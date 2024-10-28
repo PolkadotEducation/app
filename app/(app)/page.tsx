@@ -1,35 +1,21 @@
 "use client";
 
-import { getCoursesByLanguage } from "@/api/courseService";
 import CourseCardPreview from "@/components/ui/courseCardPreview";
 import Loading from "@/components/ui/loading";
+import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Home = () => {
-  const [courses, setCourses] = useState<CourseType[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { user } = useUser();
+  const { courses, loading, error, fetchCourses } = useCourse();
   const t = useTranslations("home");
+  const { userLoading, user } = useUser();
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await getCoursesByLanguage(user?.language || "english");
-        setCourses(response);
-      } catch (err) {
-        console.error("Failed to fetch courses:", err);
-        setError("Failed to fetch courses");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourses();
-  }, [user]);
+    if (!userLoading && user) fetchCourses();
+  }, [userLoading]);
 
   return (
     <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">

@@ -7,8 +7,9 @@ export const PROFILE = (id: string) => `/users/${id}`;
 export const PROFILE_VERIFY = "/users/verify";
 export const PROFILE_RECOVER = "/users/recover";
 
-// Lesson
+// Course
 export const LESSON = "/lesson";
 export const MODULE = "/module";
 export const COURSE = "/course";
 export const COURSES = "/courses";
+export const PROGRESS = "/progress";
