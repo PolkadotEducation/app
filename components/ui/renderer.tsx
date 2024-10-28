@@ -9,32 +9,39 @@ import { useTranslations } from "next-intl";
 import Loading from "./loading";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { submitAnswer } from "@/api/progressService";
+import { toast } from "@/hooks/useToast";
+import { useUser } from "@/hooks/useUser";
 
 interface LessonRendererProps {
+  lessonId?: string;
+  courseId?: string;
   title: string;
   difficulty: string;
   markdown: string;
   question: string;
   choices: string[];
-  onSubmitAnswer?: () => Promise<void>;
   nextLesson?: string | null;
   previousLesson?: string | null;
 }
 
 const LessonRenderer = ({
+  lessonId,
+  courseId,
   title,
   difficulty,
   markdown,
   question,
   choices,
-  onSubmitAnswer,
   nextLesson,
   previousLesson,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
-  const t = useTranslations("components");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [cooldownTime, setCooldownTime] = useState(0);
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const { user } = useUser();
+  const t = useTranslations("components");
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -65,14 +72,55 @@ const LessonRenderer = ({
     return () => clearInterval(timer);
   }, [isOnCooldown]);
 
+  const onSubmitAnswer = async () => {
+    if (!user?.id || !courseId || !lessonId || (!selectedChoice && selectedChoice != 0)) {
+      toast({
+        title: "Error: missing data",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const progressData = {
+      userId: user?.id,
+      courseId: courseId,
+      lessonId: lessonId,
+      choice: selectedChoice,
+    };
+
+    try {
+      const response = await submitAnswer(progressData);
+      if (response) {
+        toast({
+          title: "foi",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "não foi",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting answer:", error);
+      toast({
+        title: "deu erro",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleSubmitAndswer = () => {
     if (isOnCooldown) return;
-    if (onSubmitAnswer) {
-      // TODO add submission logic (does the function needs to be a prop?)
-      onSubmitAnswer();
-    }
+
+    onSubmitAnswer();
+
     setIsOnCooldown(true);
     setCooldownTime(10);
+  };
+
+  const handleChoiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedChoice(Number(event.target.value));
   };
 
   return (
@@ -80,7 +128,7 @@ const LessonRenderer = ({
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
         <h1>
           {title ? title : "Title not set"}
-          <Badge className="align-middle ml-2">{difficulty ? difficulty : "Difficulty not set"}</Badge>
+          <Badge className="align-middle ml-2">{difficulty ? t(difficulty) : "Difficulty not set"}</Badge>
         </h1>
         {mdxSource ? (
           <MDXRemote {...mdxSource} />
@@ -99,12 +147,22 @@ const LessonRenderer = ({
               .map((option, index) => (
                 <div key={index} className="mb-2">
                   <label className="flex items-center">
-                    <input type="radio" name="choices" value={option} className="mr-2 accent-primary w-4 h-4" />
+                    <input
+                      type="radio"
+                      name="choices"
+                      value={index}
+                      className="mr-2 accent-primary w-4 h-4"
+                      onChange={handleChoiceChange}
+                    />
                     {option}
                   </label>
                 </div>
               ))}
-            <Button className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`} onClick={() => handleSubmitAndswer()}>
+            <Button
+              className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`}
+              onClick={() => handleSubmitAndswer()}
+              disabled={isOnCooldown}
+            >
               {t("submitAnswer")}
             </Button>
             {isOnCooldown && (
@@ -120,7 +178,7 @@ const LessonRenderer = ({
             }`}
           >
             {previousLesson && (
-              <Link href={`/lesson/${previousLesson}`}>
+              <Link href={`/lesson/${courseId}/${previousLesson}`}>
                 <Button variant="link" className="p-0 hover:bg-transparent">
                   <ChevronLeft className="mr-2" />
                   {t("previousLesson")}
@@ -128,7 +186,7 @@ const LessonRenderer = ({
               </Link>
             )}
             {nextLesson && (
-              <Link href={`/lesson/${nextLesson}`}>
+              <Link href={`/lesson/${courseId}/${nextLesson}`}>
                 <Button variant="link" className="p-0 hover:bg-transparent">
                   {t("nextLesson")}
                   <ChevronRight className="ml-2" />

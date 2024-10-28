@@ -1,22 +1,27 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
 import LessonRenderer from "@/components/ui/renderer";
 import Loading from "@/components/ui/loading";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 
-const LessonPage = () => {
-  const pathname = usePathname();
-  const id = pathname.split("/").pop();
+interface Params {
+  courseId: string;
+  id: string;
+}
+
+const LessonPage = ({ params }: { params: Params }) => {
+  const { courseId, id } = params;
 
   const { selectedLesson, loading, error, fetchLessonById, nextLesson, previousLesson } = useCourse();
 
   const { userLoading, user } = useUser();
 
   useEffect(() => {
-    if (!id) return;
+    if (!courseId || !id) return;
+
+    window.scrollTo({ top: 0, behavior: "instant" });
 
     if (!userLoading && user) fetchLessonById(id);
   }, [id]);
@@ -33,6 +38,8 @@ const LessonPage = () => {
   return (
     <div>
       <LessonRenderer
+        lessonId={selectedLesson._id}
+        courseId={courseId}
         title={selectedLesson.title}
         difficulty={selectedLesson.difficulty}
         question={selectedLesson.challenge.question}

@@ -15,7 +15,7 @@ const Breadcrumb = () => {
 
   const hiddenSegments = ["course", "lesson"];
   const isCoursePage = pathname.startsWith("/course/") && segments.length === 2;
-  const isLessonPage = pathname.startsWith("/lesson/") && segments.length === 2;
+  const isLessonPage = pathname.startsWith("/lesson/") && segments.length === 3;
 
   if ((isCoursePage || isLessonPage) && loading) {
     return <></>;
