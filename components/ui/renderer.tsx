@@ -205,7 +205,7 @@ const LessonRenderer = ({
               >
                 {isLessonCompleted ? `${t("lessonCompleted")} ✅` : t("submitAnswer") + ` (+${points}XP)`}
               </Button>
-              {isFirstTry && <h5 className="text-primary ml-3">{t("attention")}</h5>}
+              {isFirstTry && !isLessonCompleted && <h5 className="text-primary ml-3">{t("attention")}</h5>}
               {!isLessonCompleted && isOnCooldown && (
                 <p className="text-body2 text-text-secondary ml-3">
                   <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
