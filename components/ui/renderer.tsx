@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
-import { ProgressRequest } from "@/types/progressTypes";
+import { ProgressResponse } from "@/types/progressTypes";
 
 const EXP_POINTS = {
   hard: 100,
@@ -32,7 +32,7 @@ interface LessonRendererProps {
   choices: string[];
   nextLesson?: string | null;
   previousLesson?: string | null;
-  progress?: ProgressRequest | null;
+  progress?: ProgressResponse[] | null;
 }
 
 const LessonRenderer = ({
@@ -45,11 +45,13 @@ const LessonRenderer = ({
   choices,
   nextLesson,
   previousLesson,
-  // eslint-disable-next-line no-unused-vars
   progress,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
+  const [isLessonCompleted, setIsLessonCompleted] = useState(true);
+  const [isFirstTry, setIsFirstTry] = useState(true);
+  const [points, setPoints] = useState(0);
   const [cooldownTime, setCooldownTime] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const { user } = useUser();
@@ -84,9 +86,29 @@ const LessonRenderer = ({
     return () => clearInterval(timer);
   }, [isOnCooldown]);
 
-  const points = EXP_POINTS[difficulty as Difficulty];
+  useEffect(() => {
+    if (!progress) return;
+
+    setIsFirstTry(progress?.length === 0);
+    setIsLessonCompleted(progress?.some((answer: ProgressResponse) => answer.isCorrect === true));
+  }, []);
+
+  useEffect(() => {
+    const doublePoints = EXP_POINTS[difficulty as Difficulty] * 2;
+    const normalPoints = EXP_POINTS[difficulty as Difficulty];
+
+    setPoints(isFirstTry ? doublePoints : normalPoints);
+  }, [isFirstTry]);
 
   const onSubmitAnswer = async () => {
+    if (!selectedChoice && selectedChoice != 0) {
+      toast({
+        title: t("selectChoice"),
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!user?.id || !courseId || !lessonId || (!selectedChoice && selectedChoice != 0)) {
       toast({
         title: "Error: missing data",
@@ -104,21 +126,23 @@ const LessonRenderer = ({
 
     try {
       const response = await submitAnswer(progressData);
-      if (response) {
+      if (response.isCorrect) {
+        setIsLessonCompleted(true);
         toast({
-          title: "foi",
+          title: "Resposta correta!",
           variant: "default",
         });
       } else {
+        setIsFirstTry(false);
         toast({
-          title: "não foi",
+          title: "Resposta incorreta",
           variant: "destructive",
         });
       }
     } catch (error) {
       console.error("Error submitting answer:", error);
       toast({
-        title: "deu erro",
+        title: "Error submitting answer",
         variant: "destructive",
       });
     }
@@ -167,21 +191,28 @@ const LessonRenderer = ({
                       value={index}
                       className="mr-2 accent-primary w-4 h-4"
                       onChange={handleChoiceChange}
+                      disabled={isLessonCompleted}
                     />
                     {option}
                   </label>
                 </div>
               ))}
-            <Button
-              className={`w-fit mt-4 ${isOnCooldown ? "mb-0" : "mb-4"}`}
-              onClick={() => handleSubmitAndswer()}
-              disabled={isOnCooldown}
-            >
-              {t("submitAnswer") + ` (+${points}XP)`}
-            </Button>
-            {isOnCooldown && (
-              <p className="text-body2 text-text-secondary">{t("submitCooldown", { cooldown: cooldownTime })}</p>
-            )}
+            <div className="flex flex-row items-center">
+              <Button
+                className="w-fit mt-4 mb-4"
+                onClick={() => handleSubmitAndswer()}
+                disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0)}
+              >
+                {isLessonCompleted ? `${t("lessonCompleted")} ✅` : t("submitAnswer") + ` (+${points}XP)`}
+              </Button>
+              {isFirstTry && <h5 className="text-primary ml-3">{t("attention")}</h5>}
+              {!isLessonCompleted && isOnCooldown && (
+                <p className="text-body2 text-text-secondary ml-3">
+                  <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
+                  {t("submitCooldown", { cooldown: cooldownTime })}
+                </p>
+              )}
+            </div>
           </div>
         )}
         {/* TODO should we show this navigation if the user has not yet answered the question */}

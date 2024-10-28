@@ -14,10 +14,10 @@ export const getCourseProgress = async (request: ProgressRequest): Promise<Progr
   return response as ProgressResponse;
 };
 
-export const getLessonProgress = async (request: ProgressRequest): Promise<ProgressResponse> => {
-  const response = await serverGet<ProgressRequest>(
+export const getLessonProgress = async (request: ProgressRequest): Promise<ProgressResponse[]> => {
+  const response = await serverGet<ProgressResponse[]>(
     `${PROGRESS}/lesson/${request.userId}/${request.courseId}/${request.lessonId}`,
   );
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
-  return response as ProgressResponse;
+  return response as ProgressResponse[];
 };

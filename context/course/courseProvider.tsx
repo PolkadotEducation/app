@@ -13,7 +13,7 @@ interface CourseContextProps {
   courses: CourseType[] | null;
   selectedCourse: CourseType | null;
   selectedLesson: LessonType | null;
-  selectedLessonProgress: ProgressResponse | null;
+  selectedLessonProgress: ProgressResponse[] | null;
   nextLesson: string | null;
   previousLesson: string | null;
   fetchCourses: () => Promise<void>;
@@ -27,7 +27,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseType | null>(null);
   const [selectedLesson, setSelectedLesson] = useState<LessonType | null>(null);
-  const [selectedLessonProgress, setSelectedLessonProgress] = useState<ProgressResponse | null>(null);
+  const [selectedLessonProgress, setSelectedLessonProgress] = useState<ProgressResponse[] | null>(null);
   const [nextLesson, setNextLesson] = useState<string | null>(null);
   const [previousLesson, setPreviousLesson] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -65,13 +65,13 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       setLoading(true);
-      const response = await getLessonById(id as string);
-      setSelectedLesson(response);
+      const lesson = await getLessonById(id as string);
+      setSelectedLesson(lesson);
       const course = await getCourse(courseId);
       setSelectedCourse(course);
       const progress = await getLessonProgress({ userId: user?.id, courseId, lessonId: id });
       setSelectedLessonProgress(progress);
-      const { previousLessonId, nextLessonId } = findAdjacentLessons(response);
+      const { previousLessonId, nextLessonId } = findAdjacentLessons(course, lesson);
       setPreviousLesson(previousLessonId);
       setNextLesson(nextLessonId);
     } catch (err) {
@@ -83,15 +83,16 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const findAdjacentLessons = (
+    currentCourse: CourseType,
     currentLesson: LessonType,
   ): { previousLessonId: string | null; nextLessonId: string | null } => {
-    if (!selectedCourse || !selectedCourse.modules) return { previousLessonId: null, nextLessonId: null };
+    if (!currentCourse || !currentCourse.modules) return { previousLessonId: null, nextLessonId: null };
 
     let previousLessonId: string | null = null;
     let nextLessonId: string | null = null;
 
-    for (let i = 0; i < selectedCourse.modules.length; i++) {
-      const module = selectedCourse.modules[i];
+    for (let i = 0; i < currentCourse.modules.length; i++) {
+      const module = currentCourse.modules[i];
       const lessonIndex = module.lessons.findIndex((lesson) => lesson._id === currentLesson._id);
 
       if (lessonIndex !== -1) {
@@ -100,7 +101,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         } else {
           // Checking other modules, should we do it?
           for (let j = i - 1; j >= 0; j--) {
-            const previousModule = selectedCourse.modules[j];
+            const previousModule = currentCourse.modules[j];
             if (previousModule.lessons.length > 0) {
               previousLessonId = previousModule.lessons[previousModule.lessons.length - 1]._id || null;
               break;
@@ -112,8 +113,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
           nextLessonId = module.lessons[lessonIndex + 1]._id || null;
         } else {
           // Checking other modules, should we do it?
-          for (let j = i + 1; j < selectedCourse.modules.length; j++) {
-            const nextModule = selectedCourse.modules[j];
+          for (let j = i + 1; j < currentCourse.modules.length; j++) {
+            const nextModule = currentCourse.modules[j];
             if (nextModule.lessons.length > 0) {
               nextLessonId = nextModule.lessons[0]._id || null;
               break;
