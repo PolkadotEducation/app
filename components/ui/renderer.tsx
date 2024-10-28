@@ -148,7 +148,7 @@ const LessonRenderer = ({
     }
   };
 
-  const handleSubmitAndswer = () => {
+  const handleSubmitAnswer = () => {
     if (isOnCooldown) return;
 
     onSubmitAnswer();
@@ -197,10 +197,10 @@ const LessonRenderer = ({
                   </label>
                 </div>
               ))}
-            <div className="flex flex-row items-center">
+            <div className="flex flex-col">
               <Button
                 className="w-fit mt-4 mb-4"
-                onClick={() => handleSubmitAndswer()}
+                onClick={() => handleSubmitAnswer()}
                 disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0)}
               >
                 {isLessonCompleted ? `${t("lessonCompleted")} ✅` : t("submitAnswer") + ` (+${points}XP)`}
