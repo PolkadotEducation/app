@@ -39,7 +39,7 @@ const ResetPasswordPage = () => {
     }
   };
 
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_\-+={[}\]|:;"'<>,.?/~`]{8,}$/;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

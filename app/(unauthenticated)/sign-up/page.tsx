@@ -46,7 +46,7 @@ const SignUpPage = () => {
     if (event.target.value.length <= 50) setCompany(event.target.value);
   };
 
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_\-+={[}\]|:;"'<>,.?/~`]{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 50) setPassword(event.target.value);
