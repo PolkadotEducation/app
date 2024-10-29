@@ -56,6 +56,7 @@ const LessonRenderer = ({
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const { user } = useUser();
   const t = useTranslations("components");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -117,6 +118,7 @@ const LessonRenderer = ({
       return;
     }
 
+    setIsSubmitting(true);
     const progressData = {
       userId: user?.id,
       courseId: courseId,
@@ -124,27 +126,30 @@ const LessonRenderer = ({
       choice: selectedChoice,
     };
 
+    setIsFirstTry(false);
+
     try {
       const response = await submitAnswer(progressData);
       if (response.isCorrect) {
         setIsLessonCompleted(true);
         toast({
-          title: "Resposta correta!",
+          title: t("rightAnswer"),
           variant: "default",
         });
       } else {
-        setIsFirstTry(false);
         toast({
-          title: "Resposta incorreta",
+          title: t("wrongAnswer"),
           variant: "destructive",
         });
       }
+      setIsSubmitting(false);
     } catch (error) {
       console.error("Error submitting answer:", error);
       toast({
         title: "Error submitting answer",
         variant: "destructive",
       });
+      setIsSubmitting(false);
     }
   };
 
@@ -201,12 +206,13 @@ const LessonRenderer = ({
               <Button
                 className="w-fit mt-4 mb-4"
                 onClick={() => handleSubmitAnswer()}
-                disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0)}
+                disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0) || isSubmitting}
+                loading={isSubmitting}
               >
                 {isLessonCompleted ? `${t("lessonCompleted")} ✅` : t("submitAnswer") + ` (+${points}XP)`}
               </Button>
-              {isFirstTry && !isLessonCompleted && <h5 className="text-primary ml-3">{t("attention")}</h5>}
-              {!isLessonCompleted && isOnCooldown && (
+              {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
+              {!isLessonCompleted && isOnCooldown && !isSubmitting && (
                 <p className="text-body2 text-text-secondary ml-3">
                   <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
                   {t("submitCooldown", { cooldown: cooldownTime })}
