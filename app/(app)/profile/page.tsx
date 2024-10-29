@@ -1,9 +1,22 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import ProfileCard from "./_components/profileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useUser } from "@/hooks/useUser";
+import Loading from "@/components/ui/loading";
 
 const ProfilePage = () => {
   const t = useTranslations("profile");
+  const { userLoading } = useUser();
+
+  if (userLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <main className="max-w-7xl w-full">

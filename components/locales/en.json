@@ -8,8 +8,21 @@
     "preferences": "Preferences",
     "course": "Course",
     "lesson": "Lesson",
+    "lessonCompleted": "Lesson Completed",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
     "module": "Module",
     "challenge": "Challenge",
-    "submitAnswer": "Submit Answer"
+    "selectChoice": "Please, select a choice!",
+    "rightAnswer": "Correct answer!",
+    "wrongAnswer": "Wrong answer",
+    "submitAnswer": "Submit Answer",
+    "submitCooldown": "Please wait {cooldown} seconds before submitting a new answer.",
+    "attention": "Attention: your points will be halved if you don't get it right the first time!",
+    "loginPolkadot": "Sign in with Polkadot",
+    "nextLesson": "Next Lesson",
+    "previousLesson": "Previous Lesson",
+    "duplicatedAnswer": "You have already submitted this answer. Please provide a different answer."
   }
 }

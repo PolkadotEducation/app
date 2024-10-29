@@ -8,6 +8,7 @@
     "signInButton": "Iniciar sesión",
     "requestAccount": "¿No tienes una cuenta? Solicítala ahora",
     "google": "Iniciar sesión con Google",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "loginAgreement": "Al iniciar sesión y usar Polkadot Education, aceptas nuestras <policies>Políticas</policies> y <terms>Términos de servicio</terms>."
   }
 }

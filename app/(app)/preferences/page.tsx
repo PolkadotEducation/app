@@ -58,7 +58,7 @@ const PreferencesPage = () => {
   };
 
   return (
-    <main className="px-[20px] max-w-7xl w-full">
+    <main className="max-w-7xl w-full">
       <h4 className="xl:mb-6 mb-4">{t("title")}</h4>
       <div className="mt-6 bg-card rounded-[8px] p-6 xl:py-10 xl:px-6">
         <div className="flex items-center justify-between">

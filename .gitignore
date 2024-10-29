@@ -141,4 +141,4 @@ dist
 cypress/screenshots
 
 # correct choices
-cypress/support/seed/choices.ts
+seed/collections/lessons/choices.ts

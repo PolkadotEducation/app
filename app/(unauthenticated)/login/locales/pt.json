@@ -8,6 +8,7 @@
     "signInButton": "Entrar",
     "requestAccount": "Não tem uma conta? Solicite agora",
     "google": "Entrar com Google",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "loginAgreement": "Ao entrar e usar a Polkadot Education, você concorda com nossas <policies>Políticas</policies> e <terms>Termos de serviço</terms>."
   }
 }
