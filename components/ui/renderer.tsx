@@ -143,12 +143,20 @@ const LessonRenderer = ({
         });
       }
       setIsSubmitting(false);
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Error submitting answer:", error);
-      toast({
-        title: "Error submitting answer",
-        variant: "destructive",
-      });
+      if (error?.error && error?.error?.message.includes("E11000")) {
+        toast({
+          title: t("duplicatedAnswer"),
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error submitting answer",
+          variant: "destructive",
+        });
+      }
       setIsSubmitting(false);
     }
   };
