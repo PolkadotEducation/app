@@ -22,6 +22,7 @@
     "attention": "Attention: your points will be halved if you don't get it right the first time!",
     "loginPolkadot": "Sign in with Polkadot",
     "nextLesson": "Next Lesson",
-    "previousLesson": "Previous Lesson"
+    "previousLesson": "Previous Lesson",
+    "duplicatedAnswer": "You have already submitted this answer. Please provide a different answer."
   }
 }

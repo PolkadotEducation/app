@@ -18,12 +18,12 @@ export default function AppLayout({
       <CourseProvider>
         <div className="flex flex-col items-center bg-background">
           <AppHeader />
-          <UserLayout>
-            <div className="w-full max-w-7xl flex justify-between px-6 py-4 xl:px-0 items-center">
-              <Breadcrumb />
-            </div>
-            <div className="flex justify-center max-w-7xl px-6 xl:px-0 w-full min-h-screen">{children}</div>
-          </UserLayout>
+          <div className="w-full max-w-7xl flex justify-between px-6 py-4 xl:px-0 items-center">
+            <Breadcrumb />
+          </div>
+          <div className="flex justify-center max-w-7xl px-6 xl:px-0 w-full min-h-[calc(100vh-12rem)]">
+            <UserLayout>{children}</UserLayout>
+          </div>
           <Footer />
         </div>
       </CourseProvider>
