@@ -93,6 +93,7 @@ const Web3Wallet = () => {
         type="button"
         disabled={isSigning}
         variant={"ghost"}
+        data-cy="button-login-web3"
       >
         <Image src={polkadot} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
         {displayAccountInfo}
