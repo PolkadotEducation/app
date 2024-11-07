@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 const WEB3_ACTIVE = false;
+const DAPP_NAME = "Polkadot Education";
 
 const Web3Wallet = () => {
   const [selectedAccount, setSelectedAccount] = useState<WalletAccount | undefined>();
@@ -76,7 +77,7 @@ const Web3Wallet = () => {
     setSelectedAccount(acc);
     setSignature(undefined);
     setBalance("");
-    const injected = await connectInjectedExtension(acc.wallet?.extensionName || "polkadot-js");
+    const injected = await connectInjectedExtension(acc.wallet?.extensionName || "polkadot-js", DAPP_NAME);
     const foundAccount = injected.getAccounts().find((a) => a.address === acc.address);
     if (foundAccount) {
       const signedMessage = await sign(foundAccount, `${foundAccount.address}@PolkadotEducation`);
@@ -103,7 +104,7 @@ const Web3Wallet = () => {
 
   return (
     <WalletSelect
-      dappName={"Polkadot Education"}
+      dappName={DAPP_NAME}
       triggerComponent={TriggerButton}
       showAccountsList={true}
       onAccountSelected={handleAccountSelected}

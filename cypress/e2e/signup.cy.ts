@@ -1,4 +1,8 @@
 describe("Sign-up", () => {
+  const checkLoginSuccess = () => {
+    cy.getByData("text-home-courses").should("be.visible");
+  };
+
   describe("mobile", () => {
     it("creates an account with success", () => {
       cy.viewport("iphone-x");
@@ -21,7 +25,7 @@ describe("Sign-up", () => {
 
       cy.login("marvin@email.com", "Senha123");
 
-      cy.getByData("text-home-courses").should("be.visible");
+      checkLoginSuccess();
     });
 
     it("displays error because account already exists", () => {
