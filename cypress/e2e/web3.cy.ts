@@ -10,13 +10,13 @@ describe("Web3", () => {
   };
 
   const DAPP_NAME = "Polkadot Education";
-  const WALLET_NAME = "talisman";
+  const WALLET_NAME = "Talisman";
 
-  const initWalletAuthorized = () => cy.initWallet([Alice], DAPP_NAME, WALLET_NAME);
-  const initWalletUnathorized = () => cy.initWallet([Alice], "", WALLET_NAME);
+  const initWalletAuthorized = () => cy.initWallet([Alice], DAPP_NAME, WALLET_NAME.toLowerCase());
+  const initWalletUnauthorized = () => cy.initWallet([Alice], "", WALLET_NAME.toLowerCase());
 
-  const selectFirstWallet = () => cy.get("[class^='WalletSelect-module_row-button__']");
-  const selectFirstAccount = () => cy.get("[class^='WalletSelect-module_row-button__'] > span > :nth-child(1)");
+  const selectWallet = () => cy.get("[class^='WalletSelect-module_row-button'] > span").contains(WALLET_NAME);
+  const selectAccount = () => cy.get("[class^='WalletSelect-module_row-button'] > span > :nth-child(1)");
 
   const checkLoginSuccess = () => {
     cy.getByData("text-home-courses").should("be.visible");
@@ -25,10 +25,10 @@ describe("Web3", () => {
   describe("login", () => {
     it("authorize the dapp", () => {
       cy.visit("/");
-      initWalletUnathorized();
+      initWalletUnauthorized();
 
       cy.getByData("button-login-web3").click();
-      selectFirstWallet().click();
+      selectWallet().click();
 
       cy.getAuthRequests().then((authRequests) => {
         const requests = Object.values(authRequests);
@@ -37,7 +37,7 @@ describe("Web3", () => {
         cy.approveAuth(requests[0].id, [Alice.address]);
       });
 
-      selectFirstAccount().should("be.visible").and("contain", "Alice");
+      selectAccount().should("be.visible").and("contain", "Alice");
     });
 
     it("login with polkadot wallet", () => {
@@ -45,8 +45,8 @@ describe("Web3", () => {
       initWalletAuthorized();
 
       cy.getByData("button-login-web3").click();
-      selectFirstWallet().click();
-      selectFirstAccount().click();
+      selectWallet().click();
+      selectAccount().click();
 
       cy.getTxRequests().then((txRequests) => {
         const requests = Object.values(txRequests);
