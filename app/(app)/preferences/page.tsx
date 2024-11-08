@@ -47,7 +47,7 @@ const PreferencesPage = () => {
         ...user,
         language: LOCALE_LANGUAGES[locale] as LocaleLanguage,
       };
-      await updateProfile(user.id, updateUser);
+      await updateProfile(updateUser);
       await loadUserProfile();
       startTransition(() => {
         setUserLocale(locale);
