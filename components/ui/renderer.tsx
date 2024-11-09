@@ -8,7 +8,7 @@ import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, CircleCheckBig } from "lucide-react";
 import { submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
@@ -217,7 +217,14 @@ const LessonRenderer = ({
                 disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0) || isSubmitting}
                 loading={isSubmitting}
               >
-                {isLessonCompleted ? `${t("lessonCompleted")} ✅` : t("submitAnswer") + ` (+${points}XP)`}
+                {isLessonCompleted ? (
+                  <span className="inline-flex items-center gap-x-2">
+                    <CircleCheckBig />
+                    {t("lessonCompleted")}
+                  </span>
+                ) : (
+                  t("submitAnswer") + ` (+${points}XP)`
+                )}
               </Button>
               {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
               {!isLessonCompleted && isOnCooldown && !isSubmitting && (
