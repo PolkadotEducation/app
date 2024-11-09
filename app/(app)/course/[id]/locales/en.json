@@ -1,6 +1,7 @@
 {
   "course": {
     "summary": "Summary",
-    "content": "Content"
+    "content": "Content",
+    "startCourse": "Start course"
   }
 }

@@ -9,6 +9,8 @@ import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 import CourseCard from "@/components/ui/courseCard";
 import Loading from "@/components/ui/loading";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const CoursePage = () => {
   const pathname = usePathname();
@@ -43,6 +45,15 @@ const CoursePage = () => {
               banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
               title={selectedCourse.title}
             />
+          </div>
+          <div className="flex justify-end mb-5">
+            {selectedCourse.modules &&
+              selectedCourse.modules.length > 0 &&
+              selectedCourse.modules[0]?.lessons.length > 0 && (
+                <Link href={`/lesson/${selectedCourse._id}/${selectedCourse.modules[0]?.lessons[0]?._id}`}>
+                  <Button>{t("startCourse")}</Button>
+                </Link>
+              )}
           </div>
           <div className="mb-5">
             <h6 className="text-primary mb-4">{t("summary")}</h6>
