@@ -24,6 +24,9 @@
     "nextLesson": "Next Lesson",
     "previousLesson": "Previous Lesson",
     "duplicatedAnswer": "You have already submitted this answer. Please provide a different answer.",
-    "wrongAnswerDescription": "Please wait a moment and try again to complete the lesson"
+    "wrongAnswerDescription": "Please wait a moment and try again to complete the lesson",
+    "backTo": "Back to",
+    "home": "Home",
+    "edit": "Edit"
   }
 }

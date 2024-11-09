@@ -35,7 +35,7 @@ const CoursePage = () => {
     );
 
   return (
-    <div className="flex xl:pt-5 px-2 pt-8 flex-col w-full">
+    <div className="flex xl:pt-5 px-2 flex-col w-full">
       {error && <div>{error}</div>}
       {!loading && !selectedCourse && <div>course not found</div>}
       {selectedCourse && (
