@@ -139,6 +139,7 @@ const LessonRenderer = ({
       } else {
         toast({
           title: t("wrongAnswer"),
+          description: t("wrongAnswerDescription"),
           variant: "destructive",
         });
       }
@@ -228,10 +229,10 @@ const LessonRenderer = ({
               </Button>
               {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
               {!isLessonCompleted && isOnCooldown && !isSubmitting && (
-                <p className="text-body2 text-text-secondary ml-3">
+                <span className="text-body2 text-text-secondary ml-3 mb-3">
                   <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
                   {t("submitCooldown", { cooldown: cooldownTime })}
-                </p>
+                </span>
               )}
             </div>
           </div>
