@@ -9,15 +9,13 @@ export const submitAnswer = async (progressData: ProgressRequest): Promise<Progr
 };
 
 export const getCourseProgress = async (request: ProgressRequest): Promise<ProgressResponse> => {
-  const response = await serverGet<ProgressRequest>(`${PROGRESS}/course/${request.userId}/${request.courseId}`);
+  const response = await serverGet<ProgressRequest>(`${PROGRESS}/course/${request.courseId}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as ProgressResponse;
 };
 
 export const getLessonProgress = async (request: ProgressRequest): Promise<ProgressResponse[]> => {
-  const response = await serverGet<ProgressResponse[]>(
-    `${PROGRESS}/lesson/${request.userId}/${request.courseId}/${request.lessonId}`,
-  );
+  const response = await serverGet<ProgressResponse[]>(`${PROGRESS}/lesson/${request.courseId}/${request.lessonId}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as ProgressResponse[];
 };
