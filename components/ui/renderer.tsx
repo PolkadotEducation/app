@@ -120,7 +120,6 @@ const LessonRenderer = ({
 
     setIsSubmitting(true);
     const progressData = {
-      userId: user?.id,
       courseId: courseId,
       lessonId: lessonId,
       choice: selectedChoice,

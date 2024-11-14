@@ -13,6 +13,7 @@ import { UserInfo } from "@/types/userTypes";
 import { LocaleLanguage } from "@/types/languageTypes";
 import { updateProfile } from "@/api/profileService";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ThemeSwitch from "@/components/ui/themeSwitch";
 
 const PreferencesPage = () => {
   const t = useTranslations("preferences");
@@ -47,7 +48,7 @@ const PreferencesPage = () => {
         ...user,
         language: LOCALE_LANGUAGES[locale] as LocaleLanguage,
       };
-      await updateProfile(user.id, updateUser);
+      await updateProfile(updateUser);
       await loadUserProfile();
       startTransition(() => {
         setUserLocale(locale);
@@ -123,6 +124,10 @@ const PreferencesPage = () => {
           </div>
         )}
         <Separator marginY="my-6" />
+        <div className="flex justify-between">
+          <h6>{t("theme")}</h6>
+          <ThemeSwitch />
+        </div>
       </div>
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerContent>
