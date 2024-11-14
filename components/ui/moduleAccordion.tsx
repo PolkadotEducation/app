@@ -24,7 +24,7 @@ export const ModuleAccordion = ({
     <Accordion type="single" collapsible>
       <AccordionItem value={`module-${index}`}>
         <AccordionTrigger>
-          <h6>{`Module ${index + 1}: ${title}`}</h6>
+          <h6 className="text-start">{`${t("module")} ${index + 1}: ${title}`}</h6>
         </AccordionTrigger>
         <AccordionContent>
           <ul>
