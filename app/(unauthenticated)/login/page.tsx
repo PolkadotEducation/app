@@ -42,7 +42,7 @@ const LoginPage = () => {
   };
 
   return (
-    <main>
+    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center">
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <h4 className="mb-4 text-center">{t("title")}</h4>
         <p className="mb-6 text-center">{t("welcomeMessage")}</p>

@@ -23,6 +23,10 @@
     "loginPolkadot": "Iniciar con Polkadot",
     "nextLesson": "Próxima Aula",
     "previousLesson": "Aula Anterior",
-    "duplicatedAnswer": "Ya has enviado esta respuesta. Por favor, envía una respuesta diferente."
+    "duplicatedAnswer": "Ya has enviado esta respuesta. Por favor, envía una respuesta diferente.",
+    "wrongAnswerDescription": "Espere unos momentos e intente nuevamente para completar la lección",
+    "backTo": "Volver a",
+    "home": "Inicio",
+    "edit": "Editar"
   }
 }
