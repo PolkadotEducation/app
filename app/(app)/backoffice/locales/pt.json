@@ -23,6 +23,11 @@
     "medium": "Médio",
     "hard": "Difícil",
     "lessonCreated": "Aula criada com sucesso!",
-    "lessonCreationFailure": "Falha ao criar aula"
+    "lessonCreationFailure": "Falha ao criar aula",
+    "pagination": "Página {currentPage} de {totalPages}",
+    "rowsSelected": "{selectedRows} de {totalRows} linha(s) selecionada(s).",
+    "noResults": "Nenhum resultado.",
+    "lessonDeletedSuccess": "Aula excluída com sucesso",
+    "lessonDeleteError": "Erro ao tentar excluir aula"
   }
 }

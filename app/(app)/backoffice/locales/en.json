@@ -23,6 +23,11 @@
     "medium": "Medium",
     "hard": "Hard",
     "lessonCreated": "Lesson created successfully!",
-    "lessonCreationFailure": "Failed to create lesson"
+    "lessonCreationFailure": "Failed to create lesson",
+    "pagination": "Page {currentPage} of {totalPages}",
+    "rowsSelected": "{selectedRows} of {totalRows} row(s) selected.",
+    "noResults": "No results.",
+    "lessonDeletedSuccess": "Lesson deleted successfully",
+    "lessonDeleteError": "Error while trying to delete lesson"
   }
 }
