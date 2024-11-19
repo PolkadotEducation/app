@@ -41,7 +41,7 @@ const LoginPage = () => {
     router.push("/forgot-password");
   };
   return (
-    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-75"> 
+    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-75">
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <h4 className="mb-4 text-center h-short:scale-90">{t("title")}</h4>
         <p className="mb-6 text-center">{t("welcomeMessage")}</p>
