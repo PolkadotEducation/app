@@ -7,11 +7,14 @@ import { useEffect, useState } from "react";
 import { DataTable } from "./_components/dataTable";
 import { COLUMNS } from "./_components/columns";
 import { useToast } from "@/hooks/useToast";
+import { DeleteLessonModal } from "./_components/deleteLessonModal";
 
 const LessonsPage = () => {
   const t = useTranslations("backoffice");
   const [lessons, setLessons] = useState<LessonSummary[]>([]);
   const { toast } = useToast();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [triggeredRowId, setTriggeredRowId] = useState<string | undefined>();
 
   const getLessons = async () => {
     const response = await getLessonsSummary();
@@ -42,8 +45,27 @@ const LessonsPage = () => {
     <main className="max-w-7xl w-full pb-10">
       <h4 className="xl:mb-10 mb-6">{t("lessonLibrary")}</h4>
       <div className="p-6 bg-card rounded-[3px] flex flex-col">
-        <DataTable columns={COLUMNS({ deleteHandler: deleteLesson })} data={lessons} />
+        <DataTable
+          columns={COLUMNS({
+            deleteHandler: (id: string) => {
+              setDeleteModalOpen(true);
+              setTriggeredRowId(id);
+            },
+          })}
+          data={lessons}
+        />
       </div>
+      <DeleteLessonModal
+        open={deleteModalOpen}
+        onOpenChange={setDeleteModalOpen}
+        lessonName={lessons.find((lesson) => lesson._id === triggeredRowId)?.title || ""}
+        onSubmit={async () => {
+          if (triggeredRowId) {
+            await deleteLesson(triggeredRowId);
+            setDeleteModalOpen(false);
+          }
+        }}
+      />
     </main>
   );
 };

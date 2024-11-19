@@ -28,6 +28,10 @@
     "rowsSelected": "{selectedRows} de {totalRows} linha(s) selecionada(s).",
     "noResults": "Nenhum resultado.",
     "lessonDeletedSuccess": "Aula excluída com sucesso",
-    "lessonDeleteError": "Erro ao tentar excluir aula"
+    "lessonDeleteError": "Erro ao tentar excluir aula",
+    "deleteLesson": "Excluir Aula",
+    "confirmDeleteLesson": "Tem certeza de que deseja excluir a aula \"{lessonName}\"? Esta ação não pode ser desfeita.",
+    "cancel": "Cancelar",
+    "submit": "Enviar"
   }
 }

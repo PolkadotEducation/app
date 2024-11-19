@@ -28,6 +28,10 @@
     "rowsSelected": "{selectedRows} of {totalRows} row(s) selected.",
     "noResults": "No results.",
     "lessonDeletedSuccess": "Lesson deleted successfully",
-    "lessonDeleteError": "Error while trying to delete lesson"
+    "lessonDeleteError": "Error while trying to delete lesson",
+    "deleteLesson": "Delete Lesson",
+    "confirmDeleteLesson": "Are you sure you want to delete the lesson \"{lessonName}\"? This action cannot be undone.",
+    "cancel": "Cancel",
+    "submit": "Submit"
   }
 }

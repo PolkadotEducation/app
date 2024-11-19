@@ -28,6 +28,10 @@
     "rowsSelected": "{selectedRows} de {totalRows} fila(s) seleccionada(s).",
     "noResults": "Sin resultados.",
     "lessonDeletedSuccess": "Lección eliminada con éxito",
-    "lessonDeleteError": "Error al intentar eliminar la lección"
+    "lessonDeleteError": "Error al intentar eliminar la lección",
+    "deleteLesson": "Eliminar Lección",
+    "confirmDeleteLesson": "¿Estás seguro de que deseas eliminar la lección \"{lessonName}\"? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "submit": "Enviar"
   }
 }
