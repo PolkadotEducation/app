@@ -138,10 +138,6 @@
       @apply text-h4 font-unbounded font-bold;
     }
 
-    h4 {
-      @apply text-h5 font-unbounded font-normal;
-    }
-
     .body1 {
       @apply text-body2 font-montserrat font-normal;
     }
