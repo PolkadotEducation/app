@@ -35,6 +35,36 @@
     --success-green: 151 72% 62%;
     --dark-purple: 266 42% 20%;
   }
+
+  .dark {
+    --background: 240 10% 10%;
+    --foreground: 0 0% 90%;
+    --card: 240 10% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 328 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 10% 20%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 240 10% 18%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 240 10% 25%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 84.2% 50%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 25%;
+    --ring: 328 100% 45%;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 0 0% 70%;
+    --text-label: 0 0% 60%;
+    --text-disabled: 0 0% 40%;
+    --error: 9 100% 50%;
+    --border-gray: 0 0% 25%;
+    --success-green: 151 72% 50%;
+    --dark-purple: 266 42% 30%;
+  }
 }
 
 @layer base {
@@ -106,10 +136,6 @@
 
     h2 {
       @apply text-h4 font-unbounded font-bold;
-    }
-
-    h4 {
-      @apply text-h5 font-unbounded font-normal;
     }
 
     .body1 {

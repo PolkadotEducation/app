@@ -69,7 +69,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
       setSelectedLesson(lesson);
       const course = await getCourse(courseId);
       setSelectedCourse(course);
-      const progress = await getLessonProgress({ userId: user?.id, courseId, lessonId: id });
+      const progress = await getLessonProgress({ courseId, lessonId: id });
       setSelectedLessonProgress(progress);
       const { previousLessonId, nextLessonId } = findAdjacentLessons(course, lesson);
       setPreviousLesson(previousLessonId);

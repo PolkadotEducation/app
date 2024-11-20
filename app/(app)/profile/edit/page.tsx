@@ -75,7 +75,7 @@ const EditProfilePage = () => {
     setError("");
     try {
       if (user) {
-        await deleteProfile(user?.id);
+        await deleteProfile();
         signOut();
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,7 +96,7 @@ const EditProfilePage = () => {
           email: inputEmail || user.email,
           picture: selectedPicture || user.picture,
         };
-        await updateProfile(user?.id, updateUser);
+        await updateProfile(updateUser);
         await loadUserProfile();
         setUpdateMessage("Profile Updated.");
       }

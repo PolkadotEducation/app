@@ -23,6 +23,10 @@
     "loginPolkadot": "Sign in with Polkadot",
     "nextLesson": "Next Lesson",
     "previousLesson": "Previous Lesson",
-    "duplicatedAnswer": "You have already submitted this answer. Please provide a different answer."
+    "duplicatedAnswer": "You have already submitted this answer. Please provide a different answer.",
+    "wrongAnswerDescription": "Please wait a moment and try again to complete the lesson",
+    "backTo": "Back to",
+    "home": "Home",
+    "edit": "Edit"
   }
 }

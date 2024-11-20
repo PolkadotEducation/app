@@ -6,6 +6,7 @@
     "save": "Salvar",
     "cancel": "Cancelar",
     "toastSuccess": "Preferências alteradas com sucesso",
-    "selectLanguage": "Por favor, selecione o idioma que você gostaria de usar na plataforma."
+    "selectLanguage": "Por favor, selecione o idioma que você gostaria de usar na plataforma.",
+    "theme": "Tema"
   }
 }
