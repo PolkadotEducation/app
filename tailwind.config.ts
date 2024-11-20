@@ -17,6 +17,7 @@ const config = {
         "h-short": { raw: "(max-height: 810px)" },
       },
       scale: {
+        "80": "0.8",
         "70": "0.7",
       },
       colors: {
