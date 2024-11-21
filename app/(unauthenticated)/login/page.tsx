@@ -96,7 +96,7 @@ const LoginPage = () => {
           shadow={false}
         >
           {t.rich("requestAccount", {
-            b: (chunks) => <b className="ml-24">{chunks}</b>,
+            b: (chunks) => <b className="ml-1">{chunks}</b>,
           })}
         </Button>
         <hr />

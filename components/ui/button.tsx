@@ -29,7 +29,7 @@ const buttonVariants = cva(
         icon: "h-10 w-10",
       },
       shadow: {
-        true: "shadow-md",
+        true: "shadow-sm",
         false: "",
       },
     },
