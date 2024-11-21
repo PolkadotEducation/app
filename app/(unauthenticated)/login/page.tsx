@@ -42,20 +42,20 @@ const LoginPage = () => {
   };
   return (
     <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-80">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h4 className="mb-4 text-center h-short:scale-90">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+        <h4 className="text-center h-short:scale-90">
           {t.rich("title", {
             br: () => <br />,
           })}
         </h4>
-        <p className="mb-6 text-center">{t("welcomeMessage")}</p>
+        <p className="text-center">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles="mb-4"
+          additionalStyles=""
         />
         <InputFloatingLabel
           type="password"
@@ -63,15 +63,9 @@ const LoginPage = () => {
           value={password}
           onChange={handlePasswordChange}
           label={t("passwordPlaceholder")}
-          additionalStyles="mb-1"
+          additionalStyles=""
         />
-        <Button
-          type="button"
-          onClick={handleForgotPassword}
-          className="mb-6 font-semibold"
-          variant="link"
-          shadow={false}
-        >
+        <Button type="button" onClick={handleForgotPassword} className="font-semibold" variant="link" shadow={false}>
           {t("forgotPassword")}
         </Button>
         <Button
@@ -91,7 +85,7 @@ const LoginPage = () => {
           type="button"
           onClick={() => router.push("/sign-up")}
           variant="link"
-          className="mb-4 font-normal"
+          className="font-normal"
           data-cy="button-login-signup"
           shadow={false}
         >
