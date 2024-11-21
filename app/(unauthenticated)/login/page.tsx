@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import Web3Wallet from "@/components/ui/web3Wallet";
+import Link from "next/link";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -68,31 +69,20 @@ const LoginPage = () => {
         <Button type="button" onClick={handleForgotPassword} className="font-semibold" variant="link" shadow={false}>
           {t("forgotPassword")}
         </Button>
-        <Button
-          type="submit"
-          className={`w-full ${state.error ? "mb-0" : "mb-4"}`}
-          disabled={isAuthenticating}
-          data-cy="button-login-submit"
-        >
+        <Button type="submit" className="w-full" disabled={isAuthenticating} data-cy="button-login-submit">
           {t(isAuthenticating ? "loading" : "signInButton")}
         </Button>
         {state.error && (
-          <p className="text-xs text-error mt-3" data-cy="text-login-error">
+          <p className="text-xs text-error mt-2" data-cy="text-login-error">
             {state.error}
           </p>
         )}
-        <Button
-          type="button"
-          onClick={() => router.push("/sign-up")}
-          variant="link"
-          className="font-normal"
-          data-cy="button-login-signup"
-          shadow={false}
-        >
-          {t.rich("requestAccount", {
-            b: (chunks) => <b className="ml-1">{chunks}</b>,
-          })}
-        </Button>
+        <div className="flex w-full px-3 justify-between items-center">
+          <p>{t("noAccount")}</p>
+          <Link href={"/sign-up"} className="font-bold" data-cy="button-login-signup">
+            {t("createAccount")}
+          </Link>
+        </div>
         <hr />
         <Web3Wallet />
         <Button
