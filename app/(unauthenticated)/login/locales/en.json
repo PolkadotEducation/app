@@ -1,14 +1,14 @@
 {
   "login": {
-    "title": "Welcome to Polkadot Education",
+    "title": "Welcome to <br></br> Polkadot Education",
     "welcomeMessage": "Enter your account details to start your journey.",
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
     "forgotPassword": "Forgot password?",
     "signInButton": "Sign In",
-    "requestAccount": "Don’t have an account? Request now",
+    "requestAccount": "Don’t have an account? <b>Request now</b>",
     "google": "Sign in with Google",
     "loading": "Loading...",
-    "loginAgreement": "By logging in and using Polkadot Education, you agree to our <policies>Policies</policies> and <terms>Terms of service</terms>"
+    "loginAgreement": "By logging in and using Polkadot Education, <br></br> you agree to our <policies>Policies</policies> and <terms>Terms of service</terms>"
   }
 }
