@@ -13,6 +13,9 @@ const config = {
       },
     },
     extend: {
+      height: {
+        dvh: "100dvh",
+      },
       screens: {
         "h-short": { raw: "(max-height: 810px)" },
       },
