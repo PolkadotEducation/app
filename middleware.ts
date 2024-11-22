@@ -17,7 +17,8 @@ const publicPages = [
   "/terms-of-service",
 ];
 const dynamicPublicPages = ["/lesson"];
-const adminPages = ["/backoffice"];
+const backofficePages = ["/backoffice"];
+const adminPages = ["/admin"];
 
 const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const token = request.cookies.get("token")?.value;
@@ -44,6 +45,13 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
 
     if (adminPages.some((path) => request.nextUrl.pathname.startsWith(path))) {
       if (decodedToken.user.isAdmin) {
+        return NextResponse.next();
+      }
+      return NextResponse.rewrite(new URL("/not-found", request.url));
+    }
+
+    if (backofficePages.some((path) => request.nextUrl.pathname.startsWith(path))) {
+      if (decodedToken.user.isAdmin || decodedToken.user.teams?.length) {
         return NextResponse.next();
       }
       return NextResponse.rewrite(new URL("/not-found", request.url));

@@ -1,9 +1,12 @@
+import { TeamInfo } from "./teamTypes";
+
 export type UserInfo = {
   id: string;
   email: string;
   name: string;
   company: string;
   picture: string;
+  teams?: TeamInfo[];
   isAdmin: boolean;
   lastActivity: Date;
   verify?: VerifyUser;
