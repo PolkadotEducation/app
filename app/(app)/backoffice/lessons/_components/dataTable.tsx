@@ -19,18 +19,21 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { DataTablePagination } from "./dataTablePagination";
-
+import { useToast } from "@/hooks/useToast";
+import { duplicateLessons } from "@/api/lessonService";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  updateData: () => Promise<void>;
 }
 
-export const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
+export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTableProps<TData, TValue>) => {
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const t = useTranslations("backoffice");
   const router = useRouter();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const { toast } = useToast();
 
   const table = useReactTable({
     data,
@@ -49,6 +52,30 @@ export const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData
     },
   });
 
+  const handleDuplicateItems = async () => {
+    const selectedIds = table.getSelectedRowModel().rows.map((row) => (row.original as { _id: string })._id);
+    if (selectedIds.length <= 0) {
+      toast({
+        title: t("selectAtLeastOneLesson"),
+        variant: "destructive",
+      });
+      return;
+    }
+    const resp = await duplicateLessons(selectedIds);
+    if (resp) {
+      await updateData();
+      toast({
+        title: t("lessonsDuplicatedSuccessfully"),
+        variant: "default",
+      });
+      return;
+    }
+    toast({
+      title: t("errorDuplicatingLessons"),
+      variant: "destructive",
+    });
+  };
+
   return (
     <div className="rounded-md">
       <div className="flex xl:flex-row flex-col justify-between mb-4">
@@ -59,7 +86,9 @@ export const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData
           onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
         />
         <div className="flex gap-x-4 mt-4 xl:mt-0">
-          <Button variant="outline">{t("duplicateItem")}</Button>
+          <Button variant="outline" onClick={() => handleDuplicateItems()}>
+            {t("duplicateItem")}
+          </Button>
           <Button onClick={() => router.push("/backoffice/lessons/new")}>{t("newLesson")}</Button>
         </div>
       </div>

@@ -32,6 +32,12 @@
     "deleteLesson": "Excluir Aula",
     "confirmDeleteLesson": "Tem certeza de que deseja excluir a aula \"{lessonName}\"? Esta ação não pode ser desfeita.",
     "cancel": "Cancelar",
-    "submit": "Enviar"
+    "submit": "Enviar",
+    "updateLesson": "Atualizar Lição",
+    "lessonUpdated": "Lição atualizada com sucesso!",
+    "lessonUpdateFailure": "Falha ao atualizar a lição",
+    "selectAtLeastOneLesson": "Selecione ao menos uma aula para duplicar",
+    "lessonsDuplicatedSuccessfully": "Aulas duplicadas com sucesso",
+    "errorDuplicatingLessons": "Erro ao duplicar aulas"
   }
 }
