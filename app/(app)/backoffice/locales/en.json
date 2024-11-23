@@ -32,6 +32,12 @@
     "deleteLesson": "Delete Lesson",
     "confirmDeleteLesson": "Are you sure you want to delete the lesson \"{lessonName}\"? This action cannot be undone.",
     "cancel": "Cancel",
-    "submit": "Submit"
+    "submit": "Submit",
+    "updateLesson": "Update Lesson",
+    "lessonUpdated": "Lesson updated successfully!",
+    "lessonUpdateFailure": "Failed to update lesson",
+    "selectAtLeastOneLesson": "Select at least one lesson to duplicate",
+    "lessonsDuplicatedSuccessfully": "Lessons duplicated successfully",
+    "errorDuplicatingLessons": "Error duplicating lessons"
   }
 }

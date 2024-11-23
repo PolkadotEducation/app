@@ -6,8 +6,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Pen, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => void }): ColumnDef<LessonSummary>[] => {
+  const router = useRouter();
+
   return [
     {
       id: "select",
@@ -74,7 +77,7 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
         const data = row.original;
         return (
           <div className="flex gap-x-4">
-            <Button variant="ghost">
+            <Button variant="ghost" onClick={() => router.push(`/backoffice/lessons/${data._id}`)}>
               <Pen />
             </Button>
             <Button variant="ghost" onClick={() => deleteHandler(data._id)}>

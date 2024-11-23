@@ -53,6 +53,7 @@ const LessonsPage = () => {
             },
           })}
           data={lessons}
+          updateData={getLessons}
         />
       </div>
       <DeleteLessonModal

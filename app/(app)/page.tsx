@@ -34,7 +34,7 @@ const Home = () => {
         <div className="flex flex-row flex-wrap w-full">
           {courses &&
             courses.map((course: CourseType) => (
-              <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3">
+              <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={course._id}>
                 <CourseCardPreview
                   banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
                   title={course.title}

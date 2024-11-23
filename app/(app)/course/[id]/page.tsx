@@ -62,7 +62,7 @@ const CoursePage = () => {
           <div className="mb-20">
             <h6 className="text-primary mb-4">{t("content")}</h6>
             {selectedCourse.modules?.map((module: ModuleType, index: number) => (
-              <div>
+              <div key={index}>
                 <ModuleAccordion
                   key={index}
                   index={index}
