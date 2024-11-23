@@ -27,6 +27,8 @@
     "wrongAnswerDescription": "Espere unos momentos e intente nuevamente para completar la lección",
     "backTo": "Volver a",
     "home": "Inicio",
-    "edit": "Editar"
+    "edit": "Editar",
+    "lessons": "Lecciónes",
+    "new": "Nuevo"
   }
 }
