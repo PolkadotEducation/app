@@ -1,8 +1,7 @@
 import "../globals.css";
-import { authBgImage } from "@/public/assets/images";
-import Image from "next/image";
 import AnimatedPage from "@/components/ui/animatedPage";
 import Logo from "@/components/ui/logo";
+import UnauthenticatedBgImage from "@/components/ui/unaunthenticatedBgImage";
 
 export default function UnauthenticatedLayout({
   children,
@@ -22,15 +21,7 @@ export default function UnauthenticatedLayout({
         </div>
       </div>
       <div className="relative hidden xl:block xl:w-1/2">
-        <Image
-          src={authBgImage}
-          alt="Auth Image"
-          fill
-          className="object-cover"
-          sizes="50vw"
-          placeholder="blur"
-          data-cy="image-login"
-        />
+        <UnauthenticatedBgImage />
       </div>
     </div>
   );
