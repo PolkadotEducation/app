@@ -7,3 +7,4 @@ export { default as maintenanceDesktop } from "./maintenanceDesktop.png";
 export { default as courses } from "./courses.png";
 export { default as lessons } from "./lessons.png";
 export { default as authBgImage } from "./authBgImage.png";
+export { default as signUp } from "./signUp.png";
