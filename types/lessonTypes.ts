@@ -19,6 +19,12 @@ export type LessonType = {
   references?: ReferenceType[];
 };
 
+export type LessonSummary = {
+  _id: string;
+  title: string;
+  language: string;
+};
+
 export type LessonResponse = {
   lessonId: string;
 };

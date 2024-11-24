@@ -9,6 +9,9 @@ export const USERS_RECOVER = "/users/recover";
 
 // Course
 export const LESSON = "/lesson";
+export const LESSONS = "/lessons";
+export const LESSONS_DUPLICATE = "/lessons/duplicate";
+export const LESSONS_SUMMARY = "/lessons/summary";
 export const MODULE = "/module";
 export const COURSE = "/course";
 export const COURSES = "/courses";
