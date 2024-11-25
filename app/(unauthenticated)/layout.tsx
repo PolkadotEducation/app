@@ -16,7 +16,7 @@ export default function UnauthenticatedLayout({
           <div className="xl:absolute xl:top-6 xl:left-0 scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-80">
             <Logo width={208} height={60} pathToRedirect="/login" />
           </div>
-          <div className="flex flex-1 pt-8 lg:items-center justify-center">
+          <div className="items-start pt-8 flex flex-1 justify-center md:items-center lg:items-center xl-items-center">
             <AnimatedPage>{children}</AnimatedPage>
           </div>
         </div>
