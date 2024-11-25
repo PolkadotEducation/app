@@ -23,6 +23,21 @@
     "medium": "Medio",
     "hard": "Difícil",
     "lessonCreated": "¡Lección creada con éxito!",
-    "lessonCreationFailure": "Error al crear la lección"
+    "lessonCreationFailure": "Error al crear la lección",
+    "pagination": "Página {currentPage} de {totalPages}",
+    "rowsSelected": "{selectedRows} de {totalRows} fila(s) seleccionada(s).",
+    "noResults": "Sin resultados.",
+    "lessonDeletedSuccess": "Lección eliminada con éxito",
+    "lessonDeleteError": "Error al intentar eliminar la lección",
+    "deleteLesson": "Eliminar Lección",
+    "confirmDeleteLesson": "¿Estás seguro de que deseas eliminar la lección \"{lessonName}\"? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "updateLesson": "Actualizar Lección",
+    "lessonUpdated": "¡Lección actualizada con éxito!",
+    "lessonUpdateFailure": "Error al actualizar la lección",
+    "selectAtLeastOneLesson": "Seleccione al menos una lección para duplicar",
+    "lessonsDuplicatedSuccessfully": "¡Lecciones duplicadas con éxito!",
+    "errorDuplicatingLessons": "Error al duplicar lecciones"
   }
 }

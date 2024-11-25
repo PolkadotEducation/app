@@ -10,14 +10,13 @@ import { usePathname } from "next/navigation";
 const Breadcrumb = () => {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-  const { selectedCourse, selectedLesson, loading } = useCourse();
+  const { selectedCourse, selectedLesson, loading: courseLoading } = useCourse();
+  const { userLoading, user } = useUser();
   const t = useTranslations("components");
 
   if (pathname === "/") {
     return null;
   }
-
-  const { userLoading, user } = useUser();
 
   if (userLoading || !user) {
     return null;
@@ -27,9 +26,11 @@ const Breadcrumb = () => {
   const isCoursePage = pathname.startsWith("/course/") && segments.length === 2;
   const isLessonPage = pathname.startsWith("/lesson/") && segments.length === 3;
 
-  if ((isCoursePage || isLessonPage) && loading) {
+  if ((isCoursePage || isLessonPage) && courseLoading) {
     return null;
   }
+
+  const isIdSegment = (segment: string) => /^[a-zA-Z0-9]{16,}$/.test(segment);
 
   let previousSegment = "";
   let previousHref = "";
@@ -80,10 +81,10 @@ const Breadcrumb = () => {
               return (
                 <li key={href} className="flex items-center">
                   {isLast ? (
-                    <span className="text-primary body1">{t(name)}</span>
+                    <span className="text-primary body1">{isIdSegment(segment) ? segment : t(name)}</span>
                   ) : (
                     <Link href={href} className="text-text-secondary hover:underline body1">
-                      {t(name)}
+                      {isIdSegment(segment) ? segment : t(name)}
                     </Link>
                   )}
                   {!isLast && <span className="mx-2 text-text-secondary">/</span>}
