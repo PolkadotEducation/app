@@ -78,7 +78,7 @@ function MainPage() {
     };
 
     try {
-      const response = await createLesson(lessonData);
+      const response = await createLesson(selectedTeamId, lessonData);
       if (response) {
         toast({
           title: t("lessonCreated"),
