@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { DataTablePagination } from "./dataTablePagination";
 import { useToast } from "@/hooks/useToast";
 import { duplicateLessons } from "@/api/lessonService";
+import { useUser } from "@/hooks/useUser";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -33,6 +34,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
   const t = useTranslations("backoffice");
   const router = useRouter();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const { user } = useUser();
   const { toast } = useToast();
 
   const table = useReactTable({
@@ -52,6 +54,9 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
     },
   });
 
+  // @TODO: Get teamId from selector
+  const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
+
   const handleDuplicateItems = async () => {
     const selectedIds = table.getSelectedRowModel().rows.map((row) => (row.original as { _id: string })._id);
     if (selectedIds.length <= 0) {
@@ -61,7 +66,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
       });
       return;
     }
-    const resp = await duplicateLessons(selectedIds);
+    const resp = await duplicateLessons(selectedTeamId, selectedIds);
     if (resp) {
       await updateData();
       toast({

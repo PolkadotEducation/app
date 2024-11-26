@@ -11,6 +11,7 @@ export type ChallengeType = {
 
 export type LessonType = {
   _id?: string;
+  teamId: string;
   title: string;
   language: string;
   difficulty: string;

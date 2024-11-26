@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/useToast";
 import { LessonType } from "@/types/lessonTypes";
 import Loading from "@/components/ui/loading";
+import { useUser } from "@/hooks/useUser";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -38,6 +39,7 @@ function EditLessonPage({ params }: { params: { id: string } }) {
   const [originalLesson, setOriginalLesson] = useState<LessonType | null>();
   const [loading, setLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
+  const { user } = useUser();
   const t = useTranslations("backoffice");
   const { toast } = useToast();
 
@@ -90,8 +92,12 @@ function EditLessonPage({ params }: { params: { id: string } }) {
     }
   }, [originalLesson, reset]);
 
+  // @TODO: Get teamId from selector
+  const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
+
   const onSubmit = async (data: FormData) => {
     const lessonData = {
+      teamId: selectedTeamId,
       title: data.title,
       language: originalLesson?.language || "english",
       body: data.markdownBody,
@@ -105,7 +111,7 @@ function EditLessonPage({ params }: { params: { id: string } }) {
     };
 
     try {
-      const response = await updateLessonById(id, lessonData);
+      const response = await updateLessonById(selectedTeamId, id, lessonData);
       if (response) {
         toast({
           title: t("lessonUpdated"),

@@ -8,6 +8,7 @@ import { DataTable } from "./_components/dataTable";
 import { COLUMNS } from "./_components/columns";
 import { useToast } from "@/hooks/useToast";
 import { DeleteLessonModal } from "./_components/deleteLessonModal";
+import { useUser } from "@/hooks/useUser";
 
 const LessonsPage = () => {
   const t = useTranslations("backoffice");
@@ -15,6 +16,10 @@ const LessonsPage = () => {
   const { toast } = useToast();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [triggeredRowId, setTriggeredRowId] = useState<string | undefined>();
+  const { user } = useUser();
+
+  // @TODO: Get teamId from selector
+  const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
 
   const getLessons = async () => {
     const response = await getLessonsSummary();
@@ -22,7 +27,7 @@ const LessonsPage = () => {
   };
 
   const deleteLesson = async (id: string) => {
-    const response = await deleteLessonById(id);
+    const response = await deleteLessonById(selectedTeamId, id);
     if (response) {
       await getLessons();
       toast({

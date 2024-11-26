@@ -2,6 +2,7 @@
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
 import { seedCourses } from "./collections/courses";
+import { seedTeams } from "./collections/teams";
 
 const uri = "mongodb://localhost:27117";
 const dbName = "doteducation";
@@ -46,8 +47,12 @@ export async function seedAll(db: Db) {
     await seedUsers(db);
     console.info("Users seeded.");
 
+    console.info("Seeding team...");
+    const teamId = await seedTeams(db);
+    console.info("Team seeded.");
+
     console.info("Seeding courses...");
-    await seedCourses(db);
+    await seedCourses(db, teamId);
     await seedChoices(db);
     console.info("Courses seeded.");
   } catch (error) {
@@ -58,7 +63,8 @@ export async function seedAll(db: Db) {
 export async function seedCoursesOnly(db: Db) {
   try {
     console.info("Seeding courses...");
-    await seedCourses(db);
+    const teamId = await seedTeams(db);
+    await seedCourses(db, teamId);
     await seedChoices(db);
     console.info("Courses seeded.");
   } catch (error) {

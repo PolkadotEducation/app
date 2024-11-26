@@ -1,12 +1,13 @@
-import { Db } from "mongodb";
+import { Db, ObjectId } from "mongodb";
 import fs from "fs";
 import path from "path";
 
-export async function englishCourse(db: Db) {
+export async function englishCourse(db: Db, teamId: ObjectId) {
   const lessonsDir = path.join(__dirname, "../lessons/english");
 
   const lessons = [
     {
+      teamId,
       title: "Arpanet",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "arpanet.mdx"), "utf-8"),
@@ -21,6 +22,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Internet (The Evolution to Web3)",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "internet-web3.mdx"), "utf-8"),
@@ -40,6 +42,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Blockchain: what is it and how does it work?",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "blockchain-o-que-e-como-funciona.mdx"), "utf-8"),
@@ -59,6 +62,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Blockchain Terms and Concepts",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "blockchain-termos-conceitos.mdx"), "utf-8"),
@@ -78,6 +82,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Public and Private Networks and Blockchains",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "redes-blockchains-publicas-privadas.mdx"), "utf-8"),
@@ -97,6 +102,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Data Ownership",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "propriedade-dos-dados.mdx"), "utf-8"),
@@ -116,6 +122,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Bitcoin, Ethereum, and Other Blockchains",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "bitcoin-ethereum-outras-blockchains.mdx"), "utf-8"),
@@ -135,6 +142,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Gavin Wood, Web3 Foundation, and Parity Technologies",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "gavin-wood-w3f-parity.mdx"), "utf-8"),
@@ -154,6 +162,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Relay Chain and Shared Security",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "relay-chain-seguranca-compartilhada.mdx"), "utf-8"),
@@ -173,6 +182,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "The Problem Polkadot Solves",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "problema-polkadot-resolve.mdx"), "utf-8"),
@@ -192,6 +202,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "The DOT Token and Its Functions",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "token-dot-funcoes.mdx"), "utf-8"),
@@ -206,6 +217,7 @@ export async function englishCourse(db: Db) {
       updatedAt: new Date(),
     },
     {
+      teamId,
       title: "Polkadot Use Cases",
       language: "english",
       body: fs.readFileSync(path.join(lessonsDir, "casos-de-uso-polkadot.mdx"), "utf-8"),
@@ -230,10 +242,12 @@ export async function englishCourse(db: Db) {
 
   const modules = [
     {
+      teamId,
       title: "Basic Web3 Concepts",
       lessons: [recordedLessons.insertedIds[0], recordedLessons.insertedIds[1]],
     },
     {
+      teamId,
       title: "Basic Blockchain Concepts",
       lessons: [
         recordedLessons.insertedIds[2],
@@ -244,6 +258,7 @@ export async function englishCourse(db: Db) {
       ],
     },
     {
+      teamId,
       title: "Introduction to Polkadot",
       lessons: [
         recordedLessons.insertedIds[7],
@@ -258,6 +273,7 @@ export async function englishCourse(db: Db) {
   const recordedModules = await db.collection("modules").insertMany(modules);
 
   const course = {
+    teamId,
     title: "Introduction to Web3: Blockchains and Polkadot",
     language: "english",
     summary: `This course breaks down the basics of blockchain technology, focusing on how Polkadot connects different blockchains to work together. You'll dive into concepts like decentralization, cryptography, and how the internet is evolving with Web3. The course explains Polkadot’s structure, especially the Relay Chain, which keeps all the connected blockchains secure. You'll also learn about Polkadot's token, DOT, and how it’s used for governance, staking, and expanding the network. Finally, with use cases and practical examples from areas like DeFi, gaming, healthcare, and NFTs, the course shows how Polkadot helps build safer, smarter and more connected blockchain projects.`,
