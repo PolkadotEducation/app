@@ -71,9 +71,6 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-text-primary;
-  }
 }
 
 .unbound-font {
