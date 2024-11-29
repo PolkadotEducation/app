@@ -1,18 +1,20 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import ChoicesInputComponent from "@/components/ui/choices";
 import LessonRenderer from "@/components/ui/renderer";
-import { createLesson } from "@/api/lessonService";
+import { getLessonById, updateLessonById } from "@/api/lessonService";
 import { useTranslations } from "next-intl";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/useToast";
+import { LessonType } from "@/types/lessonTypes";
+import Loading from "@/components/ui/loading";
 import { useUser } from "@/hooks/useUser";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
@@ -32,14 +34,31 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-function MainPage() {
-  const markdownLessonTemplate: string =
-    '<iframe\n    width="696"\n    height="400"\n    className="self-center"\n    src="https://www.youtube.com/embed/GhvUs0amvCc"\n    title="Me at the zoo"\n    frameborder="0"\n    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"\n    referrerpolicy="strict-origin-when-cross-origin"\n    allowfullscreen\n  ></iframe>\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n ## Summary\n\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
+function EditLessonPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const [originalLesson, setOriginalLesson] = useState<LessonType | null>();
+  const [loading, setLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
   const { user } = useUser();
   const t = useTranslations("backoffice");
   const { toast } = useToast();
+
+  const getLessonData = async () => {
+    try {
+      const lesson = await getLessonById(id);
+      setOriginalLesson(lesson);
+    } catch (error) {
+      console.error("Error fetching lesson data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getLessonData();
+    }
+  }, [id]);
 
   const {
     control,
@@ -47,17 +66,31 @@ function MainPage() {
     watch,
     setValue,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       title: "",
       difficulty: "",
-      markdownBody: markdownLessonTemplate,
+      markdownBody: "",
       question: "",
       choices: ["", "", "", "", ""],
       correctChoice: 0,
     },
   });
+
+  useEffect(() => {
+    if (originalLesson) {
+      reset({
+        title: originalLesson.title,
+        difficulty: originalLesson.difficulty,
+        markdownBody: originalLesson.body,
+        question: originalLesson.challenge.question,
+        choices: originalLesson.challenge.choices,
+        correctChoice: originalLesson.challenge.correctChoice,
+      });
+    }
+  }, [originalLesson, reset]);
 
   // @TODO: Get teamId from selector
   const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
@@ -66,7 +99,7 @@ function MainPage() {
     const lessonData = {
       teamId: selectedTeamId,
       title: data.title,
-      language: "english", // @TODO: add language field
+      language: originalLesson?.language || "english",
       body: data.markdownBody,
       difficulty: data.difficulty,
       challenge: {
@@ -78,20 +111,20 @@ function MainPage() {
     };
 
     try {
-      const response = await createLesson(selectedTeamId, lessonData);
+      const response = await updateLessonById(selectedTeamId, id, lessonData);
       if (response) {
         toast({
-          title: t("lessonCreated"),
+          title: t("lessonUpdated"),
           variant: "default",
         });
       } else {
         toast({
-          title: t("lessonCreationFailure"),
+          title: t("lessonUpdateFailure"),
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error("Error creating lesson:", error);
+      console.error("Error updating lesson:", error);
     }
   };
 
@@ -123,9 +156,22 @@ function MainPage() {
     );
   }
 
+  if (loading)
+    return (
+      <div className="flex w-full justify-center">
+        <Loading />
+      </div>
+    );
+
+  if (!originalLesson) {
+    return <div>{t("errorLoadingLesson")}</div>;
+  }
+
   return (
-    <main className="mb-10 max-w-7xl w-full">
-      <h4 className="xl:mb-[30px] mb-4">{t("newLesson")}</h4>
+    <main className="mb-10 max-w-7xl w-full" key={originalLesson?._id || id}>
+      <h4 className="xl:mb-[30px] mb-4">
+        {t("updateLesson")} - {originalLesson?.title}
+      </h4>
       <div className="flex w-full justify-end mb-6">
         <Button type="button" onClick={() => handlePreview(true)}>
           {t("preview")}
@@ -187,7 +233,7 @@ function MainPage() {
               <Controller
                 name="markdownBody"
                 control={control}
-                render={({ field }) => <Editor markdown={field.value} onChange={field.onChange} />}
+                render={({ field }) => <Editor markdown={watch("markdownBody")} onChange={field.onChange} />}
               />
             </Suspense>
           </div>
@@ -230,7 +276,7 @@ function MainPage() {
 
         <div className="pt-6 mt-6 pb-6 flex w-full justify-end border-t-[1px] border-t-border-gray">
           <Button type="submit" data-cy="button-lesson-submit">
-            {t("createLesson")}
+            {t("updateLesson")}
           </Button>
         </div>
       </form>
@@ -238,4 +284,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default EditLessonPage;

@@ -1,4 +1,4 @@
-import { getCourse, getCoursesByLanguage } from "@/api/courseService";
+import { getCourse, getCourses } from "@/api/courseService";
 import { getLessonById } from "@/api/lessonService";
 import { getLessonProgress } from "@/api/progressService";
 import { useUser } from "@/hooks/useUser";
@@ -37,7 +37,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const response = await getCoursesByLanguage(user?.language || "english");
+      const team = user?.teams?.length ? user?.teams[0].id : undefined;
+      const response = await getCourses(team, user?.language || "english");
       setCourses(response);
     } catch (err) {
       console.error("Failed to fetch courses:", err);

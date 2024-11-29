@@ -27,6 +27,8 @@
     "wrongAnswerDescription": "Please wait a moment and try again to complete the lesson",
     "backTo": "Back to",
     "home": "Home",
-    "edit": "Edit"
+    "edit": "Edit",
+    "lessons": "Lessons",
+    "new": "New"
   }
 }
