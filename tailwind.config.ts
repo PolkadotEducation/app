@@ -92,11 +92,23 @@ const config = {
       },
       fontSize: {
         h1: ["96px", { lineHeight: "116%", letterSpacing: "-1.5px" }],
+        fluidH1: [
+          "clamp(1.5rem, 1.2292rem + 1.1111vw, 2.25rem)",
+          { lineHeight: " clamp(1.75rem, 1.4792rem + 1.1111vw, 2.5rem)" },
+        ],
         h2: ["60px", { lineHeight: "120%", letterSpacing: "-0.5px" }],
         h3: ["48px", { lineHeight: "120%", letterSpacing: "0px" }],
         h4: ["34px", { lineHeight: "120%", letterSpacing: "0.25px" }],
         h5: ["24px", { lineHeight: "120%", letterSpacing: "0px" }],
         h6: ["20px", { lineHeight: "160%", letterSpacing: "0.15px" }],
+        btn: [
+          "clamp(0.875rem, calc((1rem + 1vw)/1.5), 1rem)",
+          { lineHeight: "clamp(1rem, calc((1rem + 1vw)/1.5), 1.25rem)" },
+        ],
+        p: [
+          "clamp(0.875rem, calc((1rem + 1vw)/1.5), 1.125rem)",
+          { lineHeight: "clamp(1.125rem, calc((1rem + 1vw)/1.5), 1.5rem)" },
+        ],
         body1: ["16px", { lineHeight: "150%", letterSpacing: "0.15px" }],
         body2: ["14px", { lineHeight: "140%", letterSpacing: "0.15px" }],
         subtitle1: ["16px", { lineHeight: "140%", letterSpacing: "0.15px" }],
@@ -108,6 +120,7 @@ const config = {
         light: "300",
         normal: "400",
         medium: "500",
+        semibold: "600",
         bold: "700",
       },
     },

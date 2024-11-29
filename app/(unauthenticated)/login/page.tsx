@@ -42,14 +42,14 @@ const LoginPage = () => {
     router.push("/forgot-password");
   };
   return (
-    <main className="">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2">
-        <h4 className="text-center">
+    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-80">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+        <h4 className="text-center h-short:scale-90 fluid-h1 whitespace-nowrap">
           {t.rich("title", {
             br: () => <br />,
           })}
         </h4>
-        <p className="text-center">{t("welcomeMessage")}</p>
+        <p className="text-center paragraph whitespace-nowrap">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
@@ -78,8 +78,8 @@ const LoginPage = () => {
           </p>
         )}
         <div className="flex w-full px-3 justify-between items-center">
-          <p>{t("noAccount")}</p>
-          <Link href={"/sign-up"} className="font-bold" data-cy="button-login-signup">
+          <p className="paragraph">{t("noAccount")}</p>
+          <Link href={"/sign-up"} className="font-bold paragraph" data-cy="button-login-signup">
             {t("createAccount")}
           </Link>
         </div>
@@ -96,7 +96,7 @@ const LoginPage = () => {
           <Image src={google} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
           {t(isAuthenticating ? "loading" : "google")}
         </Button>
-        <p className="text-center text-body2 mt-4">
+        <p className="text-center text-body2 mt-4 paragraph">
           {t.rich("loginAgreement", {
             br: () => <br />,
             policies: (children) => (
