@@ -1,4 +1,4 @@
-import { ProgressRequest, ProgressResponse } from "@/types/progressTypes";
+import { CompletedCourse, ProgressRequest, ProgressResponse } from "@/types/progressTypes";
 import { ServerAxiosError, serverGet, serverPost } from "./actions/api";
 import { PROGRESS } from "./constants";
 
@@ -18,4 +18,10 @@ export const getLessonProgress = async (request: ProgressRequest): Promise<Progr
   const response = await serverGet<ProgressResponse[]>(`${PROGRESS}/lesson/${request.courseId}/${request.lessonId}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as ProgressResponse[];
+};
+
+export const getUserCompletedCourses = async (): Promise<CompletedCourse[]> => {
+  const response = await serverGet<CompletedCourse[]>(`${PROGRESS}/courses`);
+  if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
+  return response as CompletedCourse[];
 };

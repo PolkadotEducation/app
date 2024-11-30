@@ -12,3 +12,8 @@ export type ProgressResponse = {
   isCorrect: boolean;
   difficulty: string;
 };
+
+export type CompletedCourse = {
+  courseId: string;
+  courseTitle: string;
+};
