@@ -86,7 +86,16 @@ const SignUpPage = () => {
       return;
     }
 
-    const defaultLanguage = "english"; // @TODO: get from browser
+    const browserLanguage = navigator.language || navigator.languages?.[0] || "en";
+
+    const languageMap: Record<string, string> = {
+      en: "english",
+      pt: "portuguese",
+      es: "spanish",
+    };
+
+    const defaultLanguage = languageMap[browserLanguage.split("-")[0]] || "english";
+
     const success = await signUp({ email, password, name, company, language: defaultLanguage });
 
     if (success) {
