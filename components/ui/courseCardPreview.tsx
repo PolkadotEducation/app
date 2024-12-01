@@ -16,21 +16,42 @@ const bannerImages: { [key: string]: StaticImageData } = {
   gradient: gradientBanner,
 };
 
-const CourseCardPreview = ({ banner, title, link }: { banner: string; title: string; link: string }) => {
+const CourseCardPreview = ({
+  banner,
+  title,
+  link,
+  onClickAction,
+}: {
+  banner: string;
+  title: string;
+  link?: string;
+  onClickAction?: () => Promise<void> | void;
+}) => {
   const router = useRouter();
 
   const isBlackBanner = banner === "blackPink" || banner === "blackPurple";
   const selectedBanner = bannerImages[banner]?.src || blackPinkBanner.src;
   const selectedLogo = isBlackBanner ? whiteLogo : logo;
 
+  const handleClick = async () => {
+    if (onClickAction) {
+      try {
+        await onClickAction();
+      } catch {
+        return;
+      }
+    }
+    if (link) {
+      router.push(link);
+    }
+  };
+
   return (
     <div
       className={`w-full rounded-lg overflow-hidden shadow-md bg-card flex transition-transform duration-500 hover:scale-105 ${
-        link ? "cursor-pointer" : ""
+        link || onClickAction ? "cursor-pointer" : ""
       }`}
-      onClick={() => {
-        if (link) router.push(link);
-      }}
+      onClick={handleClick}
     >
       <div className="relative w-full">
         <div
