@@ -24,6 +24,10 @@ const CertificateRenderer = ({
           width: 842,
           height: 595,
           backgroundColor: null,
+          scale: 1,
+          useCORS: true,
+          windowWidth: 842,
+          windowHeight: 595,
         });
         const dataUrl = canvas.toDataURL("image/png");
         setCertificateImage(dataUrl);

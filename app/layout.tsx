@@ -7,6 +7,7 @@ import { MDXProviderClient } from "@/context/mdx/mdxProvider";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/context/theme/themeProvider";
+import Head from "next/head";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -27,6 +28,9 @@ export default async function RootLayout({
     <ThemeProvider>
       <AuthProvider>
         <html lang={locale}>
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          </Head>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <body className={montserrat.className}>
               <MDXProviderClient>{children}</MDXProviderClient>
