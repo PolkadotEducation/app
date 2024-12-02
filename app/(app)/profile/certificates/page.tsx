@@ -61,7 +61,7 @@ const ProfileCertificatePage = () => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://app.polkadot.education/certificates/${certificate._id}`);
+    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/certificates/${certificate._id}`);
   };
 
   return (
