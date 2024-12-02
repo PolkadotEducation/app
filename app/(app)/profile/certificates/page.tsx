@@ -15,6 +15,8 @@ const ProfileCertificatePage = () => {
   const [certificateImage, setCertificateImage] = useState<string | null>(null);
   const t = useTranslations("profile");
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL;
+
   const getCertificate = async (certificateId: string) => {
     const certificate = await getCertificateById(certificateId);
     setCertificate(certificate);
@@ -61,7 +63,7 @@ const ProfileCertificatePage = () => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/certificates/${certificate._id}`);
+    navigator.clipboard.writeText(`${baseUrl}/certificates/${certificate._id}`);
   };
 
   return (
@@ -87,11 +89,11 @@ const ProfileCertificatePage = () => {
               <h6 className="text-lg font-medium">{t("publicCertificateUrl")}</h6>
               <a
                 className="text-primary underline hover:text-primary-dark transition-colors break-all"
-                href={`${process.env.NEXT_PUBLIC_BASE_URL}/certificates/${certificate._id}`}
+                href={`${baseUrl}/certificates/${certificate._id}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {process.env.NEXT_PUBLIC_BASE_URL}/certificates/{certificate._id}
+                {`${baseUrl}/certificates/${certificate._id}`}
               </a>
             </div>
           </>
