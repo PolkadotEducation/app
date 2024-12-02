@@ -1,4 +1,5 @@
 touch .env
+
 echo "NODE_ENV=${NODE_ENV}" >> .env
 echo "NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}" >> .env
 echo "NEXT_PUBLIC_API_DOMAIN=${NEXT_PUBLIC_API_DOMAIN}" >> .env
