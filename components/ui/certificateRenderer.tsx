@@ -56,7 +56,10 @@ const CertificateRenderer = ({
         backgroundImage: `url(${certificateBg.src})`,
       }}
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-[#1A1A1A] gap-y-5">
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center text-center text-[#1A1A1A] gap-y-5"
+        data-cy="certificate"
+      >
         <Image src={logo} alt="Logo" className="mb-6" />
         <h5 className="font-bold text-lg">Certificado de curso</h5>
         <h6 className="text-md font-medium">{certificate?.userName}</h6>

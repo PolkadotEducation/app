@@ -79,9 +79,11 @@ const CourseCompletedPage = ({ params }: { params: Params }) => {
           />
         </div>
         <div className="flex flex-col w-full max-w-[517px] mt-6 xl:mt-0 gap-y-6 text-center items-center">
-          <h5 className="whitespace-pre-line">{t("congratulations")}</h5>
+          <h5 className="whitespace-pre-line" data-cy="text-congratulations">
+            {t("congratulations")}
+          </h5>
           <p>{t("message")}</p>
-          <Button className="w-fit" onClick={() => handleCertificateClick()}>
+          <Button className="w-fit" onClick={() => handleCertificateClick()} data-cy="button-generate-certificate">
             {certificateAlreadyGenerated ? t("seeCertificate") : t("generateCertificate")}
           </Button>
         </div>

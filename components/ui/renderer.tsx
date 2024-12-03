@@ -230,6 +230,7 @@ const LessonRenderer = ({
                       className="mr-2 accent-primary w-4 h-4"
                       onChange={handleChoiceChange}
                       disabled={isLessonCompleted}
+                      data-cy={`input-choice-${index}`}
                     />
                     {option}
                   </label>
@@ -241,6 +242,7 @@ const LessonRenderer = ({
                 onClick={() => handleSubmitAnswer()}
                 disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0) || isSubmitting}
                 loading={isSubmitting}
+                data-cy="button-submit-answer"
               >
                 {isLessonCompleted ? (
                   <span className="inline-flex items-center gap-x-2">
@@ -269,7 +271,7 @@ const LessonRenderer = ({
             }`}
           >
             {previousLesson && (
-              <Link href={`/lesson/${courseId}/${previousLesson}`}>
+              <Link href={`/lesson/${courseId}/${previousLesson}`} data-cy="button-previous-lesson">
                 <Button variant="link" className="p-0 hover:bg-transparent">
                   <ChevronLeft className="mr-2" />
                   {t("previousLesson")}
@@ -277,7 +279,7 @@ const LessonRenderer = ({
               </Link>
             )}
             {nextLesson && (
-              <Link href={`/lesson/${courseId}/${nextLesson}`}>
+              <Link href={`/lesson/${courseId}/${nextLesson}`} data-cy="button-next-lesson">
                 <Button variant="link" className="p-0 hover:bg-transparent">
                   {t("nextLesson")}
                   <ChevronRight className="ml-2" />
@@ -285,7 +287,12 @@ const LessonRenderer = ({
               </Link>
             )}
             {!nextLesson && (
-              <Button variant="link" className="p-0 hover:bg-transparent" onClick={handleOnCompleteCourse}>
+              <Button
+                variant="link"
+                className="p-0 hover:bg-transparent"
+                onClick={handleOnCompleteCourse}
+                data-cy="button-finish-course"
+              >
                 {t("finish")}
                 <ChevronRight className="ml-2" />
               </Button>
