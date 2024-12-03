@@ -15,9 +15,11 @@ const publicPages = [
   "/reset-password/success",
   "/privacy-policy",
   "/terms-of-service",
+  "/certificates/[id]",
 ];
 const dynamicPublicPages = ["/lesson"];
-const adminPages = ["/backoffice"];
+const backofficePages = ["/backoffice"];
+const adminPages = ["/admin"];
 
 const authMiddleware = (request: NextRequest): NextResponse | undefined => {
   const token = request.cookies.get("token")?.value;
@@ -49,6 +51,13 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
       return NextResponse.rewrite(new URL("/not-found", request.url));
     }
 
+    if (backofficePages.some((path) => request.nextUrl.pathname.startsWith(path))) {
+      if (decodedToken.user.isAdmin || decodedToken.user.teams?.length) {
+        return NextResponse.next();
+      }
+      return NextResponse.rewrite(new URL("/not-found", request.url));
+    }
+
     return NextResponse.next();
   } catch {
     return NextResponse.redirect(loginUrl);
@@ -57,7 +66,14 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isPublicPage = publicPages.includes(pathname) || dynamicPublicPages.some((path) => pathname.startsWith(path));
+  const isPublicPage =
+    publicPages.some((path) => {
+      if (path.includes("[id]")) {
+        const regex = new RegExp(path.replace("[id]", "[^/]+"));
+        return regex.test(pathname);
+      }
+      return path === pathname;
+    }) || dynamicPublicPages.some((path) => pathname.startsWith(path));
 
   if (isPublicPage) {
     return;

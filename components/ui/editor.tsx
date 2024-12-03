@@ -22,7 +22,7 @@ import {
   KitchenSinkToolbar,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface EditorProps {
   markdown: string;
@@ -63,7 +63,23 @@ const ALL_PLUGINS = [
 ];
 
 const Editor: FC<EditorProps> = ({ markdown, onChange, editorRef = null }) => {
-  return <MDXEditor ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} onChange={onChange} />;
+  const [key, setKey] = useState(0);
+
+  // TODO Find a better way to force re-render of this component
+  useEffect(() => {
+    setKey((prev) => prev + 1);
+  }, []);
+
+  return (
+    <MDXEditor
+      key={key}
+      ref={editorRef}
+      markdown={markdown}
+      plugins={ALL_PLUGINS}
+      onChange={onChange}
+      className="bg-slate-100"
+    />
+  );
 };
 
 export default Editor;

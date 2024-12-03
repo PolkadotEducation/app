@@ -51,7 +51,7 @@ const CoursePage = () => {
               selectedCourse.modules.length > 0 &&
               selectedCourse.modules[0]?.lessons.length > 0 && (
                 <Link href={`/lesson/${selectedCourse._id}/${selectedCourse.modules[0]?.lessons[0]?._id}`}>
-                  <Button>{t("startCourse")}</Button>
+                  <Button data-cy="button-start-course">{t("startCourse")}</Button>
                 </Link>
               )}
           </div>
@@ -62,7 +62,7 @@ const CoursePage = () => {
           <div className="mb-20">
             <h6 className="text-primary mb-4">{t("content")}</h6>
             {selectedCourse.modules?.map((module: ModuleType, index: number) => (
-              <div>
+              <div key={index}>
                 <ModuleAccordion
                   key={index}
                   index={index}

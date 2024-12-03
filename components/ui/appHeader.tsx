@@ -19,9 +19,11 @@ import { useUser } from "@/hooks/useUser";
 
 const AppHeader = () => {
   const { user } = useUser();
-  const { name, email, isAdmin, picture } = user || {};
+  const { name, email, isAdmin, picture, teams } = user || {};
   const { signOut } = useAuth();
   const t = useTranslations("components");
+
+  const backofficeAccess = isAdmin || teams?.length ? true : false;
 
   return (
     <div className="w-full flex justify-center bg-primary">
@@ -79,7 +81,7 @@ const AppHeader = () => {
             <Link href="/profile">
               <DropdownMenuItem className="cursor-pointer">{t("profile")}</DropdownMenuItem>
             </Link>
-            {isAdmin && (
+            {backofficeAccess && (
               <>
                 <DropdownMenuSeparator />
                 <Link href="/backoffice" data-cy="link-header-backoffice">

@@ -11,12 +11,19 @@ export type ChallengeType = {
 
 export type LessonType = {
   _id?: string;
+  teamId: string;
   title: string;
   language: string;
   difficulty: string;
   body: string;
   challenge: ChallengeType;
   references?: ReferenceType[];
+};
+
+export type LessonSummary = {
+  _id: string;
+  title: string;
+  language: string;
 };
 
 export type LessonResponse = {
