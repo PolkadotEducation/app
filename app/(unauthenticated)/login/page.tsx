@@ -42,9 +42,9 @@ const LoginPage = () => {
     router.push("/forgot-password");
   };
   return (
-    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-        <h4 className="text-center h-short:scale-90 fluid-h1 whitespace-nowrap">
+    <main>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2">
+        <h4 className="text-center fluid-h1 whitespace-nowrap">
           {t.rich("title", {
             br: () => <br />,
           })}
@@ -56,7 +56,6 @@ const LoginPage = () => {
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles=""
         />
         <InputFloatingLabel
           type="password"
@@ -64,7 +63,6 @@ const LoginPage = () => {
           value={password}
           onChange={handlePasswordChange}
           label={t("passwordPlaceholder")}
-          additionalStyles=""
         />
         <Button type="button" onClick={handleForgotPassword} className="font-semibold" variant="link" shadow={false}>
           {t("forgotPassword")}
