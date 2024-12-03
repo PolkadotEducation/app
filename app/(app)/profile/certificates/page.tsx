@@ -8,6 +8,7 @@ import CertificateRenderer from "@/components/ui/certificateRenderer";
 import { jsPDF } from "jspdf";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { getAppBaseUrl } from "@/helpers/environment";
 
 const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ const ProfileCertificatePage = () => {
   const [certificateImage, setCertificateImage] = useState<string | null>(null);
   const t = useTranslations("profile");
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL;
+  const [baseUrl, setBaseUrl] = useState<string>("");
 
   const getCertificate = async (certificateId: string) => {
     const certificate = await getCertificateById(certificateId);
@@ -25,6 +26,12 @@ const ProfileCertificatePage = () => {
   useEffect(() => {
     const id = searchParams.get("id");
     if (id) getCertificate(id);
+    if (!baseUrl) {
+      (async () => {
+        const baseUrlFromServer = await getAppBaseUrl();
+        setBaseUrl(baseUrlFromServer);
+      })();
+    }
   }, [searchParams]);
 
   if (!certificate) {
