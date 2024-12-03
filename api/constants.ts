@@ -16,3 +16,7 @@ export const MODULE = "/module";
 export const COURSE = "/course";
 export const COURSES = "/courses";
 export const PROGRESS = "/progress";
+
+// Certificates
+export const CERTIFICATES = "/certificates";
+export const CERTIFICATE_GENERATE = "/certificates/generate";

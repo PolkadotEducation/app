@@ -68,9 +68,18 @@ const Editor: FC<EditorProps> = ({ markdown, onChange, editorRef = null }) => {
   // TODO Find a better way to force re-render of this component
   useEffect(() => {
     setKey((prev) => prev + 1);
-  }, [markdown]);
+  }, []);
 
-  return <MDXEditor key={key} ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} onChange={onChange} />;
+  return (
+    <MDXEditor
+      key={key}
+      ref={editorRef}
+      markdown={markdown}
+      plugins={ALL_PLUGINS}
+      onChange={onChange}
+      className="bg-slate-100"
+    />
+  );
 };
 
 export default Editor;

@@ -15,6 +15,7 @@ const publicPages = [
   "/reset-password/success",
   "/privacy-policy",
   "/terms-of-service",
+  "/certificates/[id]",
 ];
 const dynamicPublicPages = ["/lesson"];
 const backofficePages = ["/backoffice"];
@@ -65,7 +66,14 @@ const authMiddleware = (request: NextRequest): NextResponse | undefined => {
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isPublicPage = publicPages.includes(pathname) || dynamicPublicPages.some((path) => pathname.startsWith(path));
+  const isPublicPage =
+    publicPages.some((path) => {
+      if (path.includes("[id]")) {
+        const regex = new RegExp(path.replace("[id]", "[^/]+"));
+        return regex.test(pathname);
+      }
+      return path === pathname;
+    }) || dynamicPublicPages.some((path) => pathname.startsWith(path));
 
   if (isPublicPage) {
     return;

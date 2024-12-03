@@ -9,6 +9,11 @@
     "uploadImage": "Subir nueva imagen",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "editProfilePicture": "Editar Imagen"
+    "editProfilePicture": "Editar Imagen",
+    "downloadCertificate": "Descargar Certificado",
+    "shareCertificate": "Compartir Certificado",
+    "copyCertificateUrl": "Copiar URL del Certificado",
+    "publicCertificateUrl": "URL del certificado público:",
+    "shareText": "¡Mira este certificado para \"{courseTitle}\"!"
   }
 }

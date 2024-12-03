@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 const Breadcrumb = () => {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-  const { selectedCourse, selectedLesson, loading: courseLoading } = useCourse();
+  const { selectedCourse, selectedLesson, loading: courseLoading, courses } = useCourse();
   const { userLoading, user } = useUser();
   const t = useTranslations("components");
 
@@ -24,9 +24,10 @@ const Breadcrumb = () => {
 
   const hiddenSegments = ["course", "lesson"];
   const isCoursePage = pathname.startsWith("/course/") && segments.length === 2;
+  const isCourseCongratulationsPage = pathname.startsWith("/course/") && segments.includes("congratulations");
   const isLessonPage = pathname.startsWith("/lesson/") && segments.length === 3;
 
-  if ((isCoursePage || isLessonPage) && courseLoading) {
+  if ((isCoursePage || isLessonPage || isCourseCongratulationsPage) && courseLoading) {
     return null;
   }
 
@@ -54,7 +55,23 @@ const Breadcrumb = () => {
             {segments.length > 0 && <span className="mx-2 text-text-secondary">/</span>}
           </li>
 
-          {isCoursePage && selectedCourse ? (
+          {isCourseCongratulationsPage ? (
+            (() => {
+              const courseId = pathname.match(/\/course\/([^/]+)\/congratulations/)?.[1];
+              const course = (courses || []).find((c) => c._id === courseId);
+              return course ? (
+                <>
+                  <li className="flex items-center">
+                    <Link href={`/course/${course._id}`} className="text-text-secondary hover:underline body1">
+                      {course.title}
+                    </Link>
+                    <span className="mx-2 text-text-secondary">/</span>
+                  </li>
+                  <span className="text-primary body1">{t("congratulations")}</span>
+                </>
+              ) : null;
+            })()
+          ) : isCoursePage && selectedCourse ? (
             <li className="text-primary body1">{selectedCourse.title}</li>
           ) : isLessonPage && selectedLesson ? (
             <>
@@ -105,6 +122,17 @@ const Breadcrumb = () => {
             <ChevronLeft size={16} />
             {t("backTo")} {t("home")}
           </Link>
+        ) : isCourseCongratulationsPage ? (
+          (() => {
+            const courseId = pathname.match(/\/course\/([^/]+)\/congratulations/)?.[1];
+            const course = (courses || []).find((c) => c._id === courseId);
+            return course ? (
+              <Link href={`/course/${course._id}`} className="flex gap-x-2 items-center">
+                <ChevronLeft />
+                {t("backTo")} {course.title}
+              </Link>
+            ) : null;
+          })()
         ) : previousSegment ? (
           <Link href={previousHref} className="flex gap-x-2 items-center">
             <ChevronLeft size={12} />
