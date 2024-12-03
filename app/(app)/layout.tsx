@@ -24,7 +24,6 @@ export default function AppLayout({
           <div className="flex justify-center max-w-7xl px-6 xl:px-0 w-full min-h-[calc(100vh-12rem)]">
             <UserLayout>{children}</UserLayout>
           </div>
-          <Footer />
         </div>
       </CourseProvider>
     </UserProvider>
