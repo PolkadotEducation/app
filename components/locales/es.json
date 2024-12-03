@@ -34,6 +34,10 @@
     "finish": "Terminar",
     "congratulations": "Felicidades",
     "notCompletedTitle": "Necesitas completar todos los desafíos para obtener el certificado",
-    "notCompletedDescription": "Curso no completado. Necesitas completar todos los desafíos para obtener el certificado."
+    "notCompletedDescription": "Curso no completado. Necesitas completar todos los desafíos para obtener el certificado.",
+    "certificate": "Certificado de finalización del curso",
+    "finished": "completó con éxito el curso",
+    "estimatedTime": "Tiempo estimado de aprendizaje: {duration} horas",
+    "certificateId": "ID del certificado: {id}"
   }
 }

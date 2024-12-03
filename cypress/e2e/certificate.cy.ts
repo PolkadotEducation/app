@@ -4,7 +4,7 @@ describe("Login Page", () => {
   };
 
   describe("mobile", () => {
-    it("finishes a course a gets a certificate", () => {
+    it("finishes a course and gets a certificate", () => {
       cy.viewport("iphone-x");
 
       cy.login("regular@seed.com", "Senha123");
@@ -28,6 +28,7 @@ describe("Login Page", () => {
       // final lesson
       cy.getByData("input-choice-0").click();
       cy.getByData("button-submit-answer").click();
+
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
       cy.getByData("button-finish-course").click();
@@ -36,6 +37,10 @@ describe("Login Page", () => {
       cy.getByData("button-generate-certificate").click();
 
       cy.getByData("certificate").should("be.visible");
+      cy.getByData("certificate").should("have.css", "background-image");
+      cy.getByData("certificate").find('img[alt="Logo"]').should("be.visible");
+      cy.getByData("certificate-user-name").should("contain.text", "Regular User");
+      cy.getByData("certificate-course-title").should("be.visible");
     });
   });
 });

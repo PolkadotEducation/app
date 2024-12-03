@@ -6,6 +6,7 @@ import Image from "next/image";
 import logo from "@/public/assets/icons/logo.svg";
 import certificateBg from "@/public/assets/banners/certificateBg.svg";
 import { CertificateType } from "@/types/certificateTypes";
+import { useTranslations } from "next-intl";
 
 const CertificateRenderer = ({
   certificate,
@@ -16,6 +17,7 @@ const CertificateRenderer = ({
 }) => {
   const certificateRef = useRef<HTMLDivElement>(null);
   const [certificateImage, setCertificateImage] = useState<string | null>(null);
+  const t = useTranslations("components");
 
   const generateCertificateImage = async () => {
     if (certificateRef.current) {
@@ -55,20 +57,22 @@ const CertificateRenderer = ({
       style={{
         backgroundImage: `url(${certificateBg.src})`,
       }}
+      data-cy="certificate"
     >
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center text-center text-[#1A1A1A] gap-y-5"
-        data-cy="certificate"
-      >
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-[#1A1A1A] gap-y-5">
         <Image src={logo} alt="Logo" className="mb-6" />
-        <h5 className="font-bold text-lg">Certificado de curso</h5>
-        <h6 className="text-md font-medium">{certificate?.userName}</h6>
-        <p className="text-sm">concluiu com sucesso o curso</p>
-        <h6 className="text-md font-medium">"{certificate?.courseTitle}"</h6>
+        <h5 className="font-bold text-lg">{t("certificate")}</h5>
+        <h6 className="text-md font-medium" data-cy="certificate-user-name">
+          {certificate?.userName}
+        </h6>
+        <p className="text-sm">{t("finished")}</p>
+        <h6 className="text-md font-medium" data-cy="certificate-course-title">
+          "{certificate?.courseTitle}"
+        </h6>
         {certificate?.courseDuration && (
-          <p className="text-sm">Tempo estimado de aprendizado: {certificate.courseDuration} horas</p>
+          <p className="text-sm"> {t("estimatedTime", { duration: certificate.courseDuration })}</p>
         )}
-        <p>ID do certificado: {certificate?._id}</p>
+        <p>{t("certificateId", { id: certificate?._id })}</p>
       </div>
     </div>
   );
