@@ -51,7 +51,7 @@ const CoursePage = () => {
               selectedCourse.modules.length > 0 &&
               selectedCourse.modules[0]?.lessons.length > 0 && (
                 <Link href={`/lesson/${selectedCourse._id}/${selectedCourse.modules[0]?.lessons[0]?._id}`}>
-                  <Button>{t("startCourse")}</Button>
+                  <Button data-cy="button-start-course">{t("startCourse")}</Button>
                 </Link>
               )}
           </div>

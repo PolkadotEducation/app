@@ -30,6 +30,14 @@
     "edit": "Editar",
     "lessons": "Aulas",
     "new": "Novo",
-    "certificates": "Certificados"
+    "certificates": "Certificados",
+    "finish": "Concluir",
+    "congratulations": "Parabéns",
+    "notCompletedTitle": "Você precisa completar todos os desafios para obter o certificado",
+    "notCompletedDescription": "Curso não concluído. Você precisa completar todos os desafios para obter o certificado.",
+    "certificate": "Certificado de conclusão de curso",
+    "finished": "concluiu com sucesso o curso",
+    "estimatedTime": "Tempo estimado de aprendizado: {duration} horas",
+    "certificateId": "ID do certificado: {id}"
   }
 }

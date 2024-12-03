@@ -2,6 +2,10 @@
   "course": {
     "summary": "Resumen",
     "content": "Contenido",
-    "startCourse": "Comenzar curso"
+    "startCourse": "Comenzar curso",
+    "congratulations": "¡Felicidades!\n¡Has completado el curso!",
+    "message": "¡Acabas de dar otro gran paso en tu viaje de aprendizaje! Tu dedicación marcó la diferencia, y ahora estás aún más preparado para enfrentar nuevos desafíos. ¡Sigue explorando, aprendiendo y creciendo!",
+    "generateCertificate": "Generar Certificado",
+    "seeCertificate": "Ver Certificado"
   }
 }
