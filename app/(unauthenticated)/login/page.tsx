@@ -43,7 +43,7 @@ const LoginPage = () => {
   };
   return (
     <main>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2 md:gap-4">
         <h4 className="text-center fluid-h1 whitespace-nowrap">
           {t.rich("title", {
             br: () => <br />,
