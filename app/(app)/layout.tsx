@@ -4,7 +4,6 @@ import "../globals.css";
 import AppHeader from "@/components/ui/appHeader";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import { UserProvider } from "@/context/user/userProvider";
-import Footer from "@/components/ui/footer";
 import { CourseProvider } from "@/context/course/courseProvider";
 import UserLayout from "@/components/ui/userLayout";
 
