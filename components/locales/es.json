@@ -30,6 +30,10 @@
     "edit": "Editar",
     "lessons": "Lecciónes",
     "new": "Nuevo",
-    "certificates": "Certificados"
+    "certificates": "Certificados",
+    "finish": "Terminar",
+    "congratulations": "Felicidades",
+    "notCompletedTitle": "Necesitas completar todos los desafíos para obtener el certificado",
+    "notCompletedDescription": "Curso no completado. Necesitas completar todos los desafíos para obtener el certificado."
   }
 }

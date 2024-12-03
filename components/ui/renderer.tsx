@@ -9,10 +9,11 @@ import { useTranslations } from "next-intl";
 import Loading from "./loading";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, CircleCheckBig } from "lucide-react";
-import { submitAnswer } from "@/api/progressService";
+import { getUserCompletedCourses, submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { ProgressResponse } from "@/types/progressTypes";
+import { useRouter } from "next/navigation";
 
 const EXP_POINTS = {
   hard: 100,
@@ -57,6 +58,7 @@ const LessonRenderer = ({
   const { user } = useUser();
   const t = useTranslations("components");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const compileMDX = async () => {
@@ -174,6 +176,29 @@ const LessonRenderer = ({
     setSelectedChoice(Number(event.target.value));
   };
 
+  const handleOnCompleteCourse = async () => {
+    if (!isLessonCompleted) {
+      toast({
+        title: t("notCompletedTitle"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const completedCourses = await getUserCompletedCourses();
+
+    if (!completedCourses.find((i) => i.courseId === courseId)) {
+      toast({
+        title: t("notCompletedTitle"),
+        description: t("notCompletedDescription"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    router.push(`/course/${courseId}/congratulations`);
+  };
+
   return (
     <main className="w-full flex justify-center">
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
@@ -240,7 +265,7 @@ const LessonRenderer = ({
         {(nextLesson || previousLesson) && (
           <div
             className={`flex w-full py-6 border-t-2 border-t-border-gray ${
-              previousLesson && nextLesson ? "justify-between" : previousLesson ? "justify-start" : "justify-end"
+              previousLesson && nextLesson ? "justify-between" : previousLesson ? "justify-between" : "justify-end"
             }`}
           >
             {previousLesson && (
@@ -258,6 +283,12 @@ const LessonRenderer = ({
                   <ChevronRight className="ml-2" />
                 </Button>
               </Link>
+            )}
+            {!nextLesson && (
+              <Button variant="link" className="p-0 hover:bg-transparent" onClick={handleOnCompleteCourse}>
+                {t("finish")}
+                <ChevronRight className="ml-2" />
+              </Button>
             )}
           </div>
         )}
