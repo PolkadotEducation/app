@@ -15,7 +15,7 @@ export default function UnauthenticatedLayout({
           <div className="items-start">
             <Logo pathToRedirect="/login" />
           </div>
-          <div className="flex flex-1 items-center justify-center">
+          <div className="flex flex-1 items-center justify-center w-[360px] mx-auto">
             <AnimatedPage>{children}</AnimatedPage>
           </div>
         </div>
