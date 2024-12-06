@@ -7,6 +7,7 @@ import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+import CourseDescriptionSection from "@/components/ui/courseDescriptionSection";
 
 const Home = () => {
   const { courses, loading, error, fetchCourses } = useCourse();
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">
+      <CourseDescriptionSection />
       <h4 className="mb-5" data-cy="text-home-courses">
         {t("courses")}
       </h4>
