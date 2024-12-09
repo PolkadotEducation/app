@@ -13,7 +13,7 @@ type ModuleData = {
 };
 
 interface CourseDescriptionSectionProps {
-  courseModules: ModuleData[];
+  courseModules?: ModuleData[];
 }
 const CourseDescriptionSection = ({
   courseModules = [
@@ -55,7 +55,7 @@ const CourseDescriptionSection = ({
     },
   ],
 }: CourseDescriptionSectionProps) => {
-  const [isMobile] = useState(false);
+  const [isMobile] = useState(true);
   return (
     <>
       {isMobile ? (
@@ -68,19 +68,30 @@ const CourseDescriptionSection = ({
             <DrawerHeader className="flex items-center justify-center pt-14">
               <DrawerTitle>Resumo do curso</DrawerTitle>
             </DrawerHeader>
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm flex flex-row-reverse justify-around">
-                  <CourseChapterAccordion chapterName="Módulo 01" />
-                </AccordionTrigger>
-                <AccordionContent className="mx-12 pl-4 border-l-2 border-neutral-300 rounded-sm">
-                  <p>Título do módulo</p>
-                  <ul className="pt-4">
-                    <CourseLesson lessonName="The role of tokens in the blockchain" expAmount={50} />
-                    <CourseLesson lessonName="The role of tokens in the blockchain" expAmount={50} />
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
+            <Accordion type="multiple">
+              {courseModules.map((module, index) => {
+                return (
+                  <AccordionItem value={`item${index}`} className="px-6">
+                    <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full pr-8">
+                      <CourseChapterAccordion chapterName={`Module ${index + 1}`} completed={module.completed} />
+                    </AccordionTrigger>
+                    <AccordionContent className="mx-12 pl-4 border-l-2 border-neutral-300 rounded-sm">
+                      <p>{module.chapterName}</p>
+                      <ul className="pt-4 flex flex-col gap-4">
+                        {module.chapterLessons.map((lesson) => {
+                          return (
+                            <CourseLesson
+                              lessonName={lesson.lessonName}
+                              expAmount={lesson.expAmount}
+                              completed={lesson.completed}
+                            />
+                          );
+                        })}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
             </Accordion>
           </DrawerContent>
         </Drawer>
