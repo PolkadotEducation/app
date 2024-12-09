@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
 @import "../node_modules/@mdxeditor/editor/dist/style.css";
 @tailwind base;
 @tailwind components;
@@ -80,6 +80,20 @@
   font-family: "Unbounded", sans-serif;
 }
 
+@layer utilities {
+  .paragraph {
+    @apply text-p;
+  }
+
+  .btn-text {
+    @apply text-btn;
+  }
+
+  .fluid-h1 {
+    @apply text-fluidH1;
+  }
+}
+
 @layer base {
   h1 {
     @apply font-unbounded font-light text-h1;
@@ -136,6 +150,10 @@
 
     h2 {
       @apply text-h4 font-unbounded font-bold;
+    }
+
+    h4 {
+      @apply text-h5 font-unbounded font-normal;
     }
 
     .body1 {
