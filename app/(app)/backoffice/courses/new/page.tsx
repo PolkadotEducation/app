@@ -8,11 +8,13 @@ import { Controller, useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SimplifiedModuleType } from "@/types/moduleTypes";
 import ModuleCard from "../_components/moduleCard";
 import Separator from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { LessonSummary } from "@/types/lessonTypes";
+import { getLessonsSummary } from "@/api/lessonService";
 
 const schema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
@@ -25,6 +27,7 @@ type FormData = z.infer<typeof schema>;
 const CreateCoursePage = () => {
   const { user } = useUser();
   const [modules, setModules] = useState<SimplifiedModuleType[]>([]);
+  const [lessons, setLessons] = useState<LessonSummary[]>([]);
 
   const {
     control,
@@ -47,6 +50,15 @@ const CreateCoursePage = () => {
       prevModules.map((module) => (module.id === moduleId ? { ...module, ...updatedData } : module)),
     );
   };
+
+  const getLessons = async () => {
+    const response = await getLessonsSummary();
+    setLessons(response);
+  };
+
+  useEffect(() => {
+    getLessons();
+  }, []);
 
   const createModule = () => {
     const newModuleId = `module-${modules.length + 1}`;
@@ -146,6 +158,7 @@ const CreateCoursePage = () => {
                         lessons: updatedData.lessons?.map(({ _id, title }) => ({ _id, title })) || module.lessons,
                       })
                     }
+                    lessonsData={lessons}
                   />
                 );
               })}
