@@ -15,6 +15,8 @@ export const LESSONS_SUMMARY = "/lessons/summary";
 export const MODULE = "/module";
 export const COURSE = "/course";
 export const COURSES = "/courses";
+export const COURSES_SUMMARY = "/courses/summary";
+export const COURSES_DUPLICATE = "/courses/duplicate";
 export const PROGRESS = "/progress";
 
 // Certificates

@@ -27,17 +27,19 @@
     "pagination": "Página {currentPage} de {totalPages}",
     "rowsSelected": "{selectedRows} de {totalRows} linha(s) selecionada(s).",
     "noResults": "Nenhum resultado.",
-    "lessonDeletedSuccess": "Aula excluída com sucesso",
-    "lessonDeleteError": "Erro ao tentar excluir aula",
-    "deleteLesson": "Excluir Aula",
-    "confirmDeleteLesson": "Tem certeza de que deseja excluir a aula \"{lessonName}\"? Esta ação não pode ser desfeita.",
+    "entityDeletedSuccess": "Entidade excluída com sucesso",
+    "entityDeleteError": "Erro ao tentar excluir a entidade",
+    "deleteModalTitle": "Excluir {variant}",
+    "confirmDeleteEntity": "Tem certeza de que deseja excluir \"{entityName}\"? Esta ação não pode ser desfeita.",
     "cancel": "Cancelar",
     "submit": "Enviar",
     "updateLesson": "Atualizar Lição",
     "lessonUpdated": "Lição atualizada com sucesso!",
     "lessonUpdateFailure": "Falha ao atualizar a lição",
-    "selectAtLeastOneLesson": "Selecione ao menos uma aula para duplicar",
-    "lessonsDuplicatedSuccessfully": "Aulas duplicadas com sucesso",
-    "errorDuplicatingLessons": "Erro ao duplicar aulas"
+    "selectAtLeastOne": "Selecione pelo menos uma entidade para duplicar",
+    "entityDuplicatedSuccessfully": "Entidade duplicada com sucesso",
+    "errorDuplicatingEntity": "Erro ao duplicar a entidade",
+    "newCourse": "Novo curso",
+    "searchCourse": "Pesquisar curso"
   }
 }
