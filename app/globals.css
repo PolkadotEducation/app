@@ -34,6 +34,7 @@
     --border-gray: 0 0% 88%;
     --success-green: 151 72% 62%;
     --dark-purple: 266 42% 20%;
+    --secondary-light: 225, 48%, 90%, 1;
   }
 
   .dark {
