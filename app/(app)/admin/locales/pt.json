@@ -1,0 +1,8 @@
+{
+  "admin": {
+    "delete": "Delete",
+    "teams": "Teams",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}
