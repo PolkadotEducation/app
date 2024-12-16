@@ -81,6 +81,10 @@
 }
 
 @layer utilities {
+  .fluid-gap {
+    gap: clamp(0.5rem, -0.5rem + 2.5vh, 1rem);
+  }
+
   .paragraph {
     @apply text-p;
   }
