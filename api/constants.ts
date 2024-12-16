@@ -7,6 +7,10 @@ export const USERS = `/users`;
 export const USERS_VERIFY = "/users/verify";
 export const USERS_RECOVER = "/users/recover";
 
+// Teams
+export const USERS_TEAMS = `/users/teams`;
+export const TEAMS = `/teams`;
+
 // Course
 export const LESSON = "/lesson";
 export const LESSONS = "/lessons";

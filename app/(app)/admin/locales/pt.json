@@ -1,0 +1,16 @@
+{
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "teams": "Times",
+    "teamOwnerEmailPlaceholder": "Email do Dono",
+    "teamNamePlaceholder": "Nome",
+    "teamDescriptionPlaceholder": "Descrição",
+    "editProfilePicture": "Editar Foto",
+    "uploadImage": "Enviar nova imagem",
+    "create": "Criar",
+    "update": "Atualizar",
+    "delete": "Deletar",
+    "save": "Salvar",
+    "cancel": "Cancelar"
+  }
+}

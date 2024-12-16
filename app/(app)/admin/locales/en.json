@@ -1,0 +1,16 @@
+{
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "teams": "Teams",
+    "teamOwnerEmailPlaceholder": "Owner's email",
+    "teamNamePlaceholder": "Name",
+    "teamDescriptionPlaceholder": "Description",
+    "editProfilePicture": "Edit Picture",
+    "uploadImage": "Upload new image",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}
