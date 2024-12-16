@@ -3,7 +3,7 @@ import { TEAMS } from "./constants";
 import { TeamInfo } from "@/types/teamTypes";
 
 export const createTeam = async (team: TeamInfo): Promise<TeamInfo> => {
-  const r = await serverPost<TeamInfo>(TEAMS, { ...team });
+  const r = await serverPost<TeamInfo>(TEAMS, team);
   if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
   return r as TeamInfo;
 };
@@ -20,8 +20,8 @@ export const getTeam = async (teamId: string): Promise<TeamInfo> => {
   return r as TeamInfo;
 };
 
-export const updateTeam = async (data: TeamInfo): Promise<Boolean> => {
-  const r = await serverPut<Boolean>(TEAMS, data);
+export const updateTeam = async (teamId: string, team: TeamInfo): Promise<Boolean> => {
+  const r = await serverPut<Boolean>(`${TEAMS}/${teamId}`, team);
   if ((r as ServerAxiosError).error) throw (r as ServerAxiosError).error;
   return true;
 };

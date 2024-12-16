@@ -1,8 +1,16 @@
 {
   "admin": {
-    "delete": "Delete",
-    "teams": "Teams",
-    "save": "Save",
-    "cancel": "Cancel"
+    "dashboard": "Admin Dashboard",
+    "teams": "Equipos",
+    "teamOwnerEmailPlaceholder": "Email del Propietario",
+    "teamNamePlaceholder": "Nombr",
+    "teamDescriptionPlaceholder": "Descripción",
+    "editProfilePicture": "Editar Foto",
+    "uploadImage": "Subir nueva imagen",
+    "create": "Crear",
+    "update": "Actualizar",
+    "delete": "Deletar",
+    "save": "Salvar",
+    "cancel": "Cancelar"
   }
 }

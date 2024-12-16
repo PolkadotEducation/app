@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import { TeamInfo } from "@/types/teamTypes";
-import { createTeam, deleteTeam } from "@/api/teamService";
+import { createTeam, deleteTeam, updateTeam } from "@/api/teamService";
 
 interface TeamViewerProps {
   id?: string;
@@ -81,8 +81,14 @@ const TeamViewerPage = ({ id, owner, name, description, picture, changeTab }: Te
           description: inputDescriptioin || "",
           picture: selectedPicture || "",
         };
-        await createTeam(newTeam);
-        setCreateMessage("Team Created.");
+        if (id) {
+          await updateTeam(id, newTeam);
+          setCreateMessage("Team Updated.");
+          router.push("/admin");
+        } else {
+          await createTeam(newTeam);
+          setCreateMessage("Team Created.");
+        }
         changeTab("teams");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
