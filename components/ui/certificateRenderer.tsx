@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import logo from "@/public/assets/icons/logo.svg";
-import certificateBg from "@/public/assets/banners/certificateBg.svg";
+import { certificateBg } from "@/public/assets/images";
 import { CertificateType } from "@/types/certificateTypes";
 import { useTranslations } from "next-intl";
 
