@@ -31,7 +31,7 @@ const Logo = ({
       onClick={() => {
         if (pathToRedirect) return router.push(pathToRedirect);
       }}
-      className="h-[8vh] w-auto max-h-14 min-h-10 cursor-pointer"
+      className="w-auto cursor-pointer"
       data-cy="image-logo"
     />
   );

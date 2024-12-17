@@ -11,8 +11,8 @@ export default function UnauthenticatedLayout({
   return (
     <div className="flex h-screen">
       <div className="flex w-full xl:w-1/2 justify-center bg-card">
-        <div className="flex flex-col h-dvh max-w-[425px] min-w-[340px] px-5">
-          <div className="flex items-end h-1/6 mx-auto">
+        <div className="flex flex-col h-dvh max-w-[450px] min-w-[340px] px-5">
+          <div className="flex p-[5vh] mx-auto">
             <Logo pathToRedirect="/login" />
           </div>
           <div className="flex flex-1 items-center mx-auto">
