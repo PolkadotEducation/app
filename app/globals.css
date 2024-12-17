@@ -82,7 +82,7 @@
 
 @layer utilities {
   .fluid-gap {
-    gap: clamp(0.5rem, -0.5rem + 2.5vh, 1rem);
+    gap: clamp(0.5rem, -0.75rem + 2.5vh, 1rem);
   }
 
   .paragraph {
@@ -145,24 +145,6 @@
 
   .caption {
     @apply font-montserrat font-normal text-caption;
-  }
-
-  @media (max-width: 767px) {
-    h1 {
-      @apply text-h3 font-unbounded font-normal;
-    }
-
-    h2 {
-      @apply text-h4 font-unbounded font-bold;
-    }
-
-    h4 {
-      @apply text-h5 font-unbounded font-normal;
-    }
-
-    .body1 {
-      @apply text-body2 font-montserrat font-normal;
-    }
   }
 }
 

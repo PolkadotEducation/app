@@ -44,12 +44,12 @@ const LoginPage = () => {
   return (
     <main>
       <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
-        <h4 className="text-center fluid-h1 whitespace-nowrap">
+        <h4 className="text-center fluid-h1">
           {t.rich("title", {
             br: () => <br />,
           })}
         </h4>
-        <p className="text-center paragraph whitespace-nowrap">{t("welcomeMessage")}</p>
+        <p className="text-center paragraph">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"

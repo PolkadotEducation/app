@@ -111,9 +111,9 @@ const SignUpPage = () => {
 
   return (
     <main>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-        <h4 className="mb-4 text-center fluid-h1">{t("title")}</h4>
-        <p className="mb-8 text-center paragraph">{t("subtitle")}</p>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
+        <h4 className="text-center fluid-h1">{t("title")}</h4>
+        <p className="text-center paragraph">{t("subtitle")}</p>
         <InputFloatingLabel id="nameInput" value={name} onChange={handleNameChange} label={t("namePlaceholder")} />
         <InputFloatingLabel
           type="email"
@@ -151,7 +151,7 @@ const SignUpPage = () => {
           error={errorMessage}
           additionalStyles={`${errorMessage && "mb-1"}`}
         />
-        <Button type="submit" className="w-full" disabled={state.isLoading} data-cy="button-signup-submit">
+        <Button type="submit" className="w-full mt-3" disabled={state.isLoading} data-cy="button-signup-submit">
           {t("signUpButton")}
         </Button>
         {state.error && (

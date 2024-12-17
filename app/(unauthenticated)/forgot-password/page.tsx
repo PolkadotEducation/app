@@ -29,18 +29,17 @@ const ForgotPasswordPage = () => {
 
   return (
     <main>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h4 className="mb-4 max-w-[330px] text-center fluid-h1">{t("title")}</h4>
-        <p className="mb-8 text-center paragraph">{t("instructionMessage")}</p>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
+        <h4 className="text-center fluid-h1">{t("title")}</h4>
+        <p className="mb-4 text-center paragraph">{t("instructionMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles="mb-10"
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="mt-4 w-full">
           {t("sendLinkButton")}
         </Button>
       </form>
