@@ -20,7 +20,7 @@ const SignUpEmailSentInnerPage = () => {
   return (
     <main>
       <div className="flex flex-col items-center">
-        <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
+        <h4 className="mb-4 text-center">{t("title")}</h4>
         <p className="mb-20 text-center">
           {t("instructionMessageFirstPart")}
           <span className="text-primary">{email}</span>

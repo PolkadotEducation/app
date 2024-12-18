@@ -89,7 +89,7 @@ const Web3Wallet = () => {
   const TriggerButton = useMemo(() => {
     return (
       <Button
-        className="w-full m-2 bg-transparent hover:bg-transparent hover:opacity-70 text-text-secondary
+        className="w-full bg-transparent hover:bg-transparent hover:opacity-70 text-text-secondary
         hover:text-text-secondary border-border-gray border-[1px]"
         type="button"
         disabled={isSigning}

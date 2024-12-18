@@ -18,9 +18,9 @@ const EmailSentPage = () => {
     <main>
       <div className="flex flex-col items-center">
         <Image src={success} width={67} height={67} alt="Success check mark" className="mb-[30px]" />
-        <h4 className="mb-4 max-w-[330px] text-center">{t("title")}</h4>
+        <h4 className="mb-4 text-center">{t("title")}</h4>
         <p className="mb-8 text-center">{t("instructionMessage")}</p>
-        <Button type="button" onClick={pushToLogin} variant="link" className="w-full">
+        <Button type="button" onClick={pushToLogin} variant="link" shadow={false} className="w-full">
           {t("returnToLogin")}
         </Button>
       </div>

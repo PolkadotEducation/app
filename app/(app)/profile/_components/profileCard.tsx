@@ -48,7 +48,7 @@ const ProfileCard = () => {
             <p className="unbound-font text-white font-bold text-3xl">{(name || "").charAt(0)}</p>
           </div>
         )}
-        <div className="flex flex-col mt-4 xl:mt-0 xl:ml-6 w-full items-center xl:items-start truncate">
+        <div className="flex flex-col mt-4 xl:mt-0 xl:ml-6 w-full items-center xl:items-start py-1 truncate">
           <h5 className="mb-2 truncate">{name}</h5>
           <p className="text-text-secondary body1 mb-4 truncate">{email}</p>
           <Button variant="outline" onClick={() => router.push("/profile/edit")}>
