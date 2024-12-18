@@ -88,27 +88,27 @@
 
 @layer base {
   h1 {
-    @apply font-unbounded font-normal md:font-bold text-h1;
+    @apply font-unbounded font-medium md:font-bold text-h1;
   }
 
   h2 {
-    @apply font-unbounded font-normal md:font-bold text-h2;
+    @apply font-unbounded font-medium md:font-bold text-h2;
   }
 
   h3 {
-    @apply font-unbounded font-normal md:font-bold text-h3;
+    @apply font-unbounded font-medium md:font-bold text-h3;
   }
 
   h4 {
-    @apply font-unbounded font-normal md:font-bold text-h4;
+    @apply font-unbounded font-medium md:font-bold text-h4;
   }
 
   h5 {
-    @apply font-unbounded font-normal md:font-bold text-h5;
+    @apply font-unbounded font-medium md:font-bold text-h5;
   }
 
   h6 {
-    @apply font-unbounded font-normal md:font-bold text-h6;
+    @apply font-unbounded font-medium md:font-bold text-h6;
   }
 
   p {

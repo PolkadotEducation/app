@@ -94,16 +94,16 @@ const LoginPage = () => {
           <Image src={google} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
           {t(isAuthenticating ? "loading" : "google")}
         </Button>
-        <p className="text-center text-body2 mt-4">
+        <p className="text-center caption mt-2">
           {t.rich("loginAgreement", {
             br: () => <br />,
             policies: (children) => (
-              <a className="text-primary" href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+              <a className="text-primary caption" href="/privacy-policy" target="_blank" rel="noopener noreferrer">
                 {children}
               </a>
             ),
             terms: (children) => (
-              <a className="text-primary" href="/terms-of-service" target="_blank" rel="noopener noreferrer">
+              <a className="text-primary caption" href="/terms-of-service" target="_blank" rel="noopener noreferrer">
                 {children}
               </a>
             ),
