@@ -44,12 +44,12 @@ const LoginPage = () => {
   return (
     <main>
       <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
-        <h4 className="text-center fluid-h1">
+        <h4 className="text-center">
           {t.rich("title", {
             br: () => <br />,
           })}
         </h4>
-        <p className="text-center paragraph">{t("welcomeMessage")}</p>
+        <p className="text-center">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
@@ -76,8 +76,8 @@ const LoginPage = () => {
           </p>
         )}
         <div className="flex w-full px-3 justify-between items-center">
-          <p className="paragraph">{t("noAccount")}</p>
-          <Link href={"/sign-up"} className="font-bold paragraph" data-cy="button-login-signup">
+          <p>{t("noAccount")}</p>
+          <Link href={"/sign-up"} className="font-bold" data-cy="button-login-signup">
             {t("createAccount")}
           </Link>
         </div>
@@ -94,7 +94,7 @@ const LoginPage = () => {
           <Image src={google} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
           {t(isAuthenticating ? "loading" : "google")}
         </Button>
-        <p className="text-center text-body2 mt-4 paragraph">
+        <p className="text-center text-body2 mt-4">
           {t.rich("loginAgreement", {
             br: () => <br />,
             policies: (children) => (

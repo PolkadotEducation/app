@@ -112,8 +112,8 @@ const SignUpPage = () => {
   return (
     <main>
       <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
-        <h4 className="text-center fluid-h1">{t("title")}</h4>
-        <p className="text-center paragraph">{t("subtitle")}</p>
+        <h4 className="text-center">{t("title")}</h4>
+        <p className="text-center">{t("subtitle")}</p>
         <InputFloatingLabel id="nameInput" value={name} onChange={handleNameChange} label={t("namePlaceholder")} />
         <InputFloatingLabel
           type="email"

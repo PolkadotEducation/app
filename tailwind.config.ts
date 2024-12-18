@@ -89,22 +89,25 @@ const config = {
         montserrat: ["Montserrat", "sans-serif"],
       },
       fontSize: {
-        h1: ["96px", { lineHeight: "116%", letterSpacing: "-1.5px" }],
-        fluidH1: [
-          "clamp(1.5rem, 1.2292rem + 1.1111vw, 2.25rem)",
-          { lineHeight: " clamp(1.75rem, 1.4792rem + 1.1111vw, 2.5rem)" },
+        h1: [
+          "clamp(64px, 5vw, 96px)",
+          { lineHeight: "120%", letterSpacing: "-1.5px", fontWeight: "clamp(400, 600, 700)" },
         ],
-        h2: ["60px", { lineHeight: "120%", letterSpacing: "-0.5px" }],
-        h3: ["48px", { lineHeight: "120%", letterSpacing: "0px" }],
-        h4: ["34px", { lineHeight: "120%", letterSpacing: "0.25px" }],
-        h5: ["24px", { lineHeight: "120%", letterSpacing: "0px" }],
-        h6: ["20px", { lineHeight: "160%", letterSpacing: "0.15px" }],
+        h2: ["clamp(40px, 3.5vw, 60px)", { lineHeight: "120%", letterSpacing: "-0.5px", fontWeight: 700 }],
+        h3: ["clamp(32px, 2.5vw, 48px)", { lineHeight: "120%", letterSpacing: "0px", fontWeight: 700 }],
+        h4: ["clamp(24px, 1.5vw, 32px)", { lineHeight: "120%", letterSpacing: "0.25px", fontWeight: 700 }],
+        h5: ["clamp(18px, 1.2vw, 24px)", { lineHeight: "120%", letterSpacing: "0px", fontWeight: 700 }],
+        h6: ["clamp(16px, 1vw, 20px)", { lineHeight: "160%", letterSpacing: "0.15px", fontWeight: 700 }],
         btn: [
           "clamp(0.875rem, calc((1rem + 1vw)/1.5), 1rem)",
           { lineHeight: "clamp(1rem, calc((1rem + 1vw)/1.5), 1.25rem)" },
         ],
         p: [
-          "clamp(0.875rem, calc((1rem + 1vw)/1.5), 1.125rem)",
+          "clamp(0.7rem, calc((1rem + 1vw)/1.5), 1rem)",
+          { lineHeight: "clamp(1.125rem, calc((1rem + 1vw)/1.5), 1.5rem)" },
+        ],
+        a: [
+          "clamp(0.7rem, calc((1rem + 1vw)/1.5), 1rem)",
           { lineHeight: "clamp(1.125rem, calc((1rem + 1vw)/1.5), 1.5rem)" },
         ],
         body1: ["16px", { lineHeight: "150%", letterSpacing: "0.15px" }],

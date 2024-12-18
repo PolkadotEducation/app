@@ -84,43 +84,43 @@
   .fluid-gap {
     gap: clamp(0.5rem, -0.75rem + 2.5vh, 1rem);
   }
-
-  .paragraph {
-    @apply text-p;
-  }
-
-  .btn-text {
-    @apply text-btn;
-  }
-
-  .fluid-h1 {
-    @apply text-fluidH1;
-  }
 }
 
 @layer base {
   h1 {
-    @apply font-unbounded font-light text-h1;
+    @apply font-unbounded font-normal md:font-bold text-h1;
   }
 
   h2 {
-    @apply font-unbounded font-light text-h2;
+    @apply font-unbounded font-normal md:font-bold text-h2;
   }
 
   h3 {
-    @apply font-unbounded font-normal text-h3;
+    @apply font-unbounded font-normal md:font-bold text-h3;
   }
 
   h4 {
-    @apply font-unbounded font-bold text-h4;
+    @apply font-unbounded font-normal md:font-bold text-h4;
   }
 
   h5 {
-    @apply font-unbounded font-normal text-h5;
+    @apply font-unbounded font-normal md:font-bold text-h5;
   }
 
   h6 {
-    @apply font-unbounded font-medium text-h6;
+    @apply font-unbounded font-normal md:font-bold text-h6;
+  }
+
+  p {
+    @apply text-p;
+  }
+
+  a {
+    @apply text-a;
+  }
+
+  .btn-text {
+    @apply text-btn;
   }
 
   .body1 {
