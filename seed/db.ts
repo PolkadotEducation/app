@@ -53,7 +53,6 @@ export async function seedAll(db: Db) {
 
     console.info("Seeding courses...");
     await seedCourses(db, teamId);
-    await seedChoices(db);
     console.info("Courses seeded.");
   } catch (error) {
     console.error("Error while seeding:", error);
@@ -65,14 +64,13 @@ export async function seedCoursesOnly(db: Db) {
     console.info("Seeding courses...");
     const teamId = await seedTeams(db);
     await seedCourses(db, teamId);
-    await seedChoices(db);
     console.info("Courses seeded.");
   } catch (error) {
     console.error("Error while seeding courses:", error);
   }
 }
 
-async function seedChoices(db: Db) {
+export async function seedCorrectChoices(db: Db) {
   try {
     const { updateCorrectChoices } = await import("./collections/lessons/choices" as never);
     await updateCorrectChoices(db);

@@ -15,8 +15,8 @@ describe("Web3", () => {
   const initWalletAuthorized = () => cy.initWallet([Alice], DAPP_NAME, WALLET_NAME.toLowerCase());
   const initWalletUnauthorized = () => cy.initWallet([Alice], "", WALLET_NAME.toLowerCase());
 
-  const selectWallet = () => cy.get("[class^='WalletSelect-module_row-button'] > span").contains(WALLET_NAME);
-  const selectAccount = () => cy.get("[class^='WalletSelect-module_row-button'] > span > :nth-child(1)");
+  const selectWallet = () => cy.get("[class^='_row-button'] > span").contains(WALLET_NAME);
+  const selectAccount = () => cy.get("[class^='_row-button'] > span > :nth-child(1)");
 
   const checkLoginSuccess = () => {
     cy.getByData("text-home-courses").should("be.visible");

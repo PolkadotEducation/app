@@ -28,7 +28,7 @@ const AppHeader = () => {
   return (
     <div className="w-full flex justify-center bg-primary">
       <div className="w-full max-w-7xl h-16 flex justify-between px-2 items-center">
-        <Logo width={139} height={40} pathToRedirect="/" theme="dark" />
+        <Logo pathToRedirect="/" theme="dark" />
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
             <div className="cursor-pointer">
