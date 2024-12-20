@@ -81,6 +81,14 @@ const AppHeader = () => {
             <Link href="/profile">
               <DropdownMenuItem className="cursor-pointer">{t("profile")}</DropdownMenuItem>
             </Link>
+            {isAdmin && (
+              <>
+                <DropdownMenuSeparator />
+                <Link href="/admin" data-cy="link-header-admin">
+                  <DropdownMenuItem className="cursor-pointer">{t("admin")}</DropdownMenuItem>
+                </Link>
+              </>
+            )}
             {backofficeAccess && (
               <>
                 <DropdownMenuSeparator />
