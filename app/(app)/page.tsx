@@ -7,6 +7,7 @@ import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+
 const Home = () => {
   const { courses, loading, error, fetchCourses } = useCourse();
   const t = useTranslations("home");
