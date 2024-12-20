@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   `inline-flex items-center justify-center
-  whitespace-nowrap rounded-md text-sm font-bold unbound-font
+  whitespace-nowrap rounded-md btn-text font-bold unbound-font
   ring-offset-background transition-colors focus-visible:outline-none
   focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
   disabled:pointer-events-none disabled:opacity-50`,
@@ -28,10 +28,15 @@ const buttonVariants = cva(
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
       },
+      shadow: {
+        true: "shadow-sm",
+        false: "",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      shadow: true,
     },
   },
 );
@@ -44,12 +49,12 @@ export interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, loading = false, ...props }, ref) => {
+  ({ className, variant, size, shadow = true, asChild = false, loading = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, shadow, className }))}
         ref={ref}
         disabled={loading || props.disabled}
         {...props}

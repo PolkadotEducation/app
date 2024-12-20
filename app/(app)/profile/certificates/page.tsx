@@ -14,6 +14,8 @@ const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
   const [certificate, setCertificate] = useState<CertificateType>();
   const [certificateImage, setCertificateImage] = useState<string | null>(null);
+  const [isSharingSupported, setIsSharingSupported] = useState(false);
+  const [isClipboardSupported, setIsClipboardSupported] = useState(false);
   const t = useTranslations("profile");
 
   const [baseUrl, setBaseUrl] = useState<string>("");
@@ -32,6 +34,18 @@ const ProfileCertificatePage = () => {
         setBaseUrl(baseUrlFromServer);
       })();
     }
+
+    if (typeof navigator.share === "function") {
+      setIsSharingSupported(true);
+    } else {
+      setIsSharingSupported(false);
+    }
+
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+      setIsClipboardSupported(true);
+    } else {
+      setIsClipboardSupported(false);
+    }
   }, [searchParams]);
 
   if (!certificate) {
@@ -48,29 +62,25 @@ const ProfileCertificatePage = () => {
     }
   };
 
-  const isMobileDevice = () => {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-  };
-
   const shareCertificate = async () => {
     if (certificateImage) {
       const blob = await (await fetch(certificateImage)).blob();
       const file = new File([blob], `${certificate?._id}.png`, {
-        type: "image/png",
+        type: blob.type,
       });
 
-      if (navigator.share) {
-        await navigator.share({
-          title: t("certificates"),
-          text: t("shareText", { courseTitle: certificate.courseTitle }),
-          files: [file],
-        });
-      }
+      await navigator.share({
+        title: t("certificates"),
+        text: t("shareText", { courseTitle: certificate.courseTitle }),
+        files: [file],
+      });
     }
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`${baseUrl}/certificates/${certificate._id}`);
+    if (isClipboardSupported) {
+      navigator.clipboard.writeText(`${baseUrl}/certificates/${certificate._id}`);
+    }
   };
 
   return (
@@ -82,11 +92,12 @@ const ProfileCertificatePage = () => {
           <>
             <div className="mt-8 flex xl:flex-row flex-col justify-start w-full max-w-[842px] gap-5">
               <Button onClick={downloadAsPDF}>{t("downloadCertificate")}</Button>
-              {isMobileDevice() ? (
+              {isSharingSupported && (
                 <Button variant="outline" onClick={shareCertificate}>
                   {t("shareCertificate")}
                 </Button>
-              ) : (
+              )}
+              {isClipboardSupported && (
                 <Button variant="outline" onClick={copyToClipboard}>
                   {t("copyCertificateUrl")}
                 </Button>
