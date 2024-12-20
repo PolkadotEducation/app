@@ -1,5 +1,13 @@
 import { Db } from "mongodb";
-import { connectToDatabase, dropCourses, dropDatabase, resetDatabase, seedAll, seedCoursesOnly } from "./db";
+import {
+  connectToDatabase,
+  dropCourses,
+  dropDatabase,
+  resetDatabase,
+  seedAll,
+  seedCoursesOnly,
+  seedCorrectChoices,
+} from "./db";
 
 async function executeWithDb(command: string, callback: (_db: Db) => Promise<void>) {
   const { client, db } = await connectToDatabase();
@@ -26,6 +34,9 @@ async function main() {
         break;
       case "seed:courses":
         await executeWithDb(command, seedCoursesOnly);
+        break;
+      case "seed:courses:choices":
+        await executeWithDb(command, seedCorrectChoices);
         break;
       case "reset":
         await resetDatabase();

@@ -1,6 +1,8 @@
 {
   "components": {
     "profile": "Perfil",
+    "admin": "Admin",
+    "teams": "Times",
     "backoffice": "Backoffice",
     "logout": "Sair",
     "termsOfService": "Termos de serviço",

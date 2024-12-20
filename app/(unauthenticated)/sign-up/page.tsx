@@ -111,30 +111,22 @@ const SignUpPage = () => {
 
   return (
     <main>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h4 className="mb-4 text-center">{t("title")}</h4>
-        <p className="mb-8 text-center">{t("subtitle")}</p>
-        <InputFloatingLabel
-          id="nameInput"
-          value={name}
-          onChange={handleNameChange}
-          label={t("namePlaceholder")}
-          additionalStyles="mb-5"
-        />
+      <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
+        <h4 className="text-center">{t("title")}</h4>
+        <p className="text-center">{t("subtitle")}</p>
+        <InputFloatingLabel id="nameInput" value={name} onChange={handleNameChange} label={t("namePlaceholder")} />
         <InputFloatingLabel
           type="email"
           id="emailInput"
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles="mb-5"
         />
         <InputFloatingLabel
           id="companyInput"
           value={company}
           onChange={handleCompanyChange}
           label={t("companyPlaceholder")}
-          additionalStyles="mb-5"
         />
         <InputFloatingLabel
           type="password"
@@ -142,9 +134,8 @@ const SignUpPage = () => {
           value={password}
           onChange={handlePasswordChange}
           label={t("passwordPlaceholder")}
-          additionalStyles="mb-[4px]"
         />
-        <div className="mb-4 flex justify-start w-full pl-5">
+        <div className="flex justify-start w-full pl-5">
           <ul className="text-xs list-disc">
             {PASSWORD_REQUIREMENTS.map((i: string) => (
               <li key={i}>{t(i)}</li>
@@ -158,9 +149,9 @@ const SignUpPage = () => {
           onChange={handleRepeatedPasswordChange}
           label={t("repeatPasswordPlaceholder")}
           error={errorMessage}
-          additionalStyles={`${errorMessage ? "mb-1" : "mb-4 xl:mb-6"}`}
+          additionalStyles={`${errorMessage && "mb-1"}`}
         />
-        <Button type="submit" className="w-full" disabled={state.isLoading} data-cy="button-signup-submit">
+        <Button type="submit" className="w-full mt-3" disabled={state.isLoading} data-cy="button-signup-submit">
           {t("signUpButton")}
         </Button>
         {state.error && (

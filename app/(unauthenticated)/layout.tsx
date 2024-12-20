@@ -10,12 +10,12 @@ export default function UnauthenticatedLayout({
 }>) {
   return (
     <div className="flex h-screen">
-      <div className="w-full xl:w-1/2 flex items-center justify-center px-2 bg-card">
-        <div className="flex flex-col max-w-[425px] w-full h-full relative pt-6 xl:pt-0">
-          <div className="xl:absolute xl:top-6 xl:left-0 scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center mb-4 h-short:scale-80">
-            <Logo width={208} height={60} pathToRedirect="/login" />
+      <div className="flex w-full xl:w-1/2 justify-center bg-card">
+        <div className="flex flex-col h-dvh max-w-[450px] min-w-[340px] px-5">
+          <div className="flex p-[5vh] mx-auto">
+            <Logo pathToRedirect="/login" responsive />
           </div>
-          <div className="flex flex-1 items-center justify-center">
+          <div className="flex flex-1 items-center mx-auto">
             <AnimatedPage>{children}</AnimatedPage>
           </div>
         </div>
