@@ -13,7 +13,7 @@ export default function UnauthenticatedLayout({
       <div className="flex w-full xl:w-1/2 justify-center bg-card">
         <div className="flex flex-col h-dvh max-w-[450px] min-w-[340px] px-5">
           <div className="flex p-[5vh] mx-auto">
-            <Logo pathToRedirect="/login" />
+            <Logo pathToRedirect="/login" responsive />
           </div>
           <div className="flex flex-1 items-center mx-auto">
             <AnimatedPage>{children}</AnimatedPage>
