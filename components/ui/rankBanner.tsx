@@ -4,6 +4,7 @@ import rankStar from "../../public/assets/icons/level-star.svg";
 import globalRank from "../../public/assets/icons/global-rank.svg";
 import weeklyRank from "../../public/assets/icons/weekly-rank.svg";
 import victor from "../../public/assets/icons/victor-img.svg";
+import Link from "next/link";
 
 const menuItems = [
   {
@@ -11,7 +12,7 @@ const menuItems = [
     title: "Level",
     icon: rankStar,
     rank: 6,
-    styles: "flex flex-col items-center justify-center text-neutral-50 px-10 gap-1",
+    styles: "flex flex-col items-center justify-center text-neutral-50 px-9 md:px-10 gap-1",
     alt: "Level star",
   },
   {
@@ -20,7 +21,7 @@ const menuItems = [
     icon: globalRank,
     rank: 162,
     styles:
-      "flex flex-col items-center justify-center text-neutral-50 px-10 border-r border-l border-neutral-300 gap-1",
+      "flex flex-col items-center justify-center text-neutral-50 px-4 md:px-10 border-r border-l border-neutral-300 gap-1",
     alt: "Global Rank",
   },
   {
@@ -28,7 +29,7 @@ const menuItems = [
     title: "Rank Sem.",
     icon: weeklyRank,
     rank: 16,
-    styles: "flex flex-col items-center justify-center text-neutral-50 px-10 gap-1",
+    styles: "flex flex-col items-center justify-center text-neutral-50 px-4 md:px-10 gap-1",
     alt: "Weekly rank",
   },
 ];
@@ -39,12 +40,14 @@ const RankBanner = () => {
         <h5>Victor Carvalho</h5>
         <Image src={victor} alt="Victor" />
       </div>
-      <ul className="flex gap-4 items-center justify-center bg-secondary-main w-[max-content] py-2 px-4 rounded-xl">
+      <ul className="flex md:gap-4 items-center justify-center bg-secondary-main w-[max-content] py-2 md:px-4 rounded-xl">
         {menuItems.map((item) => {
           return (
-            <li className={item.styles}>
-              <Image src={item.icon} alt="Level star" /> <p>{item.title}</p> <p>#{item.rank}</p>
-            </li>
+            <Link href={"/ranking"}>
+              <li className={item.styles}>
+                <Image src={item.icon} alt="Level star" /> <p>{item.title}</p> <p>#{item.rank}</p>
+              </li>
+            </Link>
           );
         })}
       </ul>
