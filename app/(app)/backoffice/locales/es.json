@@ -40,6 +40,22 @@
     "entityDuplicatedSuccessfully": "Entidad duplicada con éxito",
     "errorDuplicatingEntity": "Error al duplicar la entidad",
     "newCourse": "Nuevo curso",
-    "searchCourse": "Buscar curso"
+    "searchCourse": "Buscar curso",
+    "generalInfo": "Información General",
+    "modulesAndOthers": "Módulos y Otros",
+    "language": "Idioma",
+    "addModule": "Agregar módulo",
+    "noModules": "Parece que no tienes módulos todavía, agrega nuevos módulos",
+    "courseCreated": "Curso creado",
+    "courseCreationError": "Error al crear el curso",
+    "atLeastOneModule": "Por favor, deberías tener al menos un módulo por curso",
+    "addLesson": "Agregar Lección",
+    "lessons": "Lecciónes",
+    "module": "Módulo",
+    "courseUpdated": "Curso actualizado con éxito",
+    "courseUpdateError": "Error al actualizar el curso",
+    "updateCourse": "Actualizar Curso",
+    "selectLessons": "Seleccione las lecciones para agregar al módulo",
+    "continue": "Continuar"
   }
 }

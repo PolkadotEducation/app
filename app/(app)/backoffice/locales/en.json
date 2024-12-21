@@ -40,6 +40,22 @@
     "entityDuplicatedSuccessfully": "Entity duplicated successfully",
     "errorDuplicatingEntity": "Error duplicating entity",
     "newCourse": "New Course",
-    "searchCourse": "Search Course"
+    "searchCourse": "Search Course",
+    "generalInfo": "General Information",
+    "modulesAndOthers": "Modules and Others",
+    "language": "Language",
+    "addModule": "Add Module",
+    "noModules": "Seems like you don't have modules yet, add new modules",
+    "courseCreated": "Course created",
+    "courseCreationError": "Error while creating course",
+    "atLeastOneModule": "Please, you should have at least one module per course",
+    "addLesson": "Add Lesson",
+    "lessons": "Lessons",
+    "module": "Module",
+    "courseUpdated": "Course updated successfully",
+    "courseUpdateError": "Error while updating course",
+    "updateCourse": "Update Course",
+    "selectLessons": "Select lessons to add to the module",
+    "continue": "Continue"
   }
 }

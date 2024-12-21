@@ -1,11 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { LessonSummary, SimplifiedLessonType } from "@/types/lessonTypes";
-import { DialogClose, DialogDescription } from "@radix-ui/react-dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 import LessonsSelectorItem from "./lessonsSelectorItem";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useTranslations } from "next-intl";
 
 interface LessonsSelectorProps {
   open: boolean;
@@ -27,6 +35,7 @@ const LessonsSelector = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [lessonNameFilter, setLessonNameFilter] = useState("");
   const itemsPerPage = 6;
+  const t = useTranslations("backoffice");
 
   const filteredLessons = lessons.filter((lesson) =>
     lesson.title.toLowerCase().includes(lessonNameFilter.toLowerCase()),
@@ -57,10 +66,11 @@ const LessonsSelector = ({
       <DialogContent className="max-w-[1000px]">
         <DialogHeader>
           <DialogTitle className="mb-4">
-            <h6>Adicionar aulas - {moduleTitle}</h6>
+            {t("addLesson")} - {moduleTitle}
           </DialogTitle>
         </DialogHeader>
-        <DialogDescription className="h-[480px]">
+        <DialogDescription>{t("selectLessons")}</DialogDescription>
+        <div className="h-[480px]">
           <div className="mb-6">
             <Input
               className="rounded-3xl"
@@ -88,23 +98,21 @@ const LessonsSelector = ({
               <Button type="button" variant="link" disabled={currentPage === 1} onClick={handlePreviousPage}>
                 <ChevronLeft />
               </Button>
-              <span>
-                Página {currentPage} de {totalPages}
-              </span>
+              <span>{t("pagination", { currentPage, totalPages })}</span>
               <Button type="button" variant="link" disabled={currentPage === totalPages} onClick={handleNextPage}>
                 <ChevronRight />
               </Button>
             </div>
           )}
-        </DialogDescription>
+        </div>
         <DialogFooter className="justify-between">
           <DialogClose asChild>
             <Button type="button" variant="outline">
-              Cancel
+              {t("cancel")}
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="button">Continuar</Button>
+            <Button type="button">{t("continue")}</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

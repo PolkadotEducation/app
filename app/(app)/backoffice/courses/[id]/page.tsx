@@ -17,7 +17,7 @@ import { LessonSummary } from "@/types/lessonTypes";
 import { getLessonsSummary } from "@/api/lessonService";
 import { CirclePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { createCourse } from "@/api/courseService";
+import { getCourse, updateCourse } from "@/api/courseService";
 import { useToast } from "@/hooks/useToast";
 import { useTranslations } from "next-intl";
 
@@ -29,7 +29,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const CreateCoursePage = () => {
+const UpdateCoursePage = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const { user } = useUser();
   const [modules, setModules] = useState<SimplifiedModuleType[]>([]);
   const [lessons, setLessons] = useState<LessonSummary[]>([]);
@@ -42,12 +43,13 @@ const CreateCoursePage = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       title: "",
       summary: "",
-      language: "english",
+      language: "",
     },
   });
 
@@ -65,9 +67,37 @@ const CreateCoursePage = () => {
     setLessons(response);
   };
 
+  const getCourseData = async (id: string) => {
+    const response = await getCourse(id);
+    if (response) {
+      reset({
+        title: response.title,
+        summary: response.summary,
+        language: response.language,
+      });
+      setModules(
+        response.modules?.map((m) => {
+          return {
+            id: m._id,
+            title: m.title,
+            lessons: m.lessons.map((l) => {
+              return {
+                _id: l._id,
+                title: l.title,
+              };
+            }),
+          };
+        }) as SimplifiedModuleType[],
+      );
+    }
+  };
+
   useEffect(() => {
-    getLessons();
-  }, []);
+    if (id) {
+      getCourseData(id);
+      getLessons();
+    }
+  }, [id]);
 
   const createModule = () => {
     const newModuleId = `module-${modules.length + 1}`;
@@ -97,6 +127,7 @@ const CreateCoursePage = () => {
       summary: data.summary,
       modules: modules.map((m) => {
         return {
+          _id: m.id,
           title: m.title,
           lessons: m.lessons,
         };
@@ -104,27 +135,27 @@ const CreateCoursePage = () => {
     };
 
     try {
-      const response = await createCourse(selectedTeamId, courseData);
+      const response = await updateCourse(selectedTeamId, id, courseData);
       if (response) {
         toast({
-          title: t("courseCreated"),
+          title: t("courseUpdated"),
           variant: "default",
         });
         router.push("/backoffice/courses");
       } else {
         toast({
-          title: t("courseCreationError"),
+          title: t("courseUpdateError"),
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error("Error creating course:", error);
+      console.error("Error updating course:", error);
     }
   };
 
   return (
     <main className="mb-10 max-w-7xl w-full">
-      <h4 className="xl:mb-[30px] mb-4">{t("newCourse")}</h4>
+      <h4 className="xl:mb-[30px] mb-4">{t("updateCourse")}</h4>
       <form id="courseForm" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-6">
           <Tabs defaultValue="general">
@@ -233,4 +264,4 @@ const CreateCoursePage = () => {
   );
 };
 
-export default CreateCoursePage;
+export default UpdateCoursePage;

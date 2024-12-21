@@ -1,5 +1,5 @@
 import { CourseType } from "@/types/courseTypes";
-import { ServerAxiosError, serverDelete, serverGet, serverPost } from "./actions/api";
+import { ServerAxiosError, serverDelete, serverGet, serverPost, serverPut } from "./actions/api";
 import { COURSE, COURSES, COURSES_DUPLICATE, COURSES_SUMMARY } from "./constants";
 
 export const getCourses = async (teamId?: string, language?: string): Promise<CourseType[]> => {
@@ -36,4 +36,16 @@ export const deleteCourseById = async (teamId: string, courseId: string): Promis
   const response = await serverDelete<Boolean>(`${COURSE}/${teamId}/${courseId}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as Boolean;
+};
+
+export const createCourse = async (teamId: string, courseData: CourseType): Promise<CourseType> => {
+  const response = await serverPost<CourseType>(`${COURSE}/${teamId}`, courseData);
+  if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
+  return response as CourseType;
+};
+
+export const updateCourse = async (teamId: string, courseId: string, courseData: CourseType): Promise<CourseType> => {
+  const response = await serverPut<CourseType>(`${COURSE}/${teamId}/${courseId}`, courseData);
+  if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
+  return response as CourseType;
 };
