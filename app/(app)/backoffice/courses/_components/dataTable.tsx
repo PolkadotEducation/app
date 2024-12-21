@@ -18,10 +18,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { DataTablePagination } from "@/components/ui/dataTablePagination";
 import { useToast } from "@/hooks/useToast";
-import { duplicateLessons } from "@/api/lessonService";
 import { useUser } from "@/hooks/useUser";
+import { DataTablePagination } from "@/components/ui/dataTablePagination";
+import { duplicateCourses } from "@/api/courseService";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -66,7 +67,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
       });
       return;
     }
-    const resp = await duplicateLessons(selectedTeamId, selectedIds);
+    const resp = await duplicateCourses(selectedTeamId, selectedIds);
     if (resp) {
       await updateData();
       toast({
@@ -85,7 +86,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
     <div className="rounded-md">
       <div className="flex xl:flex-row flex-col justify-between mb-4">
         <Input
-          placeholder={t("searchLesson")}
+          placeholder={t("searchCourse")}
           className="max-w-[500px]"
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
@@ -94,7 +95,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
           <Button variant="outline" onClick={() => handleDuplicateItems()}>
             {t("duplicateItem")}
           </Button>
-          <Button onClick={() => router.push("/backoffice/lessons/new")}>{t("newLesson")}</Button>
+          <Button onClick={() => router.push("/backoffice/courses/new")}>{t("newCourse")}</Button>
         </div>
       </div>
       <Table className="mb-4">

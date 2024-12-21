@@ -29,3 +29,5 @@ export type LessonSummary = {
 export type LessonResponse = {
   lessonId: string;
 };
+
+export type SimplifiedLessonType = Omit<LessonType, "teamId" | "language" | "difficulty" | "body" | "challenge">;

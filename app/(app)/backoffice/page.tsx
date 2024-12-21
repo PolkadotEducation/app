@@ -29,7 +29,9 @@ const BackofficeHomePage = () => {
           <div className="flex flex-col xl:ml-8 xl:mt-0 mt-4">
             <h6 className="mb-4">{t("myCourses")}</h6>
             <p className="mb-6">{t("structureYourCourse")}</p>
-            <Button className="xl:w-fit">{t("goToMyCourses")}</Button>
+            <Button className="xl:w-fit" onClick={() => router.push("/backoffice/courses")}>
+              {t("goToMyCourses")}
+            </Button>
           </div>
         </div>
       </div>
