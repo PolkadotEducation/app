@@ -40,6 +40,7 @@
     "certificate": "Certificado de finalización del curso",
     "finished": "completó con éxito el curso",
     "estimatedTime": "Tiempo estimado de aprendizaje: {duration} horas",
-    "certificateId": "ID del certificado: {id}"
+    "certificateId": "ID del certificado: {id}",
+    "ranking": "Ranking"
   }
 }
