@@ -20,7 +20,7 @@ const Home = () => {
   }, [userLoading]);
 
   return (
-    <div className="">
+    <div className="w-[360px] md:w-full lg:w-full">
       <div className="flex gap-8 items-center flex-col md:flex-row lg:flex-row">
         <RankBanner />
         <DailyChallengeBanner />
