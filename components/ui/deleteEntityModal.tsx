@@ -10,14 +10,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
-interface DeleteLessonModalProps {
+interface DeleteEntityModalProps {
   open: boolean;
   onOpenChange: (_isOpen: boolean) => void;
-  lessonName: string;
+  entityName: string;
   onSubmit: () => Promise<void>;
+  variant: "lesson" | "course";
 }
 
-export const DeleteLessonModal = ({ open, onOpenChange, lessonName, onSubmit }: DeleteLessonModalProps) => {
+export const DeleteEntityModal = ({ open, onOpenChange, entityName, onSubmit, variant }: DeleteEntityModalProps) => {
   const t = useTranslations("backoffice");
 
   return (
@@ -25,9 +26,9 @@ export const DeleteLessonModal = ({ open, onOpenChange, lessonName, onSubmit }: 
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-4">
-            <h6>{t("deleteLesson")}</h6>
+            <h6>{t("deleteModalTitle", { variant })}</h6>
           </DialogTitle>
-          <DialogDescription className="mb-4">{t("confirmDeleteLesson", { lessonName })}</DialogDescription>
+          <DialogDescription className="mb-4">{t("confirmDeleteEntity", { entityName })}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="justify-between">
           <DialogClose asChild>
