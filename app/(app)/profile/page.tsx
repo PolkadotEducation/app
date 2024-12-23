@@ -6,8 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useUser } from "@/hooks/useUser";
 import Loading from "@/components/ui/loading";
 import { useEffect, useState } from "react";
-import { getUserCompletedCourses } from "@/api/progressService";
-import { CompletedCourse } from "@/types/progressTypes";
+import { getUserCompletedCourses, getUserXpAndLevel } from "@/api/progressService";
+import { CompletedCourse, XpAndLevel } from "@/types/progressTypes";
 import CourseCardPreview from "@/components/ui/courseCardPreview";
 import { generateCertificate, getCertificates } from "@/api/certificateService";
 import { CertificateType } from "@/types/certificateTypes";
@@ -18,6 +18,11 @@ const ProfilePage = () => {
   const { userLoading } = useUser();
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
   const [certificates, setCertificates] = useState<CertificateType[]>([]);
+  const [progress, setProgress] = useState<XpAndLevel>({
+    level: 0,
+    xp: 0,
+    xpToNextLevel: 100,
+  });
   const { user } = useUser();
   const router = useRouter();
 
@@ -39,9 +44,15 @@ const ProfilePage = () => {
     setCertificates(certificates);
   };
 
+  const getUserProgress = async () => {
+    const response = await getUserXpAndLevel();
+    setProgress(response);
+  };
+
   useEffect(() => {
     getCompletedCourses();
     getUserCertificates();
+    getUserProgress();
   }, []);
 
   const handleCertificateClick = async (courseId: string) => {
@@ -57,7 +68,7 @@ const ProfilePage = () => {
   return (
     <main className="max-w-7xl w-full">
       <h4 className="xl:mb-6 mb-4">{t("profile")}</h4>
-      <ProfileCard />
+      <ProfileCard {...progress} />
       <div className="mt-6">
         <Tabs defaultValue="certificates">
           <TabsList className="w-fit">
