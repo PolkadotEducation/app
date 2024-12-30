@@ -7,28 +7,22 @@ import { WalletAccount } from "@talismn/connect-wallets";
 import { Button } from "./button";
 import { connectInjectedExtension } from "polkadot-api/pjs-signer";
 import { sign } from "@/api/web3";
-import { startFromWorker } from "polkadot-api/smoldot/from-worker";
-import { getSmProvider } from "polkadot-api/sm-provider";
-import { createClient, PolkadotClient } from "polkadot-api";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import polkadot from "@/public/assets/icons/polkadot.svg";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-
-const WEB3_ACTIVE = false;
-const DAPP_NAME = "Polkadot Education";
+import { DAPP_NAME } from "@/helpers/web3";
 
 const Web3Wallet = () => {
   const [selectedAccount, setSelectedAccount] = useState<WalletAccount | undefined>();
   const [signature, setSignature] = useState<Uint8Array | undefined>();
   const [balance, setBalance] = useState("");
   const [isSigning, setIsSigning] = useState(false);
-  const [client, setClient] = useState<PolkadotClient | undefined>();
   const t = useTranslations("components");
 
   const router = useRouter();
-  const { loginWithWallet, clearAuthError } = useAuth();
+  const { setWallet, loginWithWallet, clearAuthError } = useAuth();
 
   const displayAccountInfo = useMemo(() => {
     if (isSigning) return "Signing...";
@@ -40,20 +34,6 @@ const Web3Wallet = () => {
     }
     return t("loginPolkadot");
   }, [isSigning, selectedAccount, balance]);
-
-  useEffect(() => {
-    if (WEB3_ACTIVE && !client) {
-      (async () => {
-        const smoldot = startFromWorker(new Worker(new URL("polkadot-api/smoldot/worker", import.meta.url)));
-        const smoldotRelayChain = await import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
-          smoldot.addChain({ chainSpec }),
-        );
-        const jsonRpcProvider = getSmProvider(smoldotRelayChain);
-        const polkadotClient = createClient(jsonRpcProvider);
-        setClient(polkadotClient);
-      })();
-    }
-  }, [client]);
 
   useEffect(() => {
     clearAuthError();
@@ -83,6 +63,7 @@ const Web3Wallet = () => {
       const signedMessage = await sign(foundAccount, `${foundAccount.address}@PolkadotEducation`);
       setSignature(signedMessage);
     }
+    setWallet(acc);
     setIsSigning(false);
   }, []);
 

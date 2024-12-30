@@ -13,6 +13,7 @@
     "downloadCertificate": "Download Certificate",
     "shareCertificate": "Share Certificate",
     "copyCertificateUrl": "Copy Certificate URL",
+    "mintCertificate": "Mint Certificate",
     "publicCertificateUrl": "URL of the public certificate:",
     "shareText": "Check out this certificate for \"{courseTitle}\"!"
   }

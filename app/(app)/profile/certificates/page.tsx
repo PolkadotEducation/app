@@ -10,6 +10,12 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { getAppBaseUrl } from "@/helpers/environment";
 
+import Web3Wallet from "@/components/ui/web3Wallet";
+import { MultiAddress } from "@polkadot-api/descriptors";
+import { useAuth } from "@/hooks/useAuth";
+import { connectInjectedExtension } from "polkadot-api/pjs-signer";
+import { DAPP_NAME, getPolkadotInterface } from "@/helpers/web3";
+
 const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
   const [certificate, setCertificate] = useState<CertificateType>();
@@ -19,6 +25,7 @@ const ProfileCertificatePage = () => {
   const t = useTranslations("profile");
 
   const [baseUrl, setBaseUrl] = useState<string>("");
+  const { state } = useAuth();
 
   const getCertificate = async (certificateId: string) => {
     const certificate = await getCertificateById(certificateId);
@@ -62,6 +69,41 @@ const ProfileCertificatePage = () => {
     }
   };
 
+  const mintCertificate = async () => {
+    if (state.web3Acc?.wallet) {
+      const { polkadotClient, polkadotApi } = getPolkadotInterface();
+      // TODO: Fetch payload (signature, when using mintPreSigned) from API
+      // Collection: TBD
+      // Item: Sequential or something bound to certificateId
+      const mint = polkadotApi.tx.Nfts.mint({
+        collection: 42,
+        item: 1,
+        mint_to: MultiAddress.Id(state.web3Acc?.address),
+        witness_data: undefined,
+      });
+
+      const callData = await mint.getEncodedData();
+      const tx = await polkadotApi.txFromCallData(callData);
+      const injected = await connectInjectedExtension(state.web3Acc.wallet?.extensionName || "polkadot-js", DAPP_NAME);
+      const foundAccount = injected.getAccounts().find((a) => a.address === state.web3Acc?.address);
+      if (foundAccount) {
+        const payload = await tx?.sign(foundAccount.polkadotSigner);
+        polkadotClient.submitAndWatch(payload).subscribe({
+          next: (_event) => {
+            // console.log("Tx event: ", _event.type);
+            // if (_event.type === "txBestBlocksState") {
+            //   console.log("The tx is now in a best block");
+            // }
+          },
+          error: console.error,
+          complete() {
+            polkadotClient.destroy();
+          },
+        });
+      }
+    }
+  };
+
   const shareCertificate = async () => {
     if (certificateImage) {
       const blob = await (await fetch(certificateImage)).blob();
@@ -102,6 +144,7 @@ const ProfileCertificatePage = () => {
                   {t("copyCertificateUrl")}
                 </Button>
               )}
+              {state.web3Acc ? <Button onClick={mintCertificate}>{t("mintCertificate")}</Button> : <Web3Wallet />}
             </div>
             <div className="mt-8 flex flex-col w-full max-w-[842px] gap-4">
               <h6 className="text-lg font-medium">{t("publicCertificateUrl")}</h6>
