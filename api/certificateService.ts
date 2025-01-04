@@ -1,6 +1,6 @@
 import { ServerAxiosError, serverGet, serverPost } from "./actions/api";
 import { CERTIFICATES, CERTIFICATE_GENERATE } from "./constants";
-import { CertificateType } from "@/types/certificateTypes";
+import { CertificateType, MintSignature } from "@/types/certificateTypes";
 
 export const getCertificates = async (params?: { userId?: string; courseId?: string }): Promise<CertificateType[]> => {
   const queryParams = new URLSearchParams();
@@ -24,4 +24,10 @@ export const getCertificateById = async (certificateId: string): Promise<Certifi
   const response = await serverGet<CertificateType>(`${CERTIFICATES}/${certificateId}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as CertificateType;
+};
+
+export const mintCertificate = async (certificateId: string, deadline: number): Promise<MintSignature> => {
+  const response = await serverPost<MintSignature>(`${CERTIFICATES}/mint`, { certificateId, deadline });
+  if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
+  return response as MintSignature;
 };

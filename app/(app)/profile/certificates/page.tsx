@@ -1,6 +1,6 @@
 "use client";
 
-import { getCertificateById } from "@/api/certificateService";
+import { getCertificateById, mintCertificate } from "@/api/certificateService";
 import { CertificateType } from "@/types/certificateTypes";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -11,10 +11,13 @@ import { useTranslations } from "next-intl";
 import { getAppBaseUrl } from "@/helpers/environment";
 
 import Web3Wallet from "@/components/ui/web3Wallet";
-import { MultiAddress } from "@polkadot-api/descriptors";
+import { MultiSignature } from "@polkadot-api/descriptors";
 import { useAuth } from "@/hooks/useAuth";
 import { connectInjectedExtension } from "polkadot-api/pjs-signer";
 import { DAPP_NAME, getPolkadotInterface } from "@/helpers/web3";
+
+import { fromHex } from "@polkadot-api/utils";
+import { Binary, FixedSizeBinary } from "polkadot-api";
 
 const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
@@ -69,17 +72,29 @@ const ProfileCertificatePage = () => {
     }
   };
 
-  const mintCertificate = async () => {
-    if (state.web3Acc?.wallet) {
+  const mint = async () => {
+    if (certificate && certificate?._id && state.web3Acc?.wallet) {
       const { polkadotClient, polkadotApi } = getPolkadotInterface();
-      // TODO: Fetch payload (signature, when using mintPreSigned) from API
-      // Collection: TBD
-      // Item: Sequential or something bound to certificateId
-      const mint = polkadotApi.tx.Nfts.mint({
-        collection: 42,
-        item: 1,
-        mint_to: MultiAddress.Id(state.web3Acc?.address),
-        witness_data: undefined,
+
+      const blockInfo = await polkadotClient.getFinalizedBlock();
+
+      const deadline = blockInfo.number + 1_000;
+      const { signature } = await mintCertificate(certificate._id, deadline);
+      const mint_data = {
+        collection: certificate.mintSpecs?.collectionId,
+        item: certificate.mintSpecs?.itemId,
+        attributes: [],
+        metadata: new Binary(fromHex("0x")),
+        only_account: undefined,
+        deadline,
+        mint_price: undefined,
+      };
+      const sig = new FixedSizeBinary(fromHex(signature));
+
+      const mint = polkadotApi.tx.Nfts.mint_pre_signed({
+        mint_data,
+        signature: MultiSignature.Sr25519(sig),
+        signer: certificate.mintSpecs?.owner,
       });
 
       const callData = await mint.getEncodedData();
@@ -144,7 +159,7 @@ const ProfileCertificatePage = () => {
                   {t("copyCertificateUrl")}
                 </Button>
               )}
-              {state.web3Acc ? <Button onClick={mintCertificate}>{t("mintCertificate")}</Button> : <Web3Wallet />}
+              {state.web3Acc ? <Button onClick={mint}>{t("mintCertificate")}</Button> : <Web3Wallet />}
             </div>
             <div className="mt-8 flex flex-col w-full max-w-[842px] gap-4">
               <h6 className="text-lg font-medium">{t("publicCertificateUrl")}</h6>

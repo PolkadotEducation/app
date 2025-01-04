@@ -1,3 +1,10 @@
+export type MintSpecs = {
+  collectionId: number;
+  itemId: number;
+  owner: string;
+  deadline: number;
+};
+
 export type CertificateType = {
   _id?: string;
   courseId: string;
@@ -5,4 +12,9 @@ export type CertificateType = {
   userId: string;
   userName: string;
   courseDuration?: number;
+  mintSpecs?: MintSpecs;
+};
+
+export type MintSignature = {
+  signature: string;
 };
