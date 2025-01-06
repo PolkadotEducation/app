@@ -17,7 +17,7 @@ import { connectInjectedExtension } from "polkadot-api/pjs-signer";
 import { DAPP_NAME, getPolkadotInterface, stringToHex } from "@/helpers/web3";
 
 import { fromHex } from "@polkadot-api/utils";
-import { Binary, FixedSizeBinary } from "polkadot-api";
+import { Binary, FixedSizeBinary, FixedSizeArray } from "polkadot-api";
 
 const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
@@ -82,10 +82,10 @@ const ProfileCertificatePage = () => {
 
       const blockInfo = await polkadotClient.getFinalizedBlock();
 
-      const collectionId = certificate.mintSpecs?.collectionId;
-      const itemId = certificate.mintSpecs?.itemId;
+      const collection = certificate.mintSpecs?.collectionId || 0;
+      const item = certificate.mintSpecs?.itemId || 0;
 
-      const itemData = await polkadotApi.query.Nfts.Item.getValue(collectionId, itemId);
+      const itemData = await polkadotApi.query.Nfts.Item.getValue(collection, item);
       // Alredy minted
       if (itemData?.owner) {
         setMinted(true);
@@ -93,14 +93,15 @@ const ProfileCertificatePage = () => {
       }
 
       const deadline = blockInfo.number + 1_000;
-      const certificateName = "PolkadotEducation - Certificate";
+      const certificateName = "Polkadot Education - Certificate";
+      const attributes: FixedSizeArray<2, Binary>[] = [
+        [new Binary(fromHex(stringToHex(certificateName))), new Binary(fromHex(stringToHex(certificate._id)))],
+      ];
       const { signature } = await mintCertificate(certificateName, certificate._id, deadline);
       const mint_data = {
-        collection: collectionId,
-        item: itemId,
-        attributes: [
-          [new Binary(fromHex(stringToHex(certificateName))), new Binary(fromHex(stringToHex(certificate._id)))],
-        ],
+        collection,
+        item,
+        attributes,
         metadata: new Binary(fromHex("0x")),
         only_account: undefined,
         deadline,
@@ -111,7 +112,7 @@ const ProfileCertificatePage = () => {
       const mint = polkadotApi.tx.Nfts.mint_pre_signed({
         mint_data,
         signature: MultiSignature.Sr25519(sig),
-        signer: certificate.mintSpecs?.owner,
+        signer: certificate.mintSpecs?.owner || "",
       });
 
       const callData = await mint.getEncodedData();
