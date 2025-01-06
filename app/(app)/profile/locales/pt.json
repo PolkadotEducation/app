@@ -14,6 +14,8 @@
     "shareCertificate": "Compartilhar Certificado",
     "copyCertificateUrl": "Copiar URL do Certificado",
     "mintCertificate": "Mint Certificado",
+    "minting": "Minting",
+    "minted": "Already Minted",
     "publicCertificateUrl": "URL do certificado público:",
     "shareText": "Confira este certificado para \"{courseTitle}\"!"
   }

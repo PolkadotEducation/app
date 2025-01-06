@@ -26,8 +26,16 @@ export const getCertificateById = async (certificateId: string): Promise<Certifi
   return response as CertificateType;
 };
 
-export const mintCertificate = async (certificateId: string, deadline: number): Promise<MintSignature> => {
-  const response = await serverPost<MintSignature>(`${CERTIFICATES}/mint`, { certificateId, deadline });
+export const mintCertificate = async (
+  certificateName: string,
+  certificateId: string,
+  deadline: number,
+): Promise<MintSignature> => {
+  const response = await serverPost<MintSignature>(`${CERTIFICATES}/mint`, {
+    certificateName,
+    certificateId,
+    deadline,
+  });
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as MintSignature;
 };
