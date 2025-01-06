@@ -22,7 +22,8 @@
     "test:open": "cypress open",
     "test": "cypress run",
     "type-check": "tsc --noEmit",
-    "wait": "wait-on http://localhost:3000"
+    "wait": "wait-on http://localhost:3000",
+    "postinstall": "papi"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
