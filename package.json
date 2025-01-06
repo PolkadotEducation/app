@@ -6,10 +6,11 @@
   "scripts": {
     "build-storybook": "storybook build",
     "build": "next build",
-    "db:reset": "bun run seed/cli.ts reset",
     "db:drop:all": "bun run seed/cli.ts drop:all",
     "db:drop:courses": "bun run seed/cli.ts drop:courses",
+    "db:reset": "bun run seed/cli.ts reset",
     "db:seed:all": "bun run seed/cli.ts seed:all",
+    "db:seed:courses:choices": "bun run seed/cli.ts seed:courses:choices",
     "db:seed:courses": "bun run seed/cli.ts seed:courses",
     "dev": "next dev",
     "format:fix": "prettier --write .",
@@ -24,6 +25,9 @@
     "wait": "wait-on http://localhost:3000"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
     "@hookform/resolvers": "^3.9.0",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
@@ -63,7 +67,7 @@
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.1.0",
+    "vaul": "^1.1.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -89,7 +93,7 @@
     "autoprefixer": "^10.0.1",
     "cypress": "^13.15.1",
     "cypress-wait-until": "^3.0.2",
-    "eslint": "9.16.0",
+    "eslint": "9.17.0",
     "eslint-config-next": "^15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-cypress": "^4.0.0",

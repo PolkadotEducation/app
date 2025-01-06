@@ -17,3 +17,9 @@ export type CompletedCourse = {
   courseId: string;
   courseTitle: string;
 };
+
+export type XpAndLevel = {
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+};

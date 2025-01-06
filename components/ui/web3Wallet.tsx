@@ -77,8 +77,8 @@ const Web3Wallet = ({ buttonLabel, skipSign }: Web3WalletProps) => {
   const TriggerButton = useMemo(() => {
     return (
       <Button
-        className={`w-full bg-transparent hover:bg-transparent hover:opacity-70 text-text-secondary
-        hover:text-text-secondary border-border-gray border-[1px] ${skipSign ? "" : "m-2"}`}
+        className="w-full bg-transparent hover:bg-transparent hover:opacity-70 text-text-secondary
+        hover:text-text-secondary border-border-gray border-[1px]"
         type="button"
         disabled={isSigning}
         variant={"ghost"}

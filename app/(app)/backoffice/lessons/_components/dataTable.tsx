@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { DataTablePagination } from "./dataTablePagination";
+import { DataTablePagination } from "@/components/ui/dataTablePagination";
 import { useToast } from "@/hooks/useToast";
 import { duplicateLessons } from "@/api/lessonService";
 import { useUser } from "@/hooks/useUser";
@@ -61,7 +61,7 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
     const selectedIds = table.getSelectedRowModel().rows.map((row) => (row.original as { _id: string })._id);
     if (selectedIds.length <= 0) {
       toast({
-        title: t("selectAtLeastOneLesson"),
+        title: t("selectAtLeastOne"),
         variant: "destructive",
       });
       return;
@@ -70,13 +70,13 @@ export const DataTable = <TData, TValue>({ columns, data, updateData }: DataTabl
     if (resp) {
       await updateData();
       toast({
-        title: t("lessonsDuplicatedSuccessfully"),
+        title: t("entityDuplicatedSuccessfully"),
         variant: "default",
       });
       return;
     }
     toast({
-      title: t("errorDuplicatingLessons"),
+      title: t("errorDuplicatingEntity"),
       variant: "destructive",
     });
   };

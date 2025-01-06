@@ -1,6 +1,8 @@
 {
   "components": {
     "profile": "Perfil",
+    "admin": "Admin",
+    "teams": "Times",
     "backoffice": "Backoffice",
     "logout": "Sair",
     "termsOfService": "Termos de serviço",
@@ -38,6 +40,7 @@
     "certificate": "Certificado de conclusão de curso",
     "finished": "concluiu com sucesso o curso",
     "estimatedTime": "Tempo estimado de aprendizado: {duration} horas",
-    "certificateId": "ID do certificado: {id}"
+    "certificateId": "ID do certificado: {id}",
+    "courses": "Cursos"
   }
 }

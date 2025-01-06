@@ -17,6 +17,7 @@
     "minting": "Minting",
     "minted": "Already Minted",
     "publicCertificateUrl": "URL del certificado público:",
-    "shareText": "¡Mira este certificado para \"{courseTitle}\"!"
+    "shareText": "¡Mira este certificado para \"{courseTitle}\"!",
+    "xpToNextLevel": "{xpToNextLevel} XP para el"
   }
 }

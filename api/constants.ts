@@ -7,6 +7,10 @@ export const USERS = `/users`;
 export const USERS_VERIFY = "/users/verify";
 export const USERS_RECOVER = "/users/recover";
 
+// Teams
+export const USERS_TEAMS = `/users/teams`;
+export const TEAMS = `/teams`;
+
 // Course
 export const LESSON = "/lesson";
 export const LESSONS = "/lessons";
@@ -15,6 +19,8 @@ export const LESSONS_SUMMARY = "/lessons/summary";
 export const MODULE = "/module";
 export const COURSE = "/course";
 export const COURSES = "/courses";
+export const COURSES_SUMMARY = "/courses/summary";
+export const COURSES_DUPLICATE = "/courses/duplicate";
 export const PROGRESS = "/progress";
 
 // Certificates
