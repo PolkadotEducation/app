@@ -14,6 +14,7 @@
     "shareCertificate": "Share Certificate",
     "copyCertificateUrl": "Copy Certificate URL",
     "publicCertificateUrl": "URL of the public certificate:",
-    "shareText": "Check out this certificate for \"{courseTitle}\"!"
+    "shareText": "Check out this certificate for \"{courseTitle}\"!",
+    "xpToNextLevel": "{xpToNextLevel} XP for"
   }
 }
