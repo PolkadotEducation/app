@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LessonRenderer from "@/components/ui/renderer";
 import Loading from "@/components/ui/loading";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
+import { CourseProgress } from "@/types/progressTypes";
+import { getCourseProgress } from "@/api/progressService";
+import CourseProgressTracker from "@/components/ui/courseProgressTracker";
 
 interface Params {
   courseId: string;
@@ -18,11 +21,18 @@ const LessonPage = ({ params }: { params: Params }) => {
     useCourse();
 
   const { userLoading, user } = useUser();
+  const [courseProgress, setCourseProgress] = useState<CourseProgress>();
+
+  const fetchCourseProgress = async () => {
+    const progress = await getCourseProgress({ courseId });
+    setCourseProgress(progress);
+  };
 
   useEffect(() => {
     if (!courseId || !id) return;
     if (!userLoading && user) {
       fetchLessonById(id, courseId);
+      fetchCourseProgress();
     }
   }, [id]);
 
@@ -40,7 +50,8 @@ const LessonPage = ({ params }: { params: Params }) => {
   if (!selectedLesson) return <div>Lesson not found</div>;
 
   return (
-    <div>
+    <div className="pt-4">
+      {courseProgress && <CourseProgressTracker {...courseProgress} />}
       <LessonRenderer
         lessonId={selectedLesson._id}
         courseId={courseId}
@@ -52,6 +63,7 @@ const LessonPage = ({ params }: { params: Params }) => {
         nextLesson={nextLesson}
         previousLesson={previousLesson}
         progress={selectedLessonProgress}
+        onAnswerSubmitted={() => fetchCourseProgress()}
       />
     </div>
   );
