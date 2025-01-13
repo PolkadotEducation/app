@@ -13,6 +13,9 @@
     "downloadCertificate": "Download Certificate",
     "shareCertificate": "Share Certificate",
     "copyCertificateUrl": "Copy Certificate URL",
+    "mintCertificate": "Mint Certificate",
+    "minting": "Minting",
+    "minted": "Already Minted",
     "publicCertificateUrl": "URL of the public certificate:",
     "shareText": "Check out this certificate for \"{courseTitle}\"!",
     "xpToNextLevel": "{xpToNextLevel} XP for"

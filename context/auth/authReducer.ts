@@ -47,6 +47,11 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
         ...state,
         isLoading: action.payload.loading,
       };
+    case "SET_WALLET":
+      return {
+        ...state,
+        web3Acc: action.payload.web3Acc,
+      };
     default:
       return state;
   }

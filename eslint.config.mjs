@@ -58,6 +58,7 @@ export default [
       ".storybook/**",
       ".yarn/**",
       "**/vendor/**",
+      ".papi/**",
     ],
   },
   pluginCypress.configs.recommended,
