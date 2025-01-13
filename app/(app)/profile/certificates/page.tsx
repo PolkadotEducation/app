@@ -1,6 +1,6 @@
 "use client";
 
-import { getCertificateById } from "@/api/certificateService";
+import { getCertificateById, mintCertificate } from "@/api/certificateService";
 import { CertificateType } from "@/types/certificateTypes";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -10,15 +10,27 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { getAppBaseUrl } from "@/helpers/environment";
 
+import Web3Wallet from "@/components/ui/web3Wallet";
+import { MultiSignature } from "@polkadot-api/descriptors";
+import { useAuth } from "@/hooks/useAuth";
+import { connectInjectedExtension } from "polkadot-api/pjs-signer";
+import { DAPP_NAME, getPolkadotInterface, stringToHex } from "@/helpers/web3";
+
+import { fromHex } from "@polkadot-api/utils";
+import { Binary, FixedSizeBinary, FixedSizeArray } from "polkadot-api";
+
 const ProfileCertificatePage = () => {
   const searchParams = useSearchParams();
   const [certificate, setCertificate] = useState<CertificateType>();
   const [certificateImage, setCertificateImage] = useState<string | null>(null);
   const [isSharingSupported, setIsSharingSupported] = useState(false);
   const [isClipboardSupported, setIsClipboardSupported] = useState(false);
+  const [isMinting, setIsMinting] = useState(false);
+  const [minted, setMinted] = useState(false);
   const t = useTranslations("profile");
 
   const [baseUrl, setBaseUrl] = useState<string>("");
+  const { state } = useAuth();
 
   const getCertificate = async (certificateId: string) => {
     const certificate = await getCertificateById(certificateId);
@@ -62,6 +74,70 @@ const ProfileCertificatePage = () => {
     }
   };
 
+  const mint = async () => {
+    if (isMinting) return;
+    setIsMinting(true);
+    if (certificate && certificate?._id && state.web3Acc?.wallet) {
+      const { polkadotClient, polkadotApi } = getPolkadotInterface();
+
+      const blockInfo = await polkadotClient.getFinalizedBlock();
+
+      const collection = certificate.mintSpecs?.collectionId || 0;
+      const item = certificate.mintSpecs?.itemId || 0;
+
+      const itemData = await polkadotApi.query.Nfts.Item.getValue(collection, item);
+      // Alredy minted
+      if (itemData?.owner) {
+        setMinted(true);
+        return;
+      }
+
+      const deadline = blockInfo.number + 1_000;
+      const certificateName = "Polkadot Education - Certificate";
+      const attributes: FixedSizeArray<2, Binary>[] = [
+        [new Binary(fromHex(stringToHex(certificateName))), new Binary(fromHex(stringToHex(certificate._id)))],
+      ];
+      const { signature } = await mintCertificate(certificateName, certificate._id, deadline);
+      const mint_data = {
+        collection,
+        item,
+        attributes,
+        metadata: new Binary(fromHex("0x")),
+        only_account: undefined,
+        deadline,
+        mint_price: undefined,
+      };
+      const sig = new FixedSizeBinary(fromHex(signature));
+
+      const mint = polkadotApi.tx.Nfts.mint_pre_signed({
+        mint_data,
+        signature: MultiSignature.Sr25519(sig),
+        signer: certificate.mintSpecs?.owner || "",
+      });
+
+      const callData = await mint.getEncodedData();
+      const tx = await polkadotApi.txFromCallData(callData);
+      const injected = await connectInjectedExtension(state.web3Acc.wallet?.extensionName || "polkadot-js", DAPP_NAME);
+      const foundAccount = injected.getAccounts().find((a) => a.address === state.web3Acc?.address);
+      if (foundAccount) {
+        try {
+          const payload = await tx?.sign(foundAccount.polkadotSigner);
+          polkadotClient.submitAndWatch(payload).subscribe({
+            error: console.error,
+            complete() {
+              polkadotClient.destroy();
+              setIsMinting(false);
+            },
+          });
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          console.error(`[ERROR] ${error}`);
+        }
+      }
+    }
+    setIsMinting(false);
+  };
+
   const shareCertificate = async () => {
     if (certificateImage) {
       const blob = await (await fetch(certificateImage)).blob();
@@ -101,6 +177,13 @@ const ProfileCertificatePage = () => {
                 <Button variant="outline" onClick={copyToClipboard}>
                   {t("copyCertificateUrl")}
                 </Button>
+              )}
+              {state.web3Acc ? (
+                <Button onClick={mint} disabled={isMinting}>
+                  {minted ? t("minted") : isMinting ? t("minting") : t("mintCertificate")}
+                </Button>
+              ) : (
+                <Web3Wallet buttonLabel="Connect" skipSign={true} />
               )}
             </div>
             <div className="mt-8 flex flex-col w-full max-w-[842px] gap-4">
