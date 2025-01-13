@@ -7,12 +7,14 @@ import { login, loginWithGoogle, loginWithWallet, signUp, signOut } from "./auth
 import { GoogleOAuthPayload } from "@/api/actions/google";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { WalletAccount } from "@talismn/connect-wallets";
 
 type AuthContextType = {
   state: AuthState;
   login: (_credentials: { email: string; password: string }) => Promise<boolean>;
   loginWithGoogle: (_credentials: GoogleOAuthPayload) => Promise<boolean>;
   loginWithWallet: (_credentials: { address: string; name?: string; signature: Uint8Array }) => Promise<boolean>;
+  setWallet: (_acc: WalletAccount) => boolean;
   signUp: (_newUser: {
     email: string;
     password: string;
@@ -27,6 +29,7 @@ type AuthContextType = {
 export const initialAuthState: AuthState = {
   isLoading: false,
   userToken: null,
+  web3Acc: null,
   error: null,
 };
 
@@ -58,6 +61,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return await loginWithWallet(dispatch, credentials);
   };
 
+  const handleSetWallet = (web3Acc: WalletAccount) => {
+    dispatch({
+      type: "SET_WALLET",
+      payload: { web3Acc },
+    });
+    return true;
+  };
+
   const handleSignUp = async (newUser: {
     email: string;
     password: string;
@@ -82,6 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login: handlelogin,
     loginWithGoogle: handleloginWithGoogle,
     loginWithWallet: handleloginWithWallet,
+    setWallet: handleSetWallet,
     signUp: handleSignUp,
     signOut: handleSignOut,
     clearAuthError: handleClearAuthError,

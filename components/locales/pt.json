@@ -42,6 +42,7 @@
     "estimatedTime": "Tempo estimado de aprendizado: {duration} horas",
     "certificateId": "ID do certificado: {id}",
     "ranking": "Ranking",
-    "courses": "Cursos"
+    "courses": "Cursos",
+    "score": "Sua pontuação: {completedLessons}/{totalLessons}"
   }
 }
