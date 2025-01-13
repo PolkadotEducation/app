@@ -41,6 +41,7 @@
     "finished": "completó con éxito el curso",
     "estimatedTime": "Tiempo estimado de aprendizaje: {duration} horas",
     "certificateId": "ID del certificado: {id}",
+    "ranking": "Ranking",
     "courses": "Cursos",
     "score": "Tu puntuación: {completedLessons}/{totalLessons}"
   }

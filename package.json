@@ -45,6 +45,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-toggle": "^1.1.1",
+    "@radix-ui/react-toggle-group": "^1.1.1",
     "@talismn/connect-components": "^1.1.8",
     "@tanstack/react-table": "^8.20.5",
     "@types/mdx": "^2.0.13",

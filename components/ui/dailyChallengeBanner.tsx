@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { Button } from "./button";
 import successImage from "../../public/assets/images/success-daily-challenge.svg";
 import errorImage from "../../public/assets/images/error-daily-challenge.svg";
+import Link from "next/link";
 
 type Question = {
   question: string;
@@ -44,7 +45,7 @@ const DailyChallengeBanner = () => {
           setIsOpen(true);
           resetChallenge();
         }}
-        className="flex flex-1 rounded-lg bg-secondary-light p-4 md:p-5 items-center my-4 cursor-pointer"
+        className="flex flex-1 rounded-lg bg-secondary-light p-4 md:p-5 items-center cursor-pointer"
       >
         <div className="flex gap-6 flex-col">
           <h4 className="text-xl md:text-4xl">Desafio do dia</h4>
@@ -95,9 +96,11 @@ const DailyChallengeBanner = () => {
                 <span className="bg-success rounded-full px-2 py-1 text-neutral-100 text-sm">+ 50 XP</span>
               </div>
               <p className="mt-2">Parabéns! Você completou o desafio do dia. Continue assim e mostre sua evolução!</p>
-              <Button variant="default" className="mt-4" onClick={() => setIsOpen(false)}>
-                Ver ranking
-              </Button>
+              <Link href={"/ranking"}>
+                <Button variant="default" className="mt-4" onClick={() => setIsOpen(false)}>
+                  Ver ranking
+                </Button>
+              </Link>
             </div>
           )}
 
@@ -109,9 +112,11 @@ const DailyChallengeBanner = () => {
                 <DialogTitle>Não foi dessa vez!</DialogTitle>
               </div>
               <p className="mt-2">Errar faz parte do aprendizado! Respire fundo, revise e tente novamente amanhã.</p>
-              <Button variant="default" className="mt-4" onClick={() => setIsOpen(false)}>
-                Ver ranking
-              </Button>
+              <Link href={"/ranking"}>
+                <Button variant="default" className="mt-4" onClick={() => setIsOpen(false)}>
+                  Ver ranking
+                </Button>
+              </Link>
             </div>
           )}
         </DialogContent>
