@@ -89,7 +89,7 @@ const ProfilePage = () => {
             <h5>{t("certificates")}</h5>
           </TabsContent>
         </Tabs>
-        <div className="flex flex-row flex-wrap w-full pt-6 gap-10">
+        <div className="flex flex-row flex-wrap w-full pt-6 gap-10 items-center justify-center">
           {selectedTab === "certificates"
             ? completedCourses &&
               completedCourses.map((i: CompletedCourse) => (
