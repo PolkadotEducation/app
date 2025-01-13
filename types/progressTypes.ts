@@ -13,6 +13,12 @@ export type ProgressResponse = {
   difficulty: string;
 };
 
+export type CourseProgress = {
+  totalLessons: number;
+  completedLessons: number;
+  progressPercentage: number;
+};
+
 export type CompletedCourse = {
   courseId: string;
   courseTitle: string;

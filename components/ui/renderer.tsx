@@ -34,6 +34,7 @@ interface LessonRendererProps {
   nextLesson?: string | null;
   previousLesson?: string | null;
   progress?: ProgressResponse[] | null;
+  onAnswerSubmitted?: () => void;
 }
 
 const LessonRenderer = ({
@@ -47,6 +48,7 @@ const LessonRenderer = ({
   nextLesson,
   previousLesson,
   progress,
+  onAnswerSubmitted,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
@@ -145,6 +147,9 @@ const LessonRenderer = ({
         });
       }
       setIsSubmitting(false);
+      if (onAnswerSubmitted) {
+        onAnswerSubmitted();
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error submitting answer:", error);
