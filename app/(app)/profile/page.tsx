@@ -90,7 +90,7 @@ const ProfilePage = () => {
                   image={achievement.locked ? achievement.lockedImage : achievement.unlockedImage}
                   alt={achievement.description}
                   locked={achievement.locked}
-                  title={achievement.title}
+                  title={t(achievement.title)} //continuar daqui a pouco
                 />
               ))}
             </div>

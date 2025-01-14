@@ -1,12 +1,12 @@
 "use client";
 
 import RankingCard, { RankingCardProps } from "@/components/ui/rankingCard";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import React, { useState } from "react";
 import victor from "../../../public/assets/icons/victor-img.svg";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Ranking = () => {
-  const [selectedRank, setSelectedRank] = useState<string>("geral");
+  const [activeTab, setActiveTab] = useState("geral");
 
   const mockedRankingData: RankingCardProps[] = [
     {
@@ -112,37 +112,18 @@ const Ranking = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <ToggleGroup
-        type="single"
-        className="justify-start"
-        onValueChange={(value) => setSelectedRank(value)}
-        value={selectedRank}
-      >
-        <ToggleGroupItem
-          value="geral"
-          className={`${selectedRank === "geral" && "border-b-2 border-primary"} rounded-none`}
-        >
-          Geral
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="semanal"
-          className={`${selectedRank === "semanal" && "border-b-2 border-primary"} rounded-none`}
-        >
-          Semanal
-        </ToggleGroupItem>
-      </ToggleGroup>
-      <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
-        {selectedRank === "geral"
-          ? mockedRankingData.map((user) => (
-              <RankingCard
-                key={user.rankPosition}
-                points={user.points}
-                profilePicture={user.profilePicture}
-                rankPosition={user.rankPosition}
-                username={user.username}
-              />
-            ))
-          : mixedRankingData.map((user) => (
+      <Tabs defaultValue="geral" className="justify-start" onValueChange={(value) => setActiveTab(value)}>
+        <TabsList>
+          <TabsTrigger value="geral" className={`rounded-none`}>
+            Geral
+          </TabsTrigger>
+          <TabsTrigger value="semanal" className={`rounded-none`}>
+            Semanal
+          </TabsTrigger>
+        </TabsList>
+        {activeTab === "geral" && (
+          <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
+            {mockedRankingData.map((user) => (
               <RankingCard
                 key={user.rankPosition}
                 points={user.points}
@@ -151,7 +132,22 @@ const Ranking = () => {
                 username={user.username}
               />
             ))}
-      </div>
+          </div>
+        )}
+        {activeTab === "semanal" && (
+          <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
+            {mixedRankingData.map((user) => (
+              <RankingCard
+                key={user.rankPosition}
+                points={user.points}
+                profilePicture={user.profilePicture}
+                rankPosition={user.rankPosition}
+                username={user.username}
+              />
+            ))}
+          </div>
+        )}
+      </Tabs>
     </div>
   );
 };
