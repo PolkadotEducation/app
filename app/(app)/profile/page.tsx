@@ -12,6 +12,8 @@ import CourseCardPreview from "@/components/ui/courseCardPreview";
 import { generateCertificate, getCertificates } from "@/api/certificateService";
 import { CertificateType } from "@/types/certificateTypes";
 import { useRouter } from "next/navigation";
+import { Achievement } from "@/components/ui/achievement";
+import { achievements } from "@/helpers/achievements";
 
 const ProfilePage = () => {
   const t = useTranslations("profile");
@@ -70,7 +72,7 @@ const ProfilePage = () => {
       <h4 className="xl:mb-6 mb-4">{t("profile")}</h4>
       <ProfileCard {...progress} />
       <div className="mt-6">
-        <Tabs defaultValue="certificates">
+        <Tabs defaultValue={"certificates"}>
           <TabsList className="w-fit">
             <TabsTrigger value="certificates">
               <span className="unbound-font text-sm font-medium">{t("certificates")}</span>
@@ -81,22 +83,30 @@ const ProfilePage = () => {
           </TabsList>
           <TabsContent value="achievements" className="xl:pt-4 pt-2">
             <h5>{t("achievements")}</h5>
+            <div className="flex flex-row flex-wrap w-full pt-6 gap-10 items-center justify-center">
+              {achievements.map((achievement) => (
+                <Achievement
+                  key={achievement.id}
+                  image={achievement.locked ? achievement.lockedImage : achievement.unlockedImage}
+                  alt={achievement.description}
+                  locked={achievement.locked}
+                  title={t(achievement.title)} //continuar daqui a pouco
+                />
+              ))}
+            </div>
           </TabsContent>
           <TabsContent value="certificates" className="xl:pt-4 pt-2">
             <h5>{t("certificates")}</h5>
-            <div className="flex flex-row flex-wrap w-full pt-6">
-              {completedCourses &&
-                completedCourses.map((i: CompletedCourse) => (
-                  <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={i.courseId}>
-                    <CourseCardPreview
-                      banner="blackPink"
-                      title={i.courseTitle}
-                      key={i.courseId}
-                      onClickAction={() => handleCertificateClick(i.courseId)}
-                    />
-                  </div>
-                ))}
-            </div>
+            {completedCourses &&
+              completedCourses.map((i: CompletedCourse) => (
+                <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={i.courseId}>
+                  <CourseCardPreview
+                    banner="blackPink"
+                    title={i.courseTitle}
+                    onClickAction={() => handleCertificateClick(i.courseId)}
+                  />
+                </div>
+              ))}
           </TabsContent>
         </Tabs>
       </div>
