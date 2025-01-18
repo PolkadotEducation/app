@@ -1,12 +1,25 @@
 "use client";
 
 import RankingCard, { RankingCardProps } from "@/components/ui/rankingCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import victor from "../../../public/assets/icons/victor-img.svg";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getRanking } from "@/api/rankingService";
+import { RankingType } from "@/types/rankingTypes";
 
 const Ranking = () => {
   const [activeTab, setActiveTab] = useState("geral");
+  const [, setRanking] = useState<RankingType>();
+
+  const getData = async () => {
+    // TODO type should be "weekly" or "general"
+    const data = await getRanking("general");
+    setRanking(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const mockedRankingData: RankingCardProps[] = [
     {
