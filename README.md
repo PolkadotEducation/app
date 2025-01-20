@@ -44,6 +44,7 @@ After starting the server, open [http://localhost:3000](http://localhost:3000) i
 ## Commands
 
 The project has the following commands:
+
 - `bun run build-storybook`: Builds the storybook
 - `bun run build`: Builds the project
 - `bun run db:reset`: Drops database and runs the seed
