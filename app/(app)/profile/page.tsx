@@ -88,9 +88,9 @@ const ProfilePage = () => {
                 <Achievement
                   key={achievement.id}
                   image={achievement.locked ? achievement.lockedImage : achievement.unlockedImage}
-                  alt={achievement.description}
+                  alt={t(`achievementsSpecs.${achievement.description}`)}
                   locked={achievement.locked}
-                  title={t(achievement.title)} //continuar daqui a pouco
+                  title={t(`achievementsSpecs.${achievement.title}`)}
                 />
               ))}
             </div>
