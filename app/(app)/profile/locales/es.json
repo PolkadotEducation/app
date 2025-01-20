@@ -19,17 +19,25 @@
     "publicCertificateUrl": "URL del certificado público:",
     "shareText": "¡Mira este certificado para \"{courseTitle}\"!",
     "xpToNextLevel": "{xpToNextLevel} XP para el",
-    "Passos constantes": "Pasos constantes",
-    "Ritmo de mestre": "Ritmo de maestro",
-    "Compromisso inabalável": "Compromiso inquebrantable",
-    "Bom palpite": "Buena suposición",
-    "Craque do Quiz": "As del Quiz",
-    "Gênio das respostas": "Genio de las respuestas",
-    "Explorador de desafios": "Explorador de desafíos",
-    "Competidor dedicado": "Competidor dedicado",
-    "Mestre dos desafios": "Maestro de los desafíos",
-    "Primeira conquista": "Primer logro",
-    "Perfeccionista": "Perfeccionista",
-    "Personalidade": "Personalidad"
+    "achievementsSpecs": {
+      "steadySteps": "Pasos constantes",
+      "mastersRhythm": "Ritmo de maestro",
+      "unwaveringCommitment": "Compromiso inquebrantable",
+      "goodGuess": "Buena suposición",
+      "quizAce": "As del Quiz",
+      "answerGenius": "Genio de las respuestas",
+      "challengeExplorer": "Explorador de desafíos",
+      "dedicatedCompetitor": "Competidor dedicado",
+      "masterOfChallenges": "Maestro de los desafíos",
+      "firstAchievement": "Primer logro",
+      "perfeccionist": "Perfeccionista",
+      "personality": "Personalidad",
+      "consecutiveLogins": "Consigue inicios de sesión consecutivos y avanza en los niveles de compromiso.",
+      "stayActive": "Mantente activo y avanza en los niveles de compromiso.",
+      "answerQuestions": "Responde preguntas correctamente y avanza en los niveles del quiz.",
+      "completeChallenges": "Completa desafíos para convertirte en un maestro.",
+      "firstOfMany": "El primero de muchos logros.",
+      "maxAccuracy": "Alcanzó el 100% de precisión en una tarea."
+    }
   }
 }
