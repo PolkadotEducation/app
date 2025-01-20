@@ -1,4 +1,3 @@
-
 # Polkadot Education Front-End Application
 
 Empowering Enterprises with Blockchain Knowledge
@@ -42,6 +41,26 @@ After starting the server, open [http://localhost:3000](http://localhost:3000) i
 
 > **Note:** If you prefer a more comprehensive setup, the [local-setup repository](https://github.com/PolkadotEducation/local-setup) automates the process. It provides all necessary configurations and runs all required Docker containers. Simply follow the documentation in the repository, and you’ll have the backend, database, and other services up and running seamlessly.
 
+## Commands
+
+The project has the following commands:
+- `bun run build-storybook`: Builds the storybook
+- `bun run build`: Builds the project
+- `bun run db:reset`: Drops database and runs the seed
+- `bun run db:drop:all`: Drops the database
+- `bun run db:drop:courses`: Drops just the courses
+- `bun run db:seed:all`: Runs the whole seed
+- `bun run db:seed:courses`: Runs the seed for courses only
+- `bun run format`: Runs Prettier
+- `bun run format:fix`: Fixes Prettier errors
+- `bun run lint`: Runs ESLint
+- `bun run lint:fix`: Fixes ESLint errors
+- `bun run storybook`: Runs the storybook
+- `bun run test`: Runs Cypress tests
+- `bun run test:open`: Runs Cypress tests in Launchpad mode
+- `bun run type-check`: Runs TypeScript check
+- `bun run wait`: Waits for the API to start
+
 ## Project Structure
 
 The project structure is organized as follows:
@@ -71,4 +90,4 @@ For any questions or support, please contact us at [support@polkadot.education](
 
 ---
 
-© 2025 Polkadot Education
+© Polkadot Education
