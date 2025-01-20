@@ -26,3 +26,6 @@ export const PROGRESS = "/progress";
 // Certificates
 export const CERTIFICATES = "/certificates";
 export const CERTIFICATE_GENERATE = "/certificates/generate";
+
+// Ranking
+export const RANKING = "/ranking";
