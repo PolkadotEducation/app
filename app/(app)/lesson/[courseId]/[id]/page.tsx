@@ -8,6 +8,9 @@ import { useUser } from "@/hooks/useUser";
 import { CourseProgress } from "@/types/progressTypes";
 import { getCourseProgress } from "@/api/progressService";
 import CourseProgressTracker from "@/components/ui/courseProgressTracker";
+import CourseDescriptionSection from "@/components/ui/courseDescriptionSection";
+import { getCourse } from "@/api/courseService";
+import { CourseType } from "@/types/courseTypes";
 
 interface Params {
   courseId: string;
@@ -22,10 +25,13 @@ const LessonPage = ({ params }: { params: Params }) => {
 
   const { userLoading, user } = useUser();
   const [courseProgress, setCourseProgress] = useState<CourseProgress>();
+  const [course, setCourse] = useState<CourseType>();
 
   const fetchCourseProgress = async () => {
     const progress = await getCourseProgress({ courseId });
     setCourseProgress(progress);
+    const courseData = await getCourse(courseId);
+    setCourse(courseData);
   };
 
   useEffect(() => {
@@ -50,21 +56,24 @@ const LessonPage = ({ params }: { params: Params }) => {
   if (!selectedLesson) return <div>Lesson not found</div>;
 
   return (
-    <div className="pt-4">
-      {courseProgress && <CourseProgressTracker {...courseProgress} />}
-      <LessonRenderer
-        lessonId={selectedLesson._id}
-        courseId={courseId}
-        title={selectedLesson.title}
-        difficulty={selectedLesson.difficulty}
-        question={selectedLesson.challenge.question}
-        choices={selectedLesson.challenge.choices}
-        markdown={selectedLesson.body}
-        nextLesson={nextLesson}
-        previousLesson={previousLesson}
-        progress={selectedLessonProgress}
-        onAnswerSubmitted={() => fetchCourseProgress()}
-      />
+    <div className="pt-4 flex gap-11">
+      <CourseDescriptionSection classname="sticky top-0" courseModules={course} courseProgress={courseProgress} />
+      <div className="pt-4">
+        {courseProgress && <CourseProgressTracker {...courseProgress} />}
+        <LessonRenderer
+          lessonId={selectedLesson._id}
+          courseId={courseId}
+          title={selectedLesson.title}
+          difficulty={selectedLesson.difficulty}
+          question={selectedLesson.challenge.question}
+          choices={selectedLesson.challenge.choices}
+          markdown={selectedLesson.body}
+          nextLesson={nextLesson}
+          previousLesson={previousLesson}
+          progress={selectedLessonProgress}
+          onAnswerSubmitted={() => fetchCourseProgress()}
+        />
+      </div>
     </div>
   );
 };

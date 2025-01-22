@@ -17,6 +17,7 @@ export type CourseProgress = {
   totalLessons: number;
   completedLessons: number;
   progressPercentage: number;
+  modulesProgress: Record<string, Record<string, boolean>>;
 };
 
 export type CompletedCourse = {
