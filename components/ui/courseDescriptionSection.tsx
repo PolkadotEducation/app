@@ -22,7 +22,7 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
     <div>
       <h6>Resumo do curso</h6>
       {isMobile ? (
-        <Drawer direction="left">
+        <Drawer direction="left" data-cy="aside-course-progress-details">
           <DrawerTrigger className="h-[max-content] text-body2 text-primary flex items-center gap-4">
             Exibir progresso
             <Image src={chevronRight} alt="chevron down" width={8} className="text-primary" />
@@ -37,7 +37,12 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
             <Accordion type="single" collapsible>
               {courseModules?.modules.map((module, index) => {
                 return (
-                  <AccordionItem value={`item${index}`} className="px-6" key={module.title}>
+                  <AccordionItem
+                    value={`item${index}`}
+                    className="px-6"
+                    key={module.title}
+                    data-cy={`aside-module-${index + 1}`}
+                  >
                     <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full pr-8">
                       <CourseChapterAccordion
                         chapterName={`Module ${index + 1}`}
@@ -67,13 +72,14 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
         </Drawer>
       ) : (
         <div
+          data-cy="aside-course-progress-details"
           className={`h-screen w-[400px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none flex flex-col items-start ${classname}`}
         >
           <div className="flex items-center justify-center pt-14"></div>
           <Accordion type="single" collapsible className="w-full">
             {courseModules?.modules.map((module, index) => {
               return (
-                <AccordionItem value={`item${index}`}>
+                <AccordionItem value={`item${index}`} data-cy={`aside-module-${index + 1}`}>
                   <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full pr-8">
                     <CourseChapterAccordion
                       chapterName={`Module ${index + 1}`}
