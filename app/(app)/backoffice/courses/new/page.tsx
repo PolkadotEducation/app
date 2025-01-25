@@ -222,8 +222,8 @@ const CreateCoursePage = () => {
                           </label>
                         </div>
                       </RadioGroup>
-                      {errors.language?.message && (
-                        <p className="text-red-500 mt-1 mb-5 form-error">{errors.language?.message}</p>
+                      {errors.banner?.message && (
+                        <p className="text-red-500 mt-1 mb-5 form-error">{errors.banner?.message}</p>
                       )}
                     </div>
                   )}
