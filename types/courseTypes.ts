@@ -6,4 +6,5 @@ export type CourseType = {
   language: string;
   summary: string;
   modules?: ModuleType[];
+  banner: "blackPink" | "blackPurple" | "tetris" | "gradient";
 };

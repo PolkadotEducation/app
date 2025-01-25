@@ -286,6 +286,7 @@ export async function portugueseCourse(db: Db, teamId: ObjectId) {
     modules: Object.values(recordedModules.insertedIds),
     createdAt: new Date(),
     updatedAt: new Date(),
+    banner: "blackPink",
   };
 
   await db.collection("courses").insertOne(course);
