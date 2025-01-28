@@ -72,7 +72,7 @@ const DailyChallengeBanner = () => {
               <RadioGroup onValueChange={(value) => setSelectedOption(value)}>
                 {question.options.map((option) => {
                   return (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" key={option}>
                       <RadioGroupItem value={option} id={option} />
                       <label htmlFor={option}>{option}</label>
                     </div>

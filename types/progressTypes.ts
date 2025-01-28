@@ -22,6 +22,7 @@ export type CourseProgress = {
 export type CompletedCourse = {
   courseId: string;
   courseTitle: string;
+  courseBanner: "blackPink" | "blackPurple" | "tetris" | "gradient";
 };
 
 export type XpAndLevel = {
