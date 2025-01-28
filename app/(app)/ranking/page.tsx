@@ -6,13 +6,15 @@ import victor from "../../../public/assets/icons/victor-img.svg";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getRanking } from "@/api/rankingService";
 import { RankingType } from "@/types/rankingTypes";
+import { useTranslations } from "next-intl";
 
 const Ranking = () => {
   const [activeTab, setActiveTab] = useState("general");
-  const [, setRanking] = useState<RankingType>();
+  const [ranking, setRanking] = useState<RankingType>();
+  const t = useTranslations("ranking");
 
   const getData = async () => {
-    const data = await getRanking("general");
+    const data = await getRanking(activeTab);
     setRanking(data);
   };
 
@@ -127,36 +129,40 @@ const Ranking = () => {
       <Tabs defaultValue="general" className="justify-start" onValueChange={(value) => setActiveTab(value)}>
         <TabsList>
           <TabsTrigger value="general" className={`rounded-none`}>
-            Geral
+            {t("general")}
           </TabsTrigger>
           <TabsTrigger value="weekly" className={`rounded-none`}>
-            Semanal
+            {t("weekly")}
           </TabsTrigger>
         </TabsList>
         {activeTab === "general" && (
           <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
-            {mockedRankingData.map((user) => (
-              <RankingCard
-                key={user.rankPosition}
-                points={user.points}
-                profilePicture={user.profilePicture}
-                rankPosition={user.rankPosition}
-                username={user.username}
-              />
-            ))}
+            {ranking?.ranking
+              .sort((a, b) => b.xp - a.xp)
+              .map((user, index) => (
+                <RankingCard
+                  key={user.userId}
+                  points={user.xp}
+                  profilePicture={user.picture!}
+                  rankPosition={index + 1}
+                  username={user.name}
+                />
+              ))}
           </div>
         )}
         {activeTab === "weekly" && (
           <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
-            {mixedRankingData.map((user) => (
-              <RankingCard
-                key={user.rankPosition}
-                points={user.points}
-                profilePicture={user.profilePicture}
-                rankPosition={user.rankPosition}
-                username={user.username}
-              />
-            ))}
+            {ranking?.ranking
+              .sort((a, b) => b.xp - a.xp)
+              .map((user, index) => (
+                <RankingCard
+                  key={user.userId}
+                  points={user.xp}
+                  profilePicture={user.picture!}
+                  rankPosition={index + 1}
+                  username={user.name}
+                />
+              ))}
           </div>
         )}
       </Tabs>

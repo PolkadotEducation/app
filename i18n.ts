@@ -24,6 +24,7 @@ export default getRequestConfig(async () => {
     ...(await import(`@/app/(app)/admin/locales/${locale}.json`)).default,
     ...(await import(`@/app/(app)/backoffice/locales/${locale}.json`)).default,
     ...(await import(`@/app/(app)/course/[id]/locales/${locale}.json`)).default,
+    ...(await import(`@/app/(app)/ranking/locales/${locale}.json`)).default,
   };
 
   return {
