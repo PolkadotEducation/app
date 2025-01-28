@@ -43,6 +43,7 @@
     "certificateId": "Certificate ID: {id}",
     "ranking": "Ranking",
     "courses": "Courses",
-    "score": "Your score: {completedLessons}/{totalLessons}"
+    "score": "Your score: {completedLessons}/{totalLessons}",
+    "points": "points"
   }
 }

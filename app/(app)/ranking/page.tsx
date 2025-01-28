@@ -8,11 +8,10 @@ import { getRanking } from "@/api/rankingService";
 import { RankingType } from "@/types/rankingTypes";
 
 const Ranking = () => {
-  const [activeTab, setActiveTab] = useState("geral");
+  const [activeTab, setActiveTab] = useState("general");
   const [, setRanking] = useState<RankingType>();
 
   const getData = async () => {
-    // TODO type should be "weekly" or "general"
     const data = await getRanking("general");
     setRanking(data);
   };
@@ -125,16 +124,16 @@ const Ranking = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <Tabs defaultValue="geral" className="justify-start" onValueChange={(value) => setActiveTab(value)}>
+      <Tabs defaultValue="general" className="justify-start" onValueChange={(value) => setActiveTab(value)}>
         <TabsList>
-          <TabsTrigger value="geral" className={`rounded-none`}>
+          <TabsTrigger value="general" className={`rounded-none`}>
             Geral
           </TabsTrigger>
-          <TabsTrigger value="semanal" className={`rounded-none`}>
+          <TabsTrigger value="weekly" className={`rounded-none`}>
             Semanal
           </TabsTrigger>
         </TabsList>
-        {activeTab === "geral" && (
+        {activeTab === "general" && (
           <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
             {mockedRankingData.map((user) => (
               <RankingCard
@@ -147,7 +146,7 @@ const Ranking = () => {
             ))}
           </div>
         )}
-        {activeTab === "semanal" && (
+        {activeTab === "weekly" && (
           <div className="bg-neutral-50 rounded-xl m-2 md:m-4 flex flex-col gap-2 p-5 md:p-6">
             {mixedRankingData.map((user) => (
               <RankingCard

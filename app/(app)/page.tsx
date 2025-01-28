@@ -17,12 +17,12 @@ const Home = () => {
 
   useEffect(() => {
     if (!userLoading && user) fetchCourses();
-  }, [userLoading]);
+  }, []);
 
   return (
     <div className="w-[360px] md:w-full lg:w-full">
       <div className="flex gap-8 items-center flex-col md:flex-row lg:flex-row">
-        <RankBanner />
+        <RankBanner user={user} />
         <DailyChallengeBanner />
       </div>
       <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">
