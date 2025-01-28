@@ -20,11 +20,13 @@ import { useRouter } from "next/navigation";
 import { getCourse, updateCourse } from "@/api/courseService";
 import { useToast } from "@/hooks/useToast";
 import { useTranslations } from "next-intl";
+import CourseCardPreview from "@/components/ui/courseCardPreview";
 
 const schema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
   summary: z.string().nonempty("Summary is required"),
   language: z.string().nonempty("Difficulty is required"),
+  banner: z.string().nonempty("Banner is required"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -50,6 +52,7 @@ const UpdateCoursePage = ({ params }: { params: { id: string } }) => {
       title: "",
       summary: "",
       language: "",
+      banner: "",
     },
   });
 
@@ -74,6 +77,7 @@ const UpdateCoursePage = ({ params }: { params: { id: string } }) => {
         title: response.title,
         summary: response.summary,
         language: response.language,
+        banner: response.banner,
       });
       setModules(
         response.modules?.map((m) => {
@@ -125,6 +129,7 @@ const UpdateCoursePage = ({ params }: { params: { id: string } }) => {
       title: data.title,
       language: data.language,
       summary: data.summary,
+      banner: data.banner as "blackPink" | "blackPurple" | "tetris" | "gradient",
       modules: modules.map((m) => {
         return {
           _id: m.id,
@@ -209,6 +214,48 @@ const UpdateCoursePage = ({ params }: { params: { id: string } }) => {
                       </RadioGroup>
                       {errors.language?.message && (
                         <p className="text-red-500 mt-1 mb-5 form-error">{errors.language?.message}</p>
+                      )}
+                    </div>
+                  )}
+                />
+                <Controller
+                  name="banner"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="flex flex-col">
+                      <p className="text-xs">Banner</p>
+                      <RadioGroup
+                        {...field}
+                        onValueChange={field.onChange}
+                        className={`flex flex-wrap ${errors.language?.message ? "mb-0" : "mb-5"}`}
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="blackPink" id="blackPinkRadioButton" />
+                          <label htmlFor="blackPinkRadioButton">
+                            <CourseCardPreview banner="blackPink" title="Black Pink" />
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="blackPurple" id="blackPurpleRadioButton" />
+                          <label htmlFor="blackPurpleRadioButton">
+                            <CourseCardPreview banner="blackPurple" title="Black Purple" />
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="tetris" id="tetrisRadioButton" />
+                          <label htmlFor="tetrisRadioButton">
+                            <CourseCardPreview banner="tetris" title="Tetris" />
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="gradient" id="gradientRadioButton" />
+                          <label htmlFor="gradientRadioButton">
+                            <CourseCardPreview banner="gradient" title="Gradient" />
+                          </label>
+                        </div>
+                      </RadioGroup>
+                      {errors.banner?.message && (
+                        <p className="text-red-500 mt-1 mb-5 form-error">{errors.banner?.message}</p>
                       )}
                     </div>
                   )}

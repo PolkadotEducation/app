@@ -101,7 +101,7 @@ const ProfilePage = () => {
               completedCourses.map((i: CompletedCourse) => (
                 <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={i.courseId}>
                   <CourseCardPreview
-                    banner="blackPink"
+                    banner={i.courseBanner}
                     title={i.courseTitle}
                     onClickAction={() => handleCertificateClick(i.courseId)}
                   />
