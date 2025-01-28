@@ -30,6 +30,10 @@ const Ranking = () => {
           </TabsTrigger>
           <TabsTrigger value="weekly" className={`rounded-none`}>
             {t("weekly")}
+            Geral
+          </TabsTrigger>
+          <TabsTrigger value="weekly" className={`rounded-none`}>
+            Semanal
           </TabsTrigger>
         </TabsList>
         {activeTab === "general" && (
