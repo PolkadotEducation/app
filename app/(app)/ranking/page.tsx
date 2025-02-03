@@ -1,8 +1,7 @@
 "use client";
 
-import RankingCard, { RankingCardProps } from "@/components/ui/rankingCard";
+import RankingCard from "@/components/ui/rankingCard";
 import React, { useEffect, useState } from "react";
-import victor from "../../../public/assets/icons/victor-img.svg";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getRanking } from "@/api/rankingService";
 import { RankingType } from "@/types/rankingTypes";
