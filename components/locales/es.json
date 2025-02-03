@@ -44,6 +44,9 @@
     "ranking": "Ranking",
     "courses": "Cursos",
     "score": "Tu puntuación: {completedLessons}/{totalLessons}",
-    "points": "pontos"
+    "points": "pontos",
+    "level": "Nível",
+    "generalRank": "Clasificación general",
+    "weeklyRank": "Clasificación semanal"
   }
 }
