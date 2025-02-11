@@ -13,10 +13,28 @@ export type ProgressResponse = {
   difficulty: string;
 };
 
+export type CourseSummaryResponse = {
+  courseSummary: CourseSummary;
+};
+
 export type CourseProgress = {
   totalLessons: number;
   completedLessons: number;
   progressPercentage: number;
+  modulesProgress: Record<string, Record<string, boolean>>;
+};
+
+export type CourseSummary = {
+  modules: {
+    isCompleted: boolean;
+    lessons: {
+      difficulty: "easy" | "medium" | "hard";
+      expEarned: number;
+      title: string;
+    }[];
+    title: string;
+  }[];
+  title: string;
 };
 
 export type CompletedCourse = {

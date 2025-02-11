@@ -10,8 +10,8 @@ export interface CourseLessonProps {
 
 const CourseLesson = ({ lessonName, completed, expAmount }: CourseLessonProps) => {
   return (
-    <li className="flex items-center justify-center gap-2">
-      <div className={`flex flex-col items-center justify-center gap-1 ${completed ? "visible" : "invisible"}`}>
+    <li className="flex items-center justify-start gap-2">
+      <div className={`flex flex-col items-center justify-center gap-1 ${completed ? "flex" : "hidden"}`}>
         <span>
           <Image src={greenCheck} alt="green check" />
         </span>
