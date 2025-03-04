@@ -31,7 +31,7 @@ const RankingCard = ({ profilePicture, rankPosition, username, points }: Ranking
         <div className="flex items-center gap-4">
           <Image src={profilePicture} alt="Foto do perfil" height={40} width={40} />
           <div className="flex flex-col">
-            <p className={`${currentUser === username && "text-primary"}`}>{username}</p>
+            <p className={`${currentUser === username && "text-primary"} dark:text-neutral-600`}>{username}</p>
             <p
               className={`text-sm ${rankPosition <= 3 ? "font-bold" : ""} ${currentUser === username ? "text-primary" : "text-neutral-600"}`}
             >
