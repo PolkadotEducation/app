@@ -11,7 +11,7 @@ export default defineConfig({
     screenshotsFolder: "cypress/screenshots",
     screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {
-      on("before:run", async () => {
+      on("before:spec", async () => {
         await resetDatabase();
       });
 

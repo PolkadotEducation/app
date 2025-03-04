@@ -14,6 +14,7 @@ import { CertificateType } from "@/types/certificateTypes";
 import { useRouter } from "next/navigation";
 import { Achievement } from "@/components/ui/achievement";
 import { achievements } from "@/helpers/achievements";
+import { UserInfo } from "@/types/userTypes";
 
 const ProfilePage = () => {
   const t = useTranslations("profile");
@@ -67,6 +68,35 @@ const ProfilePage = () => {
     router.push(`/profile/certificates?id=${certificateId}`);
   };
 
+  const renderAchievements = (user: UserInfo | null) => {
+    const userAchievements = [];
+    const achievementsTracker = user?.achievementsTracker;
+    if (achievementsTracker) {
+      if (achievementsTracker.loginCounter >= 7) userAchievements.push(0);
+      if (achievementsTracker.loginCounter >= 15) userAchievements.push(1);
+      if (achievementsTracker.loginCounter >= 30) userAchievements.push(2);
+
+      if (achievementsTracker.answerCounter >= 5) userAchievements.push(3);
+      if (achievementsTracker.answerCounter >= 10) userAchievements.push(4);
+      if (achievementsTracker.answerCounter >= 20) userAchievements.push(5);
+
+      if (achievementsTracker.challengeCounter >= 5) userAchievements.push(6);
+      if (achievementsTracker.challengeCounter >= 10) userAchievements.push(7);
+      if (achievementsTracker.challengeCounter >= 20) userAchievements.push(8);
+
+      if (achievementsTracker.finishOneCourse) userAchievements.push(9);
+      if (achievementsTracker.finishOneCourseNoMistakes) userAchievements.push(10);
+
+      if (achievementsTracker.profilePicture) userAchievements.push(11);
+
+      // TODO: We need the image for this one
+      // if (achievementsTracker.totalFocus) userAchievements.push(12);
+    }
+    return userAchievements;
+  };
+
+  const userAchievements = renderAchievements(user);
+
   return (
     <main className="max-w-7xl w-full">
       <h4 className="xl:mb-6 mb-4">{t("profile")}</h4>
@@ -84,15 +114,18 @@ const ProfilePage = () => {
           <TabsContent value="achievements" className="xl:pt-4 pt-2">
             <h5>{t("achievements")}</h5>
             <div className="flex flex-row flex-wrap w-full pt-6 gap-10 items-center justify-center">
-              {achievements.map((achievement) => (
-                <Achievement
-                  key={achievement.id}
-                  image={achievement.locked ? achievement.lockedImage : achievement.unlockedImage}
-                  alt={t(`achievementsSpecs.${achievement.description}`)}
-                  locked={achievement.locked}
-                  title={t(`achievementsSpecs.${achievement.title}`)}
-                />
-              ))}
+              {achievements.map((achievement) => {
+                const unlocked = userAchievements.includes(achievement.id);
+                return (
+                  <Achievement
+                    key={achievement.id}
+                    image={unlocked ? achievement.unlockedImage : achievement.lockedImage}
+                    alt={t(`achievementsSpecs.${achievement.description}`)}
+                    locked={!unlocked}
+                    title={t(`achievementsSpecs.${achievement.title}`)}
+                  />
+                );
+              })}
             </div>
           </TabsContent>
           <TabsContent value="certificates" className="xl:pt-4 pt-2">
