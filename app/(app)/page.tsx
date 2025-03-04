@@ -43,7 +43,7 @@ const Home = () => {
               courses.map((course: CourseType) => (
                 <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={course._id} data-cy="link-course-home">
                   <CourseCardPreview
-                    banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
+                    banner={course.banner}
                     title={course.title}
                     link={`course/${course._id}`}
                     key={course._id}

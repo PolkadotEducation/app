@@ -41,10 +41,7 @@ const CoursePage = () => {
       {selectedCourse && (
         <div>
           <div className="mb-5">
-            <CourseCard
-              banner="blackPink" // @TODO: allow the content creator to choose the banner style when creating the course
-              title={selectedCourse.title}
-            />
+            <CourseCard banner={selectedCourse.banner} title={selectedCourse.title} />
           </div>
           <div className="flex justify-end mb-5">
             {selectedCourse.modules &&
