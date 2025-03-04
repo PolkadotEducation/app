@@ -1,5 +1,5 @@
 import { getRequestConfig } from "next-intl/server";
-import { getUserLocale } from "./api/actions/userLocale";
+import { getUserLocale } from "@/api/actions/userLocale";
 
 const locales = ["en", "es", "pt"];
 
@@ -27,8 +27,5 @@ export default getRequestConfig(async () => {
     ...(await import(`@/app/(app)/ranking/locales/${locale}.json`)).default,
   };
 
-  return {
-    locale,
-    messages: messages,
-  };
+  return { locale, messages: messages };
 });

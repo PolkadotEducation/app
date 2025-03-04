@@ -7,21 +7,9 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-        port: "",
-      },
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
-        port: "",
-      },
+      { protocol: "https", hostname: "placehold.co", port: "" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com", port: "" },
     ],
-  },
-  i18n: {
-    locales: ["en", "pt"],
-    defaultLocale: "en",
   },
 };
 
