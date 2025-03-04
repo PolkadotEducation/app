@@ -6,6 +6,7 @@ import weeklyRank from "../../public/assets/icons/weekly-rank.svg";
 import Link from "next/link";
 import { UserInfo } from "@/types/userTypes";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 interface RankBannerProps {
   user: UserInfo | null;
@@ -39,9 +40,14 @@ const menuItems = [
 ];
 const RankBanner = ({ user }: RankBannerProps) => {
   const t = useTranslations("components");
+  const router = useRouter();
+
   return (
     <div className="flex flex-col items-center gap-8">
-      <div className="flex flex-col items-center gap-4 justify-center md:flex-row">
+      <div
+        className="flex flex-col items-center gap-4 justify-center md:flex-row cursor-pointer"
+        onClick={() => router.push("/profile")}
+      >
         <h5>{user?.name}</h5>
         {user?.picture ? (
           <Image src={user?.picture!} alt={user?.name!} />
