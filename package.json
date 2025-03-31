@@ -64,7 +64,7 @@
     "next-intl": "^3.20.0",
     "next-mdx-remote": "^5.0.0",
     "polkadot-api": "^1.6.5",
-    "react": "^18",
+    "react": "^19",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "sharp": "^0.33.5",
