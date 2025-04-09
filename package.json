@@ -33,7 +33,7 @@
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@mdxeditor/editor": "^3.10.1",
-    "@next/mdx": "^14.2.5",
+    "@next/mdx": "^15.2.5",
     "@polkadot-api/descriptors": "file:.papi/descriptors",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-checkbox": "^1.1.2",
