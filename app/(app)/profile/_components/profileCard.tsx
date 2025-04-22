@@ -57,11 +57,11 @@ const ProfileCard = ({ level, xp, xpToNextLevel }: XpAndLevel) => {
         </div>
       </div>
       <div className="flex flex-col mt-[34px] w-full xl:w-6/12 xl:mt-0">
-        <h5 className="mb-[11px]">{t("level", { level })}</h5>
+        <h5 className="text-primary mb-[11px]">{t("level", { level })}</h5>
         <Progress value={progress} />
         <span className="inline-flex self-end items-end mt-3">
           <p className="text-body2 mr-1">{t("xpToNextLevel", { xpToNextLevel })}</p>
-          <h5>{t("level", { level: level + 1 })}</h5>
+          <h5 className="text-primary">{t("level", { level: level + 1 })}</h5>
         </span>
       </div>
     </div>

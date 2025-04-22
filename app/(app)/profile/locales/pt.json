@@ -19,6 +19,7 @@
     "publicCertificateUrl": "URL do certificado público:",
     "shareText": "Confira este certificado para \"{courseTitle}\"!",
     "xpToNextLevel": "{xpToNextLevel} XP para o",
+    "noCertificates": "Complete um curso para obter um certificado",
     "achievementsSpecs": {
       "steadySteps": "Passos constantes",
       "mastersRhythm": "Ritmo de mestre",

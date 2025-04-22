@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
-import { seedCourses } from "./collections/courses";
 import { seedTeams } from "./collections/teams";
+import { seedCourses } from "./collections/courses";
 
 const uri = "mongodb://localhost:27117";
 const dbName = "doteducation";

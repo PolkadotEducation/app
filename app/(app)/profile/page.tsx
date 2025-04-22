@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const [progress, setProgress] = useState<XpAndLevel>({
     level: 0,
     xp: 0,
-    xpToNextLevel: 100,
+    xpToNextLevel: 0,
   });
   const { user } = useUser();
   const router = useRouter();
@@ -113,7 +113,7 @@ const ProfilePage = () => {
           </TabsList>
           <TabsContent value="achievements" className="xl:pt-4 pt-2">
             <h5>{t("achievements")}</h5>
-            <div className="flex flex-row flex-wrap w-full pt-6 gap-10 items-center justify-center">
+            <div className="w-full mt-12 gap-6 grid grid-cols-3 justify-items-center">
               {achievements.map((achievement) => {
                 const unlocked = userAchievements.includes(achievement.id);
                 return (
@@ -130,7 +130,7 @@ const ProfilePage = () => {
           </TabsContent>
           <TabsContent value="certificates" className="xl:pt-4 pt-2">
             <h5>{t("certificates")}</h5>
-            {completedCourses &&
+            {completedCourses && completedCourses.length > 0 ? (
               completedCourses.map((i: CompletedCourse) => (
                 <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={i.courseId}>
                   <CourseCardPreview
@@ -139,7 +139,10 @@ const ProfilePage = () => {
                     onClickAction={() => handleCertificateClick(i.courseId)}
                   />
                 </div>
-              ))}
+              ))
+            ) : (
+              <p className="text-center text-gray-500 py-8">{t("noCertificates")}</p>
+            )}
           </TabsContent>
         </Tabs>
       </div>
