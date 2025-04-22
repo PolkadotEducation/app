@@ -1,4 +1,5 @@
 import { Db } from "mongodb";
+import { seedProgress } from "./progress";
 
 function createUser(email: string, name: string, language: string, isAdmin: boolean = false) {
   return {
@@ -31,4 +32,5 @@ export async function seedUsers(db: Db) {
   ];
 
   await db.collection("users").insertMany(users);
+  await seedProgress(db);
 }
