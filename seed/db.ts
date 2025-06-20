@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb"
-import { seedUsers } from "../packages/api/seed/db/collections/users"
-import { seedTeams } from "../packages/api/seed/db/collections/teams"
-import { seedCourses } from "../packages/api/seed/db/collections/courses"
+import { seedUsers } from "./collections/users"
+import { seedTeams } from "./collections/teams"
+import { seedCourses } from "./collections/courses"
 
 // Use environment variables with fallbacks
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017"
