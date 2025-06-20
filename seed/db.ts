@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb"
-import { seedUsers } from "./collections/users"
-import { seedTeams } from "./collections/teams"
-import { seedCourses } from "./collections/courses"
+import { seedUsers } from "../packages/api/seed/db/collections/users"
+import { seedTeams } from "../packages/api/seed/db/collections/teams"
+import { seedCourses } from "../packages/api/seed/db/collections/courses"
 
 // Use environment variables with fallbacks
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27117"
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017"
 const dbName = process.env.MONGODB_DB || "doteducation"
 
 export async function connectToDatabase() {

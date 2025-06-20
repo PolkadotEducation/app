@@ -17,8 +17,8 @@ services:
       - ./environments/.api
     command: >
       bash -c "cd /usr/api &&
-        bun i &&
-        bun dev"
+      bun install --production &&
+      bun dev"
     depends_on:
       - doteducation-mongodb
     networks:
@@ -35,7 +35,7 @@ services:
     command: >
       bash -c "cd /usr/app &&
         bun add @next/swc-linux-arm64-gnu &&
-        bun i &&
+        bun install --production &&
         bun dev"
     depends_on:
       - doteducation-api
