@@ -35,13 +35,8 @@ jobs:
     environment: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
     steps:
-      - name: Create codebase directory
-        run: mkdir -p codebase
-
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          path: codebase/api
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -49,7 +44,7 @@ jobs:
           bun-version: 1.1.29
 
       - name: Set up environment variables for API
-        working-directory: codebase/api
+        working-directory: packages/api
         run: |
           touch .env
           echo "NODE_ENV=test" >> .env
@@ -57,20 +52,16 @@ jobs:
           echo "PORT=${{ env.API_PORT }}" >> .env
           echo "MONGODB_URI=mongodb://${{ env.MONGODB_HOST }}:${{ env.MONGODB_PORT }}/${{ env.MONGODB_DB }}" >> .env
 
-      - name: Install API dependencies
-        working-directory: codebase/api
+      - name: Install dependencies
         run: bun i
 
       - name: Format
-        working-directory: codebase/api
         run: bun run format
 
       - name: Lint
-        working-directory: codebase/api
         run: bun run lint
 
       - name: Build
-        working-directory: codebase/api
         run: bun run build
 
       - name: Create logs directory
@@ -84,7 +75,7 @@ jobs:
           mongodb-db: ${{ env.MONGODB_DB }}
 
       - name: Run API tests
-        working-directory: codebase/api
+        working-directory: packages/api
         run: bun test
 
       - name: Upload logs

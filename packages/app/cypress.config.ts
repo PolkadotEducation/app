@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import { resetDatabase } from "./seed/db";
+import { resetDatabase } from "../../seed/db";
 
 export default defineConfig({
   e2e: {
