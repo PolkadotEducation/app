@@ -1,0 +1,8 @@
+NEXT_PUBLIC_BASE_URL=http://doteducation-app:3000
+NEXT_PUBLIC_API_DOMAIN=http://doteducation-api:4000
+NEXT_PUBLIC_AUTH_TOKEN=localAuthCode
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+POLKADOT_WSS_API=wss://pas-rpc.stakeworld.io/assethub

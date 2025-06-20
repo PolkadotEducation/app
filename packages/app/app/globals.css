@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
+@import "../node_modules/@mdxeditor/editor/dist/style.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 93%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 328 100% 45%;
+    --secondary-main: 257, 63%, 46%, 1;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 0, 0%, 79%;
+    --ring: 328 100% 45%;
+    --radius: 4px;
+    --text-primary: 0 0% 10%;
+    --text-secondary: 0 0% 30%;
+    --text-label: 0 0% 50%;
+    --text-disabled: 0 0% 65%;
+    --error: 9 100% 37%;
+    --border-gray: 0 0% 88%;
+    --success-green: 151 72% 62%;
+    --dark-purple: 266 42% 20%;
+    --secondary-light: 225, 48%, 90%, 1;
+  }
+
+  .dark {
+    --background: 240 10% 10%;
+    --foreground: 0 0% 90%;
+    --card: 240 10% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 328 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 10% 20%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 240 10% 18%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 240 10% 25%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 84.2% 50%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 25%;
+    --ring: 328 100% 45%;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 0 0% 70%;
+    --text-label: 0 0% 60%;
+    --text-disabled: 0 0% 40%;
+    --error: 9 100% 50%;
+    --border-gray: 0 0% 25%;
+    --success-green: 151 72% 50%;
+    --dark-purple: 266 42% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-primary;
+  }
+}
+
+.unbound-font {
+  font-family: "Unbounded", sans-serif;
+}
+
+@layer utilities {
+  .fluid-gap {
+    gap: clamp(0.5rem, -0.75rem + 2.5vh, 1rem);
+  }
+}
+
+@layer base {
+  h1 {
+    @apply font-unbounded font-medium md:font-bold text-h1;
+  }
+
+  h2 {
+    @apply font-unbounded font-medium md:font-bold text-h2;
+  }
+
+  h3 {
+    @apply font-unbounded font-medium md:font-bold text-h3;
+  }
+
+  h4 {
+    @apply font-unbounded font-medium md:font-bold text-h4;
+  }
+
+  h5 {
+    @apply font-unbounded font-medium md:font-bold text-h5;
+  }
+
+  h6 {
+    @apply font-unbounded font-medium md:font-bold text-h6;
+  }
+
+  p {
+    @apply text-p;
+  }
+
+  a {
+    @apply text-a;
+  }
+
+  .btn-text {
+    @apply text-btn;
+  }
+
+  .body1 {
+    @apply font-montserrat font-normal text-body1;
+  }
+
+  .body2 {
+    @apply font-montserrat font-normal text-body2;
+  }
+
+  .subtitle1 {
+    @apply font-montserrat font-normal text-subtitle1;
+  }
+
+  .subtitle2 {
+    @apply font-montserrat font-medium text-subtitle2;
+  }
+
+  .overline {
+    @apply font-unbounded font-normal text-overline uppercase;
+  }
+
+  .caption {
+    @apply font-montserrat font-normal text-caption;
+  }
+}
+
+.mdxeditor h1,
+.mdxeditor h2,
+.mdxeditor h3,
+.mdxeditor h4,
+.mdxeditor h5,
+.mdxeditor h6 {
+  font-weight: 700;
+  font-family: "Unbounded", sans-serif;
+}
+
+.mdxeditor h1 {
+  font-size: 2em;
+  margin-block: 2.5rem;
+}
+
+.mdxeditor h2 {
+  font-size: 1.5em;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor h3 {
+  font-size: 1.17em;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor h4 {
+  font-size: 1em;
+}
+
+.mdxeditor h5 {
+  font-size: 0.83em;
+}
+
+.mdxeditor h6 {
+  font-size: 0.67em;
+}
+
+.mdxeditor p {
+  margin-block: 1.25rem;
+}
+
+.mdxeditor ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-block: 1.25rem;
+}
+
+.mdxeditor li {
+  margin-bottom: 0.5rem;
+}
+
+/* Fix for autofill bg color changes for chromium browsers */
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 40px white inset !important;
+  }
+}
+
+@layer components {
+  .card::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow:
+      0 8px 17px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    content: "";
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .card:hover::after,
+  .card:focus::after {
+    opacity: 1;
+  }
+}

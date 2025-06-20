@@ -1,0 +1,61 @@
+services:
+  doteducation-mongodb:
+    image: mongo:7.0.5-jammy
+    attach: false
+    ports:
+      - 27017:27017
+    networks:
+      - dotnet
+
+  doteducation-api:
+    image: oven/bun:1.1.29
+    ports:
+      - 4000:4000
+    volumes:
+      - ./packages/api:/usr/api
+    env_file:
+      - ./environments/.api
+    command: >
+      bash -c "cd /usr/api &&
+        bun i &&
+        bun dev"
+    depends_on:
+      - doteducation-mongodb
+    networks:
+      - dotnet
+
+  doteducation-app:
+    image: oven/bun:1.1.29
+    ports:
+      - 3000:3000
+    volumes:
+      - ./packages/app:/usr/app
+    env_file:
+      - ./environments/.app
+    command: >
+      bash -c "cd /usr/app &&
+        bun add @next/swc-linux-arm64-gnu &&
+        bun i &&
+        bun dev"
+    depends_on:
+      - doteducation-api
+    networks:
+      - dotnet
+
+  doteducation-landing-page:
+    image: oven/bun:1.1.29
+    ports:
+      - 3001:3001
+    volumes:
+      - ./packages/landing-page:/usr/landing-page
+    command: >
+      bash -c "cd /usr/landing-page &&
+        bun add @next/swc-linux-arm64-gnu &&
+        bun i &&
+        PORT=3001 bun dev"
+    networks:
+      - dotnet
+
+networks:
+  dotnet:
+    driver: bridge
