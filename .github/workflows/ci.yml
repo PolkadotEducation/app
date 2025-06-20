@@ -1,24 +1,29 @@
-name: API CI/CD Workflow
+name: Monorepo CI/CD Workflow
 
 on:
   pull_request:
     branches:
       - develop
       - main
+    paths:
+      - "packages/api/**"
+      - "packages/app/**"
+      - ".github/workflows/ci.yml"
   push:
     branches:
       - develop
       - main
     paths:
       - "packages/api/**"
-      - ".github/workflows/api-ci-cd.yml"
+      - "packages/app/**"
+      - ".github/workflows/ci.yml"
 
 permissions:
   id-token: write
   contents: read
 
 concurrency:
-  group: api-workflow-${{ github.ref }}
+  group: app-workflow-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -27,10 +32,11 @@ env:
   MONGODB_PORT: 27017
   MONGODB_DB: doteducation
   API_PORT: 4000
+  APP_PORT: 3000
   HOST: 0.0.0.0
 
 jobs:
-  api-build:
+  test:
     runs-on: ubuntu-latest
     environment: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
@@ -42,6 +48,16 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.29
+
+      - name: Set up environment variables for APP
+        working-directory: packages/app
+        run: |
+          touch .env
+          echo "NODE_ENV=test" >> .env
+          echo "HOST=${{ env.HOST }}" >> .env
+          echo "PORT=${{ env.APP_PORT }}" >> .env
+          echo "NEXT_PUBLIC_BASE_URL=http://${{ env.HOST }}:${{ env.APP_PORT }}" >> .env
+          echo "NEXT_PUBLIC_API_DOMAIN=http://${{ env.HOST }}:${{ env.API_PORT }}" >> .env
 
       - name: Set up environment variables for API
         working-directory: packages/api
@@ -76,12 +92,32 @@ jobs:
 
       - name: Run API tests
         working-directory: packages/api
-        run: bun test
+        run: bun run test
+
+      - name: Start API
+        working-directory: packages/api
+        run: bun dev > ../../logs/api.log 2>&1 &
+
+      - name: Start APP
+        working-directory: packages/app
+        run: bun dev > ../../logs/app.log 2>&1 &
+
+      - name: Test with Cypress
+        working-directory: packages/app
+        run: bun run wait && bun run test
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          include-hidden-files: true
+          path: packages/app/cypress/screenshots
 
       - name: Upload logs
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: api-service-logs
+          name: service-logs
           include-hidden-files: true
           path: logs
