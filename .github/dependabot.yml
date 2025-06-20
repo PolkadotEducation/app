@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/packages/app"
+    schedule:
+      interval: "daily"
+    target-branch: "develop"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: "npm"
+    directory: "/packages/api"
+    schedule:
+      interval: "daily"
+    target-branch: "develop"
+    open-pull-requests-limit: 10

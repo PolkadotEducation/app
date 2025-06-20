@@ -1,4 +1,4 @@
-name: CI/CD workflow
+name: App CI/CD Workflow
 
 on:
   pull_request:
@@ -9,26 +9,29 @@ on:
     branches:
       - develop
       - main
+    paths:
+      - "packages/app/**"
+      - ".github/workflows/app-ci-cd.yml"
 
 permissions:
   id-token: write
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: app-workflow-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   MONGODB_VERSION: 7.0.5-jammy
   MONGODB_HOST: localhost
-  MONGODB_PORT: 27117
+  MONGODB_PORT: 27017
   MONGODB_DB: doteducation
   API_PORT: 4000
   APP_PORT: 3000
   HOST: 0.0.0.0
 
 jobs:
-  build:
+  app-build:
     runs-on: ubuntu-latest
     environment: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
