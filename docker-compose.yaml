@@ -14,7 +14,7 @@ services:
     volumes:
       - ./packages/api:/usr/api
     env_file:
-      - ./environments/.api
+      - ./environments/.api.example
     command: >
       bash -c "cd /usr/api &&
       bun install --production &&
@@ -31,7 +31,7 @@ services:
     volumes:
       - ./packages/app:/usr/app
     env_file:
-      - ./environments/.app
+      - ./environments/.app.example
     command: >
       bash -c "cd /usr/app &&
         bun add @next/swc-linux-arm64-gnu &&
