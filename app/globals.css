@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
 @import "../node_modules/@mdxeditor/editor/dist/style.css";
 @tailwind base;
 @tailwind components;
@@ -13,6 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     --primary: 328 100% 45%;
+    --secondary-main: 257, 63%, 46%, 1;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -34,6 +35,7 @@
     --border-gray: 0 0% 88%;
     --success-green: 151 72% 62%;
     --dark-purple: 266 42% 20%;
+    --secondary-light: 225, 48%, 90%, 1;
   }
 
   .dark {
@@ -80,29 +82,47 @@
   font-family: "Unbounded", sans-serif;
 }
 
+@layer utilities {
+  .fluid-gap {
+    gap: clamp(0.5rem, -0.75rem + 2.5vh, 1rem);
+  }
+}
+
 @layer base {
   h1 {
-    @apply font-unbounded font-light text-h1;
+    @apply font-unbounded font-medium md:font-bold text-h1;
   }
 
   h2 {
-    @apply font-unbounded font-light text-h2;
+    @apply font-unbounded font-medium md:font-bold text-h2;
   }
 
   h3 {
-    @apply font-unbounded font-normal text-h3;
+    @apply font-unbounded font-medium md:font-bold text-h3;
   }
 
   h4 {
-    @apply font-unbounded font-bold text-h4;
+    @apply font-unbounded font-medium md:font-bold text-h4;
   }
 
   h5 {
-    @apply font-unbounded font-normal text-h5;
+    @apply font-unbounded font-medium md:font-bold text-h5;
   }
 
   h6 {
-    @apply font-unbounded font-medium text-h6;
+    @apply font-unbounded font-medium md:font-bold text-h6;
+  }
+
+  p {
+    @apply text-p;
+  }
+
+  a {
+    @apply text-a;
+  }
+
+  .btn-text {
+    @apply text-btn;
   }
 
   .body1 {
@@ -127,20 +147,6 @@
 
   .caption {
     @apply font-montserrat font-normal text-caption;
-  }
-
-  @media (max-width: 767px) {
-    h1 {
-      @apply text-h3 font-unbounded font-normal;
-    }
-
-    h2 {
-      @apply text-h4 font-unbounded font-bold;
-    }
-
-    .body1 {
-      @apply text-body2 font-montserrat font-normal;
-    }
   }
 }
 

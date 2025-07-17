@@ -13,7 +13,31 @@
     "downloadCertificate": "Descargar Certificado",
     "shareCertificate": "Compartir Certificado",
     "copyCertificateUrl": "Copiar URL del Certificado",
+    "mintCertificate": "Mint Certificado",
+    "minting": "Minting",
+    "minted": "Already Minted",
     "publicCertificateUrl": "URL del certificado público:",
-    "shareText": "¡Mira este certificado para \"{courseTitle}\"!"
+    "shareText": "¡Mira este certificado para \"{courseTitle}\"!",
+    "xpToNextLevel": "{xpToNextLevel} XP para el",
+    "achievementsSpecs": {
+      "steadySteps": "Pasos constantes",
+      "mastersRhythm": "Ritmo de maestro",
+      "unwaveringCommitment": "Compromiso inquebrantable",
+      "goodGuess": "Buena suposición",
+      "quizAce": "As del Quiz",
+      "answerGenius": "Genio de las respuestas",
+      "challengeExplorer": "Explorador de desafíos",
+      "dedicatedCompetitor": "Competidor dedicado",
+      "masterOfChallenges": "Maestro de los desafíos",
+      "firstAchievement": "Primer logro",
+      "perfeccionist": "Perfeccionista",
+      "personality": "Personalidad",
+      "consecutiveLogins": "Consigue inicios de sesión consecutivos y avanza en los niveles de compromiso.",
+      "stayActive": "Mantente activo y avanza en los niveles de compromiso.",
+      "answerQuestions": "Responde preguntas correctamente y avanza en los niveles del quiz.",
+      "completeChallenges": "Completa desafíos para convertirte en un maestro.",
+      "firstOfMany": "El primero de muchos logros.",
+      "maxAccuracy": "Alcanzó el 100% de precisión en una tarea."
+    }
   }
 }

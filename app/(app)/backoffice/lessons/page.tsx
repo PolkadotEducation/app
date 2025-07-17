@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import { DataTable } from "./_components/dataTable";
 import { COLUMNS } from "./_components/columns";
 import { useToast } from "@/hooks/useToast";
-import { DeleteLessonModal } from "./_components/deleteLessonModal";
 import { useUser } from "@/hooks/useUser";
+import { DeleteEntityModal } from "@/components/ui/deleteEntityModal";
 
 const LessonsPage = () => {
   const t = useTranslations("backoffice");
@@ -31,13 +31,13 @@ const LessonsPage = () => {
     if (response) {
       await getLessons();
       toast({
-        title: t("lessonDeletedSuccess"),
+        title: t("entityDeletedSuccess"),
         variant: "default",
       });
       return;
     }
     toast({
-      title: t("lessonDeleteError"),
+      title: t("entityDeleteError"),
       variant: "destructive",
     });
   };
@@ -61,16 +61,17 @@ const LessonsPage = () => {
           updateData={getLessons}
         />
       </div>
-      <DeleteLessonModal
+      <DeleteEntityModal
         open={deleteModalOpen}
         onOpenChange={setDeleteModalOpen}
-        lessonName={lessons.find((lesson) => lesson._id === triggeredRowId)?.title || ""}
+        entityName={lessons.find((lesson) => lesson._id === triggeredRowId)?.title || ""}
         onSubmit={async () => {
           if (triggeredRowId) {
             await deleteLesson(triggeredRowId);
             setDeleteModalOpen(false);
           }
         }}
+        variant="lesson"
       />
     </main>
   );

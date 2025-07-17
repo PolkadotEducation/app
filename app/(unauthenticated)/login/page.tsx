@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import Web3Wallet from "@/components/ui/web3Wallet";
+import Link from "next/link";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -41,17 +42,20 @@ const LoginPage = () => {
     router.push("/forgot-password");
   };
   return (
-    <main className="scale-100 xl:scale-90 2xl:scale-100 transform-origin-top-center h-short:scale-80">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h4 className="mb-4 text-center h-short:scale-90">{t("title")}</h4>
-        <p className="mb-6 text-center">{t("welcomeMessage")}</p>
+    <main>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center fluid-gap">
+        <h4 className="text-center">
+          {t.rich("title", {
+            br: () => <br />,
+          })}
+        </h4>
+        <p className="text-center">{t("welcomeMessage")}</p>
         <InputFloatingLabel
           type="email"
           id="emailInput"
           value={email}
           onChange={handleEmailChange}
           label={t("emailPlaceholder")}
-          additionalStyles="mb-4"
         />
         <InputFloatingLabel
           type="password"
@@ -59,33 +63,25 @@ const LoginPage = () => {
           value={password}
           onChange={handlePasswordChange}
           label={t("passwordPlaceholder")}
-          additionalStyles="mb-4"
         />
-        <Button type="button" onClick={handleForgotPassword} className="mb-4" variant="link">
+        <Button type="button" onClick={handleForgotPassword} className="font-semibold" variant="link" shadow={false}>
           {t("forgotPassword")}
         </Button>
-        <Button
-          type="submit"
-          className={`w-full ${state.error ? "mb-0" : "mb-4"}`}
-          disabled={isAuthenticating}
-          data-cy="button-login-submit"
-        >
+        <Button type="submit" className="w-full" disabled={isAuthenticating} data-cy="button-login-submit">
           {t(isAuthenticating ? "loading" : "signInButton")}
         </Button>
         {state.error && (
-          <p className="text-xs text-error mt-3" data-cy="text-login-error">
+          <p className="text-xs text-error mt-2" data-cy="text-login-error">
             {state.error}
           </p>
         )}
-        <Button
-          type="button"
-          onClick={() => router.push("/sign-up")}
-          variant="link"
-          className="mb-4"
-          data-cy="button-login-signup"
-        >
-          {t("requestAccount")}
-        </Button>
+        <div className="flex w-full px-3 justify-between items-center">
+          <p>{t("noAccount")}</p>
+          <Link href={"/sign-up"} className="font-bold" data-cy="button-login-signup">
+            {t("createAccount")}
+          </Link>
+        </div>
+        <hr />
         <Web3Wallet />
         <Button
           type="button"
@@ -98,15 +94,16 @@ const LoginPage = () => {
           <Image src={google} width={20} height={20} className="mr-2" alt="Google Icon" data-cy="image-login-google" />
           {t(isAuthenticating ? "loading" : "google")}
         </Button>
-        <p className="text-center text-body2 mt-4">
+        <p className="text-center caption mt-2">
           {t.rich("loginAgreement", {
+            br: () => <br />,
             policies: (children) => (
-              <a className="text-primary" href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+              <a className="text-primary caption" href="/privacy-policy" target="_blank" rel="noopener noreferrer">
                 {children}
               </a>
             ),
             terms: (children) => (
-              <a className="text-primary" href="/terms-of-service" target="_blank" rel="noopener noreferrer">
+              <a className="text-primary caption" href="/terms-of-service" target="_blank" rel="noopener noreferrer">
                 {children}
               </a>
             ),

@@ -13,7 +13,31 @@
     "downloadCertificate": "Download Certificate",
     "shareCertificate": "Share Certificate",
     "copyCertificateUrl": "Copy Certificate URL",
+    "mintCertificate": "Mint Certificate",
+    "minting": "Minting",
+    "minted": "Already Minted",
     "publicCertificateUrl": "URL of the public certificate:",
-    "shareText": "Check out this certificate for \"{courseTitle}\"!"
+    "shareText": "Check out this certificate for \"{courseTitle}\"!",
+    "xpToNextLevel": "{xpToNextLevel} XP for",
+    "achievementsSpecs": {
+      "steadySteps": "Steady Steps",
+      "mastersRhythm": "Master's Rhythm",
+      "unwaveringCommitment": "Unwavering Commitment",
+      "goodGuess": "Good Guess",
+      "quizAce": "Quiz Ace",
+      "answerGenius": "Answer Genius",
+      "challengeExplorer": "Challenge Explorer",
+      "dedicatedCompetitor": "Dedicated Competitor",
+      "masterOfChallenges": "Master of Challenges",
+      "firstAchievement": "First Achievement",
+      "perfeccionist": "Perfectionist",
+      "personality": "Personality",
+      "consecutiveLogins": "Achieve consecutive logins and advance through commitment levels.",
+      "stayActive": "Stay active and advance through commitment levels.",
+      "answerQuestions": "Answer questions correctly and advance through quiz levels.",
+      "completeChallenges": "Complete challenges to become a master.",
+      "firstOfMany": "The first of many achievements.",
+      "maxAccuracy": "Achieved 100% accuracy in a task."
+    }
   }
 }

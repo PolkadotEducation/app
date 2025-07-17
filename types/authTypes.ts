@@ -1,6 +1,9 @@
+import { WalletAccount } from "@talismn/connect-wallets";
+
 export type AuthState = {
   isLoading: boolean;
   userToken: string | null;
+  web3Acc: WalletAccount | null;
   error: string | null;
 };
 
@@ -14,7 +17,8 @@ export type AuthAction =
   | { type: "CLEAR_AUTH_ERROR" }
   | { type: "SIGN_OUT" }
   | { type: "SET_TOKEN"; payload: { token: string } }
-  | { type: "SET_LOADING"; payload: { loading: boolean } };
+  | { type: "SET_LOADING"; payload: { loading: boolean } }
+  | { type: "SET_WALLET"; payload: { web3Acc: WalletAccount } };
 
 export type SignUpResponse = {
   userId?: string;
