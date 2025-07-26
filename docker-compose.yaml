@@ -35,9 +35,9 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./services/api:/usr/api
+      - ./submodules/api:/usr/api
     env_file:
-      - ./services/api/.env
+      - ./submodules/api/.env
     command: >
       bash -c "cd /usr/api &&
         bun i &&
@@ -55,7 +55,7 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./services/landing-page:/usr/landing-page
+      - ./submodules/landing-page:/usr/landing-page
     command: >
       bash -c "cd /usr/landing-page &&
         bun i &&

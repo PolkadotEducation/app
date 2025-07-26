@@ -14,10 +14,11 @@ This repository contains the front-end application for Polkadot Education. Follo
 
 ### 1. Clone the Repository
 
-First, clone this repository to your local machine:
+First, clone this repository to your local machine.
+Use the `--recursive` flag to clone the [api](https://github.com/PolkadotEducation/api) and the [landing-page](https://github.com/PolkadotEducation/landing-page) repositories as submodules:
 
 ```bash
-git clone https://github.com/PolkadotEducation/app.git
+git clone --recursive https://github.com/PolkadotEducation/app.git
 cd app
 ```
 
@@ -29,17 +30,21 @@ Install the required dependencies using [Bun](https://bun.sh/):
 bun install
 ```
 
-### 3. Start the Development Server
+### 3. Start the Services
 
-To start the development server, run:
-
+To start the services, run:
 ```bash
-bun dev
+docker compose up
 ```
 
 After starting the server, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-> **Note:** If you prefer a more comprehensive setup, the [local-setup repository](https://github.com/PolkadotEducation/local-setup) automates the process. It provides all necessary configurations and runs all required Docker containers. Simply follow the documentation in the repository, and you’ll have the backend, database, and other services up and running seamlessly.
+#### 3.1 Stand-alone server
+To start the development server alone, run:
+
+```bash
+bun dev
+```
 
 ## Commands
 
@@ -56,6 +61,7 @@ The project has the following commands:
 - `bun run format:fix`: Fixes Prettier errors
 - `bun run lint`: Runs ESLint
 - `bun run lint:fix`: Fixes ESLint errors
+- `bun run pull`: Pulls the main repository and all submodules
 - `bun run storybook`: Runs the storybook
 - `bun run test`: Runs Cypress tests
 - `bun run test:open`: Runs Cypress tests in Launchpad mode
@@ -75,6 +81,7 @@ The project structure is organized as follows:
 - `lib/`: Helper functions and libraries.
 - `public/assets/`: Public files such as images and other assets.
 - `stories/`: Storybook files.
+- `submodules/`: Complementary repositories.
 - `types/`: TypeScript type definitions.
 
 ## Contributing

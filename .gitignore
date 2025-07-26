@@ -125,6 +125,7 @@ dist
 
 .vscode/
 .idea/
+.cursorignore
 
 # yarn v2
 .yarn/cache

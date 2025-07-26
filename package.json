@@ -17,13 +17,14 @@
     "format": "prettier --check .",
     "lint:fix": "eslint --fix .",
     "lint": "eslint .",
+    "pull": "git pull && git submodule foreach git pull origin main",
+    "postinstall": "papi",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "test:open": "cypress open",
     "test": "cypress run",
     "type-check": "tsc --noEmit",
-    "wait": "wait-on http://localhost:3000",
-    "postinstall": "papi"
+    "wait": "wait-on http://localhost:3000"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
