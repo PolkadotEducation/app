@@ -6,6 +6,10 @@
   "scripts": {
     "build-storybook": "storybook build",
     "build": "next build",
+    "compose:down": "docker compose --profile slim down",
+    "compose:down:all": "docker compose --profile default down",
+    "compose:up": "docker compose --profile slim up",
+    "compose:up:all": "docker compose --profile default up",
     "db:drop:all": "bun run seed/cli.ts drop:all",
     "db:drop:courses": "bun run seed/cli.ts drop:courses",
     "db:reset": "bun run seed/cli.ts reset",
