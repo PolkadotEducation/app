@@ -1,0 +1,76 @@
+services:
+  doteducation-mongodb:
+    image: mongo:7.0.5-jammy
+    attach: false
+    ports:
+      - 27017:27017
+    networks:
+      - doteducation-network
+    profiles:
+      - default
+      - slim
+
+  doteducation-app:
+    image: oven/bun:1.1.29
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/app
+    env_file:
+      - .env
+    command: >
+      bash -c "cd /usr/app &&
+        bun i &&
+        bun dev"
+    depends_on:
+      - doteducation-api
+    networks:
+      - doteducation-network
+    extra_hosts:
+      - "localhost:host-gateway"
+    profiles:
+      - default
+      - slim
+
+  doteducation-api:
+    image: oven/bun:1.1.29
+    ports:
+      - 4000:4000
+    volumes:
+      - ./submodules/api:/usr/api
+    env_file:
+      - ./submodules/api/.env
+    command: >
+      bash -c "cd /usr/api &&
+        bun i &&
+        bun dev"
+    depends_on:
+      - doteducation-mongodb
+    networks:
+      - doteducation-network
+    extra_hosts:
+      - "localhost:host-gateway"
+    profiles:
+      - default
+      - slim
+
+  doteducation-landing-page:
+    image: oven/bun:1.1.29
+    ports:
+      - 3001:3001
+    volumes:
+      - ./submodules/landing-page:/usr/landing-page
+    command: >
+      bash -c "cd /usr/landing-page &&
+        bun i &&
+        PORT=3001 bun dev"
+    networks:
+      - doteducation-network
+    extra_hosts:
+      - "localhost:host-gateway"
+    profiles:
+      - default
+
+networks:
+  doteducation-network:
+    driver: bridge

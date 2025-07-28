@@ -14,10 +14,11 @@ This repository contains the front-end application for Polkadot Education. Follo
 
 ### 1. Clone the Repository
 
-First, clone this repository to your local machine:
+First, clone this repository to your local machine.
+Use the `--recursive` flag to clone the [api](https://github.com/PolkadotEducation/api) and the [landing-page](https://github.com/PolkadotEducation/landing-page) repositories as submodules:
 
 ```bash
-git clone https://github.com/PolkadotEducation/app.git
+git clone --recursive https://github.com/PolkadotEducation/app.git
 cd app
 ```
 
@@ -29,38 +30,41 @@ Install the required dependencies using [Bun](https://bun.sh/):
 bun install
 ```
 
-### 3. Start the Development Server
+### 3. Start the Services
 
-To start the development server, run:
+To start the services, run:
 
 ```bash
-bun dev
+bun compose:up
 ```
 
-After starting the server, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
-> **Note:** If you prefer a more comprehensive setup, the [local-setup repository](https://github.com/PolkadotEducation/local-setup) automates the process. It provides all necessary configurations and runs all required Docker containers. Simply follow the documentation in the repository, and you’ll have the backend, database, and other services up and running seamlessly.
+After starting the services, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ## Commands
 
 The project has the following commands:
 
-- `bun run build-storybook`: Builds the storybook
 - `bun run build`: Builds the project
-- `bun run db:reset`: Drops database and runs the seed
-- `bun run db:drop:all`: Drops the database
-- `bun run db:drop:courses`: Drops just the courses
-- `bun run db:seed:all`: Runs the whole seed
-- `bun run db:seed:courses`: Runs the seed for courses only
-- `bun run format`: Runs Prettier
-- `bun run format:fix`: Fixes Prettier errors
-- `bun run lint`: Runs ESLint
-- `bun run lint:fix`: Fixes ESLint errors
-- `bun run storybook`: Runs the storybook
-- `bun run test`: Runs Cypress tests
-- `bun run test:open`: Runs Cypress tests in Launchpad mode
-- `bun run type-check`: Runs TypeScript check
-- `bun run wait`: Waits for the API to start
+- `bun build-storybook`: Builds the storybook
+- `bun compose:down`: Stops and removes containers
+- `bun compose:down:all`: Stops and removes all containers (including landing-page)
+- `bun compose:up`: Starts containers
+- `bun compose:up:all`: Starts all containers (including landing-page)
+- `bun db:reset`: Drops database and runs the seed
+- `bun db:drop:all`: Drops the database
+- `bun db:drop:courses`: Drops just the courses
+- `bun db:seed:all`: Runs the whole seed
+- `bun db:seed:courses`: Runs the seed for courses only
+- `bun format`: Runs Prettier
+- `bun format:fix`: Fixes Prettier errors
+- `bun lint`: Runs ESLint
+- `bun lint:fix`: Fixes ESLint errors
+- `bun pull`: Pulls the main repository and all submodules
+- `bun storybook`: Runs the storybook
+- `bun test`: Runs Cypress tests
+- `bun test:open`: Runs Cypress tests in Launchpad mode
+- `bun type-check`: Runs TypeScript check
+- `bun wait`: Waits for the API to start
 
 ## Project Structure
 
@@ -75,6 +79,7 @@ The project structure is organized as follows:
 - `lib/`: Helper functions and libraries.
 - `public/assets/`: Public files such as images and other assets.
 - `stories/`: Storybook files.
+- `submodules/`: Complementary repositories.
 - `types/`: TypeScript type definitions.
 
 ## Contributing

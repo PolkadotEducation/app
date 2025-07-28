@@ -6,6 +6,10 @@
   "scripts": {
     "build-storybook": "storybook build",
     "build": "next build",
+    "compose:down": "docker compose --profile slim down",
+    "compose:down:all": "docker compose --profile default down",
+    "compose:up": "docker compose --profile slim up",
+    "compose:up:all": "docker compose --profile default up",
     "db:drop:all": "bun run seed/cli.ts drop:all",
     "db:drop:courses": "bun run seed/cli.ts drop:courses",
     "db:reset": "bun run seed/cli.ts reset",
@@ -17,13 +21,14 @@
     "format": "prettier --check .",
     "lint:fix": "eslint --fix .",
     "lint": "eslint .",
+    "pull": "git pull && git submodule foreach git pull origin main",
+    "postinstall": "papi",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "test:open": "cypress open",
     "test": "cypress run",
     "type-check": "tsc --noEmit",
-    "wait": "wait-on http://localhost:3000",
-    "postinstall": "papi"
+    "wait": "wait-on http://localhost:3000"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

@@ -4,8 +4,8 @@ import { seedUsers } from "./collections/users";
 import { seedCourses } from "./collections/courses";
 import { seedTeams } from "./collections/teams";
 
-const uri = "mongodb://localhost:27117";
-const dbName = "doteducation";
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const dbName = (process.env.NODE_ENV && `doteducation-${process.env.NODE_ENV}`) || "doteducation-development";
 
 export async function connectToDatabase() {
   const client: MongoClient = new MongoClient(uri);
