@@ -1,0 +1,6 @@
+[submodule "submodules/api"]
+	path = submodules/api
+	url = https://github.com/PolkadotEducation/api.git
+[submodule "submodules/landing-page"]
+	path = submodules/landing-page
+	url = https://github.com/PolkadotEducation/landing-page.git

@@ -16,6 +16,7 @@ const publicPages = [
   "/privacy-policy",
   "/terms-of-service",
   "/certificates/[id]",
+  "/sentry-example-page",
 ];
 const dynamicPublicPages = ["/lesson"];
 const backofficePages = ["/backoffice"];
