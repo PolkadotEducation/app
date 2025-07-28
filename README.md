@@ -34,17 +34,10 @@ bun install
 
 To start the services, run:
 ```bash
-docker compose up
+bun compose:up
 ```
 
-After starting the server, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
-#### 3.1 Stand-alone server
-To start the development server alone, run:
-
-```bash
-bun dev
-```
+After starting the services, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ## Commands
 
