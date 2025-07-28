@@ -23,6 +23,7 @@ function VerifyPage() {
     setError(t("invalid"));
     const token = searchParams.get("token");
     const email = searchParams.get("email");
+
     setUserEmail(email || "");
     if (email && token) {
       (async () => {
@@ -56,7 +57,13 @@ function VerifyPage() {
           </p>
         )}
         {error && <p className="mb-4 max-w-[330px] text-center">{error}</p>}
-        <Button type="button" onClick={backToLoginScreen} variant="outline" className="w-full">
+        <Button
+          type="button"
+          onClick={backToLoginScreen}
+          variant="outline"
+          className="w-full"
+          data-cy="button-back-to-login"
+        >
           {t("backToLogin")}
         </Button>
       </div>

@@ -4,9 +4,8 @@ import path from "path";
 
 function importChallenge(folderPath: string) {
   const challengePath = path.join(folderPath, "challenge.ts");
-  const compiledPath = challengePath.replace(/\.ts$/, ".js");
 
-  return require(compiledPath).challenges;
+  return require(challengePath).challenges;
 }
 
 function getTitleFromMarkdown(body: string, folder: string): string {
