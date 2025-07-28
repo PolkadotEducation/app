@@ -33,6 +33,7 @@ bun install
 ### 3. Start the Services
 
 To start the services, run:
+
 ```bash
 bun compose:up
 ```
