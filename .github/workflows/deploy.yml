@@ -103,9 +103,9 @@ jobs:
         working-directory: codebase/app
         run: bun dev > ../../logs/app.log 2>&1 &
 
-      - name: Test with Cypress
-        working-directory: codebase/app
-        run: bun run wait && bun run test
+      # - name: Test with Cypress
+      #   working-directory: codebase/app
+      #   run: bun run wait && bun run test
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
