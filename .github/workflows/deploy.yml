@@ -20,7 +20,6 @@ env:
   MONGODB_VERSION: 7.0.5-jammy
   MONGODB_HOST: localhost
   MONGODB_PORT: 27017
-  MONGODB_DB: doteducation
   API_PORT: 4000
   APP_PORT: 3000
   HOST: 0.0.0.0
@@ -28,7 +27,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.pull_request.base.ref || github.ref_name }}
+    environment: ${{ github.event_name == 'push' && 'production' || 'test' }}
 
     steps:
       - name: Create codebase directory
@@ -81,7 +80,7 @@ jobs:
           echo "NODE_ENV=test" >> .env
           echo "HOST=${{ env.HOST }}" >> .env
           echo "PORT=${{ env.API_PORT }}" >> .env
-          echo "MONGODB_URI=mongodb://${{ env.MONGODB_HOST }}:${{ env.MONGODB_PORT }}/${{ env.MONGODB_DB }}" >> .env
+          echo "MONGODB_URI=mongodb://${{ env.MONGODB_HOST }}:${{ env.MONGODB_PORT }}" >> .env
 
       - name: Install API dependencies
         working-directory: codebase/api
@@ -95,7 +94,6 @@ jobs:
         with:
           mongodb-version: ${{ env.MONGODB_VERSION }}
           mongodb-port: ${{ env.MONGODB_PORT }}
-          mongodb-db: ${{ env.MONGODB_DB }}
 
       - name: Start API
         working-directory: codebase/api
