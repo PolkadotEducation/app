@@ -19,7 +19,7 @@ concurrency:
 env:
   MONGODB_VERSION: 7.0.5-jammy
   MONGODB_HOST: localhost
-  MONGODB_PORT: 27117
+  MONGODB_PORT: 27017
   MONGODB_DB: doteducation
   API_PORT: 4000
   APP_PORT: 3000
