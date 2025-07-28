@@ -6,8 +6,6 @@ services:
       - 27017:27017
     networks:
       - doteducation-network
-    extra_hosts:
-      - "localhost:host.docker.internal"
     profiles:
       - default
       - slim
@@ -29,7 +27,7 @@ services:
     networks:
       - doteducation-network
     extra_hosts:
-      - "localhost:host.docker.internal"
+      - "localhost:host-gateway"
     profiles:
       - default
       - slim
@@ -51,7 +49,7 @@ services:
     networks:
       - doteducation-network
     extra_hosts:
-      - "localhost:host.docker.internal"
+      - "localhost:host-gateway"
     profiles:
       - default
       - slim
@@ -68,6 +66,8 @@ services:
         PORT=3001 bun dev"
     networks:
       - doteducation-network
+    extra_hosts:
+      - "localhost:host-gateway"
     profiles:
       - default
 
