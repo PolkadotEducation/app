@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
-import { seedCourses } from "./collections/courses";
 import { seedTeams } from "./collections/teams";
+import { seedCourses } from "./collections/courses";
 
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 const dbName = (process.env.NODE_ENV && `doteducation-${process.env.NODE_ENV}`) || "doteducation-development";

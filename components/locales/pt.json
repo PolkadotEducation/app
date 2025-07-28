@@ -43,6 +43,10 @@
     "certificateId": "ID do certificado: {id}",
     "ranking": "Ranking",
     "courses": "Cursos",
-    "score": "Sua pontuação: {completedLessons}/{totalLessons}"
+    "score": "Sua pontuação: {completedLessons}/{totalLessons}",
+    "points": "points",
+    "level": "Nível",
+    "generalRank": "Ranking Geral",
+    "weeklyRank": "Ranking semanal"
   }
 }
