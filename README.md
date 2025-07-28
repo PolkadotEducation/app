@@ -50,8 +50,8 @@ bun dev
 
 The project has the following commands:
 
+- `bun run build`: Builds the project
 - `bun build-storybook`: Builds the storybook
-- `bun build`: Builds the project
 - `bun compose:down`: Stops and removes containers
 - `bun compose:down:all`: Stops and removes all containers (including landing-page)
 - `bun compose:up`: Starts containers

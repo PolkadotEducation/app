@@ -6,6 +6,8 @@ services:
       - 27017:27017
     networks:
       - doteducation-network
+    extra_hosts:
+      - "localhost:host.docker.internal"
     profiles:
       - default
       - slim
@@ -26,6 +28,8 @@ services:
       - doteducation-api
     networks:
       - doteducation-network
+    extra_hosts:
+      - "localhost:host.docker.internal"
     profiles:
       - default
       - slim
@@ -46,6 +50,8 @@ services:
       - doteducation-mongodb
     networks:
       - doteducation-network
+    extra_hosts:
+      - "localhost:host.docker.internal"
     profiles:
       - default
       - slim
