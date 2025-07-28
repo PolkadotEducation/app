@@ -144,3 +144,6 @@ cypress/screenshots
 
 # correct choices
 seed/collections/lessons/choices.ts
+
+# Sentry Config File
+.env.sentry-build-plugin
