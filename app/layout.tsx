@@ -4,17 +4,23 @@ import { AuthProvider } from "@/context/auth/authProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { MDXProviderClient } from "@/context/mdx/mdxProvider";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/context/theme/themeProvider";
+import * as Sentry from "@sentry/nextjs";
 import Head from "next/head";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Polkadot Education",
-  description: "Discover the Possibilities of Blockchain",
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: "Polkadot Education",
+    description: "Discover the Possibilities of Blockchain",
+    other: {
+      ...Sentry.getTraceData(),
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
