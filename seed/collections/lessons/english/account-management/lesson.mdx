@@ -1,0 +1,128 @@
+## Account Management
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1ta7F9m9VL5em2lEeGa6CysGvbAdqq6jg/preview"
+  title="Account Management"
+/>
+
+Effective account management is crucial for safely navigating the Polkadot ecosystem. Beyond simply creating a wallet, understanding how to properly manage your accounts helps you maintain security while taking advantage of Polkadot's advanced features.
+
+## Creating and Importing Accounts
+
+### Creating New Accounts
+
+When creating a new account in any Polkadot wallet, several important steps are involved:
+
+- **Generating a mnemonic phrase**: This 12 or 24-word phrase is the master key to your account and must be stored securely.
+- **Setting a descriptive name**: Choose a name that helps you identify the account's purpose (e.g., "Staking Account" or "Cold Storage").
+- **Creating a password**: For most wallets, you'll need to set a password that encrypts your account locally on your device.
+
+> Note: Your password does not protect your mnemonic phrase. Anyone with your phrase can access your account.
+
+### Importing Existing Accounts
+
+There are several ways to import accounts into Polkadot wallets:
+
+- **Using a mnemonic phrase**: The most common and secure method.
+- **Using a JSON backup file**: Allows import via encrypted file.
+- **Using a QR code**: Handy when importing from cold wallets like Polkadot Vault.
+- **Using a private key**: Less common and not recommended due to lower security.
+
+## Account Types and Derivation Paths
+
+### Account Types
+
+- **Standard Accounts**: Controlled by a single private key.
+- **Multisignature Accounts**: Require multiple approvals for transactions.
+- **Proxy Accounts**: Allow one account to act on behalf of another.
+- **Pure Proxy Accounts**: No private key; actions are authorized via governance or designated proxies.
+
+### Derivation Paths
+
+Polkadot allows multiple accounts from one mnemonic using derivation paths:
+
+- **Hard Derivation (`//`)**: Completely independent accounts.
+- **Soft Derivation (`/`)**: Related accounts; parent can see child.
+- **Password Derivation (`///`)**: Adds an extra password layer for access.
+
+This enables you to manage multiple accounts securely from a single seed phrase.
+
+## Account Portability Across Networks
+
+### Same Account, Multiple Networks
+
+A single mnemonic can be used across Polkadot, Kusama, and parachains:
+
+- One phrase grants access to all networks.
+- Address formats differ per network but are derived from the same key.
+- Derivation paths (e.g., `//polkadot`) can create network-specific addresses.
+
+### Address Format Conversion
+
+Different networks display the same key with different prefixes:
+
+- Polkadot addresses often start with `1`
+- Kusama addresses start with capital letters
+- Parachain addresses vary
+
+Tools like Subscan Transformer can convert between formats.
+
+## Managing Multiple Accounts
+
+### Account Organization Strategies
+
+- **Purpose-Based**: Separate accounts for staking, governance, trading, etc.
+- **Security-Based**: Cold wallets for high-value, hot wallets for daily use.
+- **Network-Based**: One account per network (Polkadot, Kusama, parachains).
+
+### Using Address Book Features
+
+Wallets offer address books for better organization:
+
+- Save frequently used addresses with labels
+- Group by category or tag
+- Avoid mistakes when sending transactions
+
+## Account Recovery Options
+
+### Mnemonic Phrase Recovery
+
+- Store multiple copies securely
+- Test recovery procedures regularly
+- Advanced: Use Shamir's Secret Sharing to split and protect your seed
+
+### Social Recovery
+
+Some wallets support social recovery setups:
+
+- Assign trusted contacts
+- Define approval thresholds
+- Configure time delays to prevent unauthorized recovery
+
+Still in early stages of adoption in Polkadot wallets.
+
+## Password Management
+
+### Password Best Practices
+
+- Use strong, unique passwords
+- Store them in a password manager
+- Know that losing your password is recoverable with your seed
+
+### Resetting Passwords
+
+If you forget your password:
+
+- Remove the account
+- Restore with mnemonic
+- Create a new password during import
+
+## Conclusion
+
+Effective account management in the Polkadot ecosystem involves understanding how to create, import, and organize accounts, leverage derivation paths for different purposes, manage accounts across multiple networks, and implement proper recovery strategies. By mastering these aspects, you can maintain security while taking full advantage of Polkadot’s powerful features.
+
+As you grow more comfortable, explore advanced features like multisignature, proxy accounts, and custom derivations to create a structure tailored to your needs.
+
+## Summary
+
+In this class, we explored account management in the Polkadot ecosystem. We discussed creating and importing accounts using mnemonic phrases, JSON files, QR codes, and private keys. We examined different account types including standard, multisignature, and proxy accounts, as well as derivation paths that allow creating multiple accounts from a single mnemonic. We highlighted account portability across networks, strategies for managing multiple accounts, recovery options including mnemonic phrases and social recovery, and password management best practices. Mastering these account management techniques helps you maintain security while leveraging Polkadot's advanced features.

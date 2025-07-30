@@ -1,0 +1,74 @@
+## Zombienets
+
+<ResponsiveIframe src="https://drive.google.com/file/d/1xBlJXGGzfJbYyqdwu1n2EV-TQzbiAFEc/preview" title="Zombienets" />
+
+Zombienet is an essential tool in the Polkadot ecosystem that allows developers to create and test custom blockchain networks in controlled environments. This testing framework facilitates the development, validation, and deployment of parachains and applications by providing a safe space for experimentation before deploying to production networks.
+
+## Context and Evolution
+
+Traditional blockchain development has long faced challenges when testing new features in realistic environments. Before tools like Zombienet, developers often needed to build custom setups to simulate blockchain networks—a time-consuming and error-prone process. Zombienet emerged as a standardized and efficient solution for testing Substrate- and Polkadot-based networks.
+
+## What is Zombienet?
+
+Zombienet is a testing tool for Substrate-based blockchains. It enables developers to build and manage full test networks—including relay chains and parachains—either locally or in the cloud. Zombienet automates the setup, launch, and interconnection of multiple blockchain nodes, supporting realistic testing of features and interactions across different Polkadot ecosystem components.
+
+## Key Features
+
+- **Custom Network Creation**: Set up and launch blockchain networks with multiple nodes, validators, and parachains.
+- **Test Automation**: Run automated tests to verify parachain behavior and application functionality across various scenarios.
+- **Multi-Environment Support**: Operates in local setups (via native binaries or Podman/Docker) or in cloud infrastructure such as Kubernetes.
+- **Declarative Configuration**: Uses simple configuration files to define network topology—including node count, parachains, collators, and interconnections.
+- **Tool Integration**: Complements other Substrate development tools like `try-runtime-cli`.
+
+## Use Cases
+
+Zombienet is useful in several stages of Polkadot development:
+
+- **Parachain Development**: Test parachains in a simulated Polkadot relay chain environment before deployment to testnets or mainnet.
+- **Integration Testing**: Validate interactions between parachains and the relay chain, including cross-chain communication.
+- **Runtime Upgrade Testing**: Safely test runtime upgrades in a controlled environment to identify issues prior to production.
+- **Failure Simulation**: Model network disruptions such as node crashes or latency to observe chain behavior under stress.
+- **Education and Training**: Serve as a hands-on learning environment for new developers in the Polkadot and Substrate ecosystem.
+
+## Technical Components
+
+Zombienet consists of several key components:
+
+- **CLI (Command Line Interface)**: Provides commands to start, stop, and monitor test networks.
+- **Configuration Files**: Use TOML or JSON to define network topology and individual node settings.
+- **Infrastructure Providers**: Supports different backends like Podman, Docker, and Kubernetes for running nodes.
+- **Testing System**: Includes a test specification language to define and validate expected network behaviors.
+
+## Integration with the Polkadot Ecosystem
+
+Zombienet integrates well with other tools in the ecosystem:
+
+- **VS Code Extension**: The Zombienet extension for VS Code allows developers to manage test networks directly from their IDE.
+- **Tutorials and Guides**: Comprehensive guides cover usage with Cumulus and collator development.
+- **Paseo Testnet**: Zombienet is recommended as part of the workflow for testing parachains on the Paseo testnet.
+
+## Developer Benefits
+
+- **Controlled Environment**: Offers a safe sandbox to test without impacting production.
+- **Reproducibility**: Supports consistent, repeatable test setups for debugging and verification.
+- **Efficiency**: Significantly reduces setup time for complex test networks.
+- **Flexibility**: Adapts to a wide range of test scenarios, from simple validations to full multi-parachain simulations.
+- **Lower Learning Curve**: Makes it easier for new developers to learn how Polkadot and Substrate systems work.
+
+## Comparison with Other Tools
+
+Zombienet replaces older tools like Polkadot Launch, offering more advanced features and better integration with modern workflows. Other complementary tools include:
+
+- **Chopsticks**: Simulates state forks of existing networks.
+- **try-runtime-cli**: Tests runtime upgrades against real blockchain state data.
+- **substrate-devhub-utils**: JavaScript utility suite for working with Substrate-based chains.
+
+## Conclusion
+
+Zombienet represents a major leap forward in testing tools for Polkadot and Substrate development. It empowers developers to create, validate, and iterate on blockchain implementations in a flexible and reliable environment. By simplifying the setup of complex test networks, Zombienet reduces technical overhead and accelerates development cycles—ensuring the delivery of robust, secure parachains and applications. As the ecosystem continues to grow, tools like Zombienet are increasingly critical for maintaining quality and innovation in blockchain deployment.
+
+---
+
+## Summary
+
+This lesson explored Zombienet as a vital testing tool in the Polkadot and Substrate ecosystems. We discussed how it allows developers to build and manage full test networks, including relay chains and parachains, in isolated environments. Key features include declarative configuration, automated testing, and support for various deployment environments. We covered use cases from parachain development to integration and failure scenario testing. We also examined how Zombienet integrates with the broader Polkadot tooling ecosystem and its benefits for developers, such as reproducibility, efficiency, and a simplified learning path. Zombienet is a significant advancement in blockchain development workflows, helping teams build safe, production-ready implementations.

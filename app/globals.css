@@ -238,3 +238,30 @@
     opacity: 1;
   }
 }
+
+.mdxeditor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9em;
+}
+
+.mdxeditor th,
+.mdxeditor td {
+  border: 1px solid hsl(var(--border));
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.mdxeditor th {
+  background-color: hsl(var(--muted));
+  font-weight: 600;
+}
+
+.mdxeditor tr:nth-of-type(even) {
+  background-color: hsl(var(--muted) / 0.5);
+}
+
+.mdxeditor tr:hover {
+  background-color: hsl(var(--muted));
+}

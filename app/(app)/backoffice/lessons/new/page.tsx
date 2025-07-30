@@ -1,26 +1,40 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
 import ChoicesInputComponent from "@/components/ui/choices";
 import LessonRenderer from "@/components/ui/renderer";
 import { createLesson } from "@/api/lessonService";
 import { useTranslations } from "next-intl";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
+import Image from "next/image";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
 });
 
+const slugify = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 const schema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
+  slug: z.string().nonempty("Slug is required"),
+  language: z.string().nonempty("Language is required"),
   difficulty: z.string().nonempty("Difficulty is required"),
   markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
   question: z.string().nonempty("Question is required").max(100, "Question must be 100 characters or less"),
@@ -51,6 +65,8 @@ function CreateLessonPage() {
     resolver: zodResolver(schema),
     defaultValues: {
       title: "",
+      slug: "",
+      language: "",
       difficulty: "",
       markdownBody: markdownLessonTemplate,
       question: "",
@@ -59,6 +75,19 @@ function CreateLessonPage() {
     },
   });
 
+  const watchedTitle = useWatch({
+    control,
+    name: "title",
+  });
+
+  useEffect(() => {
+    if (watchedTitle) {
+      setValue("slug", slugify(watchedTitle));
+    } else {
+      setValue("slug", "");
+    }
+  }, [watchedTitle, setValue]);
+
   // @TODO: Get teamId from selector
   const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
 
@@ -66,7 +95,8 @@ function CreateLessonPage() {
     const lessonData = {
       teamId: selectedTeamId,
       title: data.title,
-      language: "english", // @TODO: add language field
+      slug: data.slug,
+      language: data.language,
       body: data.markdownBody,
       difficulty: data.difficulty,
       challenge: {
@@ -132,7 +162,7 @@ function CreateLessonPage() {
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-card rounded-[3px] p-6">
-        <div className="w-[49%]">
+        <div className="flex gap-x-4 w-full">
           <Controller
             name="title"
             control={control}
@@ -142,41 +172,95 @@ function CreateLessonPage() {
                 type="text"
                 id="titleInput"
                 label={t("title")}
-                additionalStyles="mb-5"
+                additionalStyles="mb-5 w-full"
                 error={errors.title?.message}
               />
             )}
           />
           <Controller
-            name="difficulty"
+            name="slug"
             control={control}
             render={({ field }) => (
-              <div className="flex flex-col">
-                <p>{t("difficulty")}</p>
-                <RadioGroup
-                  {...field}
-                  onValueChange={field.onChange}
-                  className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="easy" id="easyRadioButton" />
-                    <label htmlFor="easyRadioButton">{t("easy")}</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="medium" id="mediumRadioButton" />
-                    <label htmlFor="mediumRadioButton">{t("medium")}</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="hard" id="hardRadioButton" />
-                    <label htmlFor="hardRadioButton">{t("hard")}</label>
-                  </div>
-                </RadioGroup>
-                {errors.difficulty?.message && (
-                  <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
-                )}
-              </div>
+              <InputFloatingLabel
+                {...field}
+                type="text"
+                id="slugInput"
+                label="Slug"
+                additionalStyles="mb-5 w-full"
+                disabled={true}
+                error={errors.slug?.message}
+              />
             )}
           />
+        </div>
+
+        <div className="flex gap-x-4 w-full">
+          <div className="w-full">
+            <Controller
+              name="language"
+              control={control}
+              render={({ field }) => (
+                <div className="flex flex-col">
+                  <p className="text-xs mb-2">Language</p>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="mb-5" data-testid="language-select">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {Object.values(LOCALE_FEATURES).map((lang) => {
+                          const value = LOCALE_LANGUAGES[lang.locale as keyof typeof LOCALE_LANGUAGES];
+                          return (
+                            <SelectItem value={value} key={lang.locale} data-testid={`language-option-${value}`}>
+                              <div className="flex items-center">
+                                <Image src={lang.icon} alt={lang.title} width={20} height={20} className="mr-2" />
+                                <span>{lang.title}</span>
+                              </div>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  {errors.language?.message && (
+                    <p className="text-red-500 mt-1 mb-5 form-error">{errors.language?.message}</p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+          <div className="w-full">
+            <Controller
+              name="difficulty"
+              control={control}
+              render={({ field }) => (
+                <div className="flex flex-col">
+                  <p className="text-xs mb-2">{t("difficulty")}</p>
+                  <RadioGroup
+                    {...field}
+                    onValueChange={field.onChange}
+                    className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="easy" id="easyRadioButton" />
+                      <label htmlFor="easyRadioButton">{t("easy")}</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="medium" id="mediumRadioButton" />
+                      <label htmlFor="mediumRadioButton">{t("medium")}</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="hard" id="hardRadioButton" />
+                      <label htmlFor="hardRadioButton">{t("hard")}</label>
+                    </div>
+                  </RadioGroup>
+                  {errors.difficulty?.message && (
+                    <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
         </div>
 
         <div

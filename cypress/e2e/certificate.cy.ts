@@ -1,14 +1,11 @@
-describe("Login Page", () => {
-  const checkLoginSuccess = () => {
-    cy.getByData("text-home-courses").should("be.visible");
-  };
+import { loginAsRegular } from "../support/utils";
 
+describe("Certificate Page", () => {
   describe("mobile", () => {
     it("finishes a course and gets a certificate", () => {
       cy.viewport("iphone-x");
-
-      cy.login("regular@seed.com", "Senha123");
-      checkLoginSuccess();
+      loginAsRegular();
+      cy.visit("/");
 
       cy.getByData("link-course-home").first().find("div.cursor-pointer").first().click();
       cy.getByData("button-start-course").click();

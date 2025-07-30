@@ -1,9 +1,7 @@
 "use client";
 
 import CourseCardPreview from "@/components/ui/courseCardPreview";
-import DailyChallengeBanner from "@/components/ui/dailyChallengeBanner";
 import Loading from "@/components/ui/loading";
-import RankBanner from "@/components/ui/rankBanner";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
@@ -21,10 +19,6 @@ const Home = () => {
 
   return (
     <div className="w-[360px] md:w-full lg:w-full">
-      <div className="flex gap-8 items-center flex-col md:flex-row lg:flex-row">
-        <RankBanner user={user} />
-        <DailyChallengeBanner />
-      </div>
       <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">
         <h4 className="mb-5" data-cy="text-home-courses">
           {t("courses")}
