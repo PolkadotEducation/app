@@ -35,6 +35,8 @@
     "certificates": "Certificates",
     "finish": "Finish",
     "congratulations": "Congratulations",
+    "courseSummary": "Course summary",
+    "viewProgress": "View progress",
     "notCompletedTitle": "You need to complete all challenges to get the certificate",
     "notCompletedDescription": "Course not completed. You need to complete all challenges to get the certificate.",
     "certificate": "Course completion certificate",

@@ -1,8 +1,6 @@
-describe("Sign-up", () => {
-  const checkLoginSuccess = () => {
-    cy.getByData("text-home-courses").should("be.visible");
-  };
+import { checkLoginSuccess } from "../support/utils";
 
+describe("Sign-up", () => {
   let testEmail: string;
 
   describe("mobile", () => {

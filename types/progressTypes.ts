@@ -25,9 +25,11 @@ export type CourseProgress = {
 };
 
 export type CourseSummary = {
+  id: string;
   modules: {
     isCompleted: boolean;
     lessons: {
+      id: string;
       difficulty: "easy" | "medium" | "hard";
       expEarned: number;
       title: string;

@@ -1,4 +1,5 @@
 import { KeypairType } from "@polkadot/util-crypto/types";
+import { checkLoginSuccess } from "../support/utils";
 
 describe("Web3", () => {
   const Alice = {
@@ -17,10 +18,6 @@ describe("Web3", () => {
 
   const selectWallet = () => cy.get("[class^='_row-button'] > span").contains(WALLET_NAME);
   const selectAccount = () => cy.get("[class^='_row-button'] > span > :nth-child(1)");
-
-  const checkLoginSuccess = () => {
-    cy.getByData("text-home-courses").should("be.visible");
-  };
 
   describe("login", () => {
     it("authorize the dapp", () => {

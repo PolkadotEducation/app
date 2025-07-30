@@ -4,8 +4,8 @@ import path from "path";
 
 function importChallenge(folderPath: string) {
   const challengePath = path.join(folderPath, "challenge.ts");
-
-  return require(challengePath).challenges;
+  const file = require(challengePath);
+  return file.challenges;
 }
 
 function getTitleFromMarkdown(body: string, folder: string): string {
@@ -37,15 +37,16 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
     const bodyPath = path.join(folderPath, bodyFile);
     const body = fs.readFileSync(bodyPath, "utf-8");
     const title = getTitleFromMarkdown(body, folder);
+    const slug = folder;
     const challenges = importChallenge(folderPath);
 
     return {
       teamId,
       title,
       language,
-      folder,
+      slug,
       body,
-      difficulty: challenges[0].difficulty,
+      difficulty: challenges[0].difficulty.toLowerCase(),
       challenge: challenges[0],
       references: [],
       createdAt: new Date(),
@@ -53,6 +54,13 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
     };
   });
 
-  const recordedLessons = await db.collection("lessons").insertMany(lessons);
+  const result = await db.collection("lessons").insertMany(lessons);
+
+  // Add the generated IDs to the lesson objects
+  const recordedLessons = lessons.map((lesson, index) => ({
+    ...lesson,
+    _id: result.insertedIds[index],
+  }));
+
   return recordedLessons;
 }

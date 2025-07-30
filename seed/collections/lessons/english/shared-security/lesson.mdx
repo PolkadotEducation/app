@@ -1,26 +1,74 @@
-## Relay Chain and Shared Security
+## Shared Security
 
-Polkadot is an innovative technology in the world of blockchains, designed to improve how different blockchains connect and work together. To understand this, it's helpful to think of a blockchain as a kind of digital ledger, recording transactions and information securely and transparently.
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1cFgv8i1JYJH554EXqrRipaECf_w8_K0-/preview"
+  title="Shared Security"
+/>
 
-However, each blockchain traditionally functions as an isolated "island" – they cannot directly communicate with each other. And this is where Polkadot comes into play, acting as a bridge between these "islands."
+Shared security is one of Polkadot's most revolutionary concepts, representing a fundamental shift in how blockchains can ensure their integrity. In traditional models, each blockchain must maintain its own validator set, often leading to security fragmentation and increased vulnerability for smaller networks. Polkadot solves this by enabling multiple blockchains (parachains) to share the robust security of the Relay Chain, allowing even new chains to benefit from a high level of protection.
 
-### Polkadot's Relay Chain
+## How Shared Security Works in Polkadot
 
-Polkadot's Relay Chain is like the heart of the Polkadot system. It is the main part of the network that keeps everything running in a coordinated and secure way. To illustrate, imagine Polkadot is an airport, where each terminal is a "Parachain," which are different blockchains with specific purposes. The central building of the airport (the Relay Chain) is what connects all the terminals and ensures they can exchange passengers (information) in an organized and secure manner.
+At the heart of Polkadot’s shared security model is the Relay Chain, which coordinates the entire network and provides security for all connected parachains. Validators on the Relay Chain, selected via Nominated Proof of Stake (NPoS), are responsible for both producing blocks and validating parachain blocks.
 
-#### Main functions of the Relay Chain:
+When a parachain produces a block, it generates a proof of validity (PoV), which is submitted to the Relay Chain. A subset of validators, known as the backing group, verifies the PoV to ensure the parachain’s state transition is valid. If approved, the block is included in the Relay Chain, giving it the same level of security as the Relay Chain itself.
 
-1. **Connect and Coordinate:** It allows connected blockchains (parachains) to communicate and exchange information efficiently.
-2. **Shared Security:** The Relay Chain takes care of the security of all connected parachains. Instead of each one having its own protection system, the Relay Chain offers a shared security system.
+This system creates a shared state across all parachains. If the Relay Chain is ever reverted, all parachains are also reverted, ensuring network-wide consistency and integrity. Trust assumptions for parachains rely solely on the Relay Chain validator set, removing the need for individual security mechanisms.
 
-### Shared Security
+## Benefits of Shared Security
 
-Polkadot's shared security is one of its most important aspects. Imagine you have several houses (representing different blockchains) in a neighborhood, and they all share a security team that protects all the houses at the same time. This is much more efficient and secure than each house having to create its own security system.
+Shared security provides several major advantages for the Polkadot ecosystem:
 
-By sharing this security, the Relay Chain allows blockchains connected to Polkadot to leverage a robust infrastructure without needing to spend time and resources creating individual security.
+- **Scalable Economic Security**: Security is proportional to the total DOT staked by validators and nominators on the Relay Chain. With billions of dollars staked, this security is distributed across all parachains, providing high-level protection to even new or niche projects.
+- **Optimized Stake Distribution**: Polkadot’s election algorithm ensures balanced stake distribution among validators, minimizing variance and making attacks financially costly across the board.
+- **Lower Operational Costs**: Parachains don’t need to recruit or maintain their own validator sets, allowing teams to focus on development rather than securing the network.
+- **Secure Interoperability**: Since all parachains share the same security umbrella, cross-chain communication via XCM is inherently more secure and reliable than between independent blockchains.
 
-### Conclusion
+## Comparison with Other Security Models
 
-Polkadot's Relay Chain is the central element that keeps the entire network connected and operating efficiently and securely. Just as an airport connects its terminals, the Relay Chain allows different blockchains (parachains) to communicate and share information seamlessly.
+Polkadot’s shared security model differs from other ecosystems:
 
-In addition to its coordination role, the Relay Chain provides shared security, protecting all the blockchains connected to the network. By sharing a robust security infrastructure, Polkadot ensures that the growth of its ecosystem continuously strengthens the network.
+- **Cosmos**: Each zone has its own validators and security, requiring separate economic security for each. Trust between zones using IBC depends on each zone’s individual security. In contrast, Polkadot parachains share one trusted security layer.
+- **Ethereum**: Ethereum 2.0 introduces sharding with shared security, but all shards must use the same virtual machine (EVM). Polkadot allows each parachain to have its own state transition logic and virtual machine, offering more flexibility.
+- **Avalanche**: Avalanche subnets are similar to parachains but lack shared security. Each subnet must have its own validators, which limits the available economic security for smaller projects.
+
+## Technical Implementation of Shared Security
+
+Several components make shared security possible in Polkadot:
+
+- **Parachain Protocol**: Defines how parachains submit blocks, how validators verify them, and how data availability and validity are ensured.
+- **Availability and Validity Checks**: Parachain block data is split and distributed among validators. The system checks whether the data is available and valid before accepting the block.
+- **Backing Groups**: Subsets of validators assigned to parachains for block verification. These groups rotate to prevent collusion and ensure proper coverage.
+- **Dispute Mechanism**: Validators can challenge blocks they believe are invalid. If a dispute arises, more validators are involved. If a block is confirmed as invalid, validators who wrongly approved it are slashed, incentivizing honest behavior.
+
+## Challenges and Limitations
+
+Despite its advantages, shared security faces some challenges:
+
+- **Parachain Slot Limits**: The number of active parachains is limited by available validator resources. Polkadot is addressing this through innovations like coretime.
+- **System Complexity**: Maintaining the shared security model requires advanced technical expertise and coordination among multiple development teams.
+- **Relay Chain Dependence**: All parachains are affected by issues on the Relay Chain. If the Relay Chain is compromised, all connected parachains are impacted.
+
+## The Future of Shared Security in Polkadot
+
+Several improvements are underway:
+
+- **Coretime System**: Allows more flexible access to Relay Chain validation resources. Instead of long-term slot leasing, projects can purchase coretime on demand, making shared security more accessible.
+- **Nested Relay Chains**: Proposed to further scale the network by allowing groups of parachains to form secondary relay chains under the main Relay Chain’s security.
+- **Validator Election Enhancements**: Ongoing improvements to election and staking mechanisms aim to further optimize stake distribution and strengthen economic security.
+
+## Conclusion
+
+Shared security is one of Polkadot’s most important innovations. It allows specialized parachains to share the economic security of the Relay Chain, providing a secure foundation for projects of all sizes.
+
+This model not only strengthens individual parachain security but also improves interoperability and collaboration, aligning with Polkadot’s vision of a decentralized, interconnected web. As the ecosystem evolves, shared security will remain a core differentiator that sets Polkadot apart from other blockchain platforms.
+
+---
+
+## Summary
+
+In this lesson, we explored the concept of shared security in Polkadot, a key pillar of its architecture. We learned how parachains share the security of the Relay Chain, removing the need to maintain their own validators. Benefits include scalable economic security, optimized stake distribution, reduced costs, and enhanced interoperability.
+
+We compared Polkadot’s approach to Cosmos, Ethereum, and Avalanche, highlighting key differences in sovereignty, flexibility, and security. We reviewed the technical components that enable shared security, such as the parachain protocol, availability checks, backing groups, and dispute resolution.
+
+We also acknowledged the model’s current limitations, such as parachain slot limits and technical complexity, and looked ahead to future improvements like coretime and nested relay chains. Shared security represents a paradigm shift in how blockchains can collaborate rather than compete for security — at the heart of Polkadot’s vision for a decentralized and connected internet.

@@ -1,4 +1,4 @@
-export const challenges = [
+const challenges = [
   {
     question: "What was Gavin Wood's contribution to the world of cryptocurrencies after his work with Ethereum?",
     choices: [
@@ -11,3 +11,5 @@ export const challenges = [
     difficulty: "easy",
   },
 ];
+
+export { challenges };

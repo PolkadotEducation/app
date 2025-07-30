@@ -1,4 +1,4 @@
-export const challenges = [
+const challenges = [
   {
     question: "What is the main objective of Bitcoin?",
     choices: [
@@ -11,3 +11,5 @@ export const challenges = [
     difficulty: "easy",
   },
 ];
+
+export { challenges };

@@ -1,4 +1,4 @@
-export const challenges = [
+const challenges = [
   {
     question: "In symmetric cryptography, what is used to encrypt and decrypt a message?",
     choices: [
@@ -11,3 +11,5 @@ export const challenges = [
     difficulty: "medium",
   },
 ];
+
+export { challenges };

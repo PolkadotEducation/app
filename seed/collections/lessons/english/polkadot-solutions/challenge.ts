@@ -1,4 +1,4 @@
-export const challenges = [
+const challenges = [
   {
     question: "What is the main problem Polkadot solves?",
     choices: [
@@ -11,3 +11,5 @@ export const challenges = [
     difficulty: "medium",
   },
 ];
+
+export { challenges };

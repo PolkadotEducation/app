@@ -35,6 +35,8 @@
     "certificates": "Certificados",
     "finish": "Terminar",
     "congratulations": "Felicidades",
+    "courseSummary": "Resumen del curso",
+    "viewProgress": "Ver progreso",
     "notCompletedTitle": "Necesitas completar todos los desafíos para obtener el certificado",
     "notCompletedDescription": "Curso no completado. Necesitas completar todos los desafíos para obtener el certificado.",
     "certificate": "Certificado de finalización del curso",

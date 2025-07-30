@@ -1,4 +1,4 @@
-export const challenges = [
+const challenges = [
   {
     question: "What is the main advantage of using Polkadot for Decentralized Finance (DeFi) applications?",
     choices: [
@@ -11,3 +11,5 @@ export const challenges = [
     difficulty: "medium",
   },
 ];
+
+export { challenges };
