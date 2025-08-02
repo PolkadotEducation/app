@@ -1,11 +1,9 @@
-describe("The Home Page", () => {
-  it("successfully loads", () => {
-    const checkLoginSuccess = () => {
-      cy.getByData("text-home-courses").should("be.visible");
-    };
+import { loginAsRegular } from "../support/utils";
 
-    cy.login("regular@seed.com", "Senha123");
-    checkLoginSuccess();
+describe("Progress Summary Page", () => {
+  it("successfully loads", () => {
+    loginAsRegular();
+    cy.visit("/");
 
     cy.getByData("link-course-home").first().find("div.cursor-pointer").first().click();
     cy.getByData("button-start-course").click();

@@ -125,6 +125,7 @@ dist
 
 .vscode/
 .idea/
+.cursorignore
 
 # yarn v2
 .yarn/cache
@@ -143,3 +144,9 @@ cypress/screenshots
 
 # correct choices
 seed/collections/lessons/choices.ts
+
+# scripts
+work.sh
+
+# Sentry Config File
+.env.sentry-build-plugin

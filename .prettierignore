@@ -1,0 +1,6 @@
+# Ignore build output and node modules
+/dist
+/node_modules
+
+# Ignore submodules folder
+/submodules

@@ -50,9 +50,10 @@ export default [
   {
     ignores: [
       ".pnp.cjs",
-      "node_modules/**",
-      "dist/**",
       "build/**",
+      "dist/**",
+      "node_modules/**",
+      "submodules/**",
       ".next/**",
       ".github/**",
       ".storybook/**",
