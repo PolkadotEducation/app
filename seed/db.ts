@@ -85,7 +85,7 @@ export async function seedCorrectChoices(db: Db) {
     const { updateCorrectChoices } = await import("./collections/lessons/choices" as never);
     await updateCorrectChoices(db);
     console.info("Updated correct choices.");
-  } catch (e) {
+  } catch {
     console.info("No correct choices file found, skipping...");
   }
 }
