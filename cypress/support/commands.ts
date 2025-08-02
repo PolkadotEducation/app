@@ -3,6 +3,8 @@ declare namespace Cypress {
   interface Chainable {
     getByData(_dataCyValue: string): Chainable<Element>;
     login(_email?: string, _password?: string): Chainable<void>;
+    task(_event: "getUserVerificationToken", _email: string): Chainable<string | null>;
+    task(_event: "deleteUser", _email: string): Chainable<boolean>;
   }
 }
 

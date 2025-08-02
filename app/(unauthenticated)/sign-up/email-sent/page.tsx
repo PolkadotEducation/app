@@ -26,7 +26,13 @@ const SignUpEmailSentInnerPage = () => {
           <span className="text-primary">{email}</span>
           {t("instructionMessageSecondPart")}
         </p>
-        <Button type="button" onClick={backToLoginScreen} variant="outline" className="w-full">
+        <Button
+          type="button"
+          onClick={backToLoginScreen}
+          variant="outline"
+          className="w-full"
+          data-cy="button-back-to-login"
+        >
           {t("backToLogin")}
         </Button>
       </div>

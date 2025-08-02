@@ -1,0 +1,75 @@
+## Key Components of Polkadot (Relay Chain and Parachains)
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1sN9zYsOZ0SIk8Tn6lliYut9xLEzgsA8C/preview"
+  title="Key Components of Polkadot: Relay Chain and Parachains"
+/>
+
+Polkadot's architecture is made up of several interconnected components that work together to create a scalable and heterogeneous blockchain ecosystem. In this lesson, we’ll explore the two fundamental components: the **Relay Chain** and the **Parachains**.
+
+## Relay Chain: The Heart of Polkadot
+
+The Relay Chain is the central chain of the Polkadot network. It acts as the “heart” of the system, coordinating all operations and ensuring the security of the entire ecosystem.
+
+### Key Features:
+
+- **Minimal Functionality**: The Relay Chain is intentionally designed with minimal functionality. It does not natively support smart contracts, focusing solely on essential operations to coordinate the system.
+- **Block Time**: The Relay Chain currently operates with a block time of six seconds, allowing for fast transaction finality.
+- **Consensus and Security**: All Polkadot validators are tied to the Relay Chain. They are responsible for validating blocks on the Relay Chain and verifying state transition proofs from parachains.
+- **On-Chain Governance**: The governance system of Polkadot resides on the Relay Chain, allowing the network to evolve and update without hard forks—enabling seamless upgrades.
+
+## Parachains: Specialized Blockchains
+
+Parachains are individual blockchains that operate in parallel within the Polkadot ecosystem. The name “parachain” derives from “parallel chains,” which function alongside the Relay Chain.
+
+### Key Characteristics:
+
+- **Technical Definition**: A parachain is an application-specific data structure that is globally coherent and can be validated by the Relay Chain validators. While most are blockchains, they don’t have to be.
+- **Specialization and Flexibility**: Each parachain can be optimized for a specific use case, with its own business logic, fee structure, and token economy—making them highly efficient and specialized.
+- **State Transitions**: Parachains are deterministic state machines. Each has its own state, processes a batch of transactions, and reaches a new state. The Relay Chain links all these states into a global state.
+- **Parallel Processing**: Parachains process transactions in parallel rather than sequentially, resulting in significantly improved system scalability.
+
+## Shared Security: A Revolutionary Concept
+
+One of Polkadot's most innovative features is the concept of **shared security** between the Relay Chain and parachains.
+
+- **Unified Security Model**: All parachains connected to the Relay Chain share the security provided by Relay Chain validators. This means even new or small parachains receive the same level of protection as the entire network.
+- **Advantage over Independent Blockchains**: In traditional blockchains, each network is responsible for its own security, often leaving smaller chains vulnerable. Polkadot eliminates this by unifying security.
+- **Shared State**: Polkadot maintains a shared state between the Relay Chain and all connected parachains. If the Relay Chain needs to roll back for any reason, all parachains roll back as well—ensuring system-wide integrity.
+
+## Collators: Parachain Maintainers
+
+Parachains are maintained by specialized nodes called **collators**.
+
+- **Role of Collators**: Collators run full nodes of their parachain, store all necessary information, and produce block candidates to submit to Relay Chain validators for verification and inclusion.
+- **Incentives**: Collator rewards are defined by each parachain’s implementation. They are not required to be bonded to the Relay Chain or hold native tokens unless specified by the parachain’s design.
+
+## Cores and Coretime: Resource Allocation
+
+The Polkadot Relay Chain can support a number of execution cores, similar to a CPU’s processing cores.
+
+- **Cores**: Each core can execute one process at a time. The Relay Chain’s resources and time used to validate a parachain block are referred to as a "core."
+- **Agile Coretime**: A recent advancement allows more flexible core allocation. Parachains can now purchase coretime for shorter durations such as a month, an hour, or even a single block.
+- **Elastic Scalability**: Parachains can produce multiple blocks per Relay Chain block, significantly boosting throughput.
+
+## Communication Between Parachains: XCM
+
+Communication between parachains is powered by **XCM** (Cross-Consensus Messaging).
+
+- **Universal Message Format**: XCM defines how blockchains communicate—not just to transfer tokens, but to exchange any type of data or instruction.
+- **XCM Channels**: Parachains can open communication channels with each other via XCM. Since its launch, more than 160,000 XCM messages have been exchanged across Polkadot.
+
+## System Scalability
+
+Polkadot’s architecture allows for significant scalability.
+
+- **Transactions Per Second (TPS)**: As a heterogeneous multichain network with a Relay Chain and many parachains, Polkadot’s TPS includes all activity across both. Substrate-based blockchains can individually achieve over 1,000 TPS. With over 100 parachains, Polkadot’s projected TPS is well over 100,000.
+- **Asynchronous Backing Upgrade**: With this upgrade, the network aims to reach up to 1,000,000 TPS.
+
+## Conclusion
+
+Polkadot’s architecture—with its Relay Chain and parachains—offers a groundbreaking solution to the scalability and interoperability challenges of traditional blockchains. The Relay Chain provides security and coordination, while parachains offer the specialization and flexibility needed to support diverse use cases. Together, they create a truly scalable and interoperable blockchain ecosystem.
+
+## Summary
+
+In this lesson, we explored the key components of Polkadot: the **Relay Chain** and **parachains**. The Relay Chain serves as the system’s core, providing security and governance, while parachains are specialized blockchains that process transactions in parallel. The **shared security model** ensures all parachains benefit from ecosystem-wide protection. **Collators** maintain parachains, while the **core and coretime system** enables flexible resource allocation. **XCM** facilitates cross-chain communication, and upgrades like **asynchronous backing** push the boundaries of scalability. These components collectively enable Polkadot to achieve far higher performance than traditional blockchains.
