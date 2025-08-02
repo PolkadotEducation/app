@@ -71,6 +71,34 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
       size: 50,
     },
     {
+      accessorKey: "updatedAt",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Updated
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
+      cell: ({ row }) => {
+        const updatedAt = row.getValue("updatedAt") as Date;
+        if (!updatedAt) return "-";
+        return new Date(updatedAt).toLocaleString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      },
+      enableSorting: true,
+      size: 100,
+    },
+    {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => {

@@ -23,8 +23,8 @@
     "postinstall": "papi",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
-    "test:open": "cypress open",
-    "test": "cypress run",
+    "test:open": "NODE_ENV=test cypress open",
+    "test": "NODE_ENV=test cypress run",
     "type-check": "tsc --noEmit",
     "wait": "wait-on http://localhost:3000"
   },

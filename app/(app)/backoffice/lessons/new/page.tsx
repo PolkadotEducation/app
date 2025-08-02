@@ -17,6 +17,7 @@ import { useUser } from "@/hooks/useUser";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -54,6 +55,7 @@ function CreateLessonPage() {
   const { user } = useUser();
   const t = useTranslations("backoffice");
   const { toast } = useToast();
+  const router = useRouter();
 
   const {
     control,
@@ -110,10 +112,7 @@ function CreateLessonPage() {
     try {
       const response = await createLesson(selectedTeamId, lessonData);
       if (response) {
-        toast({
-          title: t("lessonCreated"),
-          variant: "default",
-        });
+        router.push("/backoffice/lessons");
       } else {
         toast({
           title: t("lessonCreationFailure"),
@@ -122,6 +121,10 @@ function CreateLessonPage() {
       }
     } catch (error) {
       console.error("Error creating lesson:", error);
+      toast({
+        title: t("lessonCreationFailure"),
+        variant: "destructive",
+      });
     }
   };
 

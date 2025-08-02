@@ -23,7 +23,12 @@ const LessonsPage = () => {
 
   const getLessons = async () => {
     const response = await getLessonsSummary();
-    setLessons(response);
+    const sortedLessons = response.sort((a, b) => {
+      if (!a.updatedAt) return 1;
+      if (!b.updatedAt) return -1;
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    });
+    setLessons(sortedLessons);
   };
 
   const deleteLesson = async (id: string) => {

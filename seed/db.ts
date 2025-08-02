@@ -86,7 +86,6 @@ export async function seedCorrectChoices(db: Db) {
     await updateCorrectChoices(db);
     console.info("Updated correct choices.");
   } catch (e) {
-    console.error(e);
     console.info("No correct choices file found, skipping...");
   }
 }

@@ -28,6 +28,7 @@ export type LessonSummary = {
   _id: string;
   title: string;
   language: string;
+  updatedAt?: Date;
 };
 
 export type LessonResponse = {
