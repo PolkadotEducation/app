@@ -1,0 +1,89 @@
+## Plaza & Smart Contracts
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1seK5dP7ML-nyk2pFV8zm1ZCAhZRLfH8p/preview"
+  title="Plaza and Smart Contracts"
+/>
+
+Plaza represents a significant innovation in the Polkadot 2.0 ecosystem, introducing a native smart contract layer that complements the existing parachain architecture. This new approach to smart contracts aims to offer greater flexibility, interoperability, and efficiency for developers, expanding Polkadot’s capabilities.
+
+## Historical Context
+
+Traditionally, Polkadot took a different approach to smart contracts compared to platforms like Ethereum. The Polkadot relay chain does not natively support smart contracts, delegating that functionality to parachains. This design aligns with Polkadot’s philosophy that the relay chain should implement only the minimal logic required to fulfill its role.
+
+Several parachains in the Polkadot ecosystem already support smart contracts using either ink! (a WebAssembly-based smart contract language) or EVM compatibility via Frontier. Plaza represents the next step in this evolution, bringing smart contracts closer to the core of the ecosystem.
+
+## What is Plaza?
+
+Plaza is a new smart contract layer designed for Polkadot 2.0 that provides a unified environment for smart contracts across the ecosystem. Instead of requiring each parachain to implement its own smart contract environment, Plaza offers a shared platform accessible by any parachain or application.
+
+Plaza is designed to integrate with Agile Coretime, enabling developers to deploy and run smart contracts more flexibly and cost-effectively without needing to secure a dedicated parachain slot.
+
+## Smart Contracts in the Polkadot Ecosystem
+
+There are two main approaches to smart contracts within Polkadot:
+
+- **ink!**: A WebAssembly-based smart contract language built specifically for Substrate. Designed to feel familiar to Solidity developers, ink! adds enhanced security and performance features.
+- **EVM (Ethereum Virtual Machine)**: Several parachains support Solidity-based smart contracts through EVM compatibility layers.
+
+Plaza aims to unify these approaches, supporting both WebAssembly (ink!) and EVM contracts, allowing developers to choose the most appropriate technology for their use case.
+
+## Smart Contracts vs. Parachains
+
+It is important to distinguish between building a smart contract and a parachain:
+
+- **Level of Abstraction**: A smart contract is deployed at a specific address and handles logic locally. A parachain module controls the entire state transition logic of the chain.
+- **Upgradeability**: Smart contracts must explicitly implement upgrade mechanisms. Parachains can upgrade their runtime entirely using root commands or governance modules.
+- **Environment Control**: Smart contracts run in the context of a host chain, while parachains define their own environment and architecture.
+- **Gas Fees**: Smart contracts use gas to prevent denial-of-service attacks. Parachains use a weight-based fee model and do not require gas for native logic.
+
+## Advantages of Plaza
+
+Plaza offers several key advantages to the Polkadot ecosystem:
+
+- **Accessibility**: Lowers the barrier to entry by allowing developers to deploy smart contracts without securing a parachain slot.
+- **Interoperability**: Enables seamless communication between smart contracts across parachains, leveraging Polkadot’s native cross-chain capabilities.
+- **Flexibility**: Supports multiple execution environments (Wasm and EVM), allowing developers to choose their preferred tools.
+- **Efficiency**: Integrates with Agile Coretime for flexible resource allocation, reducing costs and improving performance.
+- **Unification**: Provides a common platform for smart contracts across the ecosystem, simplifying development and integration.
+
+## ink! Contracts in the Ecosystem
+
+The ink! contract ecosystem is rapidly growing, with several notable projects:
+
+- **Polkadot Smart Account**: A smart account implementation using ink!
+- **Magink**: A decentralized application built with ink!
+- **Candle Auctions**: Implementation of candle-style auctions in ink!
+- **Polkasign-contract**: Digital signature contracts
+- **OCEX**: CLI tool for interacting with ink! contracts
+- **Roloi**: A finance-related project built in ink!
+- **OpenPayroll**: A blockchain-based payroll system
+- **BlockchainFoodOrder**: A food ordering system built on smart contracts
+
+## Developer Tools and Resources
+
+Developers looking to build smart contracts in Polkadot can leverage several tools:
+
+- **ink!**: The official WebAssembly contract language for Polkadot.
+- **Substrate ink! Workshop**: A tutorial guiding developers through writing and deploying an ERC-20 token with ink!
+- **Community Forums**: Developers can participate in technical discussions, seek support, and share ideas in community channels such as discussion forums and Stack Exchange.
+
+## Pallet Contracts
+
+The Pallet Contracts module is a core component enabling smart contracts on Substrate-based chains. It offers several advantages over traditional EVM design:
+
+- **WebAssembly**: Uses Wasm for contract execution, allowing broader language support.
+- **Deposits**: Contracts must maintain a sufficient on-chain deposit to justify their existence.
+- **Caching**: Contracts are cached by default, allowing them to be deployed once and instantiated multiple times, reducing storage overhead.
+
+Note: The previously proposed “storage rent” mechanism, meant to mitigate state bloat, has since been deprecated.
+
+## Conclusion
+
+Plaza represents a major evolution in Polkadot’s approach to smart contracts, offering a unified platform that complements the existing parachain architecture. By integrating with Agile Coretime and supporting both WebAssembly and EVM environments, Plaza lowers the entry barrier, enhances interoperability, and improves efficiency for smart contract developers. Combined with other Polkadot 2.0 innovations, Plaza helps position Polkadot as a more accessible, scalable, and developer-friendly blockchain for the next generation of decentralized applications.
+
+---
+
+## Summary
+
+This lesson explored **Plaza** as a new smart contract layer in Polkadot 2.0, enhancing the current parachain-based architecture. We covered the existing approaches to smart contracts in Polkadot—ink! and EVM compatibility—and discussed key differences between smart contracts and parachains. We highlighted Plaza’s benefits such as accessibility, cross-chain interoperability, resource efficiency, and execution flexibility. We also reviewed the growing ink! ecosystem and developer resources, along with the role of Pallet Contracts in enabling smart contract functionality. Plaza is a meaningful step forward, expanding opportunities for developers while simplifying contract deployment and usage across the entire Polkadot network.

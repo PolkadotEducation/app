@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import Badge from "@/components/ui/badge";
+import remarkGfm from "remark-gfm";
+// import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
@@ -14,6 +15,7 @@ import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { ProgressResponse } from "@/types/progressTypes";
 import { useRouter } from "next/navigation";
+import { ResponsiveIframe } from "./responsiveIframe";
 
 const EXP_POINTS = {
   hard: 100,
@@ -65,7 +67,11 @@ const LessonRenderer = ({
   useEffect(() => {
     const compileMDX = async () => {
       if (markdown) {
-        const source = await serialize(markdown);
+        const source = await serialize(markdown, {
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        });
         setMdxSource(source);
       }
     };
@@ -209,10 +215,15 @@ const LessonRenderer = ({
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
         <h1>
           {title ? title : "Title not set"}
-          <Badge className="align-middle ml-2">{difficulty ? t(difficulty) : "Difficulty not set"}</Badge>
+          {/* <Badge className="align-middle ml-2">{difficulty ? t(difficulty) : "Difficulty not set"}</Badge> */}
         </h1>
         {mdxSource ? (
-          <MDXRemote {...mdxSource} />
+          <MDXRemote
+            {...mdxSource}
+            components={{
+              ResponsiveIframe,
+            }}
+          />
         ) : (
           <div className="flex w-full justify-center">
             <Loading />

@@ -35,7 +35,7 @@ bun install
 To start the services, run:
 
 ```bash
-bun compose:up
+bun run compose up
 ```
 
 After starting the services, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
@@ -45,26 +45,26 @@ After starting the services, open [http://localhost:3000](http://localhost:3000)
 The project has the following commands:
 
 - `bun run build`: Builds the project
-- `bun build-storybook`: Builds the storybook
-- `bun compose:down`: Stops and removes containers
-- `bun compose:down:all`: Stops and removes all containers (including landing-page)
-- `bun compose:up`: Starts containers
-- `bun compose:up:all`: Starts all containers (including landing-page)
-- `bun db:reset`: Drops database and runs the seed
-- `bun db:drop:all`: Drops the database
-- `bun db:drop:courses`: Drops just the courses
-- `bun db:seed:all`: Runs the whole seed
-- `bun db:seed:courses`: Runs the seed for courses only
-- `bun format`: Runs Prettier
-- `bun format:fix`: Fixes Prettier errors
-- `bun lint`: Runs ESLint
-- `bun lint:fix`: Fixes ESLint errors
-- `bun pull`: Pulls the main repository and all submodules
-- `bun storybook`: Runs the storybook
-- `bun test`: Runs Cypress tests
-- `bun test:open`: Runs Cypress tests in Launchpad mode
-- `bun type-check`: Runs TypeScript check
-- `bun wait`: Waits for the API to start
+- `bun run build-storybook`: Builds the storybook
+- `bun run compose up`: Starts containers
+- `bun run compose down`: Stops and removes containers
+- `bun run compose-all up`: Starts all containers (including landing-page)
+- `bun run compose-all down`: Stops and removes all containers (including landing-page)
+- `bun run db:reset`: Drops database and runs the seed
+- `bun run db:drop:all`: Drops the database
+- `bun run db:drop:courses`: Drops just the courses
+- `bun run db:seed:all`: Runs the whole seed
+- `bun run db:seed:courses`: Runs the seed for courses only
+- `bun run format`: Runs Prettier
+- `bun run format:fix`: Fixes Prettier errors
+- `bun run lint`: Runs ESLint
+- `bun run lint:fix`: Fixes ESLint errors
+- `bun run pull`: Pulls the main repository and all submodules
+- `bun run storybook`: Runs the storybook
+- `bun run test`: Runs Cypress tests
+- `bun run test:open`: Runs Cypress tests in Launchpad mode
+- `bun run type-check`: Runs TypeScript check
+- `bun run wait`: Waits for the API to start
 
 ## Project Structure
 

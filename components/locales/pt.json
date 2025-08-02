@@ -35,6 +35,8 @@
     "certificates": "Certificados",
     "finish": "Concluir",
     "congratulations": "Parabéns",
+    "courseSummary": "Resumo do curso",
+    "viewProgress": "Exibir progresso",
     "notCompletedTitle": "Você precisa completar todos os desafios para obter o certificado",
     "notCompletedDescription": "Curso não concluído. Você precisa completar todos os desafios para obter o certificado.",
     "certificate": "Certificado de conclusão de curso",
@@ -43,6 +45,10 @@
     "certificateId": "ID do certificado: {id}",
     "ranking": "Ranking",
     "courses": "Cursos",
-    "score": "Sua pontuação: {completedLessons}/{totalLessons}"
+    "score": "Sua pontuação: {completedLessons}/{totalLessons}",
+    "points": "points",
+    "level": "Nível",
+    "generalRank": "Ranking Geral",
+    "weeklyRank": "Ranking semanal"
   }
 }

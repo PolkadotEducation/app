@@ -35,6 +35,8 @@
     "certificates": "Certificates",
     "finish": "Finish",
     "congratulations": "Congratulations",
+    "courseSummary": "Course summary",
+    "viewProgress": "View progress",
     "notCompletedTitle": "You need to complete all challenges to get the certificate",
     "notCompletedDescription": "Course not completed. You need to complete all challenges to get the certificate.",
     "certificate": "Course completion certificate",
@@ -43,6 +45,10 @@
     "certificateId": "Certificate ID: {id}",
     "ranking": "Ranking",
     "courses": "Courses",
-    "score": "Your score: {completedLessons}/{totalLessons}"
+    "score": "Your score: {completedLessons}/{totalLessons}",
+    "points": "points",
+    "level": "Level",
+    "generalRank": "General Ranking",
+    "weeklyRank": "Weekly Ranking"
   }
 }
