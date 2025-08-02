@@ -12,6 +12,7 @@ services:
 
   doteducation-app:
     image: oven/bun:1.1.29
+    platform: linux/arm64
     ports:
       - 3000:3000
     volumes:
@@ -20,7 +21,7 @@ services:
       - .env
     command: >
       bash -c "cd /usr/app &&
-        bun i &&
+        bun i --verbose &&
         bun dev"
     depends_on:
       - doteducation-api
