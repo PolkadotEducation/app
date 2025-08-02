@@ -9,22 +9,24 @@ import CourseLesson from "./courseLesson";
 import { CourseSummary } from "@/types/progressTypes";
 import chevronRight from "../../public/assets/icons/chevronRight.svg";
 import useIsMobile from "@/hooks/useIsMobile";
+import { useTranslations } from "next-intl";
 
 interface CourseDescriptionSectionProps {
-  courseModules?: CourseSummary;
+  courseSummary?: CourseSummary;
   classname?: string;
 }
 
-const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptionSectionProps) => {
+const CourseDescriptionSection = ({ courseSummary, classname }: CourseDescriptionSectionProps) => {
   const isMobile = useIsMobile();
+  const t = useTranslations("components");
 
   return (
     <div>
-      <h6>Resumo do curso</h6>
+      <h6>{t("courseSummary")}</h6>
       {isMobile ? (
         <Drawer direction="left" data-cy="aside-course-progress-details">
           <DrawerTrigger className="h-[max-content] text-body2 text-primary flex items-center gap-4">
-            Exibir progresso
+            {t("viewProgress")}
             <Image src={chevronRight} alt="chevron down" width={8} className="text-primary" />
           </DrawerTrigger>
           <DrawerContent className="h-screen w-[300px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none">
@@ -32,10 +34,10 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
               <Image src={xMark} alt="close button" />
             </DrawerClose>
             <DrawerHeader className="flex items-center justify-center pt-14">
-              <DrawerTitle>Resumo do curso</DrawerTitle>
+              <DrawerTitle>{t("courseSummary")}</DrawerTitle>
             </DrawerHeader>
             <Accordion type="single" collapsible>
-              {courseModules?.modules.map((module, index) => {
+              {courseSummary?.modules.map((module, index) => {
                 return (
                   <AccordionItem
                     value={`item${index}`}
@@ -56,6 +58,8 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
                           return (
                             <CourseLesson
                               key={index}
+                              courseId={courseSummary.id}
+                              lessonId={lesson.id}
                               lessonName={lesson.title}
                               expAmount={lesson.expEarned}
                               completed={lesson.expEarned > 0}
@@ -77,7 +81,7 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
         >
           <div className="flex items-center justify-center pt-14"></div>
           <Accordion type="single" collapsible className="w-full">
-            {courseModules?.modules.map((module, index) => {
+            {courseSummary?.modules.map((module, index) => {
               return (
                 <AccordionItem value={`item${index}`} data-cy={`aside-module-${index + 1}`}>
                   <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full pr-8">
@@ -89,10 +93,12 @@ const CourseDescriptionSection = ({ courseModules, classname }: CourseDescriptio
                   </AccordionTrigger>
                   <AccordionContent className="mx-12 pl-4 border-l-2 border-neutral-300 rounded-sm">
                     <ul className="pt-4 flex flex-col gap-4">
-                      {module.lessons.map((lesson: { title: string; expEarned: number }) => {
+                      {module.lessons.map((lesson: { id: string; title: string; expEarned: number }) => {
                         return (
                           <CourseLesson
                             key={index}
+                            courseId={courseSummary.id}
+                            lessonId={lesson.id}
                             lessonName={lesson.title}
                             expAmount={lesson.expEarned}
                             completed={lesson.expEarned > 0}

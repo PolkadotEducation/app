@@ -54,7 +54,7 @@ const LessonPage = ({ params }: { params: Params }) => {
 
   return (
     <div className="pt-4 flex md:gap-11 flex-col md:flex-row">
-      <CourseDescriptionSection classname="sticky top-0" courseModules={course} />
+      <CourseDescriptionSection classname="sticky top-0" courseSummary={course} />
       <div className="pt-4">
         {courseProgress && <CourseProgressTracker {...courseProgress} />}
         <LessonRenderer

@@ -1,0 +1,103 @@
+## Agile Coretime
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1Mv3UzfPpecKLltIZxRvyF0LBzrEdBu0Z/preview"
+  title="Agile Coretime"
+/>
+
+Agile Coretime is a fundamental transformation in how computational resources are allocated and used within the Polkadot ecosystem. This innovation replaces the traditional parachain slot auction system with a more flexible and efficient resource allocation model, allowing developers and projects to access Polkadot’s blockspace more quickly and affordably.
+
+## Historical Context
+
+In Polkadot 1.0, access to blockspace was granted through parachain slot auctions, where projects competed for slots lasting up to two years—locking up large amounts of DOT. This created high entry barriers for smaller teams and led to inefficient resource use, as parachains produced blocks every 12 seconds regardless of real demand.
+
+## What is Agile Coretime?
+
+Agile Coretime is a scheduling system that enables efficient use of Polkadot's network resources while providing economic flexibility for developers. It introduces a system to measure and allocate computing time on **cores** (processing units) of the network.
+
+Agile Coretime offers two main allocation models:
+
+- **Bulk Coretime**: Fixed allocation of coretime over a continuous period (currently 28 days), represented by an NFT that can be split, transferred, or resold.
+- **On-demand Coretime**: Allows real-time bidding for validation of a single parachain block, offering dynamic and instant access.
+
+## How Agile Coretime Works
+
+Agile Coretime is managed by the **Coretime Chain**, a proposed system parachain within Polkadot. It is responsible for managing bulk and on-demand coretime and tracking core ownership via NFTs.
+
+The Coretime Chain reports to the relay chain:
+
+- Available cores
+- Tasks executed per core
+- Accounting information for on-demand usage
+
+It also processes renewals and enables operations such as transfers, partitioning, interlacing, task assignment, and grouping for on-demand use.
+
+## Key Terminology
+
+- **Core**: A virtual representation of computational resources provided by the relay chain to secure parachain blocks.
+- **Coretime**: The time allocated to use a core, measured in relay chain blocks.
+- **Region**: An NFT representing a unit of bulk coretime.
+- **Timeslice**: A scheduling unit representing 80 relay chain blocks, used by the Coretime Chain.
+- **Task**: An abstraction of core utility. Tasks can include more than parachain block production.
+
+## Coretime Sales
+
+Coretime sales follow two main phases:
+
+- **Renewal Period**: During the "interlude," bulk coretime holders can renew their regions.
+- **Sale Period**, divided into:
+  - **Price Discovery**: Dutch auction to determine base price.
+  - **Fixed Price**: Bulk coretime is sold at the discovered price.
+
+Prices depend on both configured parameters (e.g., starting price and supply) and market dynamics (demand and perceived value).
+
+## Splitting and Interlacing
+
+Agile Coretime supports two primary region manipulation operations:
+
+- **Splitting**: Divide a region into multiple regions with different start and end timeslices.
+- **Interlacing**: Assign different tasks to each block within a region while keeping the same timeslice boundaries.
+
+Note: Performing either operation disqualifies the region from limited-price renewal.
+
+## Tools and Interfaces
+
+Several user interfaces are being developed to support Agile Coretime:
+
+- **CoreHub on RegionX**: Interface for buying and managing coretime regions, allowing for partitioning, interlacing, task assignment, and transfers.
+- **Lastic**: A marketplace for buying and selling blockspace, with tools to transfer, split, or assign cores to parachains and adjust block production frequency.
+
+## Benefits of Agile Coretime
+
+- **Efficient Resource Use**: Optimizes allocation across the network, improving scalability.
+- **Democratized Access**: On-demand coretime opens the door to small teams building sovereign Web3 apps.
+- **Cost Predictability**: Bulk coretime offers predictable costs for projects and planning.
+- **Economic Flexibility**: Allows innovation at any growth stage without economic constraints.
+- **Lower Barriers**: On-demand model enables quick experimentation and proof-of-concept deployment.
+
+## Elastic Scaling
+
+Still in development, Elastic Scaling will extend Agile Coretime by allowing parachains to use multiple cores simultaneously. This will enable:
+
+- Higher block inclusion rates on the relay chain.
+- Increased block production rates via Asynchronous Backing on the parachain.
+- Dynamic scaling without needing long-term slot reservations.
+
+## Paradigm Shift
+
+Agile Coretime marks a fundamental shift:
+
+- From a **chain-centric** model where each parachain owned a permanent execution slot via auctions,
+- To an **application-centric** model where cores are consumed as needed by all apps.
+
+This shift significantly lowers entry barriers for developers, allowing them to purchase on-demand or bulk coretime depending on their needs.
+
+## Conclusion
+
+Agile Coretime is a major advancement in how computational resources are allocated within Polkadot. By replacing slot auctions with a flexible, efficient model, Polkadot democratizes access to its secure and interoperable blockspace. Combined with innovations like Asynchronous Backing and Elastic Scaling, Agile Coretime positions Polkadot 2.0 as a highly scalable, efficient, and accessible blockchain platform for the next generation of Web3 applications.
+
+---
+
+## Summary
+
+This lesson explored Agile Coretime as a core innovation of Polkadot 2.0 that transforms resource allocation. We discussed its shift from parachain slot auctions to a more flexible system with two main models: Bulk Coretime (fixed, 28-day allocation) and On-demand Coretime (real-time bidding). We examined how the Coretime Chain manages these resources and supports operations like splitting and interlacing. Major benefits include improved scalability, democratized access, predictable costs, and lower entry barriers. This paradigm shift reorients Polkadot from
