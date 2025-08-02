@@ -10,7 +10,6 @@ import { createLesson } from "@/api/lessonService";
 import { useTranslations } from "next-intl";
 import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
@@ -18,39 +17,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { slugify, lessonSchema, LessonFormData, markdownLessonTemplate } from "../_components/lessonUtils";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
 });
 
-const slugify = (text: string): string => {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-};
-
-const schema = z.object({
-  title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
-  slug: z.string().nonempty("Slug is required"),
-  language: z.string().nonempty("Language is required"),
-  difficulty: z.string().nonempty("Difficulty is required"),
-  markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
-  question: z.string().nonempty("Question is required").max(100, "Question must be 100 characters or less"),
-  choices: z
-    .array(z.string())
-    .refine((choices) => choices.slice(0, 3).every((choice) => choice.trim() !== ""), "First 3 choices are required"),
-  correctChoice: z.number().min(0).max(4),
-});
-
-type FormData = z.infer<typeof schema>;
-
 function CreateLessonPage() {
-  const markdownLessonTemplate: string =
-    '<iframe\n    width="696"\n    height="400"\n    className="self-center"\n    src="https://www.youtube.com/embed/GhvUs0amvCc"\n    title="Me at the zoo"\n    frameborder="0"\n    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"\n    referrerpolicy="strict-origin-when-cross-origin"\n    allowfullscreen\n  ></iframe>\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n ## Summary\n\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
   const [showPreview, setShowPreview] = useState(false);
   const { user } = useUser();
   const t = useTranslations("backoffice");
@@ -63,8 +36,8 @@ function CreateLessonPage() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+  } = useForm<LessonFormData>({
+    resolver: zodResolver(lessonSchema),
     defaultValues: {
       title: "",
       slug: "",
@@ -93,7 +66,7 @@ function CreateLessonPage() {
   // @TODO: Get teamId from selector
   const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: LessonFormData) => {
     const lessonData = {
       teamId: selectedTeamId,
       title: data.title,

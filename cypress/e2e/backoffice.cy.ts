@@ -79,6 +79,17 @@ describe("Backoffice Page", () => {
 
       cy.url().should("include", "/backoffice/lessons");
       cy.contains("New Lesson Title").should("be.visible");
+
+      // test lesson update
+      cy.contains("New Lesson Title").parent().parent().find("button").first().click();
+      cy.url().should("include", "/backoffice/lessons/");
+
+      cy.get("#titleInput").clear();
+      cy.get("#titleInput").type("Updated lesson title");
+      cy.getByData("button-lesson-submit").click();
+
+      cy.url().should("include", "/backoffice/lessons");
+      cy.contains("Updated lesson title").should("be.visible");
     });
 
     it("regular user can not access backoffice home", () => {
