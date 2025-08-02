@@ -1,0 +1,137 @@
+## Parachains vs Rollups
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1u0vMwwAedwXvlioJ-0tNzrf5cwGsc1IP/preview"
+  title="Parachains vs Rollups"
+/>
+
+In today’s blockchain landscape, scalability remains one of the biggest challenges. Two prominent approaches to tackle this issue are Polkadot’s parachains and rollups, mainly used in the Ethereum ecosystem. Both aim to improve throughput and reduce transaction costs, but they achieve this in fundamentally different ways. Understanding these differences is crucial for developers, users, and investors making informed decisions in the blockchain space.
+
+## What Are Parachains
+
+Parachains are blockchains connected to and secured by Polkadot’s Relay Chain. The term comes from “parallel chains,” as they operate simultaneously within the Polkadot ecosystem. Unlike traditional sidechains, parachains don’t need their own consensus or security mechanism — they rely on Polkadot’s shared security model.
+
+Parachains are sovereign blockchains with their own tokens and logic. They can connect to the Relay Chain by paying as they go or by leasing a slot through the coretime system. As long as they compile to WebAssembly (Wasm) and follow the Relay Chain API, they can implement highly customized logic for use cases such as DeFi, gaming, IoT, and more.
+
+## What Are Rollups
+
+Rollups are Layer-2 scaling solutions that process transactions off-chain, batch them, and post cryptographic proofs to a Layer-1 chain. There are two main types:
+
+- **ZK Rollups**: use cryptographic validity proofs to verify the correctness of transactions.
+- **Optimistic Rollups**: assume transactions are valid by default and only verify them if challenged.
+
+Rollups are central to Ethereum’s scalability strategy, with the main chain serving as a data availability and settlement layer.
+
+## Polkadot Rollups: A Unique Approach
+
+Polkadot also implements rollup-like functionality via its parachain protocol. These “Polkadot Rollups” use interactive fraud proofs and verification by a validator subset. Unlike optimistic rollups, Polkadot’s approach is “cynical,” always validating transactions up front.
+
+In case of disputes, the challenge escalates to more validators, and malicious actors are slashed. This functionality is natively integrated, with shared security and data coordination handled by the parachain protocol.
+
+## Technical Comparison: Parachains vs Rollups
+
+**Finality**
+
+- ZK Rollups: near-instant finality due to immediate proof availability.
+- Optimistic Rollups: delayed (up to 1 week) due to challenge periods.
+- Polkadot Parachains: fast finality (under 1 minute) via the Relay Chain.
+
+**Security Model**
+
+- ZK Rollups: secured by mathematical proofs.
+- Optimistic Rollups: rely on game-theoretic incentives and fraud challenges.
+- Parachains: use cynical verification with validator subsets and slashing.
+
+**Scalability**
+
+- ZK Rollups: limited by prover capacity and high computational cost.
+- Optimistic Rollups: scalable with parallelization but constrained by L1 gas limits.
+- Parachains: natively scalable via sharded execution and parallel parachains using coretime scheduling.
+
+**Interoperability**
+
+- Rollups: often limited to parent chain or compatible L1s.
+- Parachains: support native interoperability through XCM, enabling seamless communication across different parachains.
+
+**State Transition Logic**
+
+- ZK Rollups: general-purpose, but complex zk circuit design.
+- Optimistic Rollups: can interpret various VMs within the EVM.
+- Parachains: define custom STF compiled to Wasm, validated by the parachain protocol.
+
+## Use Cases and Applications
+
+**When to Use Parachains**
+
+- For a fully sovereign blockchain with custom logic and governance.
+- For applications needing high optimization or specialization.
+- To benefit from Polkadot’s shared security and native interoperability.
+
+Examples include Acala (DeFi), Moonbeam (EVM compatibility), Astar (dApps), and Centrifuge (real-world asset tokenization).
+
+**When to Use Rollups**
+
+- For applications requiring low fees and high throughput.
+- To leverage L1 liquidity and security.
+- When full sovereignty is not needed.
+
+ZK Rollups: ideal for financial or privacy-focused apps.  
+Optimistic Rollups: suited for general-purpose dApps with moderate security needs.
+
+## Advantages and Disadvantages
+
+**Parachains**
+Advantages:
+
+- Shared security via the Relay Chain.
+- High customization and sovereignty.
+- Native interoperability via XCM.
+- Fast finality.
+- On-chain governance and forkless upgrades.
+
+Disadvantages:
+
+- Slot acquisition may be competitive.
+- Development complexity is higher than smart contracts.
+- Newer ecosystem compared to Ethereum.
+
+**Rollups**
+Advantages:
+
+- Lower transaction fees.
+- Higher throughput.
+- Retain L1 security.
+- Mature ecosystem (especially on Ethereum).
+
+Disadvantages:
+
+- ZK Rollups: complex math and limited support.
+- Optimistic Rollups: long withdrawal delays.
+- Limited interoperability across rollups.
+- Depend on L1 for data availability and settlement.
+
+## The Future: Convergence and Innovation
+
+The future is likely to bring convergence between parachains and rollups. Polkadot is already combining both via rollup-like parachains. Expect:
+
+- Parachains enhanced with rollup-style scaling.
+- Cross-rollup and cross-ecosystem interoperability.
+- Hybrid solutions combining the strengths of both models.
+
+Polkadot’s modular and flexible design, including coretime allocation, positions it to lead in this convergence.
+
+## Conclusion
+
+Parachains and rollups are complementary solutions to blockchain scalability. Parachains offer sovereignty, flexibility, and built-in interoperability. Rollups provide immediate scaling and low fees while relying on the L1 for finality and data.
+
+Choosing between them depends on the project’s specific needs. Some may start on rollups for fast market entry and migrate to parachains later for full control. With its hybrid architecture, Polkadot offers the best of both — making it a strong foundation for next-generation blockchain applications.
+
+---
+
+## Summary
+
+In this lesson, we explored the comparison between Polkadot parachains and rollups. We defined parachains as sovereign chains connected to the Relay Chain and rollups as Layer-2 solutions that process transactions off-chain.
+
+We reviewed how Polkadot implements rollups natively using validator subsets and fraud detection. We compared both technologies in terms of finality, security, scalability, interoperability, and logic.
+
+We analyzed when to use each solution, their strengths and weaknesses, and discussed the future where both approaches converge. With its adaptable and secure infrastructure, Polkadot stands out as a versatile platform ready to support a wide range of blockchain use cases.

@@ -1,0 +1,150 @@
+## Bridges and Their Risks
+
+<ResponsiveIframe
+  src="https://drive.google.com/file/d/1i9II470kY22y3HiMxhyXn9SrTmLEebq-/preview"
+  title="Bridges and Their Risks"
+/>
+
+Bridges are fundamental components of blockchain infrastructure that enable communication between technically diverse networks such as Polkadot and Ethereum. They act as connectors, allowing data and asset transfers between otherwise isolated blockchains. In the Polkadot ecosystem, bridges are especially important as they complement native interoperability between parachains by extending it to external networks.
+
+## The Role of Bridges in the Polkadot Ecosystem
+
+In Polkadot’s design, bridges play a key role in realizing a connected blockchain ecosystem. While parachains already enjoy native interoperability via XCM (Cross-Consensus Messaging), bridges extend this capability to blockchains outside of Polkadot, such as Ethereum and Bitcoin.
+
+Bridges enable Polkadot’s vision of a “blockchain unbounded,” where different networks can exchange value and functionality without relying on trusted intermediaries. Through bridges, parachains can interact with external DeFi protocols and crypto assets, unlocking new possibilities.
+
+Polkadot implements bridges through specialized parachains called Bridge Hubs, which are system chains designed specifically to connect Polkadot with external blockchains. For example, Polkadot’s Bridge Hub runs a light client of the Kusama network, enabling trustless communication between the two.
+
+## Types of Bridges
+
+Bridges can be classified based on their design and trust model:
+
+### Trustless Bridges
+
+Preferred in the Polkadot ecosystem, trustless bridges rely on math, code, and cryptographic proofs rather than specific intermediaries. They cryptographically verify the state and finality of the source blockchain.
+
+Polkadot implements these using on-chain light clients. For example, the Bridge Hub runs an on-chain Kusama light client to verify finality directly on the Polkadot chain.
+
+### Trusted Bridges
+
+Trusted bridges depend on intermediaries or federations to relay and validate cross-chain messages. For example, a bridge governed by a multisig setup requires users to trust the signers.
+
+These are easier to implement but introduce central points of failure and higher risks. Polkadot favors trustless designs but may use trusted bridges in specific contexts.
+
+## Bridge Components
+
+Trustless bridges rely on both on-chain and off-chain components:
+
+### On-chain Components
+
+- **Light Clients**: Track finality of the source chain. The Bridge Hub, for instance, runs a Kusama light client to infer transaction finality.
+- **Messaging Modules**: Handle message queuing and delivery between chains using ordered lanes.
+- **XCM Executors**: Dispatch messages in XCM format within the Bridge Hub.
+
+### Off-chain Components
+
+- **Relayers**: Independent processes connected to both source and destination chains. They relay GRANDPA justifications and headers to the destination chain's bridge pallet.
+- Relayers handle delivery, acknowledgment, and verification of messages between chains.
+
+## Bridge Implementations in Polkadot
+
+### Via Bridge Pallets
+
+For GRANDPA-finalizing chains like Kusama, bridges are straightforward. A GRANDPA light client is embedded into the destination chain, offering a verified source of truth.
+
+Example: The Kusama <-> Polkadot bridge uses Bridge Hubs that run on-chain light clients to verify transactions across both networks.
+
+### Via Smart Contracts
+
+For smart contract blockchains like Ethereum, bridges are built with contracts. Snowbridge, for instance, uses a Polkadot-based light client for Ethereum and vice versa.
+
+Since running GRANDPA light clients on Ethereum is costly, Polkadot introduces **BEEFY** (Bridge Efficiency Enabling Finality Yielder) to enable a more economical and scalable bridge.
+
+### Via Higher-Order Protocols
+
+Blockchains like Bitcoin, which lack smart contracts, can connect via protocols like **XClaim**, enabling trustless swaps backed by crypto-collateral.
+
+## Risks and Challenges of Bridges
+
+Bridges are one of the most critical and risky components in blockchain infrastructure. According to Chainalysis, centralized bridge failures account for over 60% of all crypto hacks, with losses exceeding $2 billion.
+
+### Security Risks
+
+- **Centralization**: Trusted bridges have single points of failure.
+- **Technical Complexity**: Bridges must interconnect chains with different security models, increasing attack surface.
+- **Insufficient Validation**: Some bridges fail to properly validate source chain transactions.
+- **Replay Attacks**: Poor implementation can allow double-claims across chains.
+
+## Risk Mitigation Strategies
+
+Polkadot implements several strategies to reduce bridge risks:
+
+- **Trustless Design**: Prioritizing cryptographic validation over trusted parties.
+- **On-chain Light Clients**: Validate external transaction finality directly on Polkadot.
+- **BEEFY Consensus Layer**: Enables efficient Ethereum bridging.
+- **Audits**: All bridge implementations undergo code reviews and security audits.
+- **Staged Deployment**: New bridges launch on testnets or Kusama first before mainnet deployment.
+
+## Comparing Bridges in Polkadot
+
+### Snowbridge vs Hyperbridge
+
+Both are trustless Ethereum bridges, with distinct designs:
+
+**Snowbridge**:
+
+- Ethereum-focused
+- Uses Polkadot light client in Ethereum smart contract
+- Native DOT token
+- BEEFY with random sampling
+- Low hardware requirements (permissionless)
+- Latency: ETH > DOT: 10–20 min | DOT > ETH: ~30 min
+- Uses XCM for messaging
+
+**Hyperbridge**:
+
+- Multichain support
+- Own parachain
+- Uses native Hyperbridge token
+- ZK Proofs
+- High hardware requirements
+- Latency: ETH > DOT: 10–20 min | DOT > ETH: 5–7 min
+- Uses ISMP (Interoperable Secure Messaging Protocol)
+
+> ⚠️ Tokens sent via different bridges are not interchangeable. For example, WETH sent through Snowbridge cannot be returned via Hyperbridge and vice versa.
+
+## The Future of Bridges in Polkadot
+
+Bridges will continue to evolve alongside blockchain ecosystems:
+
+- **Broader Trustless Adoption**: Continued push for secure, trust-minimized bridges.
+- **BEEFY Enhancements**: Ongoing optimization for Ethereum interoperability.
+- **More External Connections**: Expanding to more chains.
+- **Standardized Protocols**: Unified standards for safer integration.
+- **XCM Integration**: Deeper linking between XCM and external bridges.
+
+## Best Practices for Users
+
+- **Check Reputation**: Use audited bridges like Snowbridge or Hyperbridge.
+- **Understand Token Wrapping**: Tokens sent via one bridge are not compatible with others.
+- **Test with Small Amounts**: Verify first-time usage with small transfers.
+- **Confirm Addresses**: Double-check destination addresses before transfers.
+- **Know Finality Times**: Expect ~10–20 min (ETH > DOT) and ~30 min (DOT > ETH) via Snowbridge.
+
+## Conclusion
+
+Bridges are critical to blockchain interoperability. In Polkadot, they expand communication beyond parachains to include networks like Ethereum and Bitcoin.
+
+However, bridges also carry major security risks. Polkadot addresses these by favoring trustless designs with cryptographic guarantees. Implementations like Snowbridge and Hyperbridge set a new standard for secure cross-chain communication.
+
+As the ecosystem grows, bridges will become more robust and interconnected — enabling a truly interoperable blockchain future. Still, users must stay vigilant and follow best practices to minimize risk.
+
+## Summary
+
+In this lesson, we explored blockchain bridges and their associated risks in the Polkadot ecosystem. We began with an overview of bridges as connectors between diverse networks and their critical role in extending Polkadot’s interoperability.
+
+We examined different bridge types, including trustless (preferred by Polkadot) and trusted bridges. We covered key components like on-chain light clients and off-chain relayers, and reviewed bridge implementations via pallets, smart contracts, and advanced protocols.
+
+We addressed the high security risks bridges pose, noting that centralized bridge failures account for most major crypto hacks. We outlined Polkadot’s mitigation strategies, including trustless designs and gradual deployment.
+
+Finally, we compared Snowbridge and Hyperbridge, their unique technologies, and highlighted user best practices for safe cross-chain interactions. As blockchain connectivity evolves, bridges will remain essential tools — and Polkadot
