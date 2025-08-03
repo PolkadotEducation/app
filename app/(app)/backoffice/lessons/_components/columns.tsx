@@ -105,7 +105,11 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
         const data = row.original;
         return (
           <div className="flex gap-x-4">
-            <Button variant="ghost" onClick={() => router.push(`/backoffice/lessons/${data._id}`)}>
+            <Button
+              variant="ghost"
+              onClick={() => router.push(`/backoffice/lessons/${data._id}`)}
+              data-cy="button-lesson-edit"
+            >
               <Pen />
             </Button>
             <Button variant="ghost" onClick={() => deleteHandler(data._id)}>

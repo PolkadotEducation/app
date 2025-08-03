@@ -8,6 +8,7 @@
     "build": "next build",
     "compose": "docker compose --profile slim",
     "compose-all": "docker compose --profile default",
+    "compose-test": "docker compose -f docker-compose.yaml -f docker-compose.test.yaml --profile slim",
     "db:drop:all": "bun run seed/cli.ts drop:all",
     "db:drop:courses": "bun run seed/cli.ts drop:courses",
     "db:reset": "bun run seed/cli.ts reset",
@@ -23,8 +24,8 @@
     "postinstall": "papi",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
-    "test:open": "NODE_ENV=test cypress open",
     "test": "NODE_ENV=test cypress run",
+    "test:open": "NODE_ENV=test cypress open",
     "type-check": "tsc --noEmit",
     "wait": "wait-on http://localhost:3000"
   },

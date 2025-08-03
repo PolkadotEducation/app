@@ -81,7 +81,7 @@ describe("Backoffice Page", () => {
       cy.contains("New Lesson Title").should("be.visible");
 
       // test lesson update
-      cy.contains("New Lesson Title").parent().parent().find("button").first().click();
+      cy.contains("New Lesson Title").parent().parent().getByData("button-lesson-edit").first().click();
       cy.url().should("include", "/backoffice/lessons");
 
       cy.get("#titleInput").clear();
