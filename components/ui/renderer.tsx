@@ -8,7 +8,7 @@ import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
-import Link from "next/link";
+
 import { ChevronLeft, ChevronRight, CircleCheckBig } from "lucide-react";
 import { getUserCompletedCourses, submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
@@ -30,7 +30,7 @@ interface LessonRendererProps {
   lessonId?: string;
   courseId?: string;
   challenge: ChallengeType;
-  title: string;
+  title?: string;
   markdown: string;
   nextLesson?: string | null;
   previousLesson?: string | null;
@@ -42,6 +42,7 @@ const LessonRenderer = ({
   lessonId,
   courseId,
   challenge,
+  // eslint-disable-next-line no-unused-vars
   title,
   markdown,
   nextLesson,
@@ -210,7 +211,6 @@ const LessonRenderer = ({
   return (
     <main className="w-full flex justify-center">
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
-        <h1>{title ? title : "Title not set"}</h1>
         {mdxSource ? (
           <MDXRemote
             {...mdxSource}
@@ -284,20 +284,26 @@ const LessonRenderer = ({
             }`}
           >
             {previousLesson && (
-              <Link href={`/lesson/${courseId}/${previousLesson}`} data-cy="button-previous-lesson">
-                <Button variant="link" className="p-0 hover:bg-transparent">
-                  <ChevronLeft className="mr-2" />
-                  {t("previousLesson")}
-                </Button>
-              </Link>
+              <Button
+                variant="link"
+                className="p-0 hover:bg-transparent"
+                onClick={() => router.push(`/lesson/${courseId}/${previousLesson}`)}
+                data-cy="button-previous-lesson"
+              >
+                <ChevronLeft className="mr-2" />
+                {t("previousLesson")}
+              </Button>
             )}
             {nextLesson && (
-              <Link href={`/lesson/${courseId}/${nextLesson}`} data-cy="button-next-lesson">
-                <Button variant="link" className="p-0 hover:bg-transparent">
-                  {t("nextLesson")}
-                  <ChevronRight className="ml-2" />
-                </Button>
-              </Link>
+              <Button
+                variant="link"
+                className="p-0 hover:bg-transparent"
+                onClick={() => router.push(`/lesson/${courseId}/${nextLesson}`)}
+                data-cy="button-next-lesson"
+              >
+                {t("nextLesson")}
+                <ChevronRight className="ml-2" />
+              </Button>
             )}
             {!nextLesson && (
               <Button
