@@ -78,16 +78,6 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
     }
   }, [watchedTitle, setValue, lesson]);
 
-  useEffect(() => {
-    const getChallenge = async () => {
-      if (watch("challengeId")) {
-        const challenge = await getChallengeById(watch("challengeId"));
-        setChallenge(challenge);
-      }
-    };
-    getChallenge();
-  }, [watch("challengeId")]);
-
   const handlePreview = (showPreview: boolean) => {
     setShowPreview(showPreview);
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -209,13 +199,13 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
 
         <div className="w-[49%]">
           <Controller
-            name="challengeId"
+            name="challenge"
             control={control}
             render={({ field }) => (
               <ChallengeSelector
                 value={field.value}
                 onChange={field.onChange}
-                error={errors.challengeId?.message}
+                error={errors.challenge?.message}
                 language={watch("language")}
               />
             )}

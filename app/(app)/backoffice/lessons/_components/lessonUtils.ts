@@ -14,7 +14,7 @@ export const lessonSchema = z.object({
   slug: z.string().nonempty("Slug is required"),
   language: z.string().nonempty("Language is required"),
   markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
-  challengeId: z.string().nonempty("Challenge is required"),
+  challenge: z.string().nonempty("Challenge is required"),
 });
 
 export type LessonFormData = z.infer<typeof lessonSchema>;

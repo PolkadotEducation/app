@@ -47,7 +47,6 @@ function EditLessonPage({ params }: { params: { id: string } }) {
       slug: data.slug,
       language: data.language,
       body: data.markdownBody,
-      difficulty: data.difficulty,
       challenge: data.challenge,
       references: [],
     };

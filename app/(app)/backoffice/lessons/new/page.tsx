@@ -24,7 +24,6 @@ function CreateLessonPage() {
       slug: data.slug,
       language: data.language,
       body: data.markdownBody,
-      difficulty: data.difficulty,
       challenge: data.challenge,
       references: [],
     };
