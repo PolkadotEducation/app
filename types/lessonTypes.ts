@@ -19,7 +19,7 @@ export type LessonType = {
   slug?: string;
   difficulty: string;
   body: string;
-  challengeId: string;
+  challenge: string | ChallengeType;
   references?: ReferenceType[];
   createdAt?: Date;
   updatedAt?: Date;

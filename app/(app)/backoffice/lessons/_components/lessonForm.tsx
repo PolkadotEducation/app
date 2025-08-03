@@ -47,7 +47,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
       slug: "",
       language: "",
       markdownBody: markdownLessonTemplate,
-      challengeId: "",
+      challenge: "",
     },
   });
 
@@ -59,13 +59,13 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   useEffect(() => {
     if (lesson) {
       const existingSlug = "slug" in lesson ? (lesson as { slug?: string }).slug : undefined;
-      const challengeId = "challengeId" in lesson ? (lesson as { challengeId?: string }).challengeId : "";
+      const challenge = "challenge" in lesson ? (lesson as { challenge?: string }).challenge : "";
       reset({
         title: lesson.title,
         slug: existingSlug || slugify(lesson.title),
         language: lesson.language,
         markdownBody: lesson.body,
-        challengeId: challengeId,
+        challenge: challenge,
       });
     }
   }, [lesson, reset]);

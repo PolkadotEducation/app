@@ -46,8 +46,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
       language,
       slug,
       body,
-      difficulty: challenges[0].difficulty.toLowerCase(),
-      challenge: challenges[0],
+      challenge: challenges[0], // @TODO: CHANGE EVERYTHING FROM CHALLENGE ID TO CHALLENGE OBJECT
       references: [],
       createdAt: new Date(),
       updatedAt: new Date(),
