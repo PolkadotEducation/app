@@ -7,7 +7,8 @@ export type ChallengeType = {
   question: string;
   choices: string[];
   correctChoice: number;
-  difficulty?: string;
+  difficulty: "easy" | "medium" | "hard";
+  language: string;
 };
 
 export type LessonType = {
@@ -18,7 +19,7 @@ export type LessonType = {
   slug?: string;
   difficulty: string;
   body: string;
-  challenge: ChallengeType;
+  challengeId: string;
   references?: ReferenceType[];
   createdAt?: Date;
   updatedAt?: Date;

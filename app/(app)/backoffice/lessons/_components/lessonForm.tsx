@@ -4,17 +4,17 @@ import dynamic from "next/dynamic";
 import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
-import ChoicesInputComponent from "@/components/ui/choices";
 import LessonRenderer from "@/components/ui/renderer";
 import { useTranslations } from "next-intl";
 import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 import Image from "next/image";
-import { LessonType } from "@/types/lessonTypes";
+import { ChallengeType, LessonType } from "@/types/lessonTypes";
 import { slugify, lessonSchema, LessonFormData, markdownLessonTemplate } from "./lessonUtils";
+import { ChallengeSelector } from "./challengeSelector";
+import { getChallengeById } from "@/api/challengeService";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -28,8 +28,9 @@ interface LessonFormProps {
   title?: string;
 }
 
-export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonText, title }: LessonFormProps) {
+export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonText }: LessonFormProps) {
   const [showPreview, setShowPreview] = useState(false);
+  const [challenge, setChallenge] = useState<ChallengeType | null>(null);
   const t = useTranslations("backoffice");
 
   const {
@@ -45,11 +46,8 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
       title: "",
       slug: "",
       language: "",
-      difficulty: "",
       markdownBody: markdownLessonTemplate,
-      question: "",
-      choices: ["", "", "", "", ""],
-      correctChoice: 0,
+      challengeId: "",
     },
   });
 
@@ -61,15 +59,13 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   useEffect(() => {
     if (lesson) {
       const existingSlug = "slug" in lesson ? (lesson as { slug?: string }).slug : undefined;
+      const challengeId = "challengeId" in lesson ? (lesson as { challengeId?: string }).challengeId : "";
       reset({
         title: lesson.title,
         slug: existingSlug || slugify(lesson.title),
         language: lesson.language,
-        difficulty: lesson.difficulty,
         markdownBody: lesson.body,
-        question: lesson.challenge.question,
-        choices: lesson.challenge.choices,
-        correctChoice: lesson.challenge.correctChoice,
+        challengeId: challengeId,
       });
     }
   }, [lesson, reset]);
@@ -82,6 +78,16 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
     }
   }, [watchedTitle, setValue, lesson]);
 
+  useEffect(() => {
+    const getChallenge = async () => {
+      if (watch("challengeId")) {
+        const challenge = await getChallengeById(watch("challengeId"));
+        setChallenge(challenge);
+      }
+    };
+    getChallenge();
+  }, [watch("challengeId")]);
+
   const handlePreview = (showPreview: boolean) => {
     setShowPreview(showPreview);
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -92,7 +98,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   };
 
   if (showPreview) {
-    const { title: previewTitle, difficulty, markdownBody, question, choices } = watch();
+    const { title: previewTitle, markdownBody } = watch();
     return (
       <>
         <header className="absolute w-full bg-primary text-white shadow-md p-4 flex justify-evenly items-center z-50">
@@ -102,13 +108,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
           </Button>
         </header>
         <div className="pt-20">
-          <LessonRenderer
-            title={previewTitle}
-            difficulty={difficulty}
-            markdown={markdownBody}
-            question={question}
-            choices={choices}
-          />
+          <LessonRenderer title={previewTitle} markdown={markdownBody} challenge={challenge} />
         </div>
       </>
     );
@@ -190,38 +190,6 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
               )}
             />
           </div>
-          <div className="w-full">
-            <Controller
-              name="difficulty"
-              control={control}
-              render={({ field }) => (
-                <div className="flex flex-col">
-                  <p className="text-xs mb-2">{t("difficulty")}</p>
-                  <RadioGroup
-                    {...field}
-                    onValueChange={field.onChange}
-                    className={`flex gap-x-4 ${errors.difficulty?.message ? "mb-0" : "mb-5"}`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="easy" id="easyRadioButton" />
-                      <label htmlFor="easyRadioButton">{t("easy")}</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="medium" id="mediumRadioButton" />
-                      <label htmlFor="mediumRadioButton">{t("medium")}</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="hard" id="hardRadioButton" />
-                      <label htmlFor="hardRadioButton">{t("hard")}</label>
-                    </div>
-                  </RadioGroup>
-                  {errors.difficulty?.message && (
-                    <p className="text-red-500 mt-1 mb-5 form-error">{errors.difficulty?.message}</p>
-                  )}
-                </div>
-              )}
-            />
-          </div>
         </div>
 
         <div
@@ -241,37 +209,18 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
 
         <div className="w-[49%]">
           <Controller
-            name="question"
+            name="challengeId"
             control={control}
             render={({ field }) => (
-              <InputFloatingLabel
-                {...field}
-                type="text"
-                id="questionInput"
-                label={t("question")}
-                additionalStyles="mb-5"
-                error={errors.question?.message}
+              <ChallengeSelector
+                value={field.value}
+                onChange={field.onChange}
+                error={errors.challengeId?.message}
+                language={watch("language")}
               />
             )}
           />
         </div>
-
-        <Controller
-          name="choices"
-          control={control}
-          render={({ field }) => (
-            <ChoicesInputComponent
-              choices={field.value}
-              correctChoice={watch("correctChoice")}
-              onChoicesChange={(updatedChoices, updatedCorrectChoice) => {
-                field.onChange(updatedChoices);
-                setValue("correctChoice", updatedCorrectChoice);
-              }}
-            />
-          )}
-        />
-        {errors.choices && <p className="text-red-500 form-error">{errors.choices.message}</p>}
-        {errors.correctChoice && <p className="text-red-500 form-error">{errors.correctChoice.message}</p>}
 
         <div className="pt-6 mt-6 pb-6 flex w-full justify-end border-t-[1px] border-t-border-gray">
           <Button type="submit" data-cy="button-lesson-submit" disabled={isLoading}>

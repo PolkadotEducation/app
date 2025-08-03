@@ -1,0 +1,119 @@
+"use client";
+
+import { ChallengeSummary } from "@/types/challengeTypes";
+import { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, Pen, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => void }): ColumnDef<ChallengeSummary>[] => {
+  const router = useRouter();
+
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+          className="h-4 w-4"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+          className="h-4 w-4"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+      size: 10,
+    },
+    {
+      accessorKey: "title",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Title
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
+      enableSorting: true,
+      size: 200,
+    },
+    {
+      accessorKey: "difficulty",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Difficulty
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
+      enableSorting: true,
+      size: 100,
+    },
+    {
+      accessorKey: "updatedAt",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Updated
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
+      cell: ({ row }) => {
+        const updatedAt = row.getValue("updatedAt") as Date;
+        if (!updatedAt) return "-";
+        return new Date(updatedAt).toLocaleString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      },
+      enableSorting: true,
+      size: 100,
+    },
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const data = row.original;
+        return (
+          <div className="flex gap-x-4">
+            <Button
+              variant="ghost"
+              onClick={() => router.push(`/backoffice/challenges/${data._id}`)}
+              data-cy="button-challenge-edit"
+            >
+              <Pen />
+            </Button>
+            <Button variant="ghost" onClick={() => deleteHandler(data._id)}>
+              <Trash2 />
+            </Button>
+          </div>
+        );
+      },
+      size: 50,
+    },
+  ];
+};

@@ -13,13 +13,8 @@ export const lessonSchema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
   slug: z.string().nonempty("Slug is required"),
   language: z.string().nonempty("Language is required"),
-  difficulty: z.string().nonempty("Difficulty is required"),
   markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
-  question: z.string().nonempty("Question is required").max(100, "Question must be 100 characters or less"),
-  choices: z
-    .array(z.string())
-    .refine((choices) => choices.slice(0, 3).every((choice) => choice.trim() !== ""), "First 3 choices are required"),
-  correctChoice: z.number().min(0).max(4),
+  challengeId: z.string().nonempty("Challenge is required"),
 });
 
 export type LessonFormData = z.infer<typeof lessonSchema>;

@@ -1,9 +1,10 @@
+import { getChallengeById } from "@/api/challengeService";
 import { getCourse, getCourses } from "@/api/courseService";
 import { getLessonById } from "@/api/lessonService";
 import { getLessonProgress } from "@/api/progressService";
 import { useUser } from "@/hooks/useUser";
 import { CourseType } from "@/types/courseTypes";
-import { LessonType } from "@/types/lessonTypes";
+import { ChallengeType, LessonType } from "@/types/lessonTypes";
 import { ProgressResponse } from "@/types/progressTypes";
 import { createContext, useState, ReactNode } from "react";
 
@@ -14,6 +15,7 @@ interface CourseContextProps {
   selectedCourse: CourseType | null;
   selectedLesson: LessonType | null;
   selectedLessonProgress: ProgressResponse[] | null;
+  selectedChallenge: ChallengeType | null;
   nextLesson: string | null;
   previousLesson: string | null;
   fetchCourses: () => Promise<void>;
@@ -27,6 +29,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
   const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseType | null>(null);
   const [selectedLesson, setSelectedLesson] = useState<LessonType | null>(null);
+  const [selectedChallenge, setSelectedChallenge] = useState<ChallengeType | null>(null);
   const [selectedLessonProgress, setSelectedLessonProgress] = useState<ProgressResponse[] | null>(null);
   const [nextLesson, setNextLesson] = useState<string | null>(null);
   const [previousLesson, setPreviousLesson] = useState<string | null>(null);
@@ -68,6 +71,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       const lesson = await getLessonById(id as string);
       setSelectedLesson(lesson);
+      const challenge = await getChallengeById(lesson.challengeId);
+      setSelectedChallenge(challenge);
       const course = await getCourse(courseId);
       setSelectedCourse(course);
       const progress = await getLessonProgress({ courseId, lessonId: id });
@@ -138,6 +143,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         selectedCourse,
         selectedLesson,
         selectedLessonProgress,
+        selectedChallenge,
         nextLesson,
         previousLesson,
         fetchCourses,

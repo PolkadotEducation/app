@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
-// import Badge from "@/components/ui/badge";
+import Badge from "@/components/ui/badge";
 import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import Loading from "./loading";
@@ -16,6 +16,7 @@ import { useUser } from "@/hooks/useUser";
 import { ProgressResponse } from "@/types/progressTypes";
 import { useRouter } from "next/navigation";
 import { ResponsiveIframe } from "./responsiveIframe";
+import { ChallengeType } from "@/types/lessonTypes";
 
 const EXP_POINTS = {
   hard: 100,
@@ -28,11 +29,9 @@ type Difficulty = keyof typeof EXP_POINTS;
 interface LessonRendererProps {
   lessonId?: string;
   courseId?: string;
+  challenge?: ChallengeType | null;
   title: string;
-  difficulty: string;
   markdown: string;
-  question: string;
-  choices: string[];
   nextLesson?: string | null;
   previousLesson?: string | null;
   progress?: ProgressResponse[] | null;
@@ -42,11 +41,9 @@ interface LessonRendererProps {
 const LessonRenderer = ({
   lessonId,
   courseId,
+  challenge,
   title,
-  difficulty,
   markdown,
-  question,
-  choices,
   nextLesson,
   previousLesson,
   progress,
@@ -105,8 +102,8 @@ const LessonRenderer = ({
   }, []);
 
   useEffect(() => {
-    const doublePoints = EXP_POINTS[difficulty as Difficulty] * 2;
-    const normalPoints = EXP_POINTS[difficulty as Difficulty];
+    const doublePoints = EXP_POINTS[challenge?.difficulty as Difficulty] * 2;
+    const normalPoints = EXP_POINTS[challenge?.difficulty as Difficulty];
 
     setPoints(isFirstTry ? doublePoints : normalPoints);
   }, [isFirstTry]);
@@ -213,10 +210,7 @@ const LessonRenderer = ({
   return (
     <main className="w-full flex justify-center">
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
-        <h1>
-          {title ? title : "Title not set"}
-          {/* <Badge className="align-middle ml-2">{difficulty ? t(difficulty) : "Difficulty not set"}</Badge> */}
-        </h1>
+        <h1>{title ? title : "Title not set"}</h1>
         {mdxSource ? (
           <MDXRemote
             {...mdxSource}
@@ -231,10 +225,13 @@ const LessonRenderer = ({
         )}
         <div className="border-t-2 border-t-border-gray my-4"></div>
         <h2>{t("challenge")}</h2>
-        <p>{question ? question : "Challenge not set"}</p>
-        {choices.some((c) => !!c) && (
+        <p>{challenge?.question ? challenge.question : "Challenge not set"}</p>
+        <Badge className="align-middle ml-2">
+          {challenge?.difficulty ? t(challenge.difficulty) : "Difficulty not set"}
+        </Badge>
+        {challenge?.choices.some((c) => !!c) && (
           <div>
-            {choices
+            {challenge?.choices
               .filter((c) => !!c)
               .map((option, index) => (
                 <div key={index} className="mb-2">

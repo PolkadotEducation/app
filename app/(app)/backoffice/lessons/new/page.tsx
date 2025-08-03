@@ -25,11 +25,7 @@ function CreateLessonPage() {
       language: data.language,
       body: data.markdownBody,
       difficulty: data.difficulty,
-      challenge: {
-        question: data.question,
-        choices: data.choices,
-        correctChoice: data.correctChoice,
-      },
+      challenge: data.challenge,
       references: [],
     };
 
