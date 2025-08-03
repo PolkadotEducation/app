@@ -17,7 +17,6 @@ export type LessonType = {
   title: string;
   language: string;
   slug?: string;
-  difficulty: string;
   body: string;
   challenge: string | ChallengeType;
   references?: ReferenceType[];
@@ -36,4 +35,4 @@ export type LessonResponse = {
   lessonId: string;
 };
 
-export type SimplifiedLessonType = Omit<LessonType, "teamId" | "language" | "difficulty" | "body" | "challenge">;
+export type SimplifiedLessonType = Omit<LessonType, "teamId" | "language" | "body" | "challenge">;

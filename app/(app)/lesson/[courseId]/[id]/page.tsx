@@ -61,7 +61,7 @@ const LessonPage = ({ params }: { params: Params }) => {
           lessonId={selectedLesson._id}
           courseId={courseId}
           title={selectedLesson.title}
-          difficulty={selectedLesson.difficulty}
+          difficulty={selectedLesson.challenge.difficulty}
           question={selectedLesson.challenge.question}
           choices={selectedLesson.challenge.choices}
           markdown={selectedLesson.body}
