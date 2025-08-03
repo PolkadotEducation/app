@@ -14,7 +14,6 @@ import Image from "next/image";
 import { ChallengeType, LessonType } from "@/types/lessonTypes";
 import { slugify, lessonSchema, LessonFormData, markdownLessonTemplate } from "./lessonUtils";
 import { ChallengeSelector } from "./challengeSelector";
-import { getChallengeById } from "@/api/challengeService";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
@@ -30,8 +29,15 @@ interface LessonFormProps {
 
 export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonText }: LessonFormProps) {
   const [showPreview, setShowPreview] = useState(false);
-  const [challenge, setChallenge] = useState<ChallengeType | null>(null);
   const t = useTranslations("backoffice");
+
+  const defaultChallenge = {
+    question: "Example question?",
+    choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+    difficulty: "easy" as const,
+    language: "english",
+    correctChoice: 0,
+  };
 
   const {
     control,
@@ -47,7 +53,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
       slug: "",
       language: "",
       markdownBody: markdownLessonTemplate,
-      challenge: "",
+      challenge: defaultChallenge,
     },
   });
 
@@ -59,13 +65,12 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   useEffect(() => {
     if (lesson) {
       const existingSlug = "slug" in lesson ? (lesson as { slug?: string }).slug : undefined;
-      const challenge = "challenge" in lesson ? (lesson as { challenge?: string }).challenge : "";
       reset({
         title: lesson.title,
         slug: existingSlug || slugify(lesson.title),
         language: lesson.language,
         markdownBody: lesson.body,
-        challenge: challenge,
+        challenge: lesson.challenge as ChallengeType,
       });
     }
   }, [lesson, reset]);

@@ -29,7 +29,7 @@ type Difficulty = keyof typeof EXP_POINTS;
 interface LessonRendererProps {
   lessonId?: string;
   courseId?: string;
-  challenge?: ChallengeType | null;
+  challenge: ChallengeType;
   title: string;
   markdown: string;
   nextLesson?: string | null;
@@ -102,8 +102,8 @@ const LessonRenderer = ({
   }, []);
 
   useEffect(() => {
-    const doublePoints = EXP_POINTS[challenge?.difficulty as Difficulty] * 2;
-    const normalPoints = EXP_POINTS[challenge?.difficulty as Difficulty];
+    const doublePoints = EXP_POINTS[challenge.difficulty as Difficulty] * 2;
+    const normalPoints = EXP_POINTS[challenge.difficulty as Difficulty];
 
     setPoints(isFirstTry ? doublePoints : normalPoints);
   }, [isFirstTry]);
@@ -224,14 +224,14 @@ const LessonRenderer = ({
           </div>
         )}
         <div className="border-t-2 border-t-border-gray my-4"></div>
-        <h2>{t("challenge")}</h2>
-        <p>{challenge?.question ? challenge.question : "Challenge not set"}</p>
-        <Badge className="align-middle ml-2">
-          {challenge?.difficulty ? t(challenge.difficulty) : "Difficulty not set"}
-        </Badge>
-        {challenge?.choices.some((c) => !!c) && (
+        <div className="flex flex-row items-center">
+          <h2>{t("challenge")}</h2>
+          <Badge className="ml-4">{challenge.difficulty ? t(challenge.difficulty) : "Difficulty not set"}</Badge>
+        </div>
+        <p>{challenge.question ? challenge.question : "Challenge not set"}</p>
+        {challenge.choices.some((c) => !!c) && (
           <div>
-            {challenge?.choices
+            {challenge.choices
               .filter((c) => !!c)
               .map((option, index) => (
                 <div key={index} className="mb-2">

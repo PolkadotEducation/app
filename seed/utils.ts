@@ -26,36 +26,39 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
 
   lessonFolders.sort();
 
-  const lessons = lessonFolders.map((folder) => {
-    const folderPath = path.join(lessonsDir, folder);
-    const bodyFile = fs.readdirSync(folderPath).find((file) => file.endsWith(".mdx"));
+  const lessons = await Promise.all(
+    lessonFolders.map(async (folder) => {
+      const folderPath = path.join(lessonsDir, folder);
+      const bodyFile = fs.readdirSync(folderPath).find((file) => file.endsWith(".mdx"));
 
-    if (!bodyFile) {
-      throw new Error(`Missing .mdx file in ${folderPath}`);
-    }
+      if (!bodyFile) {
+        throw new Error(`Missing .mdx file in ${folderPath}`);
+      }
 
-    const bodyPath = path.join(folderPath, bodyFile);
-    const body = fs.readFileSync(bodyPath, "utf-8");
-    const title = getTitleFromMarkdown(body, folder);
-    const slug = folder;
-    const challenges = importChallenge(folderPath);
+      const bodyPath = path.join(folderPath, bodyFile);
+      const body = fs.readFileSync(bodyPath, "utf-8");
+      const title = getTitleFromMarkdown(body, folder);
+      const slug = folder;
+      const challenges = importChallenge(folderPath);
 
-    return {
-      teamId,
-      title,
-      language,
-      slug,
-      body,
-      challenge: challenges[0], // @TODO: CHANGE EVERYTHING FROM CHALLENGE ID TO CHALLENGE OBJECT
-      references: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  });
+      const challenge = await db.collection("challenges").insertOne(challenges[0]);
+
+      return {
+        teamId,
+        title,
+        language,
+        slug,
+        body,
+        challenge: challenge.insertedId,
+        references: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    }),
+  );
 
   const result = await db.collection("lessons").insertMany(lessons);
 
-  // Add the generated IDs to the lesson objects
   const recordedLessons = lessons.map((lesson, index) => ({
     ...lesson,
     _id: result.insertedIds[index],

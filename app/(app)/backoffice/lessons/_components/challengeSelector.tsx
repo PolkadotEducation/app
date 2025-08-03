@@ -5,10 +5,10 @@ import { useTranslations } from "next-intl";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { getChallengesSummary } from "@/api/challengeService";
-import { ChallengeSummary } from "@/types/challengeTypes";
+import { ChallengeSummary, ChallengeType } from "@/types/challengeTypes";
 
 interface ChallengeSelectorProps {
-  value?: string;
+  value?: ChallengeType;
   onChange: (_value: string) => void;
   error?: string;
   language?: string;
@@ -42,7 +42,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
     challenge.question.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const selectedChallenge = challenges.find((challenge) => challenge._id === value);
+  const selectedChallenge = challenges.find((challenge) => challenge._id === value?._id);
 
   return (
     <div className="flex flex-col">
