@@ -29,13 +29,14 @@ type Difficulty = keyof typeof EXP_POINTS;
 interface LessonRendererProps {
   lessonId?: string;
   courseId?: string;
-  challenge: ChallengeType;
+  challenge?: ChallengeType;
   title?: string;
   markdown: string;
   nextLesson?: string | null;
   previousLesson?: string | null;
   progress?: ProgressResponse[] | null;
   onAnswerSubmitted?: () => void;
+  loading?: boolean;
 }
 
 const LessonRenderer = ({
@@ -49,6 +50,7 @@ const LessonRenderer = ({
   previousLesson,
   progress,
   onAnswerSubmitted,
+  loading = false,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
@@ -103,11 +105,13 @@ const LessonRenderer = ({
   }, []);
 
   useEffect(() => {
+    if (!challenge) return;
+
     const doublePoints = EXP_POINTS[challenge.difficulty as Difficulty] * 2;
     const normalPoints = EXP_POINTS[challenge.difficulty as Difficulty];
 
     setPoints(isFirstTry ? doublePoints : normalPoints);
-  }, [isFirstTry]);
+  }, [isFirstTry, challenge]);
 
   const onSubmitAnswer = async () => {
     if (!selectedChoice && selectedChoice != 0) {
@@ -208,6 +212,30 @@ const LessonRenderer = ({
     router.push(`/course/${courseId}/congratulations`);
   };
 
+  if (loading) {
+    return (
+      <main className="w-full flex justify-center">
+        <div className="flex flex-col max-w-7xl mdxeditor pb-8">
+          <div className="flex w-full justify-center">
+            <Loading />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (!challenge) {
+    return (
+      <main className="w-full flex justify-center">
+        <div className="flex flex-col max-w-7xl mdxeditor pb-8">
+          <div className="flex w-full justify-center">
+            <Loading />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="w-full flex justify-center">
       <div className="flex flex-col max-w-7xl mdxeditor pb-8">
@@ -224,59 +252,69 @@ const LessonRenderer = ({
           </div>
         )}
         <div className="border-t-2 border-t-border-gray my-4"></div>
-        <div className="flex flex-row items-center">
-          <h2>{t("challenge")}</h2>
-          <Badge className="ml-4">{challenge.difficulty ? t(challenge.difficulty) : "Difficulty not set"}</Badge>
-        </div>
-        <p>{challenge.question ? challenge.question : "Challenge not set"}</p>
-        {challenge.choices.some((c) => !!c) && (
-          <div>
-            {challenge.choices
-              .filter((c) => !!c)
-              .map((option, index) => (
-                <div key={index} className="mb-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="choices"
-                      value={index}
-                      className="mr-2 accent-primary w-4 h-4"
-                      onChange={handleChoiceChange}
-                      disabled={isLessonCompleted}
-                      data-cy={`input-choice-${index}`}
-                    />
-                    {option}
-                  </label>
-                </div>
-              ))}
-            <div className="flex flex-col">
-              <Button
-                className="w-fit mt-4 mb-4"
-                onClick={() => handleSubmitAnswer()}
-                disabled={isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0) || isSubmitting}
-                loading={isSubmitting}
-                data-cy="button-submit-answer"
-              >
-                {isLessonCompleted ? (
-                  <span className="inline-flex items-center gap-x-2">
-                    <CircleCheckBig />
-                    {t("lessonCompleted")}
-                  </span>
-                ) : (
-                  t("submitAnswer") + ` (+${points}XP)`
-                )}
-              </Button>
-              {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
-              {!isLessonCompleted && isOnCooldown && !isSubmitting && (
-                <span className="text-body2 text-text-secondary ml-3 mb-3">
-                  <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
-                  {t("submitCooldown", { cooldown: cooldownTime })}
-                </span>
-              )}
-            </div>
+        <div>
+          <div className="flex flex-row items-center">
+            <h2>{t("challenge")}</h2>
+            <Badge className="ml-4">{challenge.difficulty ? t(challenge.difficulty) : "Difficulty not set"}</Badge>
+            {isLessonCompleted && (
+              <Badge color="bg-green-500" className="ml-2">
+                {t("completed")}
+              </Badge>
+            )}
           </div>
-        )}
-        {/* TODO should we show this navigation if the user has not yet answered the question */}
+          <div className={isLessonCompleted ? "opacity-50" : ""}>
+            <p className="text-body1">{challenge.question ? challenge.question : "Challenge not set"}</p>
+            {challenge.choices.some((c) => !!c) && (
+              <div>
+                {challenge.choices
+                  .filter((c) => !!c)
+                  .map((option, index) => (
+                    <div key={index} className="mb-2">
+                      <label className="flex items-center">
+                        <input
+                          type="radio"
+                          name="choices"
+                          value={index}
+                          className="mr-2 accent-primary w-4 h-4"
+                          onChange={handleChoiceChange}
+                          disabled={isLessonCompleted}
+                          data-cy={`input-choice-${index}`}
+                        />
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                <div className="flex flex-col">
+                  <Button
+                    className="w-fit mt-4 mb-4"
+                    onClick={() => handleSubmitAnswer()}
+                    disabled={
+                      isOnCooldown || isLessonCompleted || (!selectedChoice && selectedChoice != 0) || isSubmitting
+                    }
+                    loading={isSubmitting}
+                    data-cy="button-submit-answer"
+                  >
+                    {isLessonCompleted ? (
+                      <span className="inline-flex items-center gap-x-2">
+                        <CircleCheckBig />
+                        {t("lessonCompleted")}
+                      </span>
+                    ) : (
+                      t("submitAnswer") + (isOnCooldown ? "" : ` (+${points}XP)`)
+                    )}
+                  </Button>
+                  {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
+                  {!isLessonCompleted && isOnCooldown && !isSubmitting && (
+                    <span className="text-body2 text-text-secondary ml-3 mb-3">
+                      <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
+                      {t("submitCooldown", { cooldown: cooldownTime })}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
         {(nextLesson || previousLesson) && (
           <div
             className={`flex w-full py-6 border-t-2 border-t-border-gray ${

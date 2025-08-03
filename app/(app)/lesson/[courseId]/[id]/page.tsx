@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import LessonRenderer from "@/components/ui/renderer";
-import Loading from "@/components/ui/loading";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 import { useCourseProgressContext } from "@/context/course/courseProgressContext";
@@ -36,31 +35,24 @@ const LessonPage = () => {
   }, [id, courseId, userLoading, user, selectedCourse]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
-  if (loading || userLoading) {
-    return (
-      <div className="flex w-full justify-center">
-        <Loading />
-      </div>
-    );
-  }
-
   if (error) return <div>{error}</div>;
-  if (!selectedLesson) return <div>Lesson not found</div>;
+  if (!selectedLesson && !loading) return <div>Lesson not found</div>;
 
   return (
     <LessonRenderer
-      lessonId={selectedLesson._id}
+      lessonId={selectedLesson?._id}
       courseId={courseId as string}
-      title={selectedLesson.title}
-      markdown={selectedLesson.body}
-      challenge={selectedLesson.challenge}
+      title={selectedLesson?.title}
+      markdown={selectedLesson?.body || ""}
+      challenge={selectedLesson?.challenge}
       nextLesson={nextLesson}
       previousLesson={previousLesson}
       progress={selectedLessonProgress}
       onAnswerSubmitted={refreshProgress}
+      loading={loading}
     />
   );
 };
