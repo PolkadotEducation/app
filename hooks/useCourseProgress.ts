@@ -24,8 +24,18 @@ export const useCourseProgress = () => {
     }
   };
 
-  const refreshProgress = () => {
-    fetchCourseProgress();
+  const refreshProgress = async () => {
+    if (!courseId) return;
+    try {
+      const [progress, summary] = await Promise.all([
+        getCourseProgress({ courseId: courseId as string }),
+        getCourseSummary({ courseId: courseId as string }),
+      ]);
+      setCourseProgress(progress);
+      setCourse(summary);
+    } catch (error) {
+      console.error("Failed to refresh progress:", error);
+    }
   };
 
   useEffect(() => {

@@ -17,6 +17,8 @@ const LessonPage = () => {
     error,
     fetchLessonById,
     updateLessonOnly,
+    refreshLessonProgress,
+    refreshCourseData,
     nextLesson,
     previousLesson,
   } = useCourse();
@@ -32,11 +34,23 @@ const LessonPage = () => {
         fetchLessonById(id as string, courseId as string);
       }
     }
-  }, [id, courseId, userLoading, user, selectedCourse]);
+  }, [id, courseId, userLoading, user, selectedCourse?._id]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
+
+  const handleAnswerSubmitted = async () => {
+    try {
+      await Promise.all([
+        refreshLessonProgress(courseId as string, id as string),
+        refreshProgress(),
+        refreshCourseData(courseId as string),
+      ]);
+    } catch (error) {
+      console.error("Failed to refresh progress:", error);
+    }
+  };
 
   if (error) return <div>{error}</div>;
   if (!selectedLesson && !loading) return <div>Lesson not found</div>;
@@ -51,7 +65,7 @@ const LessonPage = () => {
       nextLesson={nextLesson}
       previousLesson={previousLesson}
       progress={selectedLessonProgress}
-      onAnswerSubmitted={refreshProgress}
+      onAnswerSubmitted={handleAnswerSubmitted}
       loading={loading}
     />
   );

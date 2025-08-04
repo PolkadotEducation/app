@@ -20,6 +20,8 @@ interface CourseContextProps {
   fetchCourseById: (_id: string) => Promise<void>;
   fetchLessonById: (_id: string, _courseId: string) => Promise<void>;
   updateLessonOnly: (_id: string, _courseId: string) => Promise<void>;
+  refreshLessonProgress: (_courseId: string, _lessonId: string) => Promise<void>;
+  refreshCourseData: (_courseId: string) => Promise<void>;
 }
 
 export const CourseContext = createContext<CourseContextProps | undefined>(undefined);
@@ -104,6 +106,28 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const refreshLessonProgress = async (courseId: string, lessonId: string) => {
+    if (!user) return;
+
+    try {
+      const progress = await getLessonProgress({ courseId, lessonId });
+      setSelectedLessonProgress(progress);
+    } catch (err) {
+      console.error("Failed to refresh lesson progress:", err);
+    }
+  };
+
+  const refreshCourseData = async (courseId: string) => {
+    if (!user) return;
+
+    try {
+      const course = await getCourse(courseId);
+      setSelectedCourse(course);
+    } catch (err) {
+      console.error("Failed to refresh course data:", err);
+    }
+  };
+
   const findAdjacentLessons = (
     currentCourse: CourseType,
     currentLesson: LessonType,
@@ -163,6 +187,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         fetchCourseById,
         fetchLessonById,
         updateLessonOnly,
+        refreshLessonProgress,
+        refreshCourseData,
       }}
     >
       {children}

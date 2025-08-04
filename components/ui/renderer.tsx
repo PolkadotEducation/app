@@ -54,7 +54,7 @@ const LessonRenderer = ({
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const [isLessonCompleted, setIsLessonCompleted] = useState(true);
+  const [isLessonCompleted, setIsLessonCompleted] = useState(false);
   const [isFirstTry, setIsFirstTry] = useState(true);
   const [points, setPoints] = useState(0);
   const [cooldownTime, setCooldownTime] = useState(0);
@@ -102,13 +102,13 @@ const LessonRenderer = ({
 
     setIsFirstTry(progress?.length === 0);
     setIsLessonCompleted(progress?.some((answer: ProgressResponse) => answer.isCorrect === true));
-  }, []);
+  }, [progress]);
 
   useEffect(() => {
     if (!challenge) return;
 
-    const doublePoints = EXP_POINTS[challenge.difficulty as Difficulty] * 2;
-    const normalPoints = EXP_POINTS[challenge.difficulty as Difficulty];
+    const doublePoints = EXP_POINTS[challenge.difficulty.toLowerCase() as Difficulty] * 2;
+    const normalPoints = EXP_POINTS[challenge.difficulty.toLowerCase() as Difficulty];
 
     setPoints(isFirstTry ? doublePoints : normalPoints);
   }, [isFirstTry, challenge]);
@@ -255,7 +255,9 @@ const LessonRenderer = ({
         <div>
           <div className="flex flex-row items-center">
             <h2>{t("challenge")}</h2>
-            <Badge className="ml-4">{challenge.difficulty ? t(challenge.difficulty) : "Difficulty not set"}</Badge>
+            <Badge className="ml-4">
+              {challenge.difficulty ? t(challenge.difficulty.toLowerCase()) : "Difficulty not set"}
+            </Badge>
             {isLessonCompleted && (
               <Badge color="bg-green-500" className="ml-2">
                 {t("completed")}

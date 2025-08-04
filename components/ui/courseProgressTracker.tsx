@@ -18,7 +18,7 @@ const CourseProgressTracker = (props: CourseProgress) => {
   }, [progressPercentage]);
 
   return (
-    <div className="flex flex-col">
+    <div className="w-full flex flex-col">
       <p className="mb-[-18px]">{t("score", { completedLessons, totalLessons })}</p>
       <div className="flex items-center">
         <Progress value={progress} className="h-2" />
