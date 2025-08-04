@@ -18,7 +18,13 @@ const LessonLayout = ({ children }: LessonLayoutProps) => {
   const { courseId } = useParams();
   const { selectedCourse, fetchCourseById } = useCourse();
   const { userLoading, user } = useUser();
-  const { courseProgress, course, loading: progressLoading, refreshProgress } = useCourseProgress();
+  const {
+    courseProgress,
+    course,
+    loading: progressLoading,
+    updateCourseProgress,
+    updateCourseSummary,
+  } = useCourseProgress();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +61,9 @@ const LessonLayout = ({ children }: LessonLayoutProps) => {
       <CourseDescriptionSection classname="sticky top-0" courseSummary={course} />
       <div className="w-full pt-4">
         {courseProgress && <CourseProgressTracker {...courseProgress} />}
-        <CourseProgressProvider refreshProgress={refreshProgress}>{children}</CourseProgressProvider>
+        <CourseProgressProvider updateCourseProgress={updateCourseProgress} updateCourseSummary={updateCourseSummary}>
+          {children}
+        </CourseProgressProvider>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import LessonRenderer from "@/components/ui/renderer";
 import { useCourse } from "@/hooks/useCourse";
 import { useUser } from "@/hooks/useUser";
 import { useCourseProgressContext } from "@/context/course/courseProgressContext";
+import { SubmitAnswerResponse } from "@/types/progressTypes";
 
 const LessonPage = () => {
   const { courseId, id } = useParams();
@@ -16,20 +17,19 @@ const LessonPage = () => {
     loading,
     error,
     fetchLessonById,
-    updateLessonOnly,
-    refreshLessonProgress,
-    refreshCourseData,
+    updateLesson,
+    updateLessonProgress,
     nextLesson,
     previousLesson,
   } = useCourse();
   const { userLoading, user } = useUser();
-  const { refreshProgress } = useCourseProgressContext();
+  const { updateCourseProgress, updateCourseSummary } = useCourseProgressContext();
 
   useEffect(() => {
     if (!courseId || !id) return;
     if (!userLoading && user) {
       if (selectedCourse && selectedCourse._id === courseId) {
-        updateLessonOnly(id as string, courseId as string);
+        updateLesson(id as string, courseId as string);
       } else {
         fetchLessonById(id as string, courseId as string);
       }
@@ -40,15 +40,13 @@ const LessonPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
-  const handleAnswerSubmitted = async () => {
+  const handleAnswerSubmitted = async (result: SubmitAnswerResponse) => {
     try {
-      await Promise.all([
-        refreshLessonProgress(courseId as string, id as string),
-        refreshProgress(),
-        refreshCourseData(courseId as string),
-      ]);
+      updateLessonProgress(result.progress);
+      updateCourseProgress(id as string, result.progress.isCorrect);
+      updateCourseSummary(id as string, result.progress.isCorrect, result.points);
     } catch (error) {
-      console.error("Failed to refresh progress:", error);
+      console.error("Failed to update progress :", error);
     }
   };
 
@@ -59,7 +57,6 @@ const LessonPage = () => {
     <LessonRenderer
       lessonId={selectedLesson?._id}
       courseId={courseId as string}
-      title={selectedLesson?.title}
       markdown={selectedLesson?.body || ""}
       challenge={selectedLesson?.challenge}
       nextLesson={nextLesson}

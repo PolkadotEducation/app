@@ -24,18 +24,53 @@ export const useCourseProgress = () => {
     }
   };
 
-  const refreshProgress = async () => {
-    if (!courseId) return;
-    try {
-      const [progress, summary] = await Promise.all([
-        getCourseProgress({ courseId: courseId as string }),
-        getCourseSummary({ courseId: courseId as string }),
-      ]);
-      setCourseProgress(progress);
-      setCourse(summary);
-    } catch (error) {
-      console.error("Failed to refresh progress:", error);
+  const updateCourseProgress = (lessonId: string, isCompleted: boolean) => {
+    if (!courseProgress) return;
+
+    const updatedProgress = { ...courseProgress };
+
+    if (updatedProgress.modulesProgress) {
+      for (const moduleId in updatedProgress.modulesProgress) {
+        if (updatedProgress.modulesProgress[moduleId][lessonId] !== undefined) {
+          updatedProgress.modulesProgress[moduleId][lessonId] = isCompleted;
+          break;
+        }
+      }
     }
+
+    if (isCompleted) {
+      updatedProgress.completedLessons += 1;
+    }
+
+    updatedProgress.progressPercentage = Math.round(
+      (updatedProgress.completedLessons / updatedProgress.totalLessons) * 100,
+    );
+
+    setCourseProgress(updatedProgress);
+  };
+
+  const updateCourseSummary = (lessonId: string, isCompleted: boolean, points?: number) => {
+    if (!course) return;
+
+    const updatedCourse = { ...course };
+
+    for (const module of updatedCourse.modules) {
+      const lesson = module.lessons.find((l) => l.id === lessonId);
+      if (lesson) {
+        if (isCompleted && lesson.expEarned === 0) {
+          lesson.expEarned = points || 0;
+        } else if (!isCompleted) {
+          lesson.expEarned = 0;
+        }
+        break;
+      }
+    }
+
+    for (const module of updatedCourse.modules) {
+      module.isCompleted = module.lessons.every((lesson) => lesson.expEarned > 0);
+    }
+
+    setCourse(updatedCourse);
   };
 
   useEffect(() => {
@@ -46,6 +81,7 @@ export const useCourseProgress = () => {
     courseProgress,
     course,
     loading,
-    refreshProgress,
+    updateCourseProgress,
+    updateCourseSummary,
   };
 };

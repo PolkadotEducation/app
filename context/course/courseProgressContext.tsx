@@ -1,7 +1,8 @@
 import { createContext, useContext, ReactNode } from "react";
 
 interface CourseProgressContextType {
-  refreshProgress: () => void;
+  updateCourseProgress: (_lessonId: string, _isCompleted: boolean) => void;
+  updateCourseSummary: (_lessonId: string, _isCompleted: boolean, _points: number) => void;
 }
 
 const CourseProgressContext = createContext<CourseProgressContextType | undefined>(undefined);
@@ -16,9 +17,23 @@ export const useCourseProgressContext = () => {
 
 interface CourseProgressProviderProps {
   children: ReactNode;
-  refreshProgress: () => void;
+  updateCourseProgress: (_lessonId: string, _isCompleted: boolean) => void;
+  updateCourseSummary: (_lessonId: string, _isCompleted: boolean, _points: number) => void;
 }
 
-export const CourseProgressProvider = ({ children, refreshProgress }: CourseProgressProviderProps) => {
-  return <CourseProgressContext.Provider value={{ refreshProgress }}>{children}</CourseProgressContext.Provider>;
+export const CourseProgressProvider = ({
+  children,
+  updateCourseProgress,
+  updateCourseSummary,
+}: CourseProgressProviderProps) => {
+  return (
+    <CourseProgressContext.Provider
+      value={{
+        updateCourseProgress,
+        updateCourseSummary,
+      }}
+    >
+      {children}
+    </CourseProgressContext.Provider>
+  );
 };

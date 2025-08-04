@@ -13,29 +13,21 @@ import { ChevronLeft, ChevronRight, CircleCheckBig } from "lucide-react";
 import { getUserCompletedCourses, submitAnswer } from "@/api/progressService";
 import { toast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
-import { ProgressResponse } from "@/types/progressTypes";
+import { ProgressResponse, SubmitAnswerResponse } from "@/types/progressTypes";
 import { useRouter } from "next/navigation";
 import { ResponsiveIframe } from "./responsiveIframe";
 import { ChallengeType } from "@/types/lessonTypes";
-
-const EXP_POINTS = {
-  hard: 100,
-  medium: 50,
-  easy: 25,
-};
-
-type Difficulty = keyof typeof EXP_POINTS;
+import { calculateExperience } from "@/lib/experience";
 
 interface LessonRendererProps {
   lessonId?: string;
   courseId?: string;
   challenge?: ChallengeType;
-  title?: string;
   markdown: string;
   nextLesson?: string | null;
   previousLesson?: string | null;
   progress?: ProgressResponse[] | null;
-  onAnswerSubmitted?: () => void;
+  onAnswerSubmitted?: (_result: SubmitAnswerResponse) => void;
   loading?: boolean;
 }
 
@@ -43,8 +35,6 @@ const LessonRenderer = ({
   lessonId,
   courseId,
   challenge,
-  // eslint-disable-next-line no-unused-vars
-  title,
   markdown,
   nextLesson,
   previousLesson,
@@ -107,10 +97,8 @@ const LessonRenderer = ({
   useEffect(() => {
     if (!challenge) return;
 
-    const doublePoints = EXP_POINTS[challenge.difficulty.toLowerCase() as Difficulty] * 2;
-    const normalPoints = EXP_POINTS[challenge.difficulty.toLowerCase() as Difficulty];
-
-    setPoints(isFirstTry ? doublePoints : normalPoints);
+    const points = calculateExperience(challenge.difficulty, isFirstTry);
+    setPoints(points);
   }, [isFirstTry, challenge]);
 
   const onSubmitAnswer = async () => {
@@ -141,7 +129,7 @@ const LessonRenderer = ({
 
     try {
       const response = await submitAnswer(progressData);
-      if (response.isCorrect) {
+      if (response.progress.isCorrect) {
         setIsLessonCompleted(true);
         toast({
           title: t("rightAnswer"),
@@ -156,7 +144,7 @@ const LessonRenderer = ({
       }
       setIsSubmitting(false);
       if (onAnswerSubmitted) {
-        onAnswerSubmitted();
+        onAnswerSubmitted(response);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

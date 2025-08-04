@@ -19,9 +19,8 @@ interface CourseContextProps {
   fetchCourses: () => Promise<void>;
   fetchCourseById: (_id: string) => Promise<void>;
   fetchLessonById: (_id: string, _courseId: string) => Promise<void>;
-  updateLessonOnly: (_id: string, _courseId: string) => Promise<void>;
-  refreshLessonProgress: (_courseId: string, _lessonId: string) => Promise<void>;
-  refreshCourseData: (_courseId: string) => Promise<void>;
+  updateLesson: (_id: string, _courseId: string) => Promise<void>;
+  updateLessonProgress: (_progress: ProgressResponse) => void;
 }
 
 export const CourseContext = createContext<CourseContextProps | undefined>(undefined);
@@ -86,7 +85,7 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateLessonOnly = async (id: string, courseId: string) => {
+  const updateLesson = async (id: string, courseId: string) => {
     if (!user || !selectedCourse) return;
 
     try {
@@ -106,25 +105,22 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const refreshLessonProgress = async (courseId: string, lessonId: string) => {
-    if (!user) return;
-
-    try {
-      const progress = await getLessonProgress({ courseId, lessonId });
-      setSelectedLessonProgress(progress);
-    } catch (err) {
-      console.error("Failed to refresh lesson progress:", err);
+  const updateLessonProgress = (newProgress: ProgressResponse) => {
+    if (!selectedLessonProgress) {
+      setSelectedLessonProgress([newProgress]);
+      return;
     }
-  };
 
-  const refreshCourseData = async (courseId: string) => {
-    if (!user) return;
+    const existingIndex = selectedLessonProgress.findIndex(
+      (p) => p.lessonId === newProgress.lessonId && p.choice === newProgress.choice,
+    );
 
-    try {
-      const course = await getCourse(courseId);
-      setSelectedCourse(course);
-    } catch (err) {
-      console.error("Failed to refresh course data:", err);
+    if (existingIndex >= 0) {
+      const updatedProgress = [...selectedLessonProgress];
+      updatedProgress[existingIndex] = newProgress;
+      setSelectedLessonProgress(updatedProgress);
+    } else {
+      setSelectedLessonProgress([...selectedLessonProgress, newProgress]);
     }
   };
 
@@ -186,9 +182,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         fetchCourses,
         fetchCourseById,
         fetchLessonById,
-        updateLessonOnly,
-        refreshLessonProgress,
-        refreshCourseData,
+        updateLesson,
+        updateLessonProgress,
       }}
     >
       {children}

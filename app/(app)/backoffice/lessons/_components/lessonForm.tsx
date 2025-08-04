@@ -32,6 +32,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   const t = useTranslations("backoffice");
 
   const defaultChallenge = {
+    teamId: "123",
     question: "Example question?",
     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
     difficulty: "easy" as const,
@@ -93,7 +94,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   };
 
   if (showPreview) {
-    const { title: previewTitle, markdownBody } = watch();
+    const { markdownBody } = watch();
     return (
       <>
         <header className="absolute w-full bg-primary text-white shadow-md p-4 flex justify-evenly items-center z-50">
@@ -103,7 +104,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
           </Button>
         </header>
         <div className="pt-20">
-          <LessonRenderer title={previewTitle} markdown={markdownBody} challenge={challenge} />
+          <LessonRenderer markdown={markdownBody} challenge={defaultChallenge} />
         </div>
       </>
     );
