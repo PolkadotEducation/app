@@ -79,14 +79,14 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger asChild>
           <button
-            className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-150 hover:border-gray-400"
+            className="flex items-center justify-between w-full px-4 py-2 text-left bg-background border border-input rounded-lg shadow-sm focus:outline-none transition-all duration-150 hover:border-ring/50"
             data-testid="challenge-select"
           >
-            <span className="text-gray-700 truncate">
+            <span className="text-foreground truncate">
               {selectedChallenge ? selectedChallenge.question : "Select a challenge"}
             </span>
             <ChevronDown
-              className={`h-5 w-5 text-gray-500 transition-transform duration-200 ${
+              className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
                 isOpen ? "transform rotate-180" : ""
               }`}
             />
@@ -95,25 +95,23 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
 
         <Popover.Portal>
           <Popover.Content
-            className="z-10 w-[var(--radix-popover-trigger-width)] max-w-md mt-2 bg-white border border-gray-200 rounded-lg shadow-xl animate-in fade-in-0 zoom-in-95"
+            className="z-10 w-[var(--radix-popover-trigger-width)] max-w-md mt-2 bg-background border border-border rounded-lg shadow-xl animate-in fade-in-0 zoom-in-95"
             sideOffset={5}
           >
             <div className="flex flex-col p-4 space-y-4">
-              {/* Search Input */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder={t("searchChallenge")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full pl-10 pr-4 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none"
                 />
               </div>
 
-              {/* Difficulty Filters */}
               <div>
-                <h3 className="text-sm font-medium text-gray-600 mb-2">Filter by difficulty</h3>
+                <h3 className="text-sm font-medium text-muted-foreground mb-2">Filter by difficulty</h3>
                 <ToggleGroup.Root
                   type="multiple"
                   value={difficultyFilter}
@@ -124,26 +122,26 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                     <ToggleGroup.Item
                       key={difficulty}
                       value={difficulty}
-                      className="px-3 py-1 text-sm border rounded-full transition-colors duration-150 data-[state=on]:bg-indigo-600 data-[state=on]:text-white data-[state=on]:border-indigo-600 hover:bg-gray-100 data-[state=on]:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="px-3 py-1 text-sm border border-input rounded-full transition-colors duration-150 data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500 hover:bg-accent hover:text-accent-foreground data-[state=on]:hover:bg-green-600 focus:outline-none"
                       data-testid={`difficulty-filter-${difficulty}`}
                     >
-                      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                      {difficulty}
                     </ToggleGroup.Item>
                   ))}
                 </ToggleGroup.Root>
               </div>
 
               {/* Actions */}
-              <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+              <div className="flex items-center justify-between pt-2 border-t border-border">
                 <button
                   onClick={clearFilters}
                   disabled={totalFilters === 0}
-                  className="flex items-center px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center px-3 py-1 text-sm text-muted-foreground bg-accent rounded-md hover:bg-accent/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <X className="h-4 w-4 mr-1.5" />
                   Clear Filters
                 </button>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-muted-foreground">
                   {loading
                     ? "Loading..."
                     : `${filteredChallenges.length} challenge${filteredChallenges.length !== 1 ? "s" : ""} found`}
@@ -152,17 +150,14 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
             </div>
 
             {/* Results List */}
-            <div className="border-t border-gray-200 max-h-60 overflow-y-auto">
+            <div className="border-t border-border max-h-60 overflow-y-auto">
               {loading ? (
-                <div className="text-center text-gray-500 p-6">
+                <div className="text-center text-muted-foreground p-6">
                   <p className="font-semibold">Loading challenges...</p>
                 </div>
               ) : filteredChallenges.length === 0 ? (
-                <div className="text-center text-gray-500 p-6">
-                  <p className="font-semibold">No challenges found</p>
-                  <p className="text-sm">
-                    {searchTerm || difficultyFilter.length > 0 ? t("noChallengesFound") : "No challenges available"}
-                  </p>
+                <div className="text-center text-muted-foreground p-6">
+                  <p className="font-semibold">{t("noChallengesFound")}</p>
                 </div>
               ) : (
                 <div className="p-2">
@@ -173,14 +168,13 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                         onChange(challenge._id);
                         setIsOpen(false);
                       }}
-                      className="w-full p-3 rounded-md hover:bg-gray-50 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset"
+                      className="w-full p-3 rounded-md hover:bg-accent text-left transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
                       data-testid={`challenge-option-${challenge._id}`}
                     >
                       <div className="flex flex-col space-y-2">
-                        <p className="font-medium text-gray-800 text-sm leading-tight">{challenge.question}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500 capitalize">{challenge.difficulty}</span>
-                          <span className="text-xs text-gray-500">{challenge.language}</span>
+                        <p className="font-medium text-foreground text-sm leading-tight">{challenge.question}</p>
+                        <div className="flex items-center">
+                          <span className="text-xs text-muted-foreground">{challenge.difficulty}</span>
                         </div>
                       </div>
                     </button>
@@ -188,7 +182,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                 </div>
               )}
             </div>
-            <Popover.Arrow className="fill-white" />
+            <Popover.Arrow className="fill-background" />
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
