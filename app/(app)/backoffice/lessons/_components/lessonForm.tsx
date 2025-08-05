@@ -112,7 +112,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
 
   return (
     <main className="mb-10 max-w-7xl w-full" key={lesson?._id}>
-      <div className="flex w-full justify-end mb-6">
+      <div className="flex w-full justify-between mb-6">
         <h4 className="xl:mb-[30px] mb-4">{lesson ? t("updateLesson") : t("newLesson")}</h4>
         <Button type="button" onClick={() => handlePreview(true)}>
           {t("preview")}

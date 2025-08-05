@@ -42,6 +42,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
       const challenges = importChallenge(folderPath);
 
       challenges[0].difficulty = challenges[0].difficulty.toLowerCase();
+      challenges[0].language = language.toLowerCase();
       const challenge = await db.collection("challenges").insertOne(challenges[0]);
 
       return {
