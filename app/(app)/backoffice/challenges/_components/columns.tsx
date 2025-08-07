@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Pen, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => void }): ColumnDef<ChallengeSummary>[] => {
@@ -34,20 +35,40 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
       size: 10,
     },
     {
-      accessorKey: "title",
+      accessorKey: "question",
       header: ({ column }) => {
         return (
           <div
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             className="flex items-center cursor-pointer"
           >
-            Title
+            Question
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </div>
         );
       },
       enableSorting: true,
       size: 200,
+    },
+    {
+      accessorKey: "language",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Language
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
+      cell: ({ row }) => {
+        const value = row.getValue("language") as string;
+        return <Image src={`/assets/icons/${value}.svg`} alt={value} width={24} height={24} />;
+      },
+      enableSorting: true,
+      size: 50,
     },
     {
       accessorKey: "difficulty",
@@ -63,7 +84,7 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
         );
       },
       enableSorting: true,
-      size: 100,
+      size: 50,
     },
     {
       accessorKey: "updatedAt",
@@ -91,7 +112,7 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
         });
       },
       enableSorting: true,
-      size: 100,
+      size: 50,
     },
     {
       id: "actions",

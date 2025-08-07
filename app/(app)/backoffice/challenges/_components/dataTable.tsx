@@ -56,8 +56,8 @@ export const DataTable = <TData, TValue>({ columns, data, updateData: _updateDat
         <Input
           placeholder={t("searchChallenge")}
           className="max-w-[500px]"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
+          value={(table.getColumn("question")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("question")?.setFilterValue(event.target.value)}
         />
         <div className="flex gap-x-4 mt-4 xl:mt-0">
           <Button onClick={() => router.push("/backoffice/challenges/new")}>{t("newChallenge")}</Button>

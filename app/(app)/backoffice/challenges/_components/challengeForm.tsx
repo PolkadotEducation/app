@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ChallengeType } from "@/types/challengeTypes";
 import { challengeSchema, ChallengeFormData } from "./challengeUtils";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 
 interface ChallengeFormProps {
@@ -64,7 +64,7 @@ export function ChallengeForm({ challenge, onSubmit, isLoading = false, submitBu
         <h4 className="xl:mb-[30px] mb-4">{challenge ? t("updateChallenge") : t("newChallenge")}</h4>
       </div>
       <form onSubmit={handleSubmit(handleFormSubmit)} className="bg-card rounded-[3px] p-6">
-        <div className="flex gap-x-4 w-full">
+        <div className="w-full">
           <Controller
             name="question"
             control={control}

@@ -1,6 +1,8 @@
 import { Db, ObjectId } from "mongodb";
 import fs from "fs";
 import path from "path";
+import { ChallengeType } from "@/types/challengeTypes";
+import { Difficulty } from "@/lib/experience";
 
 function importChallenge(folderPath: string) {
   const challengePath = path.join(folderPath, "challenge.ts");
@@ -41,9 +43,13 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
       const slug = folder;
       const challenges = importChallenge(folderPath);
 
-      challenges[0].difficulty = challenges[0].difficulty.toLowerCase();
-      challenges[0].language = language.toLowerCase();
-      const challenge = await db.collection("challenges").insertOne(challenges[0]);
+      challenges.map((challenge: ChallengeType) => {
+        challenge.difficulty = challenge.difficulty.toLowerCase() as Difficulty;
+        challenge.language = language.toLowerCase();
+        challenge.createdAt = new Date();
+        challenge.updatedAt = new Date();
+      });
+      const insertedChallenges = await db.collection("challenges").insertMany(challenges);
 
       return {
         teamId,
@@ -51,7 +57,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
         language,
         slug,
         body,
-        challenge: challenge.insertedId,
+        challenge: insertedChallenges.insertedIds[0],
         references: [],
         createdAt: new Date(),
         updatedAt: new Date(),
