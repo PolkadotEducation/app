@@ -11,8 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 import Image from "next/image";
-import { ChallengeType, LessonType } from "@/types/lessonTypes";
-import { slugify, lessonSchema, LessonFormData, markdownLessonTemplate } from "./lessonUtils";
+import { LessonType } from "@/types/lessonTypes";
+import { lessonSchema, LessonFormData, markdownLessonTemplate } from "./lessonUtils";
+import { slugify } from "@/lib/utils";
 import { ChallengeSelector } from "./challengeSelector";
 
 const Editor = dynamic(() => import("@/components/ui/editor"), {
@@ -31,7 +32,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
   const [showPreview, setShowPreview] = useState(false);
   const t = useTranslations("backoffice");
 
-  const defaultChallenge = {
+  const sampleChallenge = {
     teamId: "123",
     question: "Example question?",
     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
@@ -46,15 +47,14 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
     watch,
     setValue,
     formState: { errors },
-    reset,
   } = useForm<LessonFormData>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
-      title: "",
-      slug: "",
-      language: "",
-      markdownBody: markdownLessonTemplate,
-      challenge: defaultChallenge,
+      title: lesson?.title || "",
+      slug: lesson?.slug || "",
+      language: lesson?.language || "",
+      markdownBody: lesson?.body || markdownLessonTemplate,
+      challenge: { _id: (lesson?.challenge as { _id?: string })?._id || "" },
     },
   });
 
@@ -62,19 +62,6 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
     control,
     name: "title",
   });
-
-  useEffect(() => {
-    if (lesson) {
-      const existingSlug = "slug" in lesson ? (lesson as { slug?: string }).slug : undefined;
-      reset({
-        title: lesson.title,
-        slug: existingSlug || slugify(lesson.title),
-        language: lesson.language,
-        markdownBody: lesson.body,
-        challenge: lesson.challenge as ChallengeType,
-      });
-    }
-  }, [lesson, reset]);
 
   useEffect(() => {
     if (watchedTitle) {
@@ -104,7 +91,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
           </Button>
         </header>
         <div className="pt-20">
-          <LessonRenderer markdown={markdownBody} challenge={defaultChallenge} />
+          <LessonRenderer markdown={markdownBody} challenge={lesson?.challenge || sampleChallenge} />
         </div>
       </>
     );

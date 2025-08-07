@@ -1,28 +1,17 @@
 import * as z from "zod";
 
-export const slugify = (text: string): string => {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-};
-
 export const lessonSchema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
   slug: z.string().nonempty("Slug is required"),
   language: z.string().nonempty("Language is required"),
   markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
-  challenge: z.object({
-    question: z.string().nonempty("Question is required"),
-    choices: z.array(z.string()).min(2, "At least 2 choices are required").max(5, "Maximum 5 choices allowed"),
-    correctChoice: z.number().min(0, "Correct choice must be 0 or greater"),
-    difficulty: z.enum(["easy", "medium", "hard"], {
-      errorMap: () => ({ message: "Difficulty must be easy, medium, or hard" }),
+  challenge: z
+    .object({
+      _id: z.string().optional(),
+    })
+    .refine((data) => data._id, {
+      message: "Challenge is required",
     }),
-    language: z.string().nonempty("Language is required"),
-  }),
 });
 
 export type LessonFormData = z.infer<typeof lessonSchema>;

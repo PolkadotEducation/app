@@ -6,11 +6,11 @@ import * as Popover from "@radix-ui/react-popover";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Search, ChevronDown, X } from "lucide-react";
 import { getChallengesSummary } from "@/api/challengeService";
-import { ChallengeSummary, ChallengeType } from "@/types/challengeTypes";
+import { ChallengeSummary } from "@/types/challengeTypes";
 
 interface ChallengeSelectorProps {
-  value?: ChallengeType;
-  onChange: (_value: string) => void;
+  value?: { _id?: string };
+  onChange: (_value: { _id: string }) => void;
   error?: string;
   language?: string;
 }
@@ -165,7 +165,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                     <button
                       key={challenge._id}
                       onClick={() => {
-                        onChange(challenge._id);
+                        onChange({ _id: challenge._id });
                         setIsOpen(false);
                       }}
                       className="w-full p-3 rounded-md hover:bg-accent text-left transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
