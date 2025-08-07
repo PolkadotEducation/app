@@ -44,6 +44,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
       const challenges = importChallenge(folderPath);
 
       challenges.map((challenge: ChallengeType) => {
+        challenge.teamId = teamId as unknown as string;
         challenge.difficulty = challenge.difficulty.toLowerCase() as Difficulty;
         challenge.language = language.toLowerCase();
         challenge.createdAt = new Date();

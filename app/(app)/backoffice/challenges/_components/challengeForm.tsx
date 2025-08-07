@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import InputFloatingLabel from "@/components/ui/inputFloatingLabel";
@@ -30,29 +29,16 @@ export function ChallengeForm({ challenge, onSubmit, isLoading = false, submitBu
     watch,
     setValue,
     formState: { errors },
-    reset,
   } = useForm<ChallengeFormData>({
     resolver: zodResolver(challengeSchema),
     defaultValues: {
-      difficulty: "easy",
-      question: "",
-      choices: ["", "", "", "", ""],
-      correctChoice: 0,
-      language: "",
+      difficulty: challenge?.difficulty || "easy",
+      question: challenge?.question || "",
+      choices: challenge?.choices || ["", "", "", "", ""],
+      correctChoice: challenge?.correctChoice || 0,
+      language: challenge?.language || "",
     },
   });
-
-  useEffect(() => {
-    if (challenge) {
-      reset({
-        difficulty: challenge.difficulty,
-        question: challenge.question,
-        choices: challenge.choices,
-        correctChoice: challenge.correctChoice,
-        language: challenge.language,
-      });
-    }
-  }, [challenge, reset]);
 
   const handleFormSubmit = async (data: ChallengeFormData) => {
     await onSubmit(data);
@@ -120,9 +106,9 @@ export function ChallengeForm({ challenge, onSubmit, isLoading = false, submitBu
             render={({ field }) => (
               <div className="flex flex-col">
                 <p className="text-xs mb-2">Language</p>
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select value={field.value || ""} onValueChange={field.onChange}>
                   <SelectTrigger className="mb-5" data-testid="language-select">
-                    <SelectValue />
+                    <SelectValue placeholder="Select a language" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
