@@ -1,6 +1,6 @@
 export type ChallengeType = {
   _id?: string;
-  teamId: string;
+  teamId?: string;
   question: string;
   choices: string[];
   correctChoice: number;
