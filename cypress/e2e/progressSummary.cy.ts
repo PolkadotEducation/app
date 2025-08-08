@@ -17,13 +17,13 @@ describe("Progress Summary Page", () => {
     for (var i = 0; i < 3; i++) {
       cy.getByData("input-choice-0").click();
       cy.getByData("button-submit-answer").click();
-      cy.getByData("button-next-lesson")
-        .invoke("attr", "href")
-        .then((nextLessonUrl) => {
-          cy.getByData("button-next-lesson").click();
-          cy.url().should("include", nextLessonUrl);
-        });
+      cy.getByData("button-next-lesson").should("not.be.disabled").click();
+
+      // Wait for the new lesson to load by ensuring the form is reset
+      // The radio button should become unchecked when the new lesson loads
+      cy.getByData("input-choice-0").should("not.be.checked");
     }
+
     cy.getByData("aside-course-progress-details").should("be.visible");
     cy.getByData("aside-module-1").should("be.visible");
     cy.getByData("aside-module-1").click();

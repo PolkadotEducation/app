@@ -1,6 +1,6 @@
 "use client";
 
-import { LessonSummary } from "@/types/lessonTypes";
+import { ChallengeSummary } from "@/types/challengeTypes";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { ArrowUpDown, Pen, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => void }): ColumnDef<LessonSummary>[] => {
+export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => void }): ColumnDef<ChallengeSummary>[] => {
   const router = useRouter();
 
   return [
@@ -35,14 +35,14 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
       size: 10,
     },
     {
-      accessorKey: "title",
+      accessorKey: "question",
       header: ({ column }) => {
         return (
           <div
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             className="flex items-center cursor-pointer"
           >
-            Title
+            Question
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </div>
         );
@@ -66,6 +66,22 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
       cell: ({ row }) => {
         const value = row.getValue("language") as string;
         return <Image src={`/assets/icons/${value}.svg`} alt={value} width={24} height={24} />;
+      },
+      enableSorting: true,
+      size: 50,
+    },
+    {
+      accessorKey: "difficulty",
+      header: ({ column }) => {
+        return (
+          <div
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center cursor-pointer"
+          >
+            Difficulty
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
       },
       enableSorting: true,
       size: 50,
@@ -96,7 +112,7 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
         });
       },
       enableSorting: true,
-      size: 100,
+      size: 50,
     },
     {
       id: "actions",
@@ -107,8 +123,8 @@ export const COLUMNS = ({ deleteHandler }: { deleteHandler: (_id: string) => voi
           <div className="flex gap-x-4">
             <Button
               variant="ghost"
-              onClick={() => router.push(`/backoffice/lessons/${data._id}`)}
-              data-cy="button-lesson-edit"
+              onClick={() => router.push(`/backoffice/challenges/${data._id}`)}
+              data-cy="button-challenge-edit"
             >
               <Pen />
             </Button>

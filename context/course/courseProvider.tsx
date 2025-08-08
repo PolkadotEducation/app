@@ -19,6 +19,8 @@ interface CourseContextProps {
   fetchCourses: () => Promise<void>;
   fetchCourseById: (_id: string) => Promise<void>;
   fetchLessonById: (_id: string, _courseId: string) => Promise<void>;
+  updateLesson: (_id: string, _courseId: string) => Promise<void>;
+  updateLessonProgress: (_progress: ProgressResponse) => void;
 }
 
 export const CourseContext = createContext<CourseContextProps | undefined>(undefined);
@@ -83,6 +85,45 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateLesson = async (id: string, courseId: string) => {
+    if (!user || !selectedCourse) return;
+
+    try {
+      setLoading(true);
+      const lesson = await getLessonById(id as string);
+      setSelectedLesson(lesson);
+      const progress = await getLessonProgress({ courseId, lessonId: id });
+      setSelectedLessonProgress(progress);
+      const { previousLessonId, nextLessonId } = findAdjacentLessons(selectedCourse, lesson);
+      setPreviousLesson(previousLessonId);
+      setNextLesson(nextLessonId);
+    } catch (err) {
+      console.error("Failed to update lesson:", err);
+      setError("Failed to update lesson");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateLessonProgress = (newProgress: ProgressResponse) => {
+    if (!selectedLessonProgress) {
+      setSelectedLessonProgress([newProgress]);
+      return;
+    }
+
+    const existingIndex = selectedLessonProgress.findIndex(
+      (p) => p.lessonId === newProgress.lessonId && p.choice === newProgress.choice,
+    );
+
+    if (existingIndex >= 0) {
+      const updatedProgress = [...selectedLessonProgress];
+      updatedProgress[existingIndex] = newProgress;
+      setSelectedLessonProgress(updatedProgress);
+    } else {
+      setSelectedLessonProgress([...selectedLessonProgress, newProgress]);
+    }
+  };
+
   const findAdjacentLessons = (
     currentCourse: CourseType,
     currentLesson: LessonType,
@@ -100,7 +141,6 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         if (lessonIndex > 0) {
           previousLessonId = module.lessons[lessonIndex - 1]._id || null;
         } else {
-          // Checking other modules, should we do it?
           for (let j = i - 1; j >= 0; j--) {
             const previousModule = currentCourse.modules[j];
             if (previousModule.lessons.length > 0) {
@@ -113,7 +153,6 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         if (lessonIndex + 1 < module.lessons.length) {
           nextLessonId = module.lessons[lessonIndex + 1]._id || null;
         } else {
-          // Checking other modules, should we do it?
           for (let j = i + 1; j < currentCourse.modules.length; j++) {
             const nextModule = currentCourse.modules[j];
             if (nextModule.lessons.length > 0) {
@@ -143,6 +182,8 @@ export const CourseProvider = ({ children }: { children: ReactNode }) => {
         fetchCourses,
         fetchCourseById,
         fetchLessonById,
+        updateLesson,
+        updateLessonProgress,
       }}
     >
       {children}
