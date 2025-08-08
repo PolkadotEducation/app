@@ -34,7 +34,7 @@ const ChoicesInputComponent: React.FC<ChoicesInputComponentProps> = ({
             id={`Choice${index + 1}`}
             value={choice}
             onChange={handleChoiceChange(index)}
-            label={`${t("choice")} ${index + 1} ${index >= 3 ? "(Optional)" : ""}`}
+            label={`${t("choice")} ${index + 1} ${index >= 2 ? "(Optional)" : ""}`}
           />
           <label className="flex items-center ml-3">
             <input

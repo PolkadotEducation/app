@@ -22,7 +22,7 @@ const CourseDescriptionSection = ({ courseSummary, classname }: CourseDescriptio
 
   return (
     <div>
-      <h6>{t("courseSummary")}</h6>
+      <h6 className="mt-4">{t("courseSummary")}</h6>
       {isMobile ? (
         <Drawer direction="left" data-cy="aside-course-progress-details">
           <DrawerTrigger className="h-[max-content] text-body2 text-primary flex items-center gap-4">
@@ -77,14 +77,14 @@ const CourseDescriptionSection = ({ courseSummary, classname }: CourseDescriptio
       ) : (
         <div
           data-cy="aside-course-progress-details"
-          className={`h-screen w-[400px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none flex flex-col items-start ${classname}`}
+          className={`h-screen min-w-[340px] max-w-[400px] rounded-tr-[8px] rounded-br-[8px] rounded-tl-none flex flex-col items-start ${classname}`}
         >
-          <div className="flex items-center justify-center pt-14"></div>
+          <div className="flex justify-center pt-2"></div>
           <Accordion type="single" collapsible className="w-full">
             {courseSummary?.modules.map((module, index) => {
               return (
                 <AccordionItem value={`item${index}`} data-cy={`aside-module-${index + 1}`}>
-                  <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full pr-8">
+                  <AccordionTrigger className="text-sm flex flex-row-reverse justify-between w-full">
                     <CourseChapterAccordion
                       chapterName={`Module ${index + 1}`}
                       completed={module.isCompleted}

@@ -13,7 +13,7 @@ function createRandomProgress(userId: ObjectId) {
   const difficulties = ["easy", "medium", "hard"];
 
   return {
-    challengeId: getRandomElement(challenges),
+    challenge: getRandomElement(challenges),
     lessonId: getRandomElement(lessons),
     courseId: getRandomElement(courses),
     userId,
