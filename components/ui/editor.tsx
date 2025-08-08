@@ -20,9 +20,13 @@ import {
   codeBlockPlugin,
   codeMirrorPlugin,
   KitchenSinkToolbar,
+  jsxPlugin,
+  JsxComponentDescriptor,
+  JsxEditorProps,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { FC, useEffect, useState } from "react";
+import { ResponsiveIframe } from "./responsiveIframe";
 
 interface EditorProps {
   markdown: string;
@@ -30,6 +34,41 @@ interface EditorProps {
   onChange?: (_markdown: string) => void;
   editorRef?: React.MutableRefObject<MDXEditorMethods | null>;
 }
+
+// Custom editor component that renders ResponsiveIframe
+const ResponsiveIframeEditor: FC<JsxEditorProps> = ({ mdastNode }) => {
+  // Extract attributes safely
+  const attributes = mdastNode.attributes || [];
+  const srcAttr = attributes.find((attr) => (attr as { name: string }).name === "src");
+  const titleAttr = attributes.find((attr) => (attr as { name: string }).name === "title");
+
+  const src = srcAttr?.value as string;
+  const title = titleAttr?.value as string;
+
+  return (
+    <div className="my-4">
+      <ResponsiveIframe src={src} title={title} />
+    </div>
+  );
+};
+
+const ResponsiveIframeDescriptor: JsxComponentDescriptor = {
+  name: "ResponsiveIframe",
+  kind: "flow",
+  source: "@/components/ui/responsiveIframe",
+  props: [
+    {
+      name: "src",
+      type: "string",
+    },
+    {
+      name: "title",
+      type: "string",
+    },
+  ],
+  hasChildren: false,
+  Editor: ResponsiveIframeEditor,
+};
 
 const ALL_PLUGINS = [
   toolbarPlugin({ toolbarContents: () => <KitchenSinkToolbar /> }),
@@ -57,6 +96,9 @@ const ALL_PLUGINS = [
   }),
   directivesPlugin({
     directiveDescriptors: [AdmonitionDirectiveDescriptor],
+  }),
+  jsxPlugin({
+    jsxComponentDescriptors: [ResponsiveIframeDescriptor],
   }),
   diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "boo" }),
   markdownShortcutPlugin(),
