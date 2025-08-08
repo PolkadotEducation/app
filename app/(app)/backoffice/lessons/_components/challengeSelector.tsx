@@ -80,7 +80,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
         <Popover.Trigger asChild>
           <button
             className="flex items-center justify-between w-full px-4 py-2 text-left bg-background border border-input rounded-lg shadow-sm focus:outline-none transition-all duration-150 hover:border-ring/50"
-            data-testid="challenge-select"
+            data-cy="challenge-select"
           >
             <span className="text-foreground truncate">
               {selectedChallenge ? selectedChallenge.question : "Select a challenge"}
@@ -107,6 +107,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none"
+                  data-cy="challenge-search"
                 />
               </div>
 
@@ -123,7 +124,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                       key={difficulty}
                       value={difficulty}
                       className="px-3 py-1 text-sm border border-input rounded-full transition-colors duration-150 data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500 hover:bg-accent hover:text-accent-foreground data-[state=on]:hover:bg-green-600 focus:outline-none"
-                      data-testid={`difficulty-filter-${difficulty}`}
+                      data-cy={`difficulty-filter-${difficulty}`}
                     >
                       {difficulty}
                     </ToggleGroup.Item>
@@ -169,7 +170,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                         setIsOpen(false);
                       }}
                       className="w-full p-3 rounded-md hover:bg-accent text-left transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
-                      data-testid={`challenge-option-${challenge._id}`}
+                      data-cy={`challenge-option-${challenge._id}`}
                     >
                       <div className="flex flex-col space-y-2">
                         <p className="font-medium text-foreground text-sm leading-tight">{challenge.question}</p>

@@ -55,22 +55,22 @@ describe("Backoffice Page", () => {
       cy.get(":nth-child(2) > .items-center > .ml-1").click();
 
       // test language selection options
-      cy.get('[data-testid="language-select"]').click();
+      cy.getByData("language-select").click();
 
-      cy.get('[data-testid="language-option-english"]').should("be.visible").and("contain", "English");
-      cy.get('[data-testid="language-option-spanish"]').should("be.visible").and("contain", "Español");
-      cy.get('[data-testid="language-option-portuguese"]').should("be.visible").and("contain", "Português");
+      cy.getByData("language-option-english").should("be.visible").and("contain", "English");
+      cy.getByData("language-option-spanish").should("be.visible").and("contain", "Español");
+      cy.getByData("language-option-portuguese").should("be.visible").and("contain", "Português");
 
-      cy.get('[data-testid="language-option-spanish"]').click();
-      cy.get('[data-testid="language-select"]').should("contain", "Español");
+      cy.getByData("language-option-spanish").click();
+      cy.getByData("language-select").should("contain", "Español");
 
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-portuguese"]').click();
-      cy.get('[data-testid="language-select"]').should("contain", "Português");
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-portuguese").click();
+      cy.getByData("language-select").should("contain", "Português");
 
       // select English for the final lesson creation
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-english"]').click();
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
 
       cy.getByData("button-challenge-submit").click();
 
@@ -90,6 +90,20 @@ describe("Backoffice Page", () => {
 
     it("admin user can add and update lessons", () => {
       loginAsAdmin();
+
+      // first create a challenge for the lesson
+      cy.visit("/backoffice/challenges/new");
+      cy.get("#easyRadioButton").click();
+      cy.get("#questionInput").type("What's the capital of Spain?");
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
+      cy.get("#Choice1").type("Madrid");
+      cy.get("#Choice2").type("Barcelona");
+      cy.get("#Choice3").type("Valencia");
+      cy.get(":nth-child(1) > .items-center > .ml-1").click();
+      cy.getByData("button-challenge-submit").click();
+
+      // create the lesson
       cy.visit("/backoffice/lessons/new");
 
       // test required fields
@@ -110,41 +124,30 @@ describe("Backoffice Page", () => {
       });
 
       // test language selection options
-      cy.get('[data-testid="language-select"]').click();
+      cy.getByData("language-select").click();
 
-      cy.get('[data-testid="language-option-english"]').should("be.visible").and("contain", "English");
-      cy.get('[data-testid="language-option-spanish"]').should("be.visible").and("contain", "Español");
-      cy.get('[data-testid="language-option-portuguese"]').should("be.visible").and("contain", "Português");
+      cy.getByData("language-option-english").should("be.visible").and("contain", "English");
+      cy.getByData("language-option-spanish").should("be.visible").and("contain", "Español");
+      cy.getByData("language-option-portuguese").should("be.visible").and("contain", "Português");
 
-      cy.get('[data-testid="language-option-spanish"]').click();
-      cy.get('[data-testid="language-select"]').should("contain", "Español");
+      cy.getByData("language-option-spanish").click();
+      cy.getByData("language-select").should("contain", "Español");
 
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-portuguese"]').click();
-      cy.get('[data-testid="language-select"]').should("contain", "Português");
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-portuguese").click();
+      cy.getByData("language-select").should("contain", "Português");
 
-      // select English for the final lesson creation
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-english"]').click();
+      // select english for the final lesson creation
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
 
-      // First create a challenge for the lesson
-      cy.visit("/backoffice/challenges/new");
-      cy.get("#questionInput").type("Test Challenge for Lesson");
-      cy.get("#easyRadioButton").click();
-      cy.get("#questionInput").type("What's the capital of Spain?");
-      cy.get("#Choice1").type("Madrid");
-      cy.get("#Choice2").type("Barcelona");
-      cy.get("#Choice3").type("Valencia");
-      cy.get(":nth-child(1) > .items-center > .ml-1").click();
-      cy.getByData("button-challenge-submit").click();
-
-      // Now create the lesson
-      cy.visit("/backoffice/lessons/new");
       cy.get("#titleInput").type("New Lesson Title");
 
-      // Select challenge
-      cy.get('[data-testid="challenge-select"]').click();
-      cy.contains("Test Challenge for Lesson").click();
+      // select challenge
+      cy.getByData("challenge-select").click();
+      cy.getByData("difficulty-filter-easy").click();
+      cy.getByData("challenge-search").type("What's the capital of Spain?");
+      cy.contains("What's the capital of Spain?").click();
 
       cy.getByData("button-lesson-submit").click();
 

@@ -147,7 +147,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
                 <div className="flex flex-col">
                   <p className="text-xs mb-2">Language</p>
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="mb-5" data-testid="language-select">
+                    <SelectTrigger className="mb-5" data-cy="language-select">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -155,7 +155,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
                         {Object.values(LOCALE_FEATURES).map((lang) => {
                           const value = LOCALE_LANGUAGES[lang.locale as keyof typeof LOCALE_LANGUAGES];
                           return (
-                            <SelectItem value={value} key={lang.locale} data-testid={`language-option-${value}`}>
+                            <SelectItem value={value} key={lang.locale} data-cy={`language-option-${value}`}>
                               <div className="flex items-center">
                                 <Image src={lang.icon} alt={lang.title} width={20} height={20} className="mr-2" />
                                 <span>{lang.title}</span>
