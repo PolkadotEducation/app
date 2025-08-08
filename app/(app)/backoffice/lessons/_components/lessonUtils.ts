@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { ChallengeType } from "@/types/lessonTypes";
 
 export const lessonSchema = z.object({
   title: z.string().nonempty("Title is required").max(100, "Title must be 100 characters or less"),
@@ -6,10 +7,8 @@ export const lessonSchema = z.object({
   language: z.string().nonempty("Language is required"),
   markdownBody: z.string().nonempty("Body is required").max(10000, "Body must be 10000 characters or less"),
   challenge: z
-    .object({
-      _id: z.string().optional(),
-    })
-    .refine((data) => data._id, {
+    .custom<ChallengeType>((_value) => true)
+    .refine((data) => data?._id, {
       message: "Challenge is required",
     }),
 });

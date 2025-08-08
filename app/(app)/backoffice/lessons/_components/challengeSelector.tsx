@@ -5,12 +5,12 @@ import { useTranslations } from "next-intl";
 import * as Popover from "@radix-ui/react-popover";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Search, ChevronDown, X } from "lucide-react";
-import { getChallengesSummary } from "@/api/challengeService";
-import { ChallengeSummary } from "@/types/challengeTypes";
+import { getBackofficeChallenges } from "@/api/challengeService";
+import { ChallengeType } from "@/types/challengeTypes";
 
 interface ChallengeSelectorProps {
-  value?: { _id?: string };
-  onChange: (_value: { _id: string }) => void;
+  value?: ChallengeType;
+  onChange: (_value: ChallengeType) => void;
   error?: string;
   language?: string;
 }
@@ -19,7 +19,7 @@ const DIFFICULTY_TAGS = ["easy", "medium", "hard"] as const;
 type DifficultyTag = (typeof DIFFICULTY_TAGS)[number];
 
 export function ChallengeSelector({ value, onChange, error, language }: ChallengeSelectorProps) {
-  const [challenges, setChallenges] = useState<ChallengeSummary[]>([]);
+  const [challenges, setChallenges] = useState<ChallengeType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyTag[]>([]);
   const [loading, setLoading] = useState(false);
@@ -29,8 +29,8 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
   const fetchChallenges = async () => {
     setLoading(true);
     try {
-      const challengesSummary = await getChallengesSummary(language);
-      setChallenges(challengesSummary);
+      const challenges = await getBackofficeChallenges(language);
+      setChallenges(challenges);
     } catch (error) {
       console.error("Error fetching challenges:", error);
     } finally {
@@ -165,7 +165,7 @@ export function ChallengeSelector({ value, onChange, error, language }: Challeng
                     <button
                       key={challenge._id}
                       onClick={() => {
-                        onChange({ _id: challenge._id });
+                        onChange(challenge);
                         setIsOpen(false);
                       }}
                       className="w-full p-3 rounded-md hover:bg-accent text-left transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"

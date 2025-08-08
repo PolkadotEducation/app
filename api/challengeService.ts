@@ -37,8 +37,15 @@ export const updateChallengeById = async (
   return response as ChallengeResponse;
 };
 
-export const getAllChallenges = async (): Promise<ChallengeType[]> => {
-  const response = await serverGet<ChallengeType[]>("/challenges");
+export const getUserChallenges = async (): Promise<ChallengeType[]> => {
+  const response = await serverGet<ChallengeType[]>("/challenges/user");
+  if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
+  return response as ChallengeType[];
+};
+
+export const getBackofficeChallenges = async (language?: string): Promise<ChallengeType[]> => {
+  const queryParam = language ? `?language=${language}` : "";
+  const response = await serverGet<ChallengeType[]>(`/challenges/backoffice${queryParam}`);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
   return response as ChallengeType[];
 };

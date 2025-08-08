@@ -4,6 +4,8 @@ export type ReferenceType = {
 };
 
 export type ChallengeType = {
+  _id?: string;
+  teamId?: string;
   question: string;
   choices: string[];
   correctChoice: number;
@@ -18,7 +20,7 @@ export type LessonType = {
   language: string;
   slug?: string;
   body: string;
-  challenge: ChallengeType | { _id?: string | undefined };
+  challenge: ChallengeType;
   references?: ReferenceType[];
   createdAt?: Date;
   updatedAt?: Date;

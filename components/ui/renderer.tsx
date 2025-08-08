@@ -29,6 +29,7 @@ interface LessonRendererProps {
   progress?: ProgressResponse[] | null;
   onAnswerSubmitted?: (_result: SubmitAnswerResponse) => void;
   loading?: boolean;
+  preview?: boolean;
 }
 
 const LessonRenderer = ({
@@ -41,6 +42,7 @@ const LessonRenderer = ({
   progress,
   onAnswerSubmitted,
   loading = false,
+  preview = false,
 }: LessonRendererProps) => {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [isOnCooldown, setIsOnCooldown] = useState(false);
@@ -100,6 +102,26 @@ const LessonRenderer = ({
     const points = calculateExperience(challenge.difficulty, isFirstTry);
     setPoints(points);
   }, [isFirstTry, challenge]);
+
+  const simulateAnswer = () => {
+    const correctChoice = challenge?.correctChoice;
+
+    if (selectedChoice === correctChoice) {
+      toast({
+        title: t("rightAnswerSimulation"),
+        variant: "default",
+      });
+    } else {
+      toast({
+        title: t("wrongAnswerSimulation"),
+        variant: "destructive",
+      });
+    }
+
+    setIsOnCooldown(true);
+    setCooldownTime(1);
+    setIsSubmitting(false);
+  };
 
   const onSubmitAnswer = async () => {
     if (!selectedChoice && selectedChoice != 0) {
@@ -166,6 +188,11 @@ const LessonRenderer = ({
 
   const handleSubmitAnswer = () => {
     if (isOnCooldown) return;
+
+    if (preview) {
+      simulateAnswer();
+      return;
+    }
 
     onSubmitAnswer();
 
@@ -294,7 +321,7 @@ const LessonRenderer = ({
                     )}
                   </Button>
                   {isFirstTry && !isLessonCompleted && <h5 className="text-primary mb-3">{t("attention")}</h5>}
-                  {!isLessonCompleted && isOnCooldown && !isSubmitting && (
+                  {!preview && !isLessonCompleted && isOnCooldown && !isSubmitting && (
                     <span className="text-body2 text-text-secondary ml-3 mb-3">
                       <span className="text-primary mr-2">{t("wrongAnswer")}.</span>
                       {t("submitCooldown", { cooldown: cooldownTime })}

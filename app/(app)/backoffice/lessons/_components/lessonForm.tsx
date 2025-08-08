@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LOCALE_FEATURES, LOCALE_LANGUAGES } from "@/components/constants";
 import Image from "next/image";
-import { LessonType } from "@/types/lessonTypes";
+import { ChallengeType, LessonType } from "@/types/lessonTypes";
 import { lessonSchema, LessonFormData, markdownLessonTemplate } from "./lessonUtils";
 import { slugify } from "@/lib/utils";
 import { ChallengeSelector } from "./challengeSelector";
@@ -20,6 +20,14 @@ const Editor = dynamic(() => import("@/components/ui/editor"), {
   ssr: false,
 });
 
+const sampleChallenge = {
+  teamId: "123",
+  question: "Example question?",
+  choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+  difficulty: "easy" as const,
+  language: "english",
+  correctChoice: 0,
+};
 interface LessonFormProps {
   lesson?: LessonType | null;
   onSubmit: (_data: LessonFormData) => Promise<void>;
@@ -30,16 +38,8 @@ interface LessonFormProps {
 
 export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonText }: LessonFormProps) {
   const [showPreview, setShowPreview] = useState(false);
+  const [selectedChallenge, setSelectedChallenge] = useState<ChallengeType>(lesson?.challenge || sampleChallenge);
   const t = useTranslations("backoffice");
-
-  const sampleChallenge = {
-    teamId: "123",
-    question: "Example question?",
-    choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-    difficulty: "easy" as const,
-    language: "english",
-    correctChoice: 0,
-  };
 
   const {
     control,
@@ -54,7 +54,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
       slug: lesson?.slug || "",
       language: lesson?.language || "",
       markdownBody: lesson?.body || markdownLessonTemplate,
-      challenge: { _id: (lesson?.challenge as { _id?: string })?._id || "" },
+      challenge: selectedChallenge,
     },
   });
 
@@ -91,7 +91,7 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
           </Button>
         </header>
         <div className="pt-20">
-          <LessonRenderer markdown={markdownBody} challenge={lesson?.challenge || sampleChallenge} />
+          <LessonRenderer markdown={markdownBody} challenge={selectedChallenge} preview={showPreview} />
         </div>
       </>
     );
@@ -197,7 +197,10 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
             render={({ field }) => (
               <ChallengeSelector
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(challenge) => {
+                  field.onChange(challenge);
+                  setSelectedChallenge(challenge);
+                }}
                 error={errors.challenge?.message}
                 language={watch("language")}
               />
