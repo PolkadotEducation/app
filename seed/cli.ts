@@ -7,6 +7,7 @@ import {
   seedAll,
   seedCoursesOnly,
   seedCorrectChoices,
+  partiallyResetDatabase,
 } from "./db";
 
 async function executeWithDb(command: string, callback: (_db: Db) => Promise<void>) {
@@ -40,6 +41,9 @@ async function main() {
         break;
       case "reset":
         await resetDatabase();
+        break;
+      case "reset:partial":
+        await partiallyResetDatabase();
         break;
       default:
         console.error("Invalid command.");
