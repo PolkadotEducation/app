@@ -2,7 +2,7 @@
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
 import { seedTeams } from "./collections/teams";
-import { seedCourses } from "./collections/courses";
+import { seedCourses, seedIntroductionCourse } from "./collections/courses";
 
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 console.info("Environment:", process.env.NODE_ENV);
@@ -27,6 +27,13 @@ export async function resetDatabase() {
   await client.close();
 }
 
+export async function partiallyResetDatabase() {
+  const { client, db } = await connectToDatabase();
+  await dropAllButUsersAndTeams(db);
+  await seedIntroductionCourseOnly(db);
+  await client.close();
+}
+
 export async function dropDatabase(db: Db) {
   try {
     await db.dropDatabase();
@@ -44,6 +51,19 @@ export async function dropCourses(db: Db) {
     console.info("Dropped existing course data.");
   } catch (error) {
     console.error("Error while dropping course data:", error);
+  }
+}
+
+export async function dropAllButUsersAndTeams(db: Db) {
+  try {
+    await db.collection("courses").deleteMany({});
+    await db.collection("modules").deleteMany({});
+    await db.collection("lessons").deleteMany({});
+    await db.collection("challenges").deleteMany({});
+    await db.collection("progress").deleteMany({});
+    console.info("Dropped existing data but kept users and teams.");
+  } catch (error) {
+    console.error("Error while dropping data but keeping users and teams:", error);
   }
 }
 
@@ -80,13 +100,25 @@ export async function seedCoursesOnly(db: Db) {
   }
 }
 
+export async function seedIntroductionCourseOnly(db: Db) {
+  try {
+    console.info("Seeding introduction course...");
+    const teamId = await seedTeams(db);
+    await seedIntroductionCourse(db, teamId);
+    console.info("Introduction course seeded.");
+
+    seedCorrectChoices(db);
+  } catch (error) {
+    console.error("Error while seeding courses:", error);
+  }
+}
+
 export async function seedCorrectChoices(db: Db) {
   try {
     const { updateCorrectChoices } = await import("./collections/lessons/choices" as never);
     await updateCorrectChoices(db);
     console.info("Updated correct choices.");
-  } catch (e) {
-    console.error(e);
+  } catch {
     console.info("No correct choices file found, skipping...");
   }
 }

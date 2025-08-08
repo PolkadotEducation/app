@@ -15,7 +15,7 @@ interface DeleteEntityModalProps {
   onOpenChange: (_isOpen: boolean) => void;
   entityName: string;
   onSubmit: () => Promise<void>;
-  variant: "lesson" | "course";
+  variant: "lesson" | "course" | "challenge";
 }
 
 export const DeleteEntityModal = ({ open, onOpenChange, entityName, onSubmit, variant }: DeleteEntityModalProps) => {

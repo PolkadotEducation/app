@@ -4,10 +4,13 @@ export type ReferenceType = {
 };
 
 export type ChallengeType = {
+  _id?: string;
+  teamId?: string;
   question: string;
   choices: string[];
   correctChoice: number;
-  difficulty?: string;
+  difficulty: "easy" | "medium" | "hard";
+  language: string;
 };
 
 export type LessonType = {
@@ -16,7 +19,6 @@ export type LessonType = {
   title: string;
   language: string;
   slug?: string;
-  difficulty: string;
   body: string;
   challenge: ChallengeType;
   references?: ReferenceType[];
@@ -28,10 +30,11 @@ export type LessonSummary = {
   _id: string;
   title: string;
   language: string;
+  updatedAt?: Date;
 };
 
 export type LessonResponse = {
   lessonId: string;
 };
 
-export type SimplifiedLessonType = Omit<LessonType, "teamId" | "language" | "difficulty" | "body" | "challenge">;
+export type SimplifiedLessonType = Omit<LessonType, "teamId" | "language" | "body" | "challenge">;
