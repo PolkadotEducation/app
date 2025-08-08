@@ -84,10 +84,10 @@ export function LessonForm({ lesson, onSubmit, isLoading = false, submitButtonTe
     const { markdownBody } = watch();
     return (
       <>
-        <header className="absolute w-full max-w-7xl border-2 border-yellow-400 rounded-lg shadow-md p-4 flex justify-between items-center z-50">
+        <header className="absolute w-full max-w-7xl border-2 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-500 rounded-lg shadow-md text-yellow-800 dark:text-yellow-200 p-4 flex justify-between items-center z-50">
           <div className="flex items-center gap-2">
             <svg
-              className="w-8 h-8 text-yellow-600"
+              className="w-8 h-8 text-yellow-600 dark:text-yellow-400"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
