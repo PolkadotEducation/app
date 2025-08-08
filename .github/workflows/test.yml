@@ -98,7 +98,7 @@ jobs:
 
       - name: Test with Cypress (excluding backoffice)
         working-directory: codebase/app
-        run: bun run wait && bun run test --spec "cypress/e2e/**/*.cy.ts" --exclude-spec "cypress/e2e/backoffice.cy.ts"
+        run: bun run wait && bun run test:regular
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4

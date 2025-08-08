@@ -26,6 +26,8 @@
     "storybook": "storybook dev -p 6006",
     "test": "NODE_ENV=test cypress run",
     "test:open": "NODE_ENV=test cypress open",
+    "test:regular": "NODE_ENV=test cypress run --spec 'cypress/e2e/!(backoffice).cy.ts'",
+    "test:backoffice": "NODE_ENV=test cypress run --spec 'cypress/e2e/backoffice.cy.ts'",
     "type-check": "tsc --noEmit",
     "wait": "wait-on http://localhost:3000"
   },
