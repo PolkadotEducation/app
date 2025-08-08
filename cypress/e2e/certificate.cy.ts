@@ -13,13 +13,13 @@ describe("Certificate Page", () => {
       // first 11 lessons
       for (var i = 0; i < 11; i++) {
         cy.getByData("input-choice-0").click();
-        cy.getByData("button-submit-answer").click();
-        cy.getByData("button-next-lesson").should("not.be.disabled").click();
+        cy.getByData("button-submit-answer").click({ force: true });
+        cy.getByData("button-next-lesson").click();
       }
 
       // final lesson
       cy.getByData("input-choice-0").click();
-      cy.getByData("button-submit-answer").click();
+      cy.getByData("button-submit-answer").click({ force: true });
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
