@@ -56,6 +56,21 @@
     "courseUpdateError": "Error al actualizar el curso",
     "updateCourse": "Actualizar Curso",
     "selectLessons": "Seleccione las lecciones para agregar al módulo",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "challengeLibrary": "Biblioteca de Desafíos",
+    "newChallenge": "Nuevo Desafío",
+    "createChallenge": "Crear Desafío",
+    "updateChallenge": "Actualizar Desafío",
+    "searchChallenge": "Buscar Desafío",
+    "challengeCreated": "¡Desafío creado con éxito!",
+    "challengeCreationFailure": "Error al crear el desafío",
+    "challengeUpdated": "¡Desafío actualizado con éxito!",
+    "challengeUpdateFailure": "Error al actualizar el desafío",
+    "errorLoadingChallenge": "Error al cargar el desafío",
+    "accessChallengeLibrary": "Acceder a la Biblioteca de Desafíos",
+    "getChallengeStarted": "Crea desafíos para probar conocimientos y reforzar conceptos de aprendizaje en tus lecciones.",
+    "selectChallenge": "Seleccionar Desafío",
+    "selectLanguageFirst": "Por favor, selecciona un idioma primero",
+    "noChallengesFound": "No se encontraron desafíos"
   }
 }

@@ -1,0 +1,8 @@
+services:
+  doteducation-app:
+    environment:
+      - NODE_ENV=test
+
+  doteducation-api:
+    environment:
+      - NODE_ENV=test

@@ -1,10 +1,10 @@
 import { defineConfig } from "cypress";
-import { resetDatabase, connectToDatabase } from "./seed/db";
+import { resetDatabase, connectToDatabase, partiallyResetDatabase } from "./seed/db";
 
 export default defineConfig({
   e2e: {
     baseUrl: "http://localhost:3000",
-    defaultCommandTimeout: 20000,
+    defaultCommandTimeout: 10000,
     experimentalStudio: true,
     supportFile: "cypress/support/index.ts",
     supportFolder: "cypress/support",
@@ -13,8 +13,12 @@ export default defineConfig({
     video: false,
 
     setupNodeEvents(on, config) {
-      on("before:spec", async () => {
+      on("before:run", async () => {
         await resetDatabase();
+      });
+
+      on("before:spec", async () => {
+        await partiallyResetDatabase();
       });
 
       on("task", {

@@ -3,7 +3,6 @@
 import { getTeam } from "@/api/teamService";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-// import { useTranslations } from "next-intl";
 import { getAppBaseUrl } from "@/helpers/environment";
 import { TeamInfo } from "@/types/teamTypes";
 import TeamViewerPage from "../_components/teamViewer";
@@ -11,7 +10,6 @@ import TeamViewerPage from "../_components/teamViewer";
 const TeamPageInner = () => {
   const searchParams = useSearchParams();
   const [team, setTeam] = useState<TeamInfo>();
-  // const t = useTranslations("admin");
 
   const [baseUrl, setBaseUrl] = useState<string>("");
 
