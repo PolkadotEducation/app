@@ -72,7 +72,7 @@ const CertificateRenderer = ({
         {certificate?.courseDuration && (
           <p className="text-sm"> {t("estimatedTime", { duration: certificate.courseDuration })}</p>
         )}
-        <p>{t("certificateId", { id: certificate?._id })}</p>
+        {certificate?._id && <p>{t("certificateId", { id: certificate?._id })}</p>}
       </div>
     </div>
   );
