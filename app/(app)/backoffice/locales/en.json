@@ -56,6 +56,21 @@
     "courseUpdateError": "Error while updating course",
     "updateCourse": "Update Course",
     "selectLessons": "Select lessons to add to the module",
-    "continue": "Continue"
+    "continue": "Continue",
+    "challengeLibrary": "Challenge Library",
+    "newChallenge": "New Challenge",
+    "createChallenge": "Create Challenge",
+    "updateChallenge": "Update Challenge",
+    "searchChallenge": "Search Challenge",
+    "challengeCreated": "Challenge created successfully!",
+    "challengeCreationFailure": "Failed to create challenge",
+    "challengeUpdated": "Challenge updated successfully!",
+    "challengeUpdateFailure": "Failed to update challenge",
+    "errorLoadingChallenge": "Error loading challenge",
+    "accessChallengeLibrary": "Access Challenge Library",
+    "getChallengeStarted": "Create challenges to test knowledge and reinforce learning concepts in your lessons.",
+    "selectChallenge": "Select Challenge",
+    "selectLanguageFirst": "Please select a language first",
+    "noChallengesFound": "No challenges found"
   }
 }

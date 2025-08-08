@@ -25,18 +25,17 @@ describe("Backoffice Page", () => {
       cy.getByData("image-backoffice-courses").should("be.visible");
     });
 
-    it("admin user can add lessons", () => {
+    it("admin user can add and update challenges", () => {
       loginAsAdmin();
-      cy.visit("/backoffice/lessons/new");
-      cy.getByData("button-lesson-submit").click();
+      cy.visit("/backoffice/challenges/new");
 
+      // test required fields
+      cy.getByData("button-challenge-submit").click();
       const expectedMessages = [
-        "Title is required",
-        "Slug is required",
-        "Language is required",
-        "Difficulty is required",
         "Question is required",
-        "First 3 choices are required",
+        "Language is required",
+        "First 2 choices are required",
+        "Correct choice must correspond to a non-empty choice",
       ];
 
       cy.get(".form-error").should(($errors) => {
@@ -47,42 +46,124 @@ describe("Backoffice Page", () => {
         });
       });
 
-      cy.get("#titleInput").type("Lesson Title");
-
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-english"]').click();
-
-      cy.get("#easyRadioButton").click();
+      // test challenge creation
       cy.get("#questionInput").type("What's the capital of France?");
+      cy.get("#easyRadioButton").click();
       cy.get("#Choice1").type("Lisbon");
       cy.get("#Choice2").type("Paris");
       cy.get("#Choice3").type("London");
       cy.get(":nth-child(2) > .items-center > .ml-1").click();
 
-      cy.getByData("button-lesson-submit").click();
+      // test language selection options
+      cy.getByData("language-select").click();
 
-      cy.getByData("toast").should("be.visible");
-      cy.getByData("toast-title").should("be.visible").and("contain", "Lesson created successfully!");
+      cy.getByData("language-option-english").should("be.visible").and("contain", "English");
+      cy.getByData("language-option-spanish").should("be.visible").and("contain", "Español");
+      cy.getByData("language-option-portuguese").should("be.visible").and("contain", "Português");
+
+      cy.getByData("language-option-spanish").click();
+      cy.getByData("language-select").should("contain", "Español");
+
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-portuguese").click();
+      cy.getByData("language-select").should("contain", "Português");
+
+      // select English for the final lesson creation
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
+
+      cy.getByData("button-challenge-submit").click();
+
+      cy.url().should("include", "/backoffice/challenges");
+
+      // test challenge update
+      cy.contains("What's the capital of France?").parent().parent().getByData("button-challenge-edit").first().click();
+      cy.url().should("include", "/backoffice/challenges");
+
+      cy.get("#questionInput").clear();
+      cy.get("#questionInput").type("Updated challenge question");
+      cy.getByData("button-challenge-submit").click();
+
+      cy.url().should("include", "/backoffice/challenges");
+      cy.contains("Updated challenge question").should("be.visible");
     });
 
-    it("admin user can select different languages for lessons", () => {
+    it("admin user can add and update lessons", () => {
       loginAsAdmin();
+
+      // first create a challenge for the lesson
+      cy.visit("/backoffice/challenges/new");
+      cy.get("#easyRadioButton").click();
+      cy.get("#questionInput").type("What's the capital of Spain?");
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
+      cy.get("#Choice1").type("Madrid");
+      cy.get("#Choice2").type("Barcelona");
+      cy.get("#Choice3").type("Valencia");
+      cy.get(":nth-child(1) > .items-center > .ml-1").click();
+      cy.getByData("button-challenge-submit").click();
+
+      // create the lesson
       cy.visit("/backoffice/lessons/new");
 
-      cy.get('[data-testid="language-select"]').click();
+      // test required fields
+      cy.getByData("button-lesson-submit").click();
+      const expectedMessages = [
+        "Title is required",
+        "Slug is required",
+        "Language is required",
+        "Challenge is required",
+      ];
 
-      cy.get('[data-testid="language-option-english"]').should("be.visible").and("contain", "English");
-      cy.get('[data-testid="language-option-spanish"]').should("be.visible").and("contain", "Español");
-      cy.get('[data-testid="language-option-portuguese"]').should("be.visible").and("contain", "Português");
+      cy.get(".form-error").should(($errors) => {
+        expect($errors).to.have.length(expectedMessages.length);
 
-      cy.get('[data-testid="language-option-spanish"]').click();
+        $errors.each((index, errorElement) => {
+          expect(errorElement.textContent?.trim()).to.equal(expectedMessages[index]);
+        });
+      });
 
-      cy.get('[data-testid="language-select"]').should("contain", "Español");
+      // test language selection options
+      cy.getByData("language-select").click();
 
-      cy.get('[data-testid="language-select"]').click();
-      cy.get('[data-testid="language-option-portuguese"]').click();
+      cy.getByData("language-option-english").should("be.visible").and("contain", "English");
+      cy.getByData("language-option-spanish").should("be.visible").and("contain", "Español");
+      cy.getByData("language-option-portuguese").should("be.visible").and("contain", "Português");
 
-      cy.get('[data-testid="language-select"]').should("contain", "Português");
+      cy.getByData("language-option-spanish").click();
+      cy.getByData("language-select").should("contain", "Español");
+
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-portuguese").click();
+      cy.getByData("language-select").should("contain", "Português");
+
+      // select english for the final lesson creation
+      cy.getByData("language-select").click();
+      cy.getByData("language-option-english").click();
+
+      cy.get("#titleInput").type("New Lesson Title");
+
+      // select challenge
+      cy.getByData("challenge-select").click();
+      cy.getByData("difficulty-filter-easy").click();
+      cy.getByData("challenge-search").type("What's the capital of Spain?");
+      cy.contains("What's the capital of Spain?").click();
+
+      cy.getByData("button-lesson-submit").click();
+
+      cy.url().should("include", "/backoffice/lessons");
+      cy.contains("New Lesson Title").should("be.visible");
+
+      // test lesson update
+      cy.contains("New Lesson Title").parent().parent().getByData("button-lesson-edit").first().click();
+      cy.url().should("include", "/backoffice/lessons");
+
+      cy.get("#titleInput").clear();
+      cy.get("#titleInput").type("Updated Lesson Title");
+      cy.getByData("button-lesson-submit").click();
+
+      cy.url().should("include", "/backoffice/lessons");
+      cy.contains("Updated Lesson Title").should("be.visible");
     });
 
     it("regular user can not access backoffice home", () => {
