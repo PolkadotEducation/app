@@ -141,7 +141,6 @@ describe("Backoffice Page", () => {
       // Now create the lesson
       cy.visit("/backoffice/lessons/new");
       cy.get("#titleInput").type("New Lesson Title");
-      cy.get("#easyRadioButton").click();
 
       // Select challenge
       cy.get('[data-testid="challenge-select"]').click();
