@@ -5,15 +5,16 @@ import {
   CourseSummaryResponse,
   ProgressRequest,
   ProgressResponse,
+  SubmitAnswerResponse,
   XpAndLevel,
 } from "@/types/progressTypes";
 import { ServerAxiosError, serverGet, serverPost } from "./actions/api";
 import { PROGRESS } from "./constants";
 
-export const submitAnswer = async (progressData: ProgressRequest): Promise<ProgressResponse> => {
-  const response = await serverPost<ProgressResponse>(PROGRESS, progressData);
+export const submitAnswer = async (progressData: ProgressRequest): Promise<SubmitAnswerResponse> => {
+  const response = await serverPost<SubmitAnswerResponse>(PROGRESS, progressData);
   if ((response as ServerAxiosError).error) throw response as ServerAxiosError;
-  return response as ProgressResponse;
+  return response as SubmitAnswerResponse;
 };
 
 export const getCourseProgress = async (request: ProgressRequest): Promise<CourseProgress> => {

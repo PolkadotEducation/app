@@ -27,5 +27,10 @@ export const PROGRESS = "/progress";
 export const CERTIFICATES = "/certificates";
 export const CERTIFICATE_GENERATE = "/certificates/generate";
 
+// Challenges
+export const CHALLENGE = "/challenge";
+export const CHALLENGES = "/challenges";
+export const CHALLENGES_SUMMARY = "/challenges/summary";
+
 // Ranking
 export const RANKING = "/ranking";

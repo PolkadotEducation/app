@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import greenCheck from "../../public/assets/icons/greenCheck.svg";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface CourseLessonProps {
   courseId: string;
@@ -12,6 +12,12 @@ export interface CourseLessonProps {
 }
 
 const CourseLesson = ({ courseId, lessonId, lessonName, completed, expAmount }: CourseLessonProps) => {
+  const router = useRouter();
+
+  const handleLessonClick = () => {
+    router.push(`/lesson/${courseId}/${lessonId}`);
+  };
+
   return (
     <li className="flex items-center justify-start gap-2">
       <div className={`flex flex-col items-center justify-center gap-1 ${completed ? "flex" : "hidden"}`}>
@@ -20,9 +26,9 @@ const CourseLesson = ({ courseId, lessonId, lessonName, completed, expAmount }: 
         </span>
         <span className="font-bold text-xs text-neutral-700 whitespace-nowrap">+{expAmount} XP</span>
       </div>
-      <Link href={`/lesson/${courseId}/${lessonId}`}>
+      <button onClick={handleLessonClick} className="text-left hover:underline cursor-pointer">
         <span className={`${!completed && "font-bold"}`}>{lessonName}</span>
-      </Link>
+      </button>
     </li>
   );
 };

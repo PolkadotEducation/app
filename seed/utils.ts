@@ -1,6 +1,8 @@
 import { Db, ObjectId } from "mongodb";
 import fs from "fs";
 import path from "path";
+import { ChallengeType } from "@/types/challengeTypes";
+import { Difficulty } from "@/lib/experience";
 
 function importChallenge(folderPath: string) {
   const challengePath = path.join(folderPath, "challenge.ts");
@@ -26,37 +28,46 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
 
   lessonFolders.sort();
 
-  const lessons = lessonFolders.map((folder) => {
-    const folderPath = path.join(lessonsDir, folder);
-    const bodyFile = fs.readdirSync(folderPath).find((file) => file.endsWith(".mdx"));
+  const lessons = await Promise.all(
+    lessonFolders.map(async (folder) => {
+      const folderPath = path.join(lessonsDir, folder);
+      const bodyFile = fs.readdirSync(folderPath).find((file) => file.endsWith(".mdx"));
 
-    if (!bodyFile) {
-      throw new Error(`Missing .mdx file in ${folderPath}`);
-    }
+      if (!bodyFile) {
+        throw new Error(`Missing .mdx file in ${folderPath}`);
+      }
 
-    const bodyPath = path.join(folderPath, bodyFile);
-    const body = fs.readFileSync(bodyPath, "utf-8");
-    const title = getTitleFromMarkdown(body, folder);
-    const slug = folder;
-    const challenges = importChallenge(folderPath);
+      const bodyPath = path.join(folderPath, bodyFile);
+      const body = fs.readFileSync(bodyPath, "utf-8");
+      const title = getTitleFromMarkdown(body, folder);
+      const slug = folder;
+      const challenges = importChallenge(folderPath);
 
-    return {
-      teamId,
-      title,
-      language,
-      slug,
-      body,
-      difficulty: challenges[0].difficulty.toLowerCase(),
-      challenge: challenges[0],
-      references: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  });
+      challenges.map((challenge: ChallengeType) => {
+        challenge.teamId = teamId as unknown as string;
+        challenge.difficulty = challenge.difficulty.toLowerCase() as Difficulty;
+        challenge.language = language.toLowerCase();
+        challenge.createdAt = new Date();
+        challenge.updatedAt = new Date();
+      });
+      const insertedChallenges = await db.collection("challenges").insertMany(challenges);
+
+      return {
+        teamId,
+        title,
+        language,
+        slug,
+        body,
+        challenge: insertedChallenges.insertedIds[0],
+        references: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    }),
+  );
 
   const result = await db.collection("lessons").insertMany(lessons);
 
-  // Add the generated IDs to the lesson objects
   const recordedLessons = lessons.map((lesson, index) => ({
     ...lesson,
     _id: result.insertedIds[index],
