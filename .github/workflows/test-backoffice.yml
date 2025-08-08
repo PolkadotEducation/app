@@ -1,4 +1,4 @@
-name: Regular E2E
+name: Backoffice E2E
 
 on:
   pull_request:
@@ -25,7 +25,7 @@ env:
   NODE_ENV: test
 
 jobs:
-  test:
+  test-backoffice:
     runs-on: ubuntu-latest
     environment: ${{ github.event_name == 'push' && 'production' || 'test' }}
 
@@ -96,15 +96,15 @@ jobs:
         working-directory: codebase/app
         run: bun dev > ../../logs/app.log 2>&1 &
 
-      - name: Test with Cypress (excluding backoffice)
+      - name: Test Backoffice with Cypress
         working-directory: codebase/app
-        run: bun run wait && bun run test:regular
+        run: bun run wait && bun run test:backoffice
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-backoffice-screenshots
           include-hidden-files: true
           path: codebase/app/cypress/screenshots
 
@@ -112,6 +112,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: service-logs
+          name: backoffice-service-logs
           include-hidden-files: true
           path: logs

@@ -13,6 +13,11 @@ export type ProgressResponse = {
   difficulty: string;
 };
 
+export type SubmitAnswerResponse = {
+  progress: ProgressResponse;
+  points: number;
+};
+
 export type CourseSummaryResponse = {
   courseSummary: CourseSummary;
 };
