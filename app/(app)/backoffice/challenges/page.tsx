@@ -1,7 +1,7 @@
 "use client";
 
-import { deleteLessonById, getLessonsSummary } from "@/api/lessonService";
-import { LessonSummary } from "@/types/lessonTypes";
+import { deleteChallengeById, getChallengesSummary } from "@/api/challengeService";
+import { ChallengeSummary } from "@/types/challengeTypes";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { DataTable } from "./_components/dataTable";
@@ -10,9 +10,9 @@ import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import { DeleteEntityModal } from "@/components/ui/deleteEntityModal";
 
-const LessonsPage = () => {
+const ChallengesPage = () => {
   const t = useTranslations("backoffice");
-  const [lessons, setLessons] = useState<LessonSummary[]>([]);
+  const [challenges, setChallenges] = useState<ChallengeSummary[]>([]);
   const { toast } = useToast();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [triggeredRowId, setTriggeredRowId] = useState<string | undefined>();
@@ -21,20 +21,20 @@ const LessonsPage = () => {
   // @TODO: Get teamId from selector
   const selectedTeamId = user?.teams?.length ? user?.teams[0].id : "";
 
-  const getLessons = async () => {
-    const response = await getLessonsSummary();
-    const sortedLessons = response.sort((a, b) => {
+  const getChallenges = async () => {
+    const response = await getChallengesSummary();
+    const sortedChallenges = response.sort((a, b) => {
       if (!a.updatedAt) return 1;
       if (!b.updatedAt) return -1;
       return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
     });
-    setLessons(sortedLessons);
+    setChallenges(sortedChallenges);
   };
 
-  const deleteLesson = async (id: string) => {
-    const response = await deleteLessonById(selectedTeamId, id);
+  const deleteChallenge = async (id: string) => {
+    const response = await deleteChallengeById(selectedTeamId, id);
     if (response) {
-      await getLessons();
+      await getChallenges();
       toast({
         title: t("entityDeletedSuccess"),
         variant: "default",
@@ -48,12 +48,12 @@ const LessonsPage = () => {
   };
 
   useEffect(() => {
-    getLessons();
+    getChallenges();
   }, []);
 
   return (
     <main className="max-w-7xl w-full pb-10">
-      <h4 className="xl:mb-10 mb-6">{t("lessonLibrary")}</h4>
+      <h4 className="xl:mb-10 mb-6">{t("challengeLibrary")}</h4>
       <div className="p-6 bg-card rounded-[3px] flex flex-col">
         <DataTable
           columns={COLUMNS({
@@ -62,24 +62,24 @@ const LessonsPage = () => {
               setTriggeredRowId(id);
             },
           })}
-          data={lessons}
-          updateData={getLessons}
+          data={challenges}
+          updateData={getChallenges}
         />
       </div>
       <DeleteEntityModal
         open={deleteModalOpen}
         onOpenChange={setDeleteModalOpen}
-        entityName={lessons.find((lesson) => lesson._id === triggeredRowId)?.title || ""}
+        entityName={challenges.find((challenge) => challenge._id === triggeredRowId)?.question || ""}
         onSubmit={async () => {
           if (triggeredRowId) {
-            await deleteLesson(triggeredRowId);
+            await deleteChallenge(triggeredRowId);
             setDeleteModalOpen(false);
           }
         }}
-        variant="lesson"
+        variant="challenge"
       />
     </main>
   );
 };
 
-export default LessonsPage;
+export default ChallengesPage;

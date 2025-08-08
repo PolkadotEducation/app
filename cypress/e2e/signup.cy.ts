@@ -53,7 +53,7 @@ describe("Sign-up", () => {
       cy.visit("/");
       cy.getByData("button-login-signup").click();
 
-      // Use an email that definitely exists from seed data
+      // use an email that definitely exists from seed data
       cy.get("#nameInput").type("Douglas Adams");
       cy.get("#emailInput").type("admin@seed.com");
       cy.get("#companyInput").type("Galaxy Hitchhiker");
