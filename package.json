@@ -92,7 +92,7 @@
     "@storybook/addon-links": "^9.1.1",
     "@storybook/addon-onboarding": "^8.3.3",
     "@storybook/blocks": "^8.3.3",
-    "@storybook/nextjs": "^8.0.6",
+    "@storybook/nextjs": "^9.1.1",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^8.3.3",
     "@storybook/test": "^8.0.6",
