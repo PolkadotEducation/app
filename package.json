@@ -99,7 +99,7 @@
     "@types/cypress": "^1.1.6",
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^22.18.1",
+    "@types/node": "^24.3.1",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@typescript-eslint/parser": "^8.43.0",
