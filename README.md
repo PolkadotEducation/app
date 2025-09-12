@@ -12,7 +12,13 @@ Polkadot Education is a mobile-first responsive web app designed to provide comp
 
 This repository contains the front-end application for Polkadot Education. Follow the instructions below to set up and run the project locally.
 
-### 1. Clone the Repository
+## Prerequisites
+
+- [Bun](https://bun.sh) v1.1.29
+- Node v24.8.0
+- Docker Compose (or Orbstack)
+
+### Clone the Repository
 
 First, clone this repository to your local machine.
 Use the `--recursive` flag to clone the [api](https://github.com/PolkadotEducation/api) and the [landing-page](https://github.com/PolkadotEducation/landing-page) repositories as submodules:
@@ -22,7 +28,7 @@ git clone --recursive https://github.com/PolkadotEducation/app.git
 cd app
 ```
 
-### 2. Install Dependencies
+### Install Dependencies
 
 Install the required dependencies using [Bun](https://bun.sh/):
 
@@ -30,7 +36,7 @@ Install the required dependencies using [Bun](https://bun.sh/):
 bun install
 ```
 
-### 3. Start the Services
+### Start the Services
 
 To start the services, run:
 
