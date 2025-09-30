@@ -3,7 +3,7 @@ import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
 import { seedTeams } from "./collections/teams";
 import { seedCourses } from "./collections/courses";
-import { seedContent } from "./content/content";
+import { seedContent } from "./utils";
 
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 console.info("Environment:", process.env.NODE_ENV);

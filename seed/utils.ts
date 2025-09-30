@@ -12,8 +12,8 @@ function importChallenge(folderPath: string) {
 
 function getTitleFromMarkdown(body: string, folder: string): string {
   const firstLine = body.split("\n")[0].trim();
-  if (!firstLine.startsWith("## ")) {
-    throw new Error(`The first line of ${folder}.mdx must start with '## '`);
+  if (!firstLine.startsWith("# ") && !firstLine.startsWith("## ")) {
+    throw new Error(`The first line of ${folder}.mdx must start with '# ' or '## '`);
   }
   return firstLine.replace(/^##\s*/, "").trim();
 }
@@ -74,4 +74,36 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
   }));
 
   return recordedLessons;
+}
+
+export async function seedContent(db: Db, teamId: ObjectId) {
+  const languages = ["english", "portuguese", "spanish"];
+
+  for (const language of languages) {
+    const recordedLessons = await seedLessonsByLanguage(db, teamId, language);
+
+    const courseDir = path.join(__dirname, `./content/courses/${language}`);
+    if (!fs.existsSync(courseDir)) {
+      console.error(`Content directory not found: ${courseDir}`);
+      continue;
+    }
+
+    const courseFiles = fs.readdirSync(courseDir).filter((file) => file.endsWith(".ts"));
+
+    for (const file of courseFiles) {
+      const courseModule = await import(path.join(courseDir, file));
+      const functionName = path.basename(file, ".ts").replace(/-/g, "_");
+
+      if (typeof courseModule[functionName] === "function") {
+        await courseModule[functionName](db, teamId, recordedLessons);
+      } else {
+        const camelCaseFunctionName = functionName.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+        if (typeof courseModule[camelCaseFunctionName] === "function") {
+          await courseModule[camelCaseFunctionName](db, teamId, recordedLessons);
+        } else {
+          console.error(`No matching course function found in ${file}`);
+        }
+      }
+    }
+  }
 }
