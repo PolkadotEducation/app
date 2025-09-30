@@ -32,7 +32,9 @@ export async function resetContent() {
   const { client, db } = await connectToDatabase();
   await dropCourses(db);
   const teamId = await seedTeams(db);
+  console.info("Seeding content...");
   await seedContent(db, teamId);
+  console.info("Content seeded.");
   await client.close();
 }
 
