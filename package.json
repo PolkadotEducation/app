@@ -14,7 +14,6 @@
     "db:reset": "bun run seed/cli.ts reset",
     "db:reset:partial": "bun run seed/cli.ts reset:partial",
     "db:seed:all": "bun run seed/cli.ts seed:all",
-    "db:seed:courses:choices": "bun run seed/cli.ts seed:courses:choices",
     "db:seed:courses": "bun run seed/cli.ts seed:courses",
     "dev": "next dev",
     "format:fix": "prettier --write .",
