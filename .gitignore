@@ -142,8 +142,8 @@ dist
 # cypress
 cypress/screenshots
 
-# correct choices
-seed/collections/lessons/choices.ts
+# content
+content
 
 # scripts
 work.sh

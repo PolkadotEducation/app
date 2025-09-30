@@ -2,7 +2,7 @@
 import { Db, MongoClient } from "mongodb";
 import { seedUsers } from "./collections/users";
 import { seedTeams } from "./collections/teams";
-import { seedCourses, seedIntroductionCourse } from "./collections/courses";
+import { seedCourses } from "./collections/courses";
 
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 console.info("Environment:", process.env.NODE_ENV);
@@ -30,7 +30,7 @@ export async function resetDatabase() {
 export async function partiallyResetDatabase() {
   const { client, db } = await connectToDatabase();
   await dropAllButUsersAndTeams(db);
-  await seedIntroductionCourseOnly(db);
+  await seedCoursesOnly(db);
   await client.close();
 }
 
@@ -80,8 +80,6 @@ export async function seedAll(db: Db) {
     console.info("Seeding courses...");
     await seedCourses(db, teamId);
     console.info("Courses seeded.");
-
-    await seedCorrectChoices(db);
   } catch (error) {
     console.error("Error while seeding:", error);
   }
@@ -93,32 +91,7 @@ export async function seedCoursesOnly(db: Db) {
     const teamId = await seedTeams(db);
     await seedCourses(db, teamId);
     console.info("Courses seeded.");
-
-    seedCorrectChoices(db);
   } catch (error) {
     console.error("Error while seeding courses:", error);
-  }
-}
-
-export async function seedIntroductionCourseOnly(db: Db) {
-  try {
-    console.info("Seeding introduction course...");
-    const teamId = await seedTeams(db);
-    await seedIntroductionCourse(db, teamId);
-    console.info("Introduction course seeded.");
-
-    seedCorrectChoices(db);
-  } catch (error) {
-    console.error("Error while seeding courses:", error);
-  }
-}
-
-export async function seedCorrectChoices(db: Db) {
-  try {
-    const { updateCorrectChoices } = await import("./collections/lessons/choices" as never);
-    await updateCorrectChoices(db);
-    console.info("Updated correct choices.");
-  } catch {
-    console.info("No correct choices file found, skipping...");
   }
 }

@@ -1,58 +1,91 @@
 import { Db, ObjectId } from "mongodb";
-import fs from "fs";
-import path from "path";
-import { seedLessonsByLanguage } from "@/seed/utils";
+
+type LessonSeed = {
+  teamId: ObjectId;
+  title: string;
+  language: string;
+  slug: string;
+  body: string;
+  challenge: ObjectId;
+  references: unknown[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+const difficulties = ["easy", "medium", "hard"] as const;
+type Difficulty = (typeof difficulties)[number];
+
+function loremIpsum(paragraphs: number = 1): string {
+  const p =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.";
+  return Array.from({ length: paragraphs })
+    .map(() => p)
+    .join("\n\n");
+}
 
 export async function seedCourses(db: Db, teamId: ObjectId) {
   const languages = ["english", "portuguese", "spanish"];
+  const banners = ["blackPink", "blackPurple", "tetris", "gradient"];
 
   for (const language of languages) {
-    const recordedLessons = await seedLessonsByLanguage(db, teamId, language);
+    for (let courseIndex = 1; courseIndex <= 2; courseIndex++) {
+      const moduleIds: ObjectId[] = [];
+      const now = new Date();
 
-    const courseDir = path.join(__dirname, `./courses/${language}`);
-    const courseFiles = fs.readdirSync(courseDir).filter((file) => file.endsWith(".ts"));
+      for (let moduleIndex = 1; moduleIndex <= 3; moduleIndex++) {
+        const lessonsToInsert: LessonSeed[] = [];
 
-    for (const file of courseFiles) {
-      const courseModule = await import(path.join(courseDir, file));
-      const functionName = path.basename(file, ".ts").replace(/-/g, "_");
+        for (let lessonIndex = 1; lessonIndex <= 4; lessonIndex++) {
+          const difficulty: Difficulty = difficulties[(lessonIndex - 1) % difficulties.length];
 
-      if (typeof courseModule[functionName] === "function") {
-        await courseModule[functionName](db, teamId, recordedLessons);
-      } else {
-        const camelCaseFunctionName = functionName.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-        if (typeof courseModule[camelCaseFunctionName] === "function") {
-          await courseModule[camelCaseFunctionName](db, teamId, recordedLessons);
-        } else {
-          console.error(`No matching course function found in ${file}`);
+          const challengeResult = await db.collection("challenges").insertOne({
+            teamId,
+            question: `(${language}) Course ${courseIndex} • Module ${moduleIndex} • Lesson ${lessonIndex}: Choose the correct option`,
+            choices: ["Option A", "Option B", "Option C", "Option D"],
+            correctChoice: 0,
+            difficulty,
+            language,
+            createdAt: now,
+            updatedAt: now,
+          });
+
+          const slug = `course-${courseIndex}-module-${moduleIndex}-lesson-${lessonIndex}`;
+          lessonsToInsert.push({
+            teamId,
+            title: `Lesson ${lessonIndex}`,
+            language,
+            slug,
+            body: loremIpsum(3),
+            challenge: challengeResult.insertedId,
+            references: [],
+            createdAt: now,
+            updatedAt: now,
+          });
         }
+
+        const insertedLessons = await db.collection("lessons").insertMany(lessonsToInsert);
+        const lessonIds = Object.values(insertedLessons.insertedIds);
+
+        const moduleInsert = await db.collection("modules").insertOne({
+          teamId,
+          title: `Module ${moduleIndex}`,
+          lessons: lessonIds,
+          createdAt: now,
+          updatedAt: now,
+        });
+        moduleIds.push(moduleInsert.insertedId);
       }
-    }
-  }
-}
 
-export async function seedIntroductionCourse(db: Db, teamId: ObjectId) {
-  const languages = ["english", "portuguese", "spanish"];
-
-  for (const language of languages) {
-    const recordedLessons = await seedLessonsByLanguage(db, teamId, language);
-
-    const courseDir = path.join(__dirname, `./courses/${language}`);
-    const courseFiles = fs.readdirSync(courseDir).filter((file) => file === "introduction-to-web3.ts");
-
-    for (const file of courseFiles) {
-      const courseModule = await import(path.join(courseDir, file));
-      const functionName = path.basename(file, ".ts").replace(/-/g, "_");
-
-      if (typeof courseModule[functionName] === "function") {
-        await courseModule[functionName](db, teamId, recordedLessons);
-      } else {
-        const camelCaseFunctionName = functionName.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-        if (typeof courseModule[camelCaseFunctionName] === "function") {
-          await courseModule[camelCaseFunctionName](db, teamId, recordedLessons);
-        } else {
-          console.error(`No matching course function found in ${file}`);
-        }
-      }
+      await db.collection("courses").insertOne({
+        teamId,
+        title: `Sample Course ${courseIndex} (${language})`,
+        language,
+        summary: loremIpsum(2),
+        modules: moduleIds,
+        banner: banners[(courseIndex - 1) % banners.length],
+        createdAt: now,
+        updatedAt: now,
+      });
     }
   }
 }
