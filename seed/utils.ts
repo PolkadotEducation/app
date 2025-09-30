@@ -12,8 +12,8 @@ function importChallenge(folderPath: string) {
 
 function getTitleFromMarkdown(body: string, folder: string): string {
   const firstLine = body.split("\n")[0].trim();
-  if (!firstLine.startsWith("# ") && !firstLine.startsWith("## ")) {
-    throw new Error(`The first line of ${folder}.mdx must start with '# ' or '## '`);
+  if (!firstLine.startsWith("# ")) {
+    throw new Error(`The first line of ${folder}.mdx must start with '# '`);
   }
   return firstLine.replace(/^##\s*/, "").trim();
 }
