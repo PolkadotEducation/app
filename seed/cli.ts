@@ -3,6 +3,7 @@ import {
   connectToDatabase,
   dropCourses,
   dropDatabase,
+  resetContent,
   resetDatabase,
   seedAll,
   seedCoursesOnly,
@@ -37,6 +38,9 @@ async function main() {
         break;
       case "reset":
         await resetDatabase();
+        break;
+      case "reset:content":
+        await resetContent();
         break;
       case "reset:partial":
         await partiallyResetDatabase();

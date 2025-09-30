@@ -19,7 +19,7 @@ function getTitleFromMarkdown(body: string, folder: string): string {
 }
 
 export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: string) {
-  const lessonsDir = path.join(__dirname, `./collections/lessons/${language}`);
+  const lessonsDir = path.join(__dirname, `./content/lessons/${language}`);
 
   const lessonFolders = fs
     .readdirSync(lessonsDir, { withFileTypes: true })
