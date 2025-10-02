@@ -44,7 +44,7 @@ function getTitleFromMarkdown(body: string, folder: string): string {
   if (!firstLine.startsWith("# ")) {
     throw new Error(`The first line of ${folder}.mdx must start with '# '`);
   }
-  return firstLine.replace(/^##\s*/, "").trim();
+  return firstLine.replace(/^#\s*/, "").trim();
 }
 
 export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: string) {
@@ -81,7 +81,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
       });
       const insertedChallenges = await db.collection("challenges").insertMany(challenges);
       const insertedIdsArray = Object.values(insertedChallenges.insertedIds) as ObjectId[];
-      const seedKey = `${teamId.toString()}|${language}|${slug}`;
+      const seedKey = `${teamId.toString()}-${slug}-${language}`;
       const deterministicIndex = getDeterministicIndex(insertedIdsArray.length, seedKey);
       const randomChallengeId = insertedIdsArray[deterministicIndex];
 
