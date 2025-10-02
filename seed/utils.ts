@@ -10,6 +10,35 @@ function importChallenge(folderPath: string) {
   return file.challenges;
 }
 
+// Deterministic PRNG helpers for seeded randomness
+function fnv1a32(str: string): number {
+  // FNV-1a 32-bit hash
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    // 32-bit FNV prime: 16777619
+    hash = (hash >>> 0) * 16777619;
+  }
+  return hash >>> 0;
+}
+
+function mulberry32(seed: number): () => number {
+  let t = seed >>> 0;
+  return function () {
+    t = (t + 0x6d2b79f5) >>> 0;
+    let r = Math.imul(t ^ (t >>> 15), 1 | t);
+    r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function getDeterministicIndex(arrayLength: number, seedKey: string): number {
+  if (arrayLength <= 0) return 0;
+  const seed = fnv1a32(seedKey);
+  const random = mulberry32(seed)();
+  return Math.floor(random * arrayLength);
+}
+
 function getTitleFromMarkdown(body: string, folder: string): string {
   const firstLine = body.split("\n")[0].trim();
   if (!firstLine.startsWith("# ")) {
@@ -51,6 +80,10 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
         challenge.updatedAt = new Date();
       });
       const insertedChallenges = await db.collection("challenges").insertMany(challenges);
+      const insertedIdsArray = Object.values(insertedChallenges.insertedIds) as ObjectId[];
+      const seedKey = `${teamId.toString()}|${language}|${slug}`;
+      const deterministicIndex = getDeterministicIndex(insertedIdsArray.length, seedKey);
+      const randomChallengeId = insertedIdsArray[deterministicIndex];
 
       return {
         teamId,
@@ -58,7 +91,7 @@ export async function seedLessonsByLanguage(db: Db, teamId: ObjectId, language: 
         language,
         slug,
         body,
-        challenge: insertedChallenges.insertedIds[0],
+        challenge: randomChallengeId,
         references: [],
         createdAt: new Date(),
         updatedAt: new Date(),
