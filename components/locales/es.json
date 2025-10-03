@@ -53,6 +53,28 @@
     "points": "pontos",
     "level": "Nível",
     "generalRank": "Clasificación general",
-    "weeklyRank": "Clasificación semanal"
+    "weeklyRank": "Clasificación semanal",
+    "dailyChallenge": {
+      "banner": {
+        "title": "Desafío del día",
+        "subtitle": "¡Completa el desafío, gana puntos y sube en la clasificación!"
+      },
+      "dialog": {
+        "title": "Desafío del día",
+        "question": "Pregunta"
+      },
+      "reset": "ⓘ El desafío diario se reinicia cada 24h.",
+      "submit": "Responder",
+      "success": {
+        "title": "¡Has acertado!",
+        "message": "¡Felicidades! Completaste el desafío del día. ¡Sigue así y demuestra tu progreso!",
+        "viewRanking": "Ver ranking"
+      },
+      "error": {
+        "title": "¡No ha sido esta vez!",
+        "message": "¡Equivocarse es parte del aprendizaje! Respira, repasa y vuelve a intentarlo mañana.",
+        "viewRanking": "Ver ranking"
+      }
+    }
   }
 }
