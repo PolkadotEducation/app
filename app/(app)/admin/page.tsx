@@ -61,7 +61,7 @@ const ProfilePage = () => {
             <div className="flex flex-row flex-wrap w-full pt-6">
               {teams &&
                 teams.map((i: TeamInfo) => (
-                  <div className="pb-4 pr-4 w-full md:w-1/2 lg:w-1/3" key={i.id}>
+                  <div className="pb-4 pr-4 w-full md:w-1/2" key={i.id}>
                     {/* TODO: Reusing Course Card */}
                     <CourseCardPreview
                       banner="blackPink"

@@ -1,6 +1,6 @@
 interface ResponsiveIframeProps {
   src: string;
-  title: string;
+  title?: string;
 }
 
 export function ResponsiveIframe({ src, title }: ResponsiveIframeProps) {

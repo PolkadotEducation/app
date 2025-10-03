@@ -3,10 +3,10 @@ import {
   connectToDatabase,
   dropCourses,
   dropDatabase,
+  resetContent,
   resetDatabase,
   seedAll,
   seedCoursesOnly,
-  seedCorrectChoices,
   partiallyResetDatabase,
 } from "./db";
 
@@ -36,11 +36,11 @@ async function main() {
       case "seed:courses":
         await executeWithDb(command, seedCoursesOnly);
         break;
-      case "seed:courses:choices":
-        await executeWithDb(command, seedCorrectChoices);
-        break;
       case "reset":
         await resetDatabase();
+        break;
+      case "reset:content":
+        await resetContent();
         break;
       case "reset:partial":
         await partiallyResetDatabase();
