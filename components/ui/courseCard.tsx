@@ -30,7 +30,9 @@ const CourseCard = ({ banner, title }: { banner: string; title: string; link?: s
           }}
         >
           <div className="w-1/2 p-4 md:p-8">
-            <h6 className={`${isBlackBanner ? "text-white" : ""} md:text-3xl text-sm`}>{title}</h6>
+            <h6 className={`${isBlackBanner ? "text-white" : "text-black"} md:text-3xl text-sm font-normal`}>
+              {title}
+            </h6>
           </div>
           <Image
             src={selectedLogo}

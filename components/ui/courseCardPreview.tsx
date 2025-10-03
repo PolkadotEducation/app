@@ -61,7 +61,7 @@ const CourseCardPreview = ({
           }}
         >
           <div className="w-1/2 p-4">
-            <h6 className={`${isBlackBanner ? "text-white" : ""} text-sm`}>{title}</h6>
+            <h6 className={`${isBlackBanner ? "text-white" : "text-black"} text-sm font-normal`}>{title}</h6>
           </div>
           <Image src={selectedLogo} alt="Logo" height="20" className="absolute bottom-4 left-4" />
         </div>
