@@ -59,6 +59,9 @@ export async function dropCourses(db: Db) {
     await db.collection("courses").deleteMany({});
     await db.collection("modules").deleteMany({});
     await db.collection("lessons").deleteMany({});
+    await db.collection("dailychallenges").deleteMany({});
+    await db.collection("challenges").deleteMany({});
+    await db.collection("progress").deleteMany({});
     console.info("Dropped existing course data.");
   } catch (error) {
     console.error("Error while dropping course data:", error);
@@ -70,6 +73,7 @@ export async function dropAllButUsersAndTeams(db: Db) {
     await db.collection("courses").deleteMany({});
     await db.collection("modules").deleteMany({});
     await db.collection("lessons").deleteMany({});
+    await db.collection("dailychallenges").deleteMany({});
     await db.collection("challenges").deleteMany({});
     await db.collection("progress").deleteMany({});
     console.info("Dropped existing data but kept users and teams.");

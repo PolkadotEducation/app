@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tutorialIllustration from "../../public/assets/images/tutorial-illustration.svg";
 import Image from "next/image";
 import { DialogHeader, Dialog, DialogContent, DialogTitle, DialogFooter } from "./dialog";
@@ -11,16 +11,27 @@ import { useDailyChallenge } from "@/hooks/useDailyChallenge";
 
 type DailyChallengeBannerProps = {
   challenge: { _id?: string; question: string; choices: string[]; difficulty: string } | null;
+  isSubmitted: boolean;
+  isCorrect: boolean | null;
 };
 
-const DailyChallengeBanner = ({ challenge }: DailyChallengeBannerProps) => {
+const DailyChallengeBanner = ({ challenge, isSubmitted, isCorrect }: DailyChallengeBannerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [feedback, setFeedback] = useState<"success" | "error" | null>(null);
   const [earnedXP, setEarnedXP] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittedState, setIsSubmittedState] = useState(isSubmitted);
+  const [isCorrectState, setIsCorrectState] = useState(isCorrect);
   const t = useTranslations("components");
   const { submitAnswer } = useDailyChallenge();
+
+  useEffect(() => {
+    setIsSubmittedState(isSubmitted);
+  }, [isSubmitted]);
+
+  useEffect(() => {
+    setIsCorrectState(isCorrect);
+  }, [isCorrect]);
 
   if (!challenge) return null;
 
@@ -30,14 +41,15 @@ const DailyChallengeBanner = ({ challenge }: DailyChallengeBannerProps) => {
     setIsSubmitting(true);
     try {
       const result = await submitAnswer(challenge._id, selectedOption);
-      if (result.points > 0) {
+
+      const isResultCorrect = result.points > 0;
+      setIsCorrectState(isResultCorrect);
+      if (isResultCorrect) {
         setEarnedXP(result.points);
-        setFeedback("success");
-      } else {
-        setFeedback("error");
       }
     } finally {
       setIsSubmitting(false);
+      setIsSubmittedState(true);
     }
   };
 
@@ -65,7 +77,7 @@ const DailyChallengeBanner = ({ challenge }: DailyChallengeBannerProps) => {
 
       <Dialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
         <DialogContent showCloseButton style={{ width: "90%" }}>
-          {feedback === null && (
+          {!isSubmittedState && (
             <>
               <DialogHeader className="flex flex-col items-center">
                 <DialogTitle>{t("dailyChallenge.dialog.title")}</DialogTitle>
@@ -97,7 +109,7 @@ const DailyChallengeBanner = ({ challenge }: DailyChallengeBannerProps) => {
             </>
           )}
 
-          {feedback === "success" && (
+          {isSubmittedState && isCorrectState && (
             <div className="flex flex-col items-center text-center gap-4">
               <DialogTitle>{t("dailyChallenge.dialog.title")}</DialogTitle>
               <Image src={successImage} alt={"success image"} />
@@ -109,7 +121,7 @@ const DailyChallengeBanner = ({ challenge }: DailyChallengeBannerProps) => {
             </div>
           )}
 
-          {feedback === "error" && (
+          {isSubmittedState && isCorrectState === false && (
             <div className="flex flex-col items-center text-center gap-4">
               <DialogTitle>{t("dailyChallenge.dialog.title")}</DialogTitle>
               <Image src={errorImage} alt={"success image"} />

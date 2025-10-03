@@ -13,6 +13,8 @@ type DailyChallenge = {
 export const useDailyChallenge = () => {
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallenge | null>(null);
   const [randomChallenges, setRandomChallenges] = useState<DailyChallenge[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,16 +22,28 @@ export const useDailyChallenge = () => {
     setLoading(true);
     setError(null);
     try {
-      const [dailyRes, randomRes] = await Promise.all([
+      const [dailyRes, randomRes, statusRes] = await Promise.all([
         fetch("/api/challenges/daily", { cache: "no-store" }),
         fetch("/api/challenges/random", { cache: "no-store" }),
+        fetch("/api/challenges/daily/status", { cache: "no-store" }),
       ]);
+
       const dailyData = (await dailyRes.json()) as { daily?: DailyChallenge; error?: { message: string } };
       const randomData = (await randomRes.json()) as { random?: DailyChallenge[]; error?: { message: string } };
+      const statusData = (await statusRes.json()) as {
+        isSubmitted?: boolean;
+        isCorrect?: boolean | null;
+        error?: { message: string };
+      };
+
       if (dailyData?.error) setError(dailyData.error.message);
       if (randomData?.error) setError(randomData.error.message);
+      if (statusData?.error) setError(statusData.error.message);
+
       setDailyChallenge(dailyData?.daily || null);
       setRandomChallenges(randomData?.random || []);
+      setIsSubmitted(statusData?.isSubmitted || false);
+      setIsCorrect(statusData?.isCorrect ?? null);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -50,7 +64,11 @@ export const useDailyChallenge = () => {
         return { points: 0 };
       }
 
-      return { points: data?.points || 0 };
+      const points = data?.points || 0;
+      setIsSubmitted(true);
+      setIsCorrect(points > 0);
+
+      return { points };
     } catch (e) {
       setError((e as Error).message);
       return { points: 0 };
@@ -61,5 +79,14 @@ export const useDailyChallenge = () => {
     fetchChallenges();
   }, []);
 
-  return { dailyChallenge, randomChallenges, loading, error, refetch: fetchChallenges, submitAnswer };
+  return {
+    dailyChallenge,
+    randomChallenges,
+    isSubmitted,
+    isCorrect,
+    loading,
+    error,
+    refetch: fetchChallenges,
+    submitAnswer,
+  };
 };

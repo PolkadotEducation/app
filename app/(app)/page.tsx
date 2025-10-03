@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 const Home = () => {
   const { courses, loading, error, fetchCourses } = useCourse();
-  const { dailyChallenge } = useDailyChallenge();
+  const { dailyChallenge, isSubmitted, isCorrect } = useDailyChallenge();
   const t = useTranslations("home");
   const { userLoading, user } = useUser();
 
@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <div className="w-[360px] md:w-full lg:w-full">
-      <DailyChallengeBanner challenge={dailyChallenge} />
+      <DailyChallengeBanner challenge={dailyChallenge} isSubmitted={isSubmitted} isCorrect={isCorrect} />
 
       <div className="flex xl:pt-10 px-2 pt-5 flex-col w-full mb-20">
         <h4 className="mb-5" data-cy="text-home-courses">
