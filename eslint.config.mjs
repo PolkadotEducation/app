@@ -7,6 +7,8 @@ import eslintPluginPrettier from "eslint-plugin-prettier";
 import pluginCypress from "eslint-plugin-cypress/flat";
 
 export default [
+  pluginJs.configs.recommended,
+  pluginCypress.configs.recommended,
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: {
@@ -37,7 +39,15 @@ export default [
           allow: ["error"],
         },
       ],
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       "prettier/prettier": "error",
       "@typescript-eslint/no-explicit-any": "error",
     },
@@ -62,8 +72,6 @@ export default [
       ".papi/**",
     ],
   },
-  pluginCypress.configs.recommended,
-  pluginJs.configs.recommended,
   {
     files: ["prettier.config.js"],
     languageOptions: {

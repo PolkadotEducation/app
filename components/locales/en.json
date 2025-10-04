@@ -53,6 +53,27 @@
     "points": "points",
     "level": "Level",
     "generalRank": "General Ranking",
-    "weeklyRank": "Weekly Ranking"
+    "weeklyRank": "Weekly Ranking",
+    "dailyChallenge": {
+      "banner": {
+        "title": "Daily Challenge",
+        "subtitle": "Complete the challenge, earn points and climb the leaderboard!"
+      },
+      "dialog": {
+        "title": "Daily Challenge",
+        "question": "Question"
+      },
+      "reset": "ⓘ The daily challenge will reset in",
+      "success": {
+        "title": "You got it right!",
+        "message": "Congratulations! You completed today's challenge. Keep it up and show your progress!",
+        "viewRanking": "View ranking"
+      },
+      "error": {
+        "title": "Not this time!",
+        "message": "Mistakes are part of learning! Take a breath, review, and try again tomorrow.",
+        "viewRanking": "View ranking"
+      }
+    }
   }
 }
