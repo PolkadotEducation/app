@@ -8,6 +8,7 @@ import successImage from "../../public/assets/images/success-daily-challenge.svg
 import errorImage from "../../public/assets/images/error-daily-challenge.svg";
 import { useTranslations } from "next-intl";
 import { useDailyChallenge } from "@/hooks/useDailyChallenge";
+import { getTimeUntilMidnightCET } from "@/helpers/time";
 
 type DailyChallengeBannerProps = {
   challenge: { _id?: string; question: string; choices: string[]; difficulty: string } | null;
@@ -22,6 +23,7 @@ const DailyChallengeBanner = ({ challenge, isSubmitted, isCorrect }: DailyChalle
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmittedState, setIsSubmittedState] = useState(isSubmitted);
   const [isCorrectState, setIsCorrectState] = useState(isCorrect);
+  const [countdown, setCountdown] = useState("");
   const t = useTranslations("components");
   const { submitAnswer } = useDailyChallenge();
 
@@ -32,6 +34,17 @@ const DailyChallengeBanner = ({ challenge, isSubmitted, isCorrect }: DailyChalle
   useEffect(() => {
     setIsCorrectState(isCorrect);
   }, [isCorrect]);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      setCountdown(getTimeUntilMidnightCET());
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   if (!challenge) return null;
 
@@ -66,7 +79,9 @@ const DailyChallengeBanner = ({ challenge, isSubmitted, isCorrect }: DailyChalle
             <h4 className="text-xl md:text-4xl mb-2 text-black">{t("dailyChallenge.banner.title")}</h4>
             <p className="text-black">{t("dailyChallenge.banner.subtitle")}</p>
           </div>
-          <p className="text-black text-xs">{t("dailyChallenge.reset")}</p>
+          <p className="text-black text-xs">
+            {t("dailyChallenge.reset")} {countdown && <span className="font-mono font-semibold">{countdown}</span>}
+          </p>
         </div>
         <Image
           src={tutorialIllustration}
@@ -115,7 +130,9 @@ const DailyChallengeBanner = ({ challenge, isSubmitted, isCorrect }: DailyChalle
               <Image src={successImage} alt={"success image"} />
               <div className="flex gap-4 items-center">
                 <DialogTitle>{t("dailyChallenge.success.title")}</DialogTitle>
-                <span className="bg-success rounded-full px-2 py-1 text-neutral-100 text-sm">+ {earnedXP} XP</span>
+                {earnedXP > 0 && (
+                  <span className="bg-success rounded-full px-2 py-1 text-neutral-100 text-sm">+ {earnedXP} XP</span>
+                )}
               </div>
               <p className="mt-2">{t("dailyChallenge.success.message")}</p>
             </div>

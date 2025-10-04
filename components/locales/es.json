@@ -63,7 +63,7 @@
         "title": "Desafío del día",
         "question": "Pregunta"
       },
-      "reset": "ⓘ El desafío diario se reinicia cada 24h.",
+      "reset": "ⓘ El desafío diario se reinicia en",
       "submit": "Responder",
       "success": {
         "title": "¡Has acertado!",

@@ -63,7 +63,7 @@
         "title": "Daily Challenge",
         "question": "Question"
       },
-      "reset": "ⓘ The daily challenge resets every 24h.",
+      "reset": "ⓘ The daily challenge will reset in",
       "success": {
         "title": "You got it right!",
         "message": "Congratulations! You completed today's challenge. Keep it up and show your progress!",
