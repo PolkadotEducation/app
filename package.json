@@ -107,7 +107,7 @@
     "cypress": "^15.2.0",
     "cypress-wait-until": "^3.0.2",
     "eslint": "9.39.0",
-    "eslint-config-next": "^15.5.3",
+    "eslint-config-next": "^16.1.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-cypress": "^5.1.1",
     "eslint-plugin-prettier": "^5.5.4",
